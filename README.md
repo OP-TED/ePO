@@ -9,3 +9,10 @@ This wiki should be used as an entry point to use the issue tracker such as crea
 
 ### Licence statement
 The contributors to this repository accept that their contribution to this repository follows the licencing statement as described [here](https://joinup.ec.europa.eu/asset/eprocurementontology/document/isa-contributor-agreement-v11).
+
+### Conventions for submitting an issue:
+Please respect the following rules when creating a new issue:
+* Define at least one label per issue.
+* Naming conventions: Name of the concept concerned by the issue (e.g. 'IR1' for the first entity identified in the Information Requirement table; 'Contracting Authority' for the first class of the Conceptual Model table for classes)/Keywords describing the issue (e.g. proposition definition).  
+Example: IR1/proposition description
+* Be as precised as possible and give an example.
