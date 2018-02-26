@@ -1,0 +1,108 @@
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix xml: <http://www.w3.org/XML/1998/namespace>.
+@prefix voaf: <http://purl.org/vocommons/voaf#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix vann: <http://purl.org/vocab/vann/>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix wdrs: <http://www.w3.org/2007/05/powder-s#>.
+@prefix schema: <http://schema.org/> .
+@prefix rov: <http://www.w3.org/ns/regorg#>.
+@prefix org: <http://www.w3.org/ns/org#>.
+@prefix adms: <http://www.w3.org/ns/adms#>.
+
+<http://www.w3.org/ns/regorg> a voaf:Vocabulary, owl:Ontology;
+  voaf:specializes <http://www.w3.org/ns/org>;
+	dcterms:creator [schema:affiliation <http://www.w3.org/data#W3C>;
+	  rdfs:seeAlso <http://philarcher.org/foaf.rdf#me>;
+  	foaf:homepage <http://www.w3.org/People/all#phila>;
+  	foaf:name "Phil Archer"] ,
+    [schema:affiliation [foaf:homepage <http://ies.jrc.ec.europa.eu/DE>; foaf:name "European Commission, Joint Research Centre "]; 
+  	rdfs:seeAlso <http://andrea-perego.name/foaf/#me>;
+	  foaf:homepage <http://andrea-perego.name/>;
+	  foaf:name "Andrea Perego"] ,
+    [rdfs:seeAlso <http://makxdekkers.com/makxdekkers.rdf#me>; foaf:homepage <http://makxdekkers.com/>;
+    	foaf:name "Makx Dekkers"];
+  foaf:maker[foaf:name "Government Linked Data WG, based on output from the ADMS Working Group"; foaf:homepage <http://www.w3.org/2011/gld/>];
+  dcterms:abstract "The Registered Organization Vocabulary is a profile of the Organization Ontology for describing organizations that have gained legal entity status through a formal registration process, typically in a national or regional register."@en;
+	dcterms:description "This is the RDF encoding of the Legal Entity vocabulary, originally developed under the European Commission's ISA Programme."@en;
+	dcterms:modified "2013-05-24"^^xsd:date;
+	dcterms:modified "2013-12-21"^^xsd:date; # Set schema URI to http://www.w3.org/ns/regorg (without #)
+	vann:preferredNamespacePrefix "rov";
+	vann:preferredNamespaceUri "http://www.w3.org/ns/regorg#";
+	rdfs:comment "This file specifies the set of RDF classes and properties used in the Registered Organization Vocabulary vocabulary"@en;
+	rdfs:label "Registered Organization Vocabulary"@en;
+	dcterms:title "Registered Organization Vocabulary"@en;
+	owl:versionInfo "Second version in w3.org/ns";
+	wdrs:describedby <http://www.w3.org/TR/vocab-regorg/>.
+
+rov:RegisteredOrganization dcterms:identifier "rov:RegisteredOrganization";
+	a rdfs:Class,
+		owl:Class;
+	rdfs:comment """rov:RegisteredOrganization is the key class for the Registered Organization vocabulary and represents 
+    an organization that is legally registered. In many countries there is a single registry although in others, such 
+    as Spain and Germany, multiple registries exist. A Registered Organization is able to trade, is legally liable for 
+    its actions, accounts, tax affairs etc. Legal entity status is conferred by the act of registration cf. 
+    org:FormalOrganization that applies to any legal entity, including those created by other legal means.
+    This makes registered organizations distinct from the broader concept of organizations, groups or, in 
+    some jurisdictions, sole traders. Many organizations exist that are not legal entities yet to the outside world 
+    they have staff, hierarchies, locations etc. Other organizations exist that are an umbrella for several legal entities 
+    (universities are often good examples of this). This vocabulary is concerned solely with registered organizations.
+    In RDF, Registered Organization is a sub class of the Organization Ontology's org:FormalOrganization which is itself a 
+    sub class of the more general 'Agent' class found in FOAF and Dublin Core that does encompass organizations, 
+    natural persons, groups etc. - i.e. an Agent is any entity that is able to carry out actions.</p>"""@en;
+	rdfs:isDefinedBy <http://www.w3.org/TR/vocab-regorg/>;
+	rdfs:label "Registered Organization"@en;
+	rdfs:subClassOf org:FormalOrganization.
+
+rov:legalName dcterms:identifier "rov:legalName";
+	a rdf:Property,
+		owl:DatatypeProperty;
+	rdfs:comment "The legal name of the business. A business might have more than one legal name, particularly in countries with more than one official language. In such cases the language of the string should be identified."@en;
+	rdfs:isDefinedBy <http://www.w3.org/TR/vocab-regorg/>;
+	rdfs:label "legal name"@en;
+	rdfs:range rdfs:Literal.
+
+rov:orgType dcterms:identifier "rov:orgType";
+	a rdf:Property,
+		owl:ObjectProperty;
+	rdfs:comment "This property records the type of organization. Familiar types are SA, PLC, LLC, GmbH etc. Each jurisdiction will have a limited set of recognized company types and these should be used in a consistent manner using a SKOS Concept Scheme. rov:orgType is a sub class of org:classification which has a range of skos:Concept."@en;
+	rdfs:isDefinedBy <http://www.w3.org/TR/vocab-regorg/>;
+	rdfs:label "company type"@en;
+	rdfs:subPropertyOf org:classification.
+
+rov:orgStatus dcterms:identifier "rov:orgStatus";
+	a rdf:Property,
+		owl:ObjectProperty;
+	rdfs:comment "Terms like insolvent, bankrupt and in receivership are likely to have different legal implications in different jurisdictions. Best Practice for recording various other status levels is to use the relevant jurisdiction's terms and to do so in a consistent manner using a SKOS Concept Scheme. rov:orgStatus is a sub class of org:classification which has a range of skos:Concept."@en;
+	rdfs:isDefinedBy <http://www.w3.org/TR/vocab-regorg/>;
+	rdfs:label "company status"@en;
+	rdfs:subPropertyOf org:classification.
+
+rov:orgActivity dcterms:identifier "rov:orgActivity";
+	a rdf:Property,
+		owl:ObjectProperty;
+	rdfs:comment "The activity of a company should be recorded using a controlled vocabulary expressed as a SKOS concept scheme. Several such vocabularies exist, many of which map to the UN's ISIC codes. Where a particular controlled vocabulary is in use within a given context, such as SIC codes in the UK, it is acceptable to use these, however, the preferred choice for European interoperability is NACE. rov:orgActivity is a sub class of org:classification which has a range of skos:Concept."@en;
+	rdfs:isDefinedBy <http://www.w3.org/TR/vocab-regorg/>;
+	rdfs:label "company activity"@en;
+	rdfs:subPropertyOf org:classification.
+
+rov:registration dcterms:identifier "rov:registration";
+	a rdf:Property,
+		owl:ObjectProperty;
+	rdfs:comment "The registration is a fundamental relationship between a legal entity and the authority with which it is registered and that confers legal status upon it. rov:registration is a sub property of adms:identifier which has a range of adms:Identifier. rov:registration has a domain of rov:RegisteredOrganization."@en;
+	rdfs:domain rov:RegisteredOrganization;
+	rdfs:isDefinedBy rov:;
+	rdfs:label "registration"@en;
+	rdfs:subPropertyOf adms:identifier.
+
+rov:hasRegisteredOrganization dcterms:identifier "rov:hasRegisteredOrganization";
+	a rdf:Property,
+		owl:ObjectProperty;
+	rdfs:comment "The has registered organization relationship can be used to link any dcterms:Agent (equivalent class foaf:Agent) to a Registered Organization that in some way acts as a registered legal entity for it. This is useful, for example, where an organization includes one or more legal entities, or where a natural person is also registered as a legal entity. rov:hasRegisteredOrganization has a range of rov:RegisteredOrganization."@en;
+	rdfs:domain dcterms:Agent;
+	rdfs:isDefinedBy <http://www.w3.org/TR/vocab-regorg/>;
+	rdfs:label "registered organization"@en;
+	rdfs:range rov:RegisteredOrganization.
