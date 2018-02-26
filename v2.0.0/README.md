@@ -13,7 +13,7 @@ This repository has been set up to support the collaborative work around the dev
 ### Current Release (v2.0.0)
 
 1. [Joinup collection](https://joinup.ec.europa.eu/solution/eprocurement-ontology)
-2. [OP v2.0.0 - GitHub landing page](https://github.com/eprocurementontology/eprocurementontology/v2.0.0)
+2. [OP v2.0.0 - GitHub landing page](https://github.com/eprocurementontology/eprocurementontology/tree/master/v2.0.0)
 3. [Specification and methodology](https://eprocurementontology.github.io/)
 4. [Release notes](https://eprocurementontology.github.io/release_notes.html)
 
