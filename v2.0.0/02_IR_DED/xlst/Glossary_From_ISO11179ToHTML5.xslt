@@ -97,10 +97,9 @@ extension-element-prefixes="math">
 				<xsl:text disable-output-escaping="yes">&lt;body&gt;</xsl:text>
 				<h1 class="title_font">eProcurement Ontology (ePO) Glossary</h1>
 				<div class="normal_font">
-					<p>The following list of eProcurement concepts have been detected through an analysis of the new procurement forms (<b>eForms</b>) to be used soon by all tenderers in the EU.</p>
-					<p><b>eForms</b> are one of the actions in the Single Market Strategy, where the European Commission has committed to "facilitate the collection, consolidation, management and analysis of procurement data, supporting Member States’ efforts towards better governance in public procurement".</p>
-					<p>Please review the proposed definitions, as well as the link of each concept with the proposed Use Cases and eProcurement phases.</p>
-					<p>In the Github section <a href="https://github.com/eProcurement-everis/ePO/wiki/Glossary-Management" style="text-decoration:none">Glossary Management</a> you will find instructions of how to contribute to the enrichment and improvement of the EPO Glossary.</p>
+					<p>The following list of e-Procurement concepts have been identified through an analysis of the e-Notification and e-Access phases and also taking into account the labels in the <b>e-Forms</b>, to be used soon by all tenderers in the EU.</p>
+					<p><b>e-Forms</b> are one of the actions in the Single Market Strategy, where the European Commission has committed to "facilitate the collection, consolidation, management and analysis of procurement data, supporting Member States’ efforts towards better governance in public procurement".</p>
+					<p>In the GitHub section <a href="https://github.com/eprocurementontology/eprocurementontology/wiki/Glossary-Management" style="text-decoration:none">Glossary Management</a> you will find instructions of how to contribute to the enrichment and improvement of the ePO Glossary.</p>
 				</div>
 
 				<p>
