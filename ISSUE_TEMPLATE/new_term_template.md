@@ -1,4 +1,4 @@
-### New terms and definitions
+### New term and definition
 
 #### Term:
 <!--- Please, provide the new term or definition you would like to propose. -->
