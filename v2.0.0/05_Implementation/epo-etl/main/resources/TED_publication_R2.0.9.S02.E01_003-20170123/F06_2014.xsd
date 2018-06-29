@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+####################################################################################
+#  XSD name : F06_2014
+#  RELEASE : "R2.0.9.S02.E01"
+#  Intermediate release number 003-20170123
+#  Last update : 16/12/2016
+#  Form : Contract award notice - utilities
+####################################################################################
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:n2016="ted/2016/nuts" elementFormDefault="qualified" attributeFormDefault="unqualified" version="R2.0.9.S02.E01">
+	<xs:include schemaLocation="common_2014.xsd"/>
+	<xs:import namespace="ted/2016/nuts" schemaLocation="nuts_codes_2016.xsd"/>
+	<xs:complexType name="ci_f06">
+		<xs:annotation>
+			<xs:documentation>Section VI: COMPLEMENTARY INFORMATION</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="complement_info">
+				<xs:sequence>
+					<xs:element ref="INFO_ADD" minOccurs="0"/>
+					<xs:element ref="ADDRESS_REVIEW_BODY"/>
+					<xs:element ref="ADDRESS_MEDIATION_BODY" minOccurs="0"/>
+					<xs:element ref="REVIEW_PROCEDURE" minOccurs="0"/>
+					<xs:element ref="ADDRESS_REVIEW_INFO" minOccurs="0"/>
+					<xs:element ref="DATE_DISPATCH_NOTICE"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="award_contract_f06">
+		<xs:annotation>
+			<xs:documentation>Section V: AWARD OF CONTRACT</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="contract_number"/>
+			<xs:element ref="TITLE" minOccurs="0"/>
+			<xs:choice>
+				<xs:element ref="NO_AWARDED_CONTRACT"/>
+				<xs:element name="AWARDED_CONTRACT">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="DATE_CONCLUSION_CONTRACT"/>
+							<xs:element ref="TENDERS" minOccurs="0"/>
+							<xs:element ref="CONTRACTORS" minOccurs="0"/>
+							<xs:element ref="VALUE" minOccurs="0"/>
+							<xs:sequence minOccurs="0">
+								<xs:element ref="LIKELY_SUBCONTRACTED"/>
+								<xs:group ref="subcontracting"/>
+							</xs:sequence>
+							<xs:element name="VAL_BARGAIN_PURCHASE" type="val" minOccurs="0"/>
+							<xs:element name="NB_CONTRACT_AWARDED" minOccurs="0">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="nb">
+											<xs:attribute name="PUBLICATION" use="required" fixed="NO"/>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="COUNTRY_ORIGIN" minOccurs="0">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="non_published">
+											<xs:choice>
+												<xs:sequence>
+													<xs:element name="COMMUNITY_ORIGIN" type="empty"/>
+													<xs:element name="NON_COMMUNITY_ORIGIN" type="country" minOccurs="0" maxOccurs="10"/>
+												</xs:sequence>
+												<xs:element name="NON_COMMUNITY_ORIGIN" type="country" maxOccurs="10"/>
+											</xs:choice>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:choice minOccurs="0">
+								<xs:element name="AWARDED_TENDERER_VARIANT" type="non_published"/>
+								<xs:element name="NO_AWARDED_TENDERER_VARIANT" type="non_published"/>
+							</xs:choice>
+							<xs:choice minOccurs="0">
+								<xs:element name="TENDERS_EXCLUDED" type="non_published"/>
+								<xs:element name="NO_TENDERS_EXCLUDED" type="non_published"/>
+							</xs:choice>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="ITEM" type="nb_lot" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="procedure_f06">
+		<xs:annotation>
+			<xs:documentation>Section IV: PROCEDURE</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element ref="PT_OPEN"/>
+				<xs:element ref="PT_RESTRICTED"/>
+				<xs:element ref="PT_NEGOTIATED_WITH_PRIOR_CALL"/>
+				<xs:element ref="PT_COMPETITIVE_DIALOGUE"/>
+				<xs:element ref="PT_INNOVATION_PARTNERSHIP"/>
+				<xs:element name="PT_AWARD_CONTRACT_WITHOUT_CALL" type="annex_d2"/>
+			</xs:choice>
+			<xs:element name="FRAMEWORK" type="empty" minOccurs="0"/>
+			<xs:element ref="DPS" minOccurs="0"/>
+			<xs:element ref="EAUCTION_USED" minOccurs="0"/>
+			<xs:group ref="gpa"/>
+			<xs:element ref="NOTICE_NUMBER_OJ" minOccurs="0"/>
+			<xs:element ref="TERMINATION_DPS" minOccurs="0"/>
+			<xs:element ref="TERMINATION_PIN" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="object_f06">
+		<xs:sequence>
+			<xs:element ref="TITLE" minOccurs="0"/>
+			<xs:element ref="LOT_NO" minOccurs="0"/>
+			<xs:element ref="CPV_ADDITIONAL" minOccurs="0" maxOccurs="100"/>
+			<xs:choice>
+				<xs:element ref="n2016:NUTS" maxOccurs="20"/>
+				<xs:element ref="NUTS" maxOccurs="20"/>
+			</xs:choice>
+			<xs:element ref="MAIN_SITE" minOccurs="0"/>
+			<xs:element ref="SHORT_DESCR"/>
+			<xs:element ref="AC" minOccurs="0"/>
+			<xs:group ref="options"/>
+			<xs:group ref="eu_union_funds"/>
+			<xs:element ref="INFO_ADD" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="ITEM" type="nb_lot" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="object_contract_f06">
+		<xs:annotation>
+			<xs:documentation>Section II: OBJECT OF THE CONTRACT</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="TITLE"/>
+			<xs:element ref="REFERENCE_NUMBER" minOccurs="0"/>
+			<xs:element ref="CPV_MAIN"/>
+			<xs:element ref="TYPE_CONTRACT"/>
+			<xs:element ref="SHORT_DESCR"/>
+			<xs:choice minOccurs="0">
+				<xs:element name="VAL_TOTAL">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="val">
+								<xs:attribute name="PUBLICATION" type="publication" use="required"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="VAL_RANGE_TOTAL">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="val_range">
+								<xs:attribute name="PUBLICATION" type="publication" use="required"/>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="LOT_DIVISION" type="empty"/>
+					<xs:element name="OBJECT_DESCR" type="object_f06" minOccurs="1" maxOccurs="1000"/>
+				</xs:sequence>
+				<xs:sequence>
+					<xs:element ref="NO_LOT_DIVISION"/>
+					<xs:element name="OBJECT_DESCR" type="object_f06"/>
+				</xs:sequence>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="body_f06">
+		<xs:annotation>
+			<xs:documentation>Section I: CONTRACTING ENTITY</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="ADDRESS_CONTRACTING_BODY"/>
+			<xs:group ref="procurement_address"/>
+			<xs:group ref="entity"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="F06_2014">
+		<xs:annotation>
+			<xs:documentation>ROOT element F06</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CONTRACTING_BODY" type="body_f06"/>
+				<xs:element name="OBJECT_CONTRACT" type="object_contract_f06"/>
+				<xs:element name="PROCEDURE" type="procedure_f06"/>
+				<xs:element name="AWARD_CONTRACT" type="award_contract_f06" maxOccurs="1000"/>
+				<xs:element name="COMPLEMENTARY_INFO" type="ci_f06"/>
+			</xs:sequence>
+			<xs:attribute name="LG" type="t_ce_language_list" use="required"/>
+			<xs:attribute name="CATEGORY" type="category" use="required"/>
+			<xs:attribute name="FORM" use="required" fixed="F06"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
