@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+####################################################################################
+#  XSD name : TED_EXPORT  (.xsd)                                              
+#  RELEASE : "R2.0.9.S02.E01"
+#  Intermediate release number 003-20170123
+#  Last update: 23/01/2017                                    
+####################################################################################
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="ted/R2.0.9.S02/publication" targetNamespace="ted/R2.0.9.S02/publication" elementFormDefault="qualified" attributeFormDefault="unqualified" version="R2.0.9.S02.E01">
+	<!-- *********************************** -->
+	<!-- include schemas                    -->
+	<!-- *********************************** -->
+	<xs:include schemaLocation="common_prod.xsd"/>
+	<xs:include schemaLocation="F01_2014.xsd"/>
+	<xs:include schemaLocation="F02_2014.xsd"/>
+	<xs:include schemaLocation="F03_2014.xsd"/>
+	<xs:include schemaLocation="F04_2014.xsd"/>
+	<xs:include schemaLocation="F05_2014.xsd"/>
+	<xs:include schemaLocation="F06_2014.xsd"/>
+	<xs:include schemaLocation="F07_2014.xsd"/>
+	<xs:include schemaLocation="F08_2014.xsd"/>
+	<xs:include schemaLocation="F12_2014.xsd"/>
+	<xs:include schemaLocation="F13_2014.xsd"/>
+	<xs:include schemaLocation="F14_2014.xsd"/>
+	<xs:include schemaLocation="F15_2014.xsd"/>
+	<xs:include schemaLocation="F20_2014.xsd"/>
+	<xs:include schemaLocation="F21_2014.xsd"/>
+	<xs:include schemaLocation="F22_2014.xsd"/>
+	<xs:include schemaLocation="F23_2014.xsd"/>
+	<xs:include schemaLocation="F24_2014.xsd"/>
+	<xs:include schemaLocation="F25_2014.xsd"/>
+	<xs:complexType name="to_be_informed">
+		<xs:attribute name="ESENDER" type="yes_no" use="required"/>
+		<xs:attribute name="CONTRACTING_BODY" type="yes_no" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="sender">
+		<xs:sequence>
+			<xs:element name="IDENTIFICATION">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="ESENDER_LOGIN"/>
+						<xs:element ref="CUSTOMER_LOGIN" minOccurs="0"/>
+						<xs:element ref="NO_DOC_EXT"/>
+						<xs:element name="SOFTWARE_VERSION" type="string_50" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CONTACT">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ORGANISATION" type="string_300"/>
+						<xs:element name="COUNTRY">
+							<xs:complexType>
+								<xs:attribute name="VALUE" type="t_country_list_eu_union" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element ref="PHONE" minOccurs="0"/>
+						<xs:element ref="E_MAIL"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="NOTIFICATION" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TECHNICAL">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:restriction base="to_be_informed">
+										<xs:attribute name="ESENDER" type="yes_no" use="required" fixed="YES"/>
+										<xs:attribute name="CONTRACTING_BODY" type="yes_no" use="required"/>
+									</xs:restriction>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="PUBLICATION">
+							<xs:complexType>
+								<xs:attribute name="ESENDER" type="yes_no" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="PUBLICATION" type="publication" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ted_export">
+		<xs:sequence>
+			<xs:element ref="TECHNICAL_SECTION"/>
+			<xs:element ref="LINKS_SECTION"/>
+			<xs:element name="SENDER" type="sender" minOccurs="0"/>
+			<xs:element ref="CODED_DATA_SECTION"/>
+			<xs:element ref="TRANSLATION_SECTION"/>
+			<xs:element name="FORM_SECTION">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="NOTICE_UUID" minOccurs="0"/>
+						<xs:choice>
+							<xs:element ref="F01_2014" maxOccurs="24"/>
+							<xs:element ref="F02_2014" maxOccurs="24"/>
+							<xs:element ref="F03_2014" maxOccurs="24"/>
+							<xs:element ref="F04_2014" maxOccurs="24"/>
+							<xs:element ref="F05_2014" maxOccurs="24"/>
+							<xs:element ref="F06_2014" maxOccurs="24"/>
+							<xs:element ref="F07_2014" maxOccurs="24"/>
+							<xs:element ref="F08_2014" maxOccurs="24"/>
+							<xs:element ref="F12_2014" maxOccurs="24"/>
+							<xs:element ref="F13_2014" maxOccurs="24"/>
+							<xs:element ref="F14_2014" maxOccurs="24"/>
+							<xs:element ref="F15_2014" maxOccurs="24"/>
+							<xs:element ref="F20_2014" maxOccurs="24"/>
+							<xs:element ref="F21_2014" maxOccurs="24"/>
+							<xs:element ref="F22_2014" maxOccurs="24"/>
+							<xs:element ref="F23_2014" maxOccurs="24"/>
+							<xs:element ref="F24_2014" maxOccurs="24"/>
+							<xs:element ref="F25_2014" maxOccurs="24"/>
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+				<xs:unique name="form.lg">
+					<xs:selector xpath="*"/>
+					<xs:field xpath="@LG"/>
+				</xs:unique>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="EDITION" use="required">
+			<xs:annotation>
+				<xs:documentation>Pattern for Edition (yyyynnn, where yyyy = year, nnn = OJ number, leading zero allowed)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="20[0-9]{2}[0-9][0-9]{0,2}"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="DOC_ID" type="t_document_number" use="required"/>
+		<xs:attribute name="VERSION" use="required" fixed="R2.0.9.S02.E01"/>
+	</xs:complexType>
+	<xs:element name="TED_EXPORT" type="ted_export">
+		<xs:annotation>
+			<xs:documentation>Root element</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

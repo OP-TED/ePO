@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+####################################################################################
+#  XSD name : F20_2014
+#  RELEASE : "R2.0.9.S02.E01"
+#  Intermediate release number 003-20170123
+#  Last update : 10/11/2016
+#  Form : Modification notice  
+####################################################################################
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:n2016="ted/2016/nuts" elementFormDefault="qualified" attributeFormDefault="unqualified" version="R2.0.9.S02.E01">
+	<xs:include schemaLocation="common_2014.xsd"/>
+	<xs:import namespace="ted/2016/nuts" schemaLocation="nuts_codes_2016.xsd"/>
+	<xs:complexType name="modifications_f20">
+		<xs:annotation>
+			<xs:documentation>Section VII: MODIFICATIONS TO THE CONTRACT / CONCESSION</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DESCRIPTION_PROCUREMENT">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="CPV_MAIN"/>
+						<xs:element ref="CPV_ADDITIONAL" minOccurs="0" maxOccurs="100"/>
+						<xs:choice>
+							<xs:element ref="n2016:NUTS" maxOccurs="20"/>
+							<xs:element ref="NUTS" maxOccurs="20"/>
+						</xs:choice>
+						<xs:element ref="MAIN_SITE" minOccurs="0"/>
+						<xs:element ref="SHORT_DESCR"/>
+						<xs:group ref="time_frame"/>
+						<xs:element ref="JUSTIFICATION" minOccurs="0"/>
+						<xs:element ref="VAL_TOTAL"/>
+						<xs:group ref="contractor"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="INFO_MODIFICATIONS">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="SHORT_DESCR"/>
+						<xs:choice>
+							<xs:element name="ADDITIONAL_NEED" type="text_ft_multi_lines"/>
+							<xs:element name="UNFORESEEN_CIRCUMSTANCE" type="text_ft_multi_lines"/>
+						</xs:choice>
+						<xs:element name="VAL_TOTAL_BEFORE" type="val"/>
+						<xs:element name="VAL_TOTAL_AFTER" type="val"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ci_f20">
+		<xs:annotation>
+			<xs:documentation>Section VI: COMPLEMENTARY INFORMATION</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="complement_info">
+				<xs:sequence>
+					<xs:element ref="INFO_ADD" minOccurs="0"/>
+					<xs:element ref="ADDRESS_REVIEW_BODY"/>
+					<xs:element ref="ADDRESS_MEDIATION_BODY" minOccurs="0"/>
+					<xs:element ref="REVIEW_PROCEDURE" minOccurs="0"/>
+					<xs:element ref="ADDRESS_REVIEW_INFO" minOccurs="0"/>
+					<xs:element ref="DATE_DISPATCH_NOTICE"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="award_contract_f20">
+		<xs:annotation>
+			<xs:documentation>Section V: AWARD OF CONTRACT / CONCESSION</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="CONTRACT_NO"/>
+			<xs:element ref="LOT_NO" minOccurs="0"/>
+			<xs:element ref="TITLE" minOccurs="0"/>
+			<xs:element name="AWARDED_CONTRACT">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="DATE_CONCLUSION_CONTRACT"/>
+						<xs:group ref="contractor"/>
+						<xs:element ref="VAL_TOTAL"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="procedure_f20">
+		<xs:annotation>
+			<xs:documentation>Section IV: PROCEDURE</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="NOTICE_NUMBER_OJ" minOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="object_f20">
+		<xs:sequence>
+			<xs:element ref="TITLE" minOccurs="0"/>
+			<xs:element ref="LOT_NO" minOccurs="0"/>
+			<xs:element ref="CPV_ADDITIONAL" minOccurs="0" maxOccurs="100"/>
+			<xs:choice>
+				<xs:element ref="n2016:NUTS" maxOccurs="20"/>
+				<xs:element ref="NUTS" maxOccurs="20"/>
+			</xs:choice>
+			<xs:element ref="MAIN_SITE" minOccurs="0"/>
+			<xs:element ref="SHORT_DESCR"/>
+			<xs:group ref="time_frame"/>
+			<xs:element ref="JUSTIFICATION" minOccurs="0"/>
+			<xs:group ref="eu_union_funds"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="object_contract_f20">
+		<xs:annotation>
+			<xs:documentation>Section II: OBJECT OF THE CONTRACT</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="TITLE"/>
+			<xs:element ref="REFERENCE_NUMBER" minOccurs="0"/>
+			<xs:element ref="CPV_MAIN"/>
+			<xs:element ref="TYPE_CONTRACT"/>
+			<xs:element name="OBJECT_DESCR" type="object_f20"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="body_f20">
+		<xs:annotation>
+			<xs:documentation>Section I: CONTRACTING AUTHORITY</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="contact_contracting_body"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="directive_f20">
+		<xs:attribute name="VALUE" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="2014/23/EU"/>
+					<xs:enumeration value="2014/24/EU"/>
+					<xs:enumeration value="2014/25/EU"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:element name="F20_2014">
+		<xs:annotation>
+			<xs:documentation>ROOT element F20</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="DIRECTIVE" type="directive_f20"/>
+				<xs:element name="CONTRACTING_BODY">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="ADDRESS_CONTRACTING_BODY"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="OBJECT_CONTRACT" type="object_contract_f20"/>
+				<xs:element name="PROCEDURE" type="procedure_f20" minOccurs="0"/>
+				<xs:element name="AWARD_CONTRACT" type="award_contract_f20"/>
+				<xs:element name="COMPLEMENTARY_INFO" type="ci_f20"/>
+				<xs:element name="MODIFICATIONS_CONTRACT" type="modifications_f20"/>
+			</xs:sequence>
+			<xs:attribute name="LG" type="t_ce_language_list" use="required"/>
+			<xs:attribute name="CATEGORY" type="category" use="required"/>
+			<xs:attribute name="FORM" use="required" fixed="F20"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

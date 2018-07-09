@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+####################################################################################
+#  XSD name : F14_2014
+#  RELEASE : "R2.0.9.S02.E01"
+#  Intermediate release number 003-20170123
+/  Last update : 03/06/2016
+#  Form : Corrigendum
+####################################################################################
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="R2.0.9.S02.E01">
+	<xs:include schemaLocation="common_2014.xsd"/>
+	<xs:group name="data">
+		<xs:choice>
+			<xs:element name="NOTHING" type="empty"/>
+			<xs:element ref="CPV_MAIN"/>
+			<xs:element ref="CPV_ADDITIONAL" maxOccurs="100"/>
+			<xs:element name="TEXT" type="text_ft_multi_lines"/>
+			<xs:sequence>
+				<xs:element name="DATE" type="date_full"/>
+				<xs:element name="TIME" type="time" minOccurs="0"/>
+			</xs:sequence>
+		</xs:choice>
+	</xs:group>
+	<!--<xs:simpleType name="section_number">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(I\.[1-6](\))?)"/>
+			<xs:pattern value="(II\.[1-8](\.([1-9]|(1[0-4])))?(\))?)"/>
+			<xs:pattern value="(III\.[1-3](\.([1-9]|10))?(\))?)"/>
+			<xs:pattern value="(IV\.[1-5](\.([1-9]|10|11))?(\))?)"/>
+			<xs:pattern value="(V\.[1-5](\.([1-9]|10))?(\))?)"/>
+			<xs:pattern value="(VI\.[1-5](\.[1-4])?(\))?)"/>
+		</xs:restriction>
+	</xs:simpleType>-->
+	<xs:element name="WHERE">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="SECTION" type="string_20"/>
+				<xs:element ref="LOT_NO" minOccurs="0"/>
+				<xs:element name="LABEL" type="string_400" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="changes_f14">
+		<xs:annotation>
+			<xs:documentation>Section VII: CHANGES</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:element name="MODIFICATION_ORIGINAL" type="non_published"/>
+				<xs:element name="PUBLICATION_TED" type="non_published"/>
+			</xs:choice>
+			<xs:element name="CHANGE" minOccurs="0" maxOccurs="120">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="WHERE"/>
+						<xs:element name="OLD_VALUE">
+							<xs:complexType>
+								<xs:group ref="data"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="NEW_VALUE">
+							<xs:complexType>
+								<xs:group ref="data"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="PUBLICATION" type="publication" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="INFO_ADD" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ci_f14">
+		<xs:annotation>
+			<xs:documentation>Section VI: COMPLEMENTARY INFORMATION</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="DATE_DISPATCH_NOTICE"/>
+			<xs:choice minOccurs="0">
+				<xs:sequence>
+					<xs:choice>
+						<xs:element name="ORIGINAL_ENOTICES" type="non_published"/>
+						<xs:element name="ORIGINAL_TED_ESENDER" type="non_published"/>
+					</xs:choice>
+					<xs:sequence>
+						<xs:element name="ESENDER_LOGIN">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="esender_login">
+										<xs:attribute name="PUBLICATION" use="required" fixed="NO"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="CUSTOMER_LOGIN" minOccurs="0">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="customer_login">
+										<xs:attribute name="PUBLICATION" use="required" fixed="NO"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="NO_DOC_EXT">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="no_doc_ext">
+										<xs:attribute name="PUBLICATION" use="required" fixed="NO"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:sequence>
+				<xs:sequence>
+					<xs:element name="ORIGINAL_OTHER_MEANS">
+						<xs:complexType>
+							<xs:simpleContent>
+								<xs:extension base="string_200">
+									<xs:attribute name="PUBLICATION" use="required" fixed="NO"/>
+								</xs:extension>
+							</xs:simpleContent>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:choice>
+			<xs:element ref="NOTICE_NUMBER_OJ" minOccurs="0"/>
+			<xs:element ref="DATE_DISPATCH_ORIGINAL" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="object_contract_f14">
+		<xs:annotation>
+			<xs:documentation>Section II: OBJECT OF THE CONTRACT</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="TITLE"/>
+			<xs:element ref="REFERENCE_NUMBER" minOccurs="0"/>
+			<xs:element ref="CPV_MAIN"/>
+			<xs:element ref="TYPE_CONTRACT"/>
+			<xs:element ref="SHORT_DESCR"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="body_f14">
+		<xs:annotation>
+			<xs:documentation>Section I: CONTRACTING AUTHORITY</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="ADDRESS_CONTRACTING_BODY"/>
+			<xs:element ref="ADDRESS_CONTRACTING_BODY_ADDITIONAL" minOccurs="0" maxOccurs="199"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="F14_2014">
+		<xs:annotation>
+			<xs:documentation>ROOT element F14</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CONTRACTING_BODY" type="body_f14"/>
+				<xs:element name="OBJECT_CONTRACT" type="object_contract_f14"/>
+				<xs:element name="COMPLEMENTARY_INFO" type="ci_f14"/>
+				<xs:element name="CHANGES" type="changes_f14"/>
+			</xs:sequence>
+			<xs:attribute name="LG" type="t_ce_language_list" use="required"/>
+			<xs:attribute name="CATEGORY" type="category" use="required"/>
+			<xs:attribute name="FORM" use="required" fixed="F14"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
