@@ -1,9 +1,9 @@
 package epo.common;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Iterator;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.conn.params.ConnRoutePNames;
@@ -18,6 +18,8 @@ import org.eclipse.rdf4j.repository.RepositoryConnection;
 import org.eclipse.rdf4j.repository.RepositoryException;
 import org.eclipse.rdf4j.repository.http.HTTPUpdateExecutionException;
 import org.eclipse.rdf4j.repository.manager.RemoteRepositoryManager;
+
+import epo.ted.stats.Stat;
 
 
 /**
@@ -48,8 +50,8 @@ public class KBManagement {
 		 * Used for statistic purposes;
 		 * @param compiledFiles
 		 */
-		public void setTotalFilesToInsert(long compiledFiles) {
-			totalCompiled = compiledFiles;
+		public void setTotalFilesToInsert(long TotalCompiled) {
+			totalCompiled = TotalCompiled;
 		}
 		
 		public void initGraphDBRepository() {
@@ -130,17 +132,30 @@ public class KBManagement {
 		logger.info("Starting query file [" + ++current + "/" + totalCompiled + "]:" + inputFile.getName());
 		
 		try {
-			//Transforms the content of the file into String
-			query = FileUtils.readFileToString(inputFile, "UTF-8");
-
-			//Executes the query
-			
-		    Update update = con.prepareUpdate(QueryLanguage.SPARQL, query);
-		    update.execute();
-		
-			
-		    
-		} catch (IOException | RepositoryException | MalformedQueryException | HTTPUpdateExecutionException e ) {
+			double fileSize = (double) inputFile.length();
+			fileSize = (fileSize / 1024) / 1024;
+			if (fileSize < 1) {
+				//Transforms the content of the file into String
+				query = FileUtils.readFileToString(inputFile, "UTF-8");
+				Update update = con.prepareUpdate(QueryLanguage.SPARQL, query);
+			    update.execute();
+			}
+			else {
+				// Gets a pool of queries out of the input file.
+				// This should avoid massive one-transactional-shot of too large data graphs, 
+				// but is a much slower process than the previous one (in the if part). 
+				SPARQLInsertManager m = new SPARQLInsertManager();
+				m.loadFile(inputFile.getAbsolutePath());
+				Iterator<String> it = m.getQueryPool().iterator();
+				while(it.hasNext()) {
+					query = it.next();
+					//Executes the query
+					System.out.println(query);
+					Update update = con.prepareUpdate(QueryLanguage.SPARQL, query);
+				    update.execute();	
+				}
+			}
+		} catch (RepositoryException | MalformedQueryException | HTTPUpdateExecutionException e ) {
 			logger.error(e.getMessage() + "The file causing the problem is: " + inputFile.getName());
 			e.printStackTrace();
 			throw new Exception();

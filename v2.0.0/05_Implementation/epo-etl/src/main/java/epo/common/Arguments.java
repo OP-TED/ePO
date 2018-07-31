@@ -23,7 +23,7 @@ public class Arguments {
 	/**
 	 * Parse the incoming arguments into variables
 	 */
-	public int parseArguments(String[] args){
+	public opsCode parseArguments(String[] args){
 		log.info("Parsing arguments...");
 		
 		String str1 = Arrays.toString(args);
@@ -32,11 +32,11 @@ public class Arguments {
 
 		for(int i=0; i<args.length; i++){
 			String arg = args[i].trim();
-			if(arg.equalsIgnoreCase("-a"))	return 0; // SPARQL INSERTS
-			if(arg.equalsIgnoreCase("-t"))	return 1; // SPARQL INSERTS
-			if(arg.equalsIgnoreCase("-i"))	return 2; // SPARQL INSERTS
+			if(arg.equalsIgnoreCase("-a"))	return opsCode.ALL; // SPARQL INSERTS
+			if(arg.equalsIgnoreCase("-t"))	return opsCode.TRANSFORM; // SPARQL INSERTS
+			if(arg.equalsIgnoreCase("-i"))	return opsCode.INSERT; // SPARQL INSERTS
 		}
-		return 0;
+		return opsCode.ALL;
 	}
 	
 	/**
