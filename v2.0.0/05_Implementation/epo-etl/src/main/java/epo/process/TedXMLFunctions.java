@@ -45,7 +45,7 @@ public class TedXMLFunctions {
 	/**
 	 * Get XML filenames from the directory folderXMLPath
 	 */
-	protected long getXMLFilesProcess(String folderXMLPath) {
+	protected long getXMLFilesToProcess(String folderXMLPath) {
 		
 		File xmlDir = new File(folderXMLPath);
 		
@@ -57,7 +57,7 @@ public class TedXMLFunctions {
 			
 				String filePathName = _xmlFiles[i].getAbsoluteFile().getAbsolutePath();
 					if (new File(filePathName).isDirectory()) {
-						this.getXMLFilesProcess(filePathName);
+						this.getXMLFilesToProcess(filePathName);
 					} else {
 						String name = FilenameUtils.getName(_xmlFiles[i].getName());
 						String extension = FilenameUtils.getExtension(_xmlFiles[i].getName());

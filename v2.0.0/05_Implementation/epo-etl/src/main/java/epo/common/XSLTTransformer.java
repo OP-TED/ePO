@@ -1,14 +1,10 @@
 package epo.common;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -18,15 +14,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
+import epo.stax.Parser;
+import epo.ted.stats.StatCodes;
+import epo.ted.stats.Subsystem;
+import net.sf.saxon.lib.FeatureKeys;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 /**
  * Methods related to the transformation of an XML using and XSLT
@@ -34,37 +29,65 @@ import org.xml.sax.SAXException;
  *
  */
 public class XSLTTransformer{
-	
-	private static Logger log  = LogManager.getLogger(XSLTTransformer.class);
-	private int idForm;
-	private String 	tedToePO = null, tedXSD= null;
+	private String 	tedToePO = null;
 	private Transformer transformer = null;
-	private int[] formsIDs = null;
+	private String[] subsystemIDs = null;
+	private String[] formsSchemaVersions = null;
+	private String[] formIds = null;
+	private Parser p = null;
+	private XMLStreamReader reader = null;
+	private Subsystem stats = null;
 	
 	public XSLTTransformer() throws TransformerConfigurationException, TransformerFactoryConfigurationError {
-		
+	
 		tedToePO = Properties.getProperty("TED_TO_EPO_XSL");
-		tedXSD = Properties.getProperty("TED_EXPORT_XSD");
-		
-		Source xsl = new StreamSource(new File(tedToePO));
-		transformer = TransformerFactory.newInstance().newTransformer(xsl);
 		
 		/*
-		 * The forms to be transformed, i.e. upon which to generate a TTL file, are
-		 * specified in the epo.properties files, under the /home/user directory. 
+		 * The Subsystem that produced the XML that are to be processed, e.g. TED_RECEPTION, TED_INTERNAL, TED_EXPORT.
+		 * In principle the relevant ones should be the ones produced by TED_EXPORT, as these are the ones that are
+		 * finally published in the TED Portal.
+		 * @return the list of Subsystems
 		 */
-		StringTokenizer formsIDsTokenizer = new StringTokenizer(Properties.getProperty("DOCUMENT_TYPE_ID"), ",");
+		subsystemIDs = getListFromProperties("TED_SUBSYSTEMS");
+		/*
+		 *  The different Version IDs of the TED-XML Subsystem Schemas that are to be processed,
+		 *  e.g. R2.0.9.S01.E01, R2.0.9.S02.E01, etc.
+		 *  <p> 
+		 *  This is retrieved from the {@URL /home/user/epo.properties} file. 
+		 */
+		formsSchemaVersions = getListFromProperties("TED_XSD_VERSIONS");
+		/*
+		 * The types of forms to be transformed, i.e. upon which to generate a TTL file, are
+		 * specified in the epo.properties files, under the /home/user directory.
+		 * <p> 
+		 * This is retrieved from the {@URL /home/user/epo.properties} file.
+		 */
+		formIds = getListFromProperties("TED_XSD_FORM_TYPES");
 		
-		this.formsIDs = new int[25];
+		Source xsl = new StreamSource(new File(tedToePO));
+		TransformerFactory factory = TransformerFactory.newInstance();
+		/**
+		 * Otherwise the Release 2.0.9.S01.E1 provokes this warning 
+		 * "SXXP0005: The source document is in namespace http://formex.publications.europa.eu/ted/schema/export/R2.0.9.S01.E01, but none of the
+  		 * template rules match elements in this namespace (Use --suppressXsltNamespaceCheck:on to avoid this warning)
+		 * See error explanation in {@URL https://stackoverflow.com/questions/33256226/warning-messages-appeared-after-upgrade-saxon-to-9-5-1-8}.
+		 * Transformation XSL-Ts should be independent of the XSD Schema or select specific XSL-T per Schema, which right now is not the  case. 
+		 */		
+		factory.setFeature(FeatureKeys.SUPPRESS_XSLT_NAMESPACE_CHECK, true);
+		transformer = factory.newTransformer(xsl);
+		
+		
+	}
+	
+	private String[] getListFromProperties(String propertyName) {
+		StringTokenizer st = new StringTokenizer(Properties.getProperty(propertyName), ",");
+		
+		String[] collection = new String[st.countTokens()];
 		int i = 0;
-		while(formsIDsTokenizer.hasMoreTokens()) {
-			String token = formsIDsTokenizer.nextToken().trim();
-			try {
-				this.formsIDs[i++] = Integer.parseInt(token);
-			} catch(NumberFormatException ne) {
-				ne.printStackTrace();
-			}
+		while(st.hasMoreTokens()) {
+			collection[i++] = st.nextToken().trim();
 		}
+		return collection;
 	}
 	
 	/**
@@ -73,104 +96,123 @@ public class XSLTTransformer{
 	 */
 	public String executeTransform(String xmlFile, String outputFilePathName){
 		
-		//log.info("Starting transformation. File to transform: " + xmlFile + ". FORM TYPE = " + this.getIdFormStr());		
 		String toRet = null;		
 		Source xmlInput = new StreamSource(new File(xmlFile));
-		
 				
 		Result xmlOutput = new StreamResult(new File(outputFilePathName));
-
+		
 		try {
-		    transformer.transform(xmlInput, xmlOutput);
-		   
+				transformer.transform(xmlInput, xmlOutput); 
 		} catch (TransformerException e) {
 			toRet = e.getMessage();
-		}
+		} 
 
 		return toRet;
 	}
 	
-	public String getIdFormStr() {
-		return (idForm < 10 ? "F0" : "F") + idForm + "_2014";
+	/**
+	 * Validates the XML against the XSD and Whether the input XML is amongst the expected ones or not.
+	 * @param String: XML file path
+	 * @return Boolean: true is ready to transform, false it not ready to transform
+	 */
+	public boolean acceptableXMLToTransform(XMLInputFactory inputFactory, String xmlFile, Subsystem stats) {
+		
+		this.stats = stats;
+		boolean isReady = false;
+        try {
+        	this.reader = inputFactory.createXMLStreamReader(new InputStreamReader(new FileInputStream(xmlFile)));
+            isReady = readDocument();
+        }catch (FileNotFoundException | XMLStreamException e) {
+        	e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+					reader.close();
+				} catch (XMLStreamException e) {
+					e.printStackTrace();
+				}
+            }
+        }		
+		return isReady;
 	}
-	public int getIdForm() {
-		return idForm;
-	}
-	
-	private boolean formIsToBeProcessed(int idForm) {
-		int formsIDsListSize = this.formsIDs.length; 
-		for(int i = 0; i < formsIDsListSize; i++) {
-			if (idForm == this.formsIDs[i]) 
-				return true;
+	/**
+	 * Generic internal method to check whether a String element is in a list or not.  
+	 * @param container -> the list of Strings.
+	 * @param element -> the element to search.
+	 * @return -> true if found, false otherwise.
+	 */
+	private boolean contains(String[] container, String element) {
+		
+		for(int i = 0; i < container.length; i++) {
+			if(element.toLowerCase().contains(container[i].toLowerCase()))
+					return true;
 		}
 		return false;
 	}
 	/**
-	 * Whether the input XML can be transformed or not. It validates the XML against the XSD
-	 * @param String: XML file path
-	 * @return Boolean: true is ready to transform, false it not ready to transform
+	 * Determines whether the root element of the XML file that is being processed is in the
+	 * list of possible subsystems that produce XML, as specified in the {@URL /home/user/epo.properties} file.
+	 * 
+	 * @param rootElementName -> the name of the subsystem's envelope XSD root element.
+	 * @return -> true if it is in the list, false otherwise.
 	 */
-	public boolean xmlReadyToTransform(String xmlFile) {
-		
-		boolean isReady = false;
-		idForm = -1; // Reset to FORM FXX_2014 DOM Node is Empty.
-		
-		Source xmlSource = new StreamSource(new File(xmlFile));
-	    
-	    SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-	    
-		try {
-			Schema schema = schemaFactory.newSchema(new StreamSource(new File(tedXSD)));
-			
-			Validator validator = schema.newValidator();
-			validator.validate(xmlSource);
-			
-			idForm = DOMnodeNotEmpty(xmlFile);
-			
-			if(idForm != -1 && this.formIsToBeProcessed(idForm)) {
-				isReady = true;
-			}else {
-				isReady = false;
-			}
-			
-		} catch (SAXException | IOException | ParserConfigurationException e) {
-			// TED_EXPORT tag not found
-			log.error(e.getLocalizedMessage() + String.format("File: %s", xmlFile)); 
-			idForm = -1;
-			isReady = false;
-		}
-		
-		return isReady;
+	private boolean TED_XSD_SchemaIsOfExpectedSubsystem(String rootElementName) {
+		return contains(this.subsystemIDs, rootElementName);
+	}
+	/**
+	 * Determines whether the version of the XML file that is being processed is in the 
+	 * list of possible versions that are to be processed, as specified in the {@URL /home/user/epo.properties} file.
+	 * 
+	 * @param TED_XSD_namespace
+	 * @return
+	 */
+	private boolean TED_XSD_SchemaIsOfExpectedVersion(String TED_XSD_namespace) {
+		return contains(this.formsSchemaVersions, TED_XSD_namespace);		
 	}
 	
-	/*
-	 * Creates a DOM doc NodeList per each type of Form. The NodeList will be checked for content inside the element
-	 * with a particular FORM TYPE (tag FXX_2014). If the node is not empty and the FORM TYPE has been specified
-	 * as one of the forms to be transformed and loaded (in the epo.properties file) the FORM is processed. Otherwise
-	 * it is skipped.
-	 * 
-	 * @return the form ID if this form is in the list of forms to be processed or -1 otherwise.    
+	/**
+	 * Gets the ID of the Form and determines whether it is one of the forms specified in the epo.properties file. Beware that relevant
+	 * properties later on used from the TEDXMLProcess are initialised herein, namely formID and strIdForm, which are
+	 * accessible via the public getters getIdFormStr() and getIdForm()
+	 * @return true if the form is one of the expected ones or false if not.
 	 */
-	private int DOMnodeNotEmpty(String xmlFile) throws SAXException, IOException, ParserConfigurationException {
-		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-		Document doc = documentBuilderFactory.newDocumentBuilder().parse(new File(xmlFile));
-	    
-	    List<NodeList> nodeList = new ArrayList<NodeList>();
-	    String tagName = "F";
-	    
-	    for(int i=1; i<=25; i++) {
-	    	tagName = (i<10 ? "F0" : "F") + i + "_2014";
-	    	nodeList.add(doc.getElementsByTagName(tagName));
-	    }
-	    
-	    Iterator<NodeList> it = nodeList.iterator();
-	    
-	    for (int i = 1; i <= 25; i++) {
-	    	NodeList n = it.next();
-	    	if (n.getLength()> 0) 
-	    		return i;
-	    }
-	    return -1;
+	private boolean TED_XML_InstanceIsAnExpectedForm(String formId) {
+			return contains(this.formIds, formId);
+	}
 	
+	public Subsystem getStats() {
+		return this.stats;
+	}
+	private boolean readDocument() {
+		boolean isExpectedRoot = false, isExpectedXSD = false, isExpectedForm = false;
+		
+		p = new Parser(this.reader);
+		
+		String rootElementName = p.getRootElementName();
+		String releaseId = p.getSchemaVersion();
+		String formId = p.getFormType();
+		
+		isExpectedRoot= TED_XSD_SchemaIsOfExpectedSubsystem(rootElementName);
+		isExpectedXSD = TED_XSD_SchemaIsOfExpectedVersion(releaseId);
+		isExpectedForm = TED_XML_InstanceIsAnExpectedForm(formId);
+		
+		stats.getSnapshot().setSubsystemId(rootElementName);
+		stats.getSnapshot().setReleaseID(releaseId);
+		stats.getSnapshot().setFormId(formId);
+		
+		/*
+		 * If the Release or the Form do not exist in the Subsystem they're created and added to it.
+		 */
+		stats.putRelease(releaseId);
+		stats.getRelease(releaseId).putForm(formId);	
+		
+		if (isExpectedRoot && isExpectedXSD && isExpectedForm) { 
+			stats.getForm(releaseId, formId).inc(StatCodes.PROCESSED);
+			return true;
+		}
+		else 
+			stats.getForm(releaseId, formId).inc(StatCodes.SKIPPED);
+		
+		return false;	
 	}
 }

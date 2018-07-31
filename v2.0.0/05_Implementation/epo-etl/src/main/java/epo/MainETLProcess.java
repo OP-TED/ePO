@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import epo.common.Arguments;
 import epo.common.Properties;
+import epo.common.opsCode;
 import epo.process.TedXMLProcess;
 
 /**
@@ -29,7 +30,7 @@ public class MainETLProcess {
 	 * Initialization and processing of the arguments
 	 * @param args: arguments as string
 	 */
-	public static int initArguments(String[] args) {
+	public static opsCode initArguments(String[] args) {
 	    Arguments argClass = new Arguments();
 	    return argClass.parseArguments(args);
 	}
@@ -54,9 +55,9 @@ public class MainETLProcess {
 	/**
 	 * Initialization, start and end of the transformation process and importation to DB
 	 */
-	public static void startProcess(int processCode) {
+	public static void startProcess(opsCode oc) {
 		TedXMLProcess process = new TedXMLProcess();
-		process.executeXSLTTransformation(processCode);
+		process.executeXSLTTransformation(oc);
 	}
 	
 }
