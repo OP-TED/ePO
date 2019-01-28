@@ -20,21 +20,12 @@
 
 <http://data.europa.eu/ePO/ontology> rdf:type owl:Ontology ;
                                       owl:versionIRI <http://data.europa.eu/ePO/ontology/2.0.0> ;
-                                      rdfs:label "eProcurement Ontology (ePO)"@en ;
-                                      owl:versionInfo "2.0.0" ;
                                       dcterms:created "2018-06-25T00:00:00"^^xsd:dateTime ;
-                                      dcterms:creator [ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                                                                          foaf:name "The Publications Office of the European Union"@en ,
-                                                                                                    "Unit C2"@en
-                                                                                        ]
-                                                      ] ,
-                                                      [ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                                                                          foaf:name "Enric Staromiejski" ,
-                                                                                                    "Laia Bota" ,
-                                                                                                    "Maria Font"
-                                                                                        ]
-                                                      ] ;
-                                      dcterms:title "eProcurement Ontology (ePO)"@en .
+                                      dcterms:creator [ ] ,
+[ ] ;
+dcterms:title "eProcurement Ontology (ePO)"@en ;
+rdfs:label "eProcurement Ontology (ePO)"@en ;
+owl:versionInfo "2.0.0" .
 
 #################################################################
 #    Annotation properties
@@ -115,12 +106,12 @@ xsd:date rdf:type rdfs:Datatype .
               rdfs:label "Applies to lot"@en .
 
 
-###  http://data.europa.eu/ePO/ontology#appliesToTenderer
-:appliesToTenderer rdf:type owl:ObjectProperty ;
-                   owl:inverseOf :meetsExclusionGrounds ;
-                   rdfs:domain :ExclusionGrounds ;
-                   rdfs:range :Tenderer ;
-                   rdfs:label "Exclusion ground applies to tenderer"@en .
+###  http://data.europa.eu/ePO/ontology#appliesToParticipationCriterion
+:appliesToParticipationCriterion rdf:type owl:ObjectProperty ;
+                                 owl:inverseOf :meetsExclusionGrounds ;
+                                 rdfs:domain :ExclusionCriterion ;
+                                 rdfs:range :ParticipationCriterion ;
+                                 rdfs:label "applies To Participation Criteria"@en .
 
 
 ###  http://data.europa.eu/ePO/ontology#asksForData
@@ -201,6 +192,14 @@ xsd:date rdf:type rdfs:Datatype .
                   rdfs:domain :TenderEvaluationTerms ;
                   rdfs:range :Criterion ;
                   rdfs:label "Tender evaluation terms defines criterion"@en .
+
+
+###  http://data.europa.eu/ePO/ontology#delegatesAncilaryActivitiesTo
+:delegatesAncilaryActivitiesTo rdf:type owl:ObjectProperty ;
+                               owl:inverseOf :providesServiceTo ;
+                               rdfs:domain :CentralPurchasingBody ;
+                               rdfs:range :ProcurementServiceProvider ;
+                               rdfs:label "delegates Ancillary Activities To"@en .
 
 
 ###  http://data.europa.eu/ePO/ontology#evaluatesResult
@@ -290,7 +289,8 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://data.europa.eu/ePO/ontology#hasBuyerProfile
 :hasBuyerProfile rdf:type owl:ObjectProperty ;
-                 rdfs:domain :ProcuringEntity ;
+                 rdfs:domain :CentralPurchasingBody ,
+                             :ProcuringEntity ;
                  rdfs:range :BuyerProfile ;
                  rdfs:label "has buyer profile"@en .
 
@@ -675,7 +675,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://data.europa.eu/ePO/ontology#hasShortListTerms
 :hasShortListTerms rdf:type owl:ObjectProperty ;
                    rdfs:domain :ProcurementProcedure ;
-                   rdfs:range :TenderShortList ;
+                   rdfs:range :EconomicOperatorShortList ;
                    rdfs:label "has short list terms"@en .
 
 
@@ -870,6 +870,13 @@ xsd:date rdf:type rdfs:Datatype .
                    rdfs:label "is subcontracted by"@en .
 
 
+###  http://data.europa.eu/ePO/ontology#managesBuyerProfile
+:managesBuyerProfile rdf:type owl:ObjectProperty ;
+                     rdfs:domain :ProcurementServiceProvider ;
+                     rdfs:range :BuyerProfile ;
+                     rdfs:label "manages Buyer Profile"@en .
+
+
 ###  http://data.europa.eu/ePO/ontology#maxAllowedLots
 :maxAllowedLots rdf:type owl:ObjectProperty ;
                 rdfs:domain :TenderSubmissionTerms ;
@@ -888,9 +895,9 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://data.europa.eu/ePO/ontology#meetsExclusionGrounds
 :meetsExclusionGrounds rdf:type owl:ObjectProperty ;
-                       rdfs:domain :Tenderer ;
-                       rdfs:range :ExclusionGrounds ;
-                       rdfs:label "Tenderer meets exclusion grounds"@en .
+                       rdfs:domain :ParticipationCriterion ;
+                       rdfs:range :ExclusionCriterion ;
+                       rdfs:label "meets Exclusion Criterion"@en .
 
 
 ###  http://data.europa.eu/ePO/ontology#notifiedThrough
@@ -943,7 +950,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://data.europa.eu/ePO/ontology#preselectedTenderers
 :preselectedTenderers rdf:type owl:ObjectProperty ;
-                      rdfs:domain :TenderShortList ;
+                      rdfs:domain :EconomicOperatorShortList ;
                       rdfs:range :Tenderer ;
                       rdfs:label "preselected tenderers"@en .
 
@@ -975,6 +982,13 @@ xsd:date rdf:type rdfs:Datatype .
                   rdfs:domain :Criterion ;
                   rdfs:range :Evidence ;
                   rdfs:label "provides evidence"@en .
+
+
+###  http://data.europa.eu/ePO/ontology#providesServiceTo
+:providesServiceTo rdf:type owl:ObjectProperty ;
+                   rdfs:domain :ProcurementServiceProvider ;
+                   rdfs:range :CentralPurchasingBody ;
+                   rdfs:label "provides Service To"@en .
 
 
 ###  http://data.europa.eu/ePO/ontology#referredToIn
@@ -1077,6 +1091,23 @@ xsd:date rdf:type rdfs:Datatype .
                      rdfs:domain :Tender ;
                      rdfs:range :Criterion ;
                      rdfs:label "Tender responds to criterion"@en .
+
+
+###  http://data.europa.eu/ePO/ontology#roleOf
+:roleOf rdf:type owl:ObjectProperty ,
+                 owl:FunctionalProperty ;
+        rdfs:domain :CentralPurchasingBody ,
+                    :ProcurementServiceProvider ;
+        rdfs:range org:Organization ;
+        rdfs:label "role Of"@en .
+
+
+###  http://data.europa.eu/ePO/ontology#signedByContract
+:signedByContract rdf:type owl:ObjectProperty ,
+                           owl:FunctionalProperty ;
+                  rdfs:domain :CentralPurchasingBody ;
+                  rdfs:range :Contract ;
+                  rdfs:label "signed By Contract"@en .
 
 
 ###  http://data.europa.eu/ePO/ontology#subcontractTermsRefersTo
@@ -1299,9 +1330,19 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://data.europa.eu/ePO/ontology#usesProcuringEntityType
 :usesProcuringEntityType rdf:type owl:ObjectProperty ;
-                         rdfs:domain :ProcuringEntity ;
+                         rdfs:domain :Buyer ,
+                                     :CentralPurchasingBody ,
+                                     :ProcuringEntity ;
                          rdfs:range epo-rd:ProcuringEntityType ;
                          rdfs:label "uses procuring entity type"@en .
+
+
+###  http://data.europa.eu/ePO/ontology#uses_buyer_legal_type
+:uses_buyer_legal_type rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Buyer ,
+                                   :CentralPurchasingBody ;
+                       rdfs:range :BuyerLegalType ;
+                       rdfs:label "uses buyer legal type"@en .
 
 
 #################################################################
@@ -1510,7 +1551,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://data.europa.eu/ePO/ontology#hasExpectedCandidates
 :hasExpectedCandidates rdf:type owl:DatatypeProperty ;
-                       rdfs:domain :TenderShortList ;
+                       rdfs:domain :CandidateShortList ;
                        rdfs:range xsd:nonNegativeInteger ;
                        rdfs:label "has expected candidates"@en .
 
@@ -1592,7 +1633,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://data.europa.eu/ePO/ontology#hasLimitationDescription
 :hasLimitationDescription rdf:type owl:DatatypeProperty ;
-                          rdfs:domain :TenderShortList ;
+                          rdfs:domain :EconomicOperatorShortList ;
                           rdfs:range xsd:string ;
                           rdfs:label "has limitation description"@en .
 
@@ -1606,7 +1647,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://data.europa.eu/ePO/ontology#hasMaximumCandidates
 :hasMaximumCandidates rdf:type owl:DatatypeProperty ;
-                      rdfs:domain :TenderShortList ;
+                      rdfs:domain :CandidateShortList ;
                       rdfs:range xsd:nonNegativeInteger ;
                       rdfs:label "has maximum candidates"@en .
 
@@ -1634,7 +1675,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://data.europa.eu/ePO/ontology#hasMinimumCandidates
 :hasMinimumCandidates rdf:type owl:DatatypeProperty ;
-                      rdfs:domain :TenderShortList ;
+                      rdfs:domain :CandidateShortList ;
                       rdfs:range xsd:nonNegativeInteger ;
                       rdfs:label "has minimum candidates"@en .
 
@@ -2048,6 +2089,15 @@ xsd:date rdf:type rdfs:Datatype .
             rdfs:label "Award Terms"@en .
 
 
+###  http://data.europa.eu/ePO/ontology#Buyer
+:Buyer rdf:type owl:Class .
+
+
+###  http://data.europa.eu/ePO/ontology#BuyerLegalType
+:BuyerLegalType rdf:type owl:Class ;
+                rdfs:label "Buyer Legal Type" .
+
+
 ###  http://data.europa.eu/ePO/ontology#BuyerProfile
 :BuyerProfile rdf:type owl:Class ;
               rdfs:comment "Website address where the buyer publishes information on its procurement procedures and general information."@en ;
@@ -2065,6 +2115,17 @@ xsd:date rdf:type rdfs:Datatype .
                     rdfs:subClassOf :ProcurementDocument ;
                     rdfs:comment "A public announcement of the launch of a procurement procedure."@en ;
                     rdfs:label "Call For Competition"@en .
+
+
+###  http://data.europa.eu/ePO/ontology#CandidateShortList
+:CandidateShortList rdf:type owl:Class ;
+                    rdfs:subClassOf :EconomicOperatorShortList ;
+                    rdfs:label "Candidate Short List" .
+
+
+###  http://data.europa.eu/ePO/ontology#CentralPurchasingBody
+:CentralPurchasingBody rdf:type owl:Class ;
+                       rdfs:label "Central Purchasing Body"@en .
 
 
 ###  http://data.europa.eu/ePO/ontology#Contract
@@ -2173,6 +2234,11 @@ xsd:date rdf:type rdfs:Datatype .
                   rdfs:label "Economic Operator"@en .
 
 
+###  http://data.europa.eu/ePO/ontology#EconomicOperatorShortList
+:EconomicOperatorShortList rdf:type owl:Class ;
+                           rdfs:label "Economic Operator Short List"@en .
+
+
 ###  http://data.europa.eu/ePO/ontology#EvaluationBoard
 :EvaluationBoard rdf:type owl:Class ;
                  rdfs:subClassOf foaf:Group ;
@@ -2189,10 +2255,10 @@ xsd:date rdf:type rdfs:Datatype .
           rdfs:label "Evidence"@en .
 
 
-###  http://data.europa.eu/ePO/ontology#ExclusionGrounds
-:ExclusionGrounds rdf:type owl:Class ;
-                  rdfs:subClassOf :Criterion ;
-                  rdfs:label "Exclusion grounds"@en .
+###  http://data.europa.eu/ePO/ontology#ExclusionCriterion
+:ExclusionCriterion rdf:type owl:Class ;
+                    rdfs:subClassOf :Criterion ;
+                    rdfs:label "Exclusion Criterion"@en .
 
 
 ###  http://data.europa.eu/ePO/ontology#FinancialAccount
@@ -2239,6 +2305,11 @@ xsd:date rdf:type rdfs:Datatype .
 :Notice rdf:type owl:Class ;
         rdfs:subClassOf :ProcurementDocument ;
         rdfs:label "Notice"@en .
+
+
+###  http://data.europa.eu/ePO/ontology#ParticipationCriterion
+:ParticipationCriterion rdf:type owl:Class ;
+                        rdfs:label "Participation Criterion"@en .
 
 
 ###  http://data.europa.eu/ePO/ontology#PreAwardCatalogue
@@ -2298,6 +2369,11 @@ xsd:date rdf:type rdfs:Datatype .
                                           :ProcurementProcedure
                                         ) ;
                     rdfs:label "Procurement Project"@en .
+
+
+###  http://data.europa.eu/ePO/ontology#ProcurementServiceProvider
+:ProcurementServiceProvider rdf:type owl:Class ;
+                            rdfs:label "Procurement Service Provider"@en .
 
 
 ###  http://data.europa.eu/ePO/ontology#ProcurementValue
@@ -2388,11 +2464,6 @@ xsd:date rdf:type rdfs:Datatype .
                        rdfs:label "Tender Evaluation Terms"@en .
 
 
-###  http://data.europa.eu/ePO/ontology#TenderShortList
-:TenderShortList rdf:type owl:Class ;
-                 rdfs:label "Tender Short List"@en .
-
-
 ###  http://data.europa.eu/ePO/ontology#TenderSubmissionTerms
 :TenderSubmissionTerms rdf:type owl:Class ;
                        rdfs:label "Tender Submission Terms"@en .
@@ -2413,6 +2484,11 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://data.europa.eu/ePO/ontology#e-Auction
 :e-Auction rdf:type owl:Class ;
            rdfs:subClassOf :Technique .
+
+
+###  http://data.europa.eu/ePO/ontology#e-Delivery
+:e-Delivery rdf:type owl:Class ;
+            rdfs:label "e-Delivery"@en .
 
 
 ###  http://data.europa.eu/ePO/referencedata#AcceleratedProcedureJustificationType
@@ -2520,7 +2596,8 @@ epo-rd:ProcuringEntityRoleType rdf:type owl:Class .
 
 
 ###  http://data.europa.eu/ePO/referencedata#ProcuringEntityType
-epo-rd:ProcuringEntityType rdf:type owl:Class .
+epo-rd:ProcuringEntityType rdf:type owl:Class ;
+                           rdfs:label "Procuring Entity Type" .
 
 
 ###  http://data.europa.eu/ePO/referencedata#ReservedContractType
@@ -2599,31 +2676,6 @@ foaf:Group rdf:type owl:Class .
                                    ]
  ] .
 
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
 [ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
                                      foaf:name "Enric Staromiejski" ,
                                                "Laia Bota" ,
@@ -2640,230 +2692,6 @@ foaf:Group rdf:type owl:Class .
 [ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
                                      foaf:name "The Publications Office of the European Union"@en ,
                                                "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
                                    ]
  ] .
 
@@ -2908,6 +2736,46 @@ foaf:Group rdf:type owl:Class .
 [ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
                                      foaf:name "The Publications Office of the European Union"@en ,
                                                "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
                                    ]
  ] .
 
@@ -2984,29 +2852,9 @@ foaf:Group rdf:type owl:Class .
                                    ]
  ] .
 
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
-                                   ]
- ] .
-
 [ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
                                      foaf:name "The Publications Office of the European Union"@en ,
                                                "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
-                                     foaf:name "The Publications Office of the European Union"@en ,
-                                               "Unit C2"@en
-                                   ]
- ] .
-
-[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
-                                     foaf:name "Enric Staromiejski" ,
-                                               "Laia Bota" ,
-                                               "Maria Font"
                                    ]
  ] .
 
@@ -3046,6 +2894,248 @@ foaf:Group rdf:type owl:Class .
 [ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
                                      foaf:name "The Publications Office of the European Union"@en ,
                                                "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <https://publications.europa.eu/en> ;
+                                     foaf:name "The Publications Office of the European Union"@en ,
+                                               "Unit C2"@en
+                                   ]
+ ] .
+
+[ <http://schema.org/affiliation> [ foaf:homepage <http://www.everis.com> ;
+                                     foaf:name "Enric Staromiejski" ,
+                                               "Laia Bota" ,
+                                               "Maria Font"
                                    ]
  ] .
 
@@ -3070,4 +3160,4 @@ foaf:Group rdf:type owl:Class .
  ] .
 
 
-###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 4.5.6.2018-09-06T00:27:41Z) https://github.com/owlcs/owlapi
