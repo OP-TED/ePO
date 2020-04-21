@@ -162,6 +162,11 @@ WG Approval 03/10/2019</AttributeDefinition>
          <AttributeType>Identifier</AttributeType>
       </Attribute>
       <Attribute>
+         <AttributeName>epo:EORoleType</AttributeName>
+         <AttributeDefinition/>
+         <AttributeType>Code</AttributeType>
+      </Attribute>
+      <Attribute>
          <AttributeName>epo:Type</AttributeName>
          <AttributeDefinition>The property Type can be used to identify the namespace and class of the Agent.
 
@@ -329,10 +334,11 @@ WG Approval 21/11/2019</AttributeDefinition>
    </Class>
    <Class>
       <ClassName>epo:Buyer</ClassName>
-      <ClassDefinition>Organisation that manages the budget allocated for the procedure and pays for the items being procured.
+      <ClassDefinition>ePO: Organisation that awards the contract. 
 
 Additional information:
 Examples of a buyer can be Contracting authority, contracting entity, a defence contractor, an international organisation, or an organisation awarding a contract subsidized by a contracting authority.
+
 
 WG Approval  14/11/2018</ClassDefinition>
       <Attribute>
@@ -417,7 +423,7 @@ Additional information: the types of procedures this shortlist applies to are re
    </Class>
    <Class>
       <ClassName>epo:CentralPurchasingBody</ClassName>
-      <ClassDefinition>A procuring entity that provides centralised purchasing activities and, possibly, ancillary purchasing activities for other procuring entities.
+      <ClassDefinition>A contracting authority that provides centralised purchasing activities and, possibly, ancillary purchasing activities for other procuring entities.
 
 WG approval 18/05/2018
 
@@ -1019,7 +1025,7 @@ WG Approval 21/11/2019</AttributeDefinition>
          <AttributeType>Code</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>epo:EORoleType</AttributeName>
+         <AttributeName>epo:EOSizeType</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Code</AttributeType>
       </Attribute>
@@ -1313,6 +1319,17 @@ Additional Information: the number is a positive integer.
 WG Approval 2019-02-05
 </AttributeDefinition>
          <AttributeType>Quantity</AttributeType>
+      </Attribute>
+   </Class>
+   <Class>
+      <ClassName>epo:Function</ClassName>
+      <ClassDefinition/>
+      <Attribute>
+         <AttributeName>epo:FunctionType</AttributeName>
+         <AttributeDefinition>The different activities of the organisations in a procurement procedure.
+
+</AttributeDefinition>
+         <AttributeType>Code</AttributeType>
       </Attribute>
    </Class>
    <Class>
@@ -1615,10 +1632,6 @@ Further conditions for submitting variant tenders are in the procurement documen
 </AttributeDefinition>
          <AttributeType>Code</AttributeType>
       </Attribute>
-   </Class>
-   <Class>
-      <ClassName>epo:Mediator</ClassName>
-      <ClassDefinition/>
    </Class>
    <Class>
       <ClassName>epo:MultipleStageProcedureTerms</ClassName>
@@ -2446,10 +2459,6 @@ WG Approval 23/05/2019</ClassDefinition>
       </Attribute>
    </Class>
    <Class>
-      <ClassName>epo:Reviewer</ClassName>
-      <ClassDefinition/>
-   </Class>
-   <Class>
       <ClassName>epo:ReviewTerms</ClassName>
       <ClassDefinition>Conditions and stipulations defining particularities of the review.
 
@@ -2476,12 +2485,22 @@ WG Approval 01/10/2019
    </Class>
    <Class>
       <ClassName>epo:Role</ClassName>
-      <ClassDefinition/>
-      <Attribute>
-         <AttributeName>epo:SubClassType</AttributeName>
-         <AttributeDefinition/>
-         <AttributeType>IRI</AttributeType>
-      </Attribute>
+      <ClassDefinition>A class of agent performing an activity in a specific context.
+&lt;font color="#333333"&gt;
+&lt;/font&gt;Additional information
+
+In ePO, the roles are defined as classes identifying types of agents playing specific procurement parts. Thus the role of Buyers is inherent to Public Organisations, the role of Economic Operators, Subcontractos and Service Providers are inherent to businesses. ePO roles are concepts soundly established and frequently used in the domain of public procurement, such as Buyer, Economic Operator, Winner, Tenderer, Subcontractor and Service Provider, for example. 
+
+In the context of public procurement, a role may involve different responsibilities or ‘functions’ related to procurement in general or more specifically to the management or execution of specific procurement procedure. Examples of functions of procurement-related roles are: a Buyer with the function (responsibility) of providing access to the procurement documents, a CPB that has the responsibility of managing the budget of one or more buyers.
+
+Nonetheless, public procurements may involve functions that are not directly related to the procurement activities nor procurement-specific roles. Thus, in public procurement there may be need of identifying organisations that are responsible for providing information on taxes in a specific region, 
+
+Technical note: roles can be seen as ‘metaclasses, which explains why, in ePO, roles are defined as “classes of agents”. As a metaclass, the role is a surrogate (a substitute of) of Agent. The lifecycle of an instance of role is totally dependent of the existence of an instance of Agent playing that role (role a ‘composition’ of Agent). 
+
+Check with Giorgia Lodi: Could we have triples with the class role as the object (punning)….I can see it for classes with no properties (e.g. Mediator, Reviewer, etc., which is one more reason for having them in the codelist), but not for Buyer, EO, Subcontractor, etc.
+
+See this site: &lt;a href="https://www.difference.wiki/role-vs-function/"&gt;&lt;font color="#0563c1"&gt;&lt;u&gt;https://www.difference.wiki/role-vs-function/&lt;/u&gt;&lt;/font&gt;&lt;/a&gt;
+</ClassDefinition>
       <Attribute>
          <AttributeName>epo:Description</AttributeName>
          <AttributeDefinition/>
@@ -3249,7 +3268,7 @@ WG Approval 25/04/2019
       </Attribute>
    </Class>
    <Class>
-      <ClassName>Criterion</ClassName>
+      <ClassName>cccev:Criterion</ClassName>
       <ClassDefinition>A condition that needs to be answered for evaluation purposes.
 
 Additional Information: this can be used for transparency and evaluation of  PRICE CRITERIA
@@ -3258,131 +3277,131 @@ Additional Information: this can be used for transparency and evaluation of  PRI
 (WG approval 22/06/2018)</ClassDefinition>
    </Class>
    <Class>
-      <ClassName>CriterionPropertyGroup</ClassName>
+      <ClassName>cccev:CriterionPropertyGroup</ClassName>
       <ClassDefinition>An organised structure of related criterion properties.
 
 (WG approval 22/06/2018)</ClassDefinition>
       <Attribute>
-         <AttributeName>Identifier</AttributeName>
+         <AttributeName>cccev:Identifier</AttributeName>
          <AttributeDefinition>Identifies unambiguously and uniquely a particular structure of data inside the group.</AttributeDefinition>
          <AttributeType>Identifier</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Name</AttributeName>
+         <AttributeName>cccev:Name</AttributeName>
          <AttributeDefinition>A short text representing the group of properties inside a criterion.</AttributeDefinition>
          <AttributeType>Text</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Description</AttributeName>
+         <AttributeName>cccev:Description</AttributeName>
          <AttributeDefinition>A narrative description describing the content of the group of properties inside a criterion.</AttributeDefinition>
          <AttributeType>Text</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Criterion Group Property Type</AttributeName>
+         <AttributeName>cccev:CriterionGroupPropertyType</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Code</AttributeType>
       </Attribute>
    </Class>
    <Class>
-      <ClassName>DatumValue</ClassName>
+      <ClassName>cccev:DatumValue</ClassName>
       <ClassDefinition>The value  provided for a criterion property.
 
 (WG approval 22/06/2018)
 </ClassDefinition>
       <Attribute>
-         <AttributeName>ID</AttributeName>
+         <AttributeName>cccev:ID</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Identifier</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Amount</AttributeName>
+         <AttributeName>cccev:Amount</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Amount</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Quantity</AttributeName>
+         <AttributeName>cccev:Quantity</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Quantity</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Code</AttributeName>
+         <AttributeName>cccev:Code</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Code</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Date</AttributeName>
+         <AttributeName>cccev:Date</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Date</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Time</AttributeName>
+         <AttributeName>cccev:Time</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Time</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Indicator</AttributeName>
+         <AttributeName>cccev:Indicator</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Indicator</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>URI</AttributeName>
+         <AttributeName>cccev:URI</AttributeName>
          <AttributeDefinition/>
          <AttributeType>URI</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Text</AttributeName>
+         <AttributeName>cccev:Text</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Text</AttributeType>
       </Attribute>
    </Class>
    <Class>
-      <ClassName>Evidence</ClassName>
+      <ClassName>cccev:Evidence</ClassName>
       <ClassDefinition/>
       <Attribute>
-         <AttributeName>Identifier</AttributeName>
+         <AttributeName>cccev:Identifier</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Identifier</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Name</AttributeName>
+         <AttributeName>cccev:Name</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Text</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Description</AttributeName>
+         <AttributeName>cccev:Description</AttributeName>
          <AttributeDefinition>Self-explanatory text about a concept.
 </AttributeDefinition>
          <AttributeType>Text</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Confidentiality Level Type</AttributeName>
+         <AttributeName>cccev:ConfidentialityLevelType</AttributeName>
          <AttributeDefinition/>
          <AttributeType>Code</AttributeType>
       </Attribute>
    </Class>
    <Class>
-      <ClassName>Property</ClassName>
+      <ClassName>cccev:Property</ClassName>
       <ClassDefinition>Specific information needed to measure a criterion.
 
 (WG approval 22/06/2018)</ClassDefinition>
       <Attribute>
-         <AttributeName>Identifier</AttributeName>
+         <AttributeName>cccev:Identifier</AttributeName>
          <AttributeDefinition>Identifies unambiguously and uniquely a particular structure of data inside the group and across all procurement procedures.</AttributeDefinition>
          <AttributeType>Identifier</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Name</AttributeName>
+         <AttributeName>cccev:Name</AttributeName>
          <AttributeDefinition>A short text representing the group of properties inside a criterion.</AttributeDefinition>
          <AttributeType>Text</AttributeType>
       </Attribute>
       <Attribute>
-         <AttributeName>Description</AttributeName>
+         <AttributeName>cccev:Description</AttributeName>
          <AttributeDefinition>A narrative description describing the content of the group of properties inside a criterion.</AttributeDefinition>
          <AttributeType>Text</AttributeType>
       </Attribute>
    </Class>
    <Class>
-      <ClassName>Agent</ClassName>
+      <ClassName>dct:Agent</ClassName>
       <ClassDefinition/>
    </Class>
    <Class>
@@ -3411,46 +3430,46 @@ Additional Information: this can be used for transparency and evaluation of  PRI
       <ClassDefinition/>
    </Class>
    <Class>
-      <ClassName>Agent</ClassName>
+      <ClassName>foaf:Agent</ClassName>
       <ClassDefinition/>
    </Class>
    <Class>
-      <ClassName>Document</ClassName>
+      <ClassName>foaf:Document</ClassName>
       <ClassDefinition/>
    </Class>
    <Class>
-      <ClassName>Group</ClassName>
+      <ClassName>foaf:Group</ClassName>
       <ClassDefinition/>
    </Class>
    <Class>
-      <ClassName>Organization</ClassName>
+      <ClassName>foaf:Organization</ClassName>
       <ClassDefinition/>
    </Class>
    <Class>
-      <ClassName>Person</ClassName>
+      <ClassName>foaf:Person</ClassName>
       <ClassDefinition/>
    </Class>
    <Class>
-      <ClassName>Project</ClassName>
+      <ClassName>foaf:Project</ClassName>
       <ClassDefinition/>
    </Class>
    <Class>
-      <ClassName>FormalOrganization</ClassName>
+      <ClassName>org:FormalOrganization</ClassName>
       <ClassDefinition/>
    </Class>
    <Class>
-      <ClassName>Organization</ClassName>
+      <ClassName>org:Organization</ClassName>
       <ClassDefinition/>
    </Class>
    <Class>
-      <ClassName>OrganizationalCollaboration</ClassName>
+      <ClassName>org:OrganizationalCollaboration</ClassName>
       <ClassDefinition/>
    </Class>
    <Class>
-      <ClassName>OrganizationalUnit</ClassName>
+      <ClassName>org:OrganizationalUnit</ClassName>
       <ClassDefinition/>
    </Class>
    <Class>
-      <ClassName>Site</ClassName>
+      <ClassName>org:Site</ClassName>
       <ClassDefinition/>
    </Class> Version:1.0</Glossary>
