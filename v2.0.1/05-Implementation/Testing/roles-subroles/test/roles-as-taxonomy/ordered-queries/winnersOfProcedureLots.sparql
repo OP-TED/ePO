@@ -1,0 +1,21 @@
+# Story: I want to see all the winners and lots of one specific procedure
+PREFIX : <http://example.org/test-abox#>
+PREFIX epo: <http://data.europa.eu/a4g/ontology/core#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rt: <http://data.europa.eu/a4g/ontology/cv/roles-taxonomy#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?procedure ?winner ?lot FROM :
+where { 
+	?event rdf:type epo:ProcurementEvent ;
+    	:involvesProcedure ?proc ;
+     	:involvesAgentRole rt:win ;
+      	:involvesAgent ?winnerObj ;
+        :involvesThing ?lotObj .
+    ?lotObj epo:id ?lot .
+    ?winnerObj skos:prefLabel ?winner .
+    ?proc epo:eppi "http://<http://data.europa.eu/a4g/eppi/123456" ;
+        epo:title ?procedure .
+    
+} limit 100 

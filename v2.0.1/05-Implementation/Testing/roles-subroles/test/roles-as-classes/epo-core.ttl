@@ -1,0 +1,214 @@
+@prefix :     <http://data.europa.eu/a4g/ontology/core#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml:  <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xs:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@base <http://data.europa.eu/a4g/ontology/core#> .
+
+<http://data.europa.eu/a4g/ontology/core#> rdf:type owl:Ontology ;
+                                            owl:versionIRI <http://data.europa.eu/a4g/ontology/core> ;
+                                            owl:imports <http://www.w3.org/ns/org#> ,
+                                                        <http://xmlns.com/foaf/0.1/>  ;
+.
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://data.europa.eu/a4g/ontology/core#isResponsibilityOf
+:isResponsibilityOf rdf:type owl:ObjectProperty ;
+                    owl:inverseOf :responsibleFor ;
+                    rdfs:domain :Procedure ;
+                    rdfs:range :Buyer .
+
+###  http://data.europa.eu/a4g/ontology/core#responsibleFor
+:responsibleFor rdf:type owl:ObjectProperty .
+
+###  http://data.europa.eu/a4g/ontology/core#involvesAgent
+:involvesAgent rdf:type owl:ObjectProperty ;
+    rdfs:domain :ProcurementInvolvement ;
+    rdfs:range foaf:Agent ;
+.
+###  http://data.europa.eu/a4g/ontology/core#involvesProcedure
+:involvesProcedure rdf:type owl:ObjectProperty ;
+    rdfs:domain :ProcurementInvolvement ;
+    rdfs:range :Procedure ;
+.
+###  http://data.europa.eu/a4g/ontology/core#involvesContactPoint
+:involvesContactPoint rdf:type owl:ObjectProperty ;
+    rdfs:domain :ProcurementInvolvement ;
+    rdfs:range :ContactPoint ;
+.
+###  http://data.europa.eu/a4g/ontology/core#involvesContactPoint
+:involvesPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :ProcurementInvolvement ;
+    rdfs:range :Period ;
+.
+###  http://data.europa.eu/a4g/ontology/core#involvesThing
+:involvesThing rdf:type owl:ObjectProperty ;
+               rdfs:domain :ProcurementInvolvement ;
+               rdfs:range owl:Thing ;
+.
+###  http://data.europa.eu/a4g/ontology/core#involvesAwardDecision
+:involvesAwardDecision rdf:type owl:ObjectProperty ;
+                       owl:subPropertyOf :involvesThing ;
+                       rdfs:range :AwardDecision ;
+.
+###  http://data.europa.eu/a4g/ontology/core#involvesLot
+:involvesLot rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :involvesThing ;
+             rdfs:range :Lot ;
+.
+###  http://data.europa.eu/a4g/ontology/core#involvesRole
+:involvesRole rdf:type owl:ObjectProperty ;
+                       rdfs:domain :ProcurementInvolvement ;
+                       rdfs:range :Role 
+.
+###  http://data.europa.eu/a4g/ontology/core#involvesWinner
+:involvesWinner rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :involvesRole ;
+                rdfs:range :Winner ;
+.
+###  http://data.europa.eu/a4g/ontology/core#involvesWinner
+:involvesBuyer rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :involvesRole ;
+               rdfs:range :Role ;
+.
+
+#################################################################
+#    Classes
+#################################################################
+
+###################### AGENTS ###################################
+
+###  http://data.europa.eu/a4g/ontology/core#Agent
+:Agent rdf:type owl:Class ;
+       rdfs:subClassOf <http://xmlns.com/foaf/0.1/Agent> ;
+.
+
+###  http://data.europa.eu/a4g/ontology/core#Organization
+:Organization rdf:type owl:Class ;
+              rdfs:subClassOf <http://www.w3.org/ns/org#Organization> ;
+.
+
+###  http://data.europa.eu/a4g/ontology/core#OrganizationGroup
+:OrganizationGroup rdf:type owl:Class ;
+                   rdfs:subClassOf :Organization ;
+                   rdfs:label "Organization Group"@en ;
+.
+
+###  http://data.europa.eu/a4g/ontology/core#PublicOrganization
+:PublicOrganization rdf:type owl:Class ;
+                    rdfs:subClassOf :Organization ;
+                    rdfs:label "Public Organization" ;
+.
+
+###  http://data.europa.eu/a4g/ontology/core#Business
+:Business rdf:type owl:Class ;
+          rdfs:subClassOf :Organization ;
+          :hasLegalForm skos:Concept 
+.
+
+###################### ROLES #####################################
+
+###  http://data.europa.eu/a4g/ontology/core#Role
+:Role rdf:type owl:Class ;
+      rdfs:label "Role" ;
+.
+
+###  http://data.europa.eu/a4g/ontology/core#Buyer
+:Buyer rdf:type owl:Class ;
+       rdfs:subClassOf :Role ;
+       rdfs:label "Buyer" ;
+.
+
+###  http://data.europa.eu/a4g/ontology/core#EconomicOperator
+:EconomicOperator rdf:type owl:Class ;
+       rdfs:subClassOf :Role ;
+       rdfs:label "Economic Operator" ;
+.
+
+###  http://data.europa.eu/a4g/ontology/core#EconomicOperator
+:Tenderer rdf:type owl:Class ;
+       rdfs:subClassOf :EconomicOperator ;
+       rdfs:label "Tenderer" ;
+.
+
+###  http://data.europa.eu/a4g/ontology/core#EconomicOperator
+:Winner rdf:type owl:Class ;
+       rdfs:subClassOf :Tenderer ;
+       rdfs:label "Winner" ;
+.
+
+###  http://data.europa.eu/a4g/ontology/core#EconomicOperator
+:Seller rdf:type owl:Class ;
+       rdfs:subClassOf :Winner ;
+       rdfs:label "Seller" ;
+.
+
+###################### Reifications ###############################
+
+############# Base Reification
+
+###  http://data.europa.eu/a4g/ontology/core#ProcurementInvolvement
+:ProcurementInvolvement rdf:type owl:Class ;
+.
+###  http://data.europa.eu/a4g/ontology/core#AwardDecisionInvolvement
+:ProcedureInvolvement rdf:type owl:Class ;
+    rdfs:subClassOf :ProcurementInvolvement ;
+    :involvesBuyer :Buyer ;
+.
+###  http://data.europa.eu/a4g/ontology/core#AwardDecisionInvolvement
+:AwardDecisionInvolvement rdf:type owl:Class ;
+    rdfs:subClassOf :ProcurementInvolvement ;
+    :involves :Winner ;
+    :involves :Buyer ;
+.
+
+###################### Things #####################
+
+###  http://data.europa.eu/a4g/ontology/core#ContactPoint
+:ContactPoint rdf:type owl:Class ;
+       :name skos:prefLabel ;
+.
+
+###  http://data.europa.eu/a4g/ontology/core#Lot
+:Lot rdf:type owl:Class ;
+       :id dct:identifier ;
+       :title dct:title ;
+       :isSpecifiedIn :Procedure ;
+.
+
+###  http://data.europa.eu/a4g/ontology/core#Period
+:Period rdf:type owl:Class ;
+       :startDate xs:Date ;
+       :endDate xs:Date ;
+.
+
+:Procedure rdf:type owl:Class ;
+       :eppi dct:identifier ;
+       :title dct:title ;
+.
+
+:Tender rdf:type owl:Class ;
+       :title dct:title ;
+.
+
+:TenderLot rdf:type owl:Class ;
+       :id dct:identifier ;
+       :title dct:title ;
+       :relatesTo :Lot ;
+.
+
+###  http://data.europa.eu/a4g/ontology/core#AwardDecision
+:AwardDecision rdf:type owl:Class ;
+       :awardDecisionDate xs:date ;
+       :awardStatus xs:langString ;
+.
+
+

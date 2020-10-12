@@ -1,0 +1,18 @@
+# Story: list all procurement involvements, the related procedure and the default buyer.
+PREFIX test: <http://example.org/test-abox#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX epo: <http://data.europa.eu/a4g/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT ?involvement ?procedure ?buyer
+WHERE {
+    
+    ?pivObject rdf:type epo:ProcurementInvolvement .
+    ?pivObject epo:involvesProcedure ?procedureObject ;
+       dct:description ?involvement .
+    ?procedureObject epo:title ?procedure ;
+              		 epo:isResponsibilityOf ?buyerObject .
+    ?buyerObject rdfs:label ?buyer .
+    
+}

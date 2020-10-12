@@ -1,0 +1,11 @@
+# Story: list all descendants of the role 'Buyer'
+
+PREFIX : <http://data.europa.eu/a4g/ontology/cv/roles-taxonomy#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?role WHERE {
+?concept skos:narrower ?roleObject .
+ ?roleObject skos:narrower ?desc .
+ OPTIONAL {?desc skos:narrowerTransitive :buy .}
+ ?desc skos:prefLabel ?role .
+}

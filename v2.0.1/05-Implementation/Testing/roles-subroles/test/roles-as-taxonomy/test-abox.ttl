@@ -1,0 +1,332 @@
+@prefix :     <http://example.org/test-abox#> .
+@prefix epo:  <http://data.europa.eu/a4g/ontology/core#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml:  <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rt:   <http://data.europa.eu/a4g/ontology/cv/roles-taxonomy#> .
+@prefix lf:   <http://data.europa.eu/a4g/ontology/cv/legal-form#> .
+@prefix es:   <http://data.europa.eu/a4g/ontology/cv/procurement-event-status#> .
+@prefix xs:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@base         <http://example.org/test-abox#> .
+
+<http://example.org/test-abox#> rdf:type owl:Ontology ;
+                                                 owl:versionIRI <example.org/test-abox> ;
+.
+##### Procedures and Lots
+:proc1 rdf:type owl:NamedIndividual, epo:Procedure ;
+    epo:eppi "http://<http://data.europa.eu/a4g/eppi/123456" ;
+    epo:title "XML Framework Agreement 2020" ;
+.
+:proc2 rdf:type owl:NamedIndividual, epo:Procedure ;
+    epo:eppi "http://<http://data.europa.eu/a4g/eppi/789101" ;
+    epo:title "Clean Cars Purchase" ;
+.
+:proc3 rdf:type owl:NamedIndividual, epo:Procedure ;
+    epo:eppi "http://<http://data.europa.eu/a4g/eppi/112101" ;
+    epo:title "IT Services" ;
+.
+:lot1p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot1" ;
+    epo:title "Lot 1 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot2p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot2" ;
+    epo:title "Lot 2 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot3p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot3" ;
+    epo:title "Lot 3 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot4p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot4" ;
+    epo:title "Lot 4 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot5p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot5" ;
+    epo:title "Lot 5 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot1p2 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot1" ;
+    epo:title "Lot 1 in procedure Clean Cars Purchase" ;
+    epo:isSpecifiedIn :proc2 ;
+.
+:lot1p3 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot1" ;
+    epo:title "Lot 1 in procedure IT Services" ;
+    epo:isSpecifiedIn :proc3 ;
+.
+
+####### pev1-proc1: everis submits tenderLot1, tenderLot2 and tenderLot3 
+:everis rdf:type owl:NamedIndividual , epo:Business ;
+       skos:prefLabel "everis, Spain, S.L.U."@en ;
+       epo:hasLegalForm lf:slu ;
+.
+:xavi a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Xavi" ;
+.
+:tenderLot1 a owl:NamedIndividual, epo:TenderLot ;
+    rdf:label "Everis Tender to Lot 1 of the ePO XML FA"@en ;
+.
+:tenderLot3 a owl:NamedIndividual, epo:TenderLot ;
+    rdf:label "Everis Tender to Lot 3 of the ePO XML FA"@en ;
+.
+:tenderLot5 a owl:NamedIndividual, epo:TenderLot ;
+    rdf:label "Everis Tender to Lot 5 of the ePO XML FA"@en ;
+.
+:period1 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "10/02/2020" ;
+    epo:endDate "10/02/2020" ;
+.
+:pev1 rdf:type owl:NamedIndividual, epo:ProcurementEvent ;
+    dct:description "everis submits tenderLot1 (for Lot1), tenderLot2 (for Lot2) and tenderLot3 (for Lot3)"@en ;
+    :involvesProcedure :proc1 ;
+    :involvesAgent :everis ;            # The Agent (everis)
+    :involvesAgentContactPoint :xavi ;  # The ContactPoint (xavi)
+    :status es:occurred ;               # The Status (the tender has been submitted)
+    :involvesAgentRole rt:tndr ;        # The Role code (Tenderer)
+    :involvesThing  :tenderLot1, 
+                    :tenderLot3, 
+                    :tenderLot5 ;       # The Thing, in this case everis tenders to OP's XML FA
+    :involvesPeriod :period1 ;          # The Period, in this case just one date
+.
+####### pev2-proc1: OP has awarded Lot1, Lot2, Lot3, Lot4 and Lot5
+:op a owl:NamedIndividual, epo:PublicOrganization ;
+       skos:prefLabel "Publications Office of the European Union"@en ;
+       epo:hasLegalForm lf:euinst ;
+.
+:natalie a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Natalie" ;
+.
+:awdec1 a owl:NamedIndividual, epo:AwardDecision ;
+    epo:awardDecisionDate "01/01/2020" ;
+.
+:period2 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "01/09/2020" ;
+.
+:pev2 rdf:type owl:NamedIndividual, epo:ProcurementEvent ;
+    dct:description "OP has awarded Lot1, Lot2, Lot3, Lot4 and Lot5"@en ;
+    :involvesProcedure :proc1 ;
+    :involvesAgent :op ;                    # The Agent
+    :status es:occurred ;                   # The Status (has been awarded)
+    :involvesAgentContactPoint :natalie ;   # The ContactPoint
+    :involvesAgentRole rt:buy_ca_awdec ;    # The Role code (The buyer contracting authority that makes the award decision)
+    :involvesThing :awdec1,                 # The Things, in this case one award decision and the lots it affects.
+                   :lot1p1, :lot3p1, :lot5p1 ; 
+    :involvesPeriod :period2 ;              # The Period, in this case just one date
+.
+####### pev3-proc1: OP will pay Lot1, Lot3 and Lot5
+:accountant a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Accounting Department" ;
+.
+:period3 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "01/09/2020";
+    epo:endDate "01/09/2024";
+.
+:pev3 rdf:type owl:NamedIndividual, epo:ProcurementEvent ;
+    dct:description "OP will pay Lot1, Lot3 and Lot5"@en ;
+    :involvesProcedure :proc1 ;
+    :involvesAgent :op ;                        # The Agent
+    :status es:planned ;                        # The Status (will execute the payments)
+    :involvesAgentContactPoint :accountant ;    # The ContactPoint
+    :involvesAgentRole rt:buy_ca_execpay ;      # The Role code (The buyer contracting authority that will execute the payments)
+    :involvesThing :lot1p1, :lot3p1, :lot5p1 ;  # The Thing, in this case one award decision (possibly among others in this same procedure)
+    :involvesPeriod :period3 ;                  # The Period, the planned duration of the FA 
+.
+####### pev4-proc1: Digit will pay Lot2 and Lot4
+:digit a owl:NamedIndividual, epo:PublicOrganization ;
+       skos:prefLabel "Directorate General of Informatics"@en ;
+       epo:hasLegalForm lf:euinst ;
+.
+:angelo a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Angelo" ;
+.
+:period4 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "01/09/2020" ;
+    epo:endDate "01/09/2024" ;
+.
+:pev4 rdf:type owl:NamedIndividual, epo:ProcurementEvent ;
+    dct:description "Digit will pay Lot2 and Lot4"@en ;
+    :involvesProcedure :proc1 ;
+    :involvesAgent :digit ;                 # The Agent
+    :status es:planned ;                    # The Status (will execute the payments)
+    :involvesAgentContactPoint :angelo ;    # The ContactPoint
+    :involvesAgentRole rt:buy_ca_execpay ;  # The Role code (The buyer contracting authority that will execute the payments)
+    :involvesThing :lot2p1, :lot4p1;        # The Thing, in this case one award decision (possibly among others in this same procedure)
+    :involvesPeriod :period4 ;              # The Period, the planned duration of the FA
+.
+####### pev5-proc1: everis has won Lot1 and Lot3
+:sergi a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Sergi" ;
+.
+:period5 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "01/09/2020" ;
+.
+:pev5 rdf:type owl:NamedIndividual, epo:ProcurementEvent ;
+    dct:description "everis has won Lot1 and Lot3"@en ;
+    :involvesProcedure :proc1 ;
+    :involvesAgent :everis ;                    # The Agent
+    :status es:occurred ;                       # The Status (has won)
+    :involvesAgentContactPoint :sergi ;         # The ContactPoint
+    :involvesAgentRole rt:win ;                 # The Role code (Winner of the lots indicated)
+    :involvesThing :lot1p1, :lot3p1;            # The Thing, in this case the los won by everis
+    :involvesPeriod :period5 ;                  # The Period (the date of the Contract Award Notice Publication)
+.
+####### pev6-proc1: Trasys has won Lot2, Lot4 and Lot5
+:trasys rdf:type owl:NamedIndividual , epo:Business ;
+       skos:prefLabel "Trasys"@en ;
+       epo:hasLegalForm lf:ltd ;
+.
+:dupont a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Dupont" ;
+.
+:period6 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "01/09/2020" ;
+.
+:pev6 rdf:type owl:NamedIndividual, epo:ProcurementEvent ;
+    dct:description "Trasys has won Lot2, Lot4 and Lot5"@en ;
+    :involvesProcedure :proc1 ;
+    :involvesAgent :trasys ;                    # The Agent
+    :status es:occurred ;                       # The Status (has won)
+    :involvesAgentContactPoint :dupont ;        # The ContactPoint
+    :involvesAgentRole rt:win ;                 # The Role code (Winner of the lots indicated)
+    :involvesThing :lot2p1, :lot4p1, :lot5p1 ;  # The Thing, in this case the los won by Trasys
+    :involvesPeriod :period6 ;                  # The Period (the date of the Contract Award Notice Publication)
+.
+####### pev7-proc2: CONSIP manages the procedure Clean Cars Purcharse on behalf of Lombardia, Roma and Sicilia
+:consip rdf:type owl:NamedIndividual , epo:PublicOrganization ;
+       skos:prefLabel "CONSIP"@en ;
+       epo:hasLegalForm lf:cgov ;
+.
+:daniel a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Daniel" ;
+.
+:period7 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "10/10/2020" ;
+.
+:pev7 rdf:type owl:NamedIndividual, epo:ProcurementEvent ;
+    dct:description "CONSIP manages the procedure Clean Cars Purcharse on behalf of Lombardia, Roma and Sicilia."@en ;
+    :involvesProcedure :proc2 ;
+    :involvesAgent :consip ;                    # The Agent
+    :status es:planned ;                        # The Status (will manage)
+    :involvesAgentContactPoint :daniel ;        # The ContactPoint
+    :involvesAgentRole rt:pm_cpb ;              # The Role code (Central Purchasing Body will manage the procurement)
+    :involvesThing :lot1p2 ;                    # The thing managed (in this case the lot is the procedure) 
+    :involvesPeriod :period7 ;                  # The Period (the date of the Contract Award Notice Publication)
+.
+####### pev8-proc2: Lombardia, Roma and Sicilia are the buyers in Procedure 2, managed by CONSIP
+:lombardia rdf:type owl:NamedIndividual , epo:PublicOrganization ;
+       skos:prefLabel "Lombardia Government"@en ;
+       epo:hasLegalForm lf:rgov ;
+.
+:roma rdf:type owl:NamedIndividual , epo:PublicOrganization ;
+       skos:prefLabel "Rome Government"@en ;
+       epo:hasLegalForm lf:rgov ;
+.
+:sicilia rdf:type owl:NamedIndividual , epo:PublicOrganization ;
+       skos:prefLabel "Sicilia Government"@en ;
+       epo:hasLegalForm lf:rgov ;
+.
+:period8 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "10/10/2020" ;
+    epo:endDate "10/10/2022" ;
+.
+:pev8 rdf:type owl:NamedIndividual, epo:ProcurementEvent ;
+    dct:description "Lombardia, Roma and Sicilia are the buyers in Procedure 2, managed by CONSIP"@en ;
+    :involvesProcedure :proc2 ;
+    :involvesAgent :lombardia, :roma, :sicilia ;# The Agents involved in this event
+    :status es:planned ;                        # The Status (will buy and consume)
+    :involvesAgentContactPoint :daniel ;        # The ContactPoint
+    :involvesAgentRole rt:buy_ca ;              # The Role code (buyers)
+    :involvesThing :lot1p2 ;                    # The thing managed (in this case the lot is the procedure) 
+    :involvesPeriod :period8 ;                  # The Period (the date of the Contract Award Notice Publication)
+.
+####### pev7-proc2: CONSIP manages the procedure Clean Cars Purcharse on behalf of Lombardia, Roma and Sicilia
+:consip rdf:type owl:NamedIndividual , epo:PublicOrganization ;
+       skos:prefLabel "CONSIP"@en ;
+       epo:hasLegalForm lf:cgov ;
+.
+:daniel a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Daniel" ;
+.
+:period7 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "10/10/2020" ;
+.
+:pev7 rdf:type owl:NamedIndividual, epo:ProcurementEvent ;
+    dct:description "CONSIP manages the procedure Clean Cars Purcharse on behalf of Lombardia, Roma and Sicilia."@en ;
+    :involvesProcedure :proc2 ;
+    :involvesAgent :consip ;                    # The Agent
+    :status es:planned ;                        # The Status (will manage)
+    :involvesAgentContactPoint :daniel ;        # The ContactPoint
+    :involvesAgentRole rt:pm_cpb ;              # The Role code (Central Purchasing Body will manage the procurement)
+    :involvesThing :lot1p2 ;                    # The thing managed (in this case the lot is the procedure) 
+    :involvesPeriod :period7 ;                  # The Period (the date of the Contract Award Notice Publication)
+.
+####### pev9-proc3: CONSIP buys and awards a contract the consumers of which will be the cities of Napoli, Milan and Trieste
+:period9 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "07/12/2020" ;
+    epo:endDate "10/10/2021" ;
+.
+:pev9 rdf:type owl:NamedIndividual, epo:ProcurementEvent ;
+    dct:description "CONSIP buys and awards a contract the consumers of which will be the cities of Napoli, Milan and Trieste."@en ;
+    :involvesProcedure :proc3 ;
+    :involvesAgent :consip ;                    # The Agent involved in this event
+    :status es:planned ;                        # The Status (will buy and consume)
+    :involvesAgentContactPoint :daniel ;        # The ContactPoint
+    :involvesAgentRole rt:buy_cpb ;              # The Role code (buyers)
+    :involvesThing :lot1p3 ;                    # The thing managed (in this case the lot is the procedure) 
+    :involvesPeriod :period9 ;                  # The Period (the date of the Contract Award Notice Publication)
+.
+####### pev10-proc3: Napoli, Milan and Trieste buy through CONSIP, which awards the contract
+:napoli rdf:type owl:NamedIndividual , epo:PublicOrganization ;
+       skos:prefLabel "Napoly Municipality Government"@en ;
+       epo:hasLegalForm lf:lgov ;
+.
+:milan rdf:type owl:NamedIndividual , epo:PublicOrganization ;
+       skos:prefLabel "Milan Municipality Government"@en ;
+       epo:hasLegalForm lf:lgov ;
+.
+:trieste rdf:type owl:NamedIndividual , epo:PublicOrganization ;
+       skos:prefLabel "Trieste Municipality Government"@en ;
+       epo:hasLegalForm lf:lgov ;
+.
+:period10 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "07/12/2020" ;
+    epo:endDate "10/10/2021" ;
+.
+:pev10 rdf:type owl:NamedIndividual, epo:ProcurementEvent ;
+    dct:description "Napoli, Milan and Trieste buy through CONSIP, which awards the contract."@en ;
+    :involvesProcedure :proc3 ;
+    :involvesAgent :napoli, :milan, :trieste ;  # The Agents involved in this event
+    :status es:planned ;                        # The Status (will buy and consume)
+    :involvesAgentContactPoint :daniel ;        # The ContactPoint
+    :involvesAgentRole rt:buy_ca ;              # The Role code (Contracting Authorities)
+    :involvesThing :lot1p3 ;                    # The thing managed (in this case the lot is the procedure) 
+    :involvesPeriod :period10 ;                  # The Period (the date of the Contract Award Notice Publication)
+.
+####### pev12-proc3: everis Italia has won the contract IT Services
+:everis_italia rdf:type owl:NamedIndividual , epo:Business ;
+       skos:prefLabel "everis Italia"@en ;
+       epo:hasLegalForm lf:sa ;
+.
+:period12 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "13/12/2020" ;
+.
+:pev12 rdf:type owl:NamedIndividual, epo:ProcurementEvent ;
+    dct:description "everis Italia has won the contract IT Services."@en ;
+    :involvesProcedure :proc3 ;
+    :involvesAgent :everis_italia ;             # The Agent involved in this event
+    :status es:occurred ;                       # The Status (has won)
+    :involvesAgentContactPoint :xavi ;          # The ContactPoint
+    :involvesAgentRole rt:winner ;              # The Role code (the winner)
+    :involvesThing :lot1p3 ;                    # The thing managed (in this case the lot is the procedure) 
+    :involvesPeriod :period11 ;                 # The Period (the date of the Contract Award Notice Publication)
+.

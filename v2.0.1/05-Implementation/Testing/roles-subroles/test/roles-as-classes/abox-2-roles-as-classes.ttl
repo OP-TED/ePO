@@ -1,0 +1,206 @@
+@prefix :     <http://example.org/test-abox#> .
+@prefix epo:  <http://data.europa.eu/a4g/ontology/core#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml:  <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rt:   <http://data.europa.eu/a4g/ontology/cv/roles-taxonomy#> .
+@prefix lf:   <http://data.europa.eu/a4g/ontology/cv/legal-form#> .
+@prefix es:   <http://data.europa.eu/a4g/ontology/cv/procurement-event-status#> .
+@prefix xs:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@base         <http://example.org/test-abox#> .
+
+<http://example.org/test-abox#> rdf:type owl:Ontology ;
+                                                 owl:versionIRI <example.org/test-abox> ;
+                                                 owl:imports <http://data.europa.eu/a4g/ontology/core#> ;
+.
+##### Procedures and Lots
+:proc1 rdf:type owl:NamedIndividual, epo:Procedure ;
+    epo:eppi "http://<http://data.europa.eu/a4g/eppi/123456" ;
+    epo:title "XML Framework Agreement 2020" ;
+    epo:isResponsibilityOf :op ;
+.
+:proc2 rdf:type owl:NamedIndividual, epo:Procedure ;
+    epo:eppi "http://<http://data.europa.eu/a4g/eppi/789101" ;
+    epo:title "Clean Cars Purchase" ;
+    epo:isResponsibilityOf :op, :digit ;
+.
+:proc3 rdf:type owl:NamedIndividual, epo:Procedure ;
+    epo:eppi "http://<http://data.europa.eu/a4g/eppi/112101" ;
+    epo:title "IT Services" ;
+    epo:isResponsibilityOf :isa2 ;
+.
+:lot1p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot1" ;
+    epo:title "Lot 1 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot2p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot2" ;
+    epo:title "Lot 2 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot3p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot3" ;
+    epo:title "Lot 3 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot4p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot4" ;
+    epo:title "Lot 4 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot5p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot5" ;
+    epo:title "Lot 5 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot1p2 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot1" ;
+    epo:title "Lot 1 in procedure Clean Cars Purchase" ;
+    epo:isSpecifiedIn :proc2 ;
+.
+:lot1p3 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot1" ;
+    epo:title "Lot 1 in procedure IT Services" ;
+    epo:isSpecifiedIn :proc3 ;
+.
+:awdec1 a owl:NamedIndividual, epo:AwardDecision ;
+    epo:awardDecisionDate "01/01/2020" ;
+.
+:awdec2 a owl:NamedIndividual, epo:AwardDecision ;
+    epo:awardDecisionDate "20/10/2019" ;
+.
+:awdec3 a owl:NamedIndividual, epo:AwardDecision ;
+    epo:awardDecisionDate "13/08/2020" ;
+.
+####### p1v1-proc1: everis is awarded Lot1, Lot3 and Lot5
+:everis rdf:type owl:NamedIndividual , epo:Business ;
+       skos:prefLabel "everis, Spain, S.L.U."@en ;
+       epo:hasLegalForm lf:slu ;
+.
+:xavi a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Xavi" ;
+.
+:period1 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "10/02/2020" ;
+.
+:piv1 rdf:type owl:NamedIndividual, epo:AwardDecisionInvolvement ;
+    dct:description "Award Decision (Involvement #1): everis is awarded Lot1, Lot3 and Lot5 of Procedure 1."@en ;
+    epo:involvesProcedure :proc1 ;
+    epo:involvesAgent :everis ;            # The Agent (everis)
+    epo:involvesAgentContactPoint :xavi ;  # The ContactPoint (xavi)
+    epo:involvesWinner epo:Winner ;      # The Role code (Tenderer)
+    epo:involvesLot :lot1p1, 
+                    :lot1p3, 
+                    :lot1p5 ;           # Things involved, in this case Lots, and ...
+    epo:involvesAwardDecision :awdec1 ;    # The Award Decision specific instance 
+    epo:involvesPeriod :period1 ;          # The Period, in this case just one date
+.
+####### piv2-proc1: Trasys has won Lot2, Lot4 and Lot5
+:trasys rdf:type owl:NamedIndividual , epo:Business ;
+       skos:prefLabel "Trasys"@en ;
+       epo:hasLegalForm lf:ltd ;
+.
+:dupont a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Dupont" ;
+.
+:period2 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "01/09/2020" ;
+.
+:piv2 rdf:type owl:NamedIndividual, epo:AwardDecisionInvolvement ;
+    dct:description "Award Decision (Involvement #2): Trasys has won Lot2, Lot4 and Lot5 of Procedure 1."@en ;
+    epo:involvesProcedure :proc1 ;
+    epo:involvesAgent :trasys ;                    # The Agent
+    epo:involvesContactPoint :dupont ;        # The ContactPoint
+    epo:involvesWinner epo:Winner ;             # The Role code (Winner of the lots indicated)
+    epo:involvesThing :lot2p1, :lot4p1, :lot5p1 ;  # The Thing, in this case the los won by Trasys
+    epo:involvesAwardDecision :awdec1 ;            # The Award Decision Object that this involvement refers to (the sames as in piv1-proc1) 
+    epo:involvesPeriod :period2 ;                  # The Period (the date of the Contract Award Notice Publication)
+.
+####### piv3-proc1: OP is the Buyer, and its Contact Point for this Award Decision is Natalie 
+:op a owl:NamedIndividual, epo:PublicOrganization ;
+       skos:prefLabel "Publications Office of the European Union"@en ;
+       epo:hasLegalForm lf:euinst ;
+.
+:natalie a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Natalie" ;
+.
+:piv3 rdf:type owl:NamedIndividual, epo:AwardDecisionInvolvement ;
+    dct:description "Award Decision Involvement #3: OP is the Buyer of Procedure 1, and its Contact Point for the Award Decision is Natalie."@en ;
+    epo:involvesProcedure :proc1 ;
+    epo:involvesAgent :op ;                   # The Agent
+    epo:involvesContactPoint :natalie ;       # The ContactPoint
+    epo:involvesBuyer epo:Buyer ;             # The Role code (Winner of the lots indicated)
+    epo:involvesAwardDecision :awdec1 ;       # The Award Decision Object that this involvement refers to (the sames as in piv1-proc1) 
+# Notice that no period nor lots are involved in this case. If different contact points were necessary for different contact-points, a new instance
+# of AwardDecisionInvolvement would be necessary.
+.
+####### piv4-proc2: Numen is awarded Procedure 2 (only one Lot)
+:numen rdf:type owl:NamedIndividual , epo:Business ;
+       skos:prefLabel "Numen, Ltd."@en ;
+       epo:hasLegalForm lf:ltd ;
+.
+:dupont a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Dupont" ;
+.
+:period3 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "01/07/2020" ;
+.
+:piv4 rdf:type owl:NamedIndividual, epo:AwardDecisionInvolvement ;
+    dct:description "Award Decision (Involvement #4), Procedure 2: Numen is awarded Procedure 2."@en ;
+    epo:involvesProcedure :proc2 ;
+    epo:involvesAgent :numen ;              # The Agent (everis)
+    epo:involvesAgentContactPoint :dupont ; # The ContactPoint (xavi)
+    epo:involvesWinner epo:Winner ;         # The Role code (Tenderer)
+    epo:involvesAwardDecision :awdec2 ;     # The Award Decision specific instance 
+    epo:involvesPeriod :period3 ;           # The Period, in this case just one date
+.
+####### piv5-proc2: The Procedure 2 is a Joint Procurement formed by OP and DIGIT. This is DIGIT's involvement with contact Angelo
+:digit rdf:type owl:NamedIndividual , epo:PublicOrganization ;
+       skos:prefLabel "(DIGIT) Directorate General of Informatics"@en ;
+       epo:hasLegalForm lf:euinst ;
+.
+:angelo a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Angelo" ;
+.
+:piv5 rdf:type owl:NamedIndividual, epo:ProcedureInvolvement ;
+    dct:description "Procedure (Involvement #5), Procedure 2, Buyer 'DIGIT' (Joint Procurement), Contact Point 'Angelo'."@en ;
+    epo:involvesProcedure :proc2 ;
+    epo:involvesAgent :digit ;                      # The Agent
+    epo:involvesContactPoint :angelo ;              # The ContactPoint
+    epo:involvesBuyer epo:Buyer ;                   # The Role code (Winner of the lots indicated)
+.
+####### piv6-proc2: The Procedure 2 is a Joint Procurement formed by OP and DIGIT. This is OP's involvement with contact Helena
+:helena a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Helena" ;
+.
+:piv6 rdf:type owl:NamedIndividual, epo:ProcedureInvolvement ;
+    dct:description "Procedure (Involvement #6), Procedure 2, Buyer 'OP' (Joint Procurement), Contact Point 'Helena'."@en ;
+    epo:involvesProcedure :proc2 ;
+    epo:involvesAgent :op ;                      # The Agent
+    epo:involvesContactPoint :helena ;           # The ContactPoint
+    epo:involvesBuyer epo:Buyer ;                # The Role code (Winner of the lots indicated)
+.
+####### piv7-proc3: PwC is awarded Procedure 3 (only one Lot). The buyer is 'by-default' ISA2. There'is no default Contact Point Specified -> Poor practice.
+:isa2 a owl:NamedIndividual, epo:PublicOrganization ;
+    skos:prefLabel "ISA2, Interoperability Solutions for Public Administrations"@en ;
+.
+:pwc rdf:type owl:NamedIndividual , epo:Business ;
+       skos:prefLabel "PwC, GmHb."@en ;
+       epo:hasLegalForm lf:ghmb ;
+.
+:period4 rdf:type owl:NamedIndividual, epo:Period ;
+    epo:startDate "13/08/2020" ;
+.
+:piv7 rdf:type owl:NamedIndividual, epo:AwardDecisionInvolvement ;
+    dct:description "Award Decision (Involvement #7): PwC is awarded Procedure 3."@en ;
+    epo:involvesProcedure :proc3 ;
+    epo:involvesAgent :pwc ;              # The Agent (everis)
+    epo:involvesWinner epo:Winner ;       # The Role code (Tenderer)
+    epo:involvesAwardDecision :awdec3 ;   # The Award Decision specific instance 
+    epo:involvesPeriod :period4 ;         # The Period, in this case just one date
+.

@@ -1,0 +1,23 @@
+# Story: list joint procurements
+PREFIX test: <http://example.org/test-abox#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX epo: <http://data.europa.eu/a4g/ontology/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?procedureObject ?procedure ?buyers
+WHERE {
+	{SELECT ?procedureObject
+	 WHERE {
+    
+        ?procedureObject rdf:type epo:Procedure ;
+               epo:isResponsibilityOf ?buyerObject .
+	 } GROUP BY ?procedureObject HAVING (COUNT(?procedureObject) > 1)
+    }
+    {
+        ?procedureObject epo:title ?procedure .
+        ?procedureObject epo:isResponsibilityOf ?buyerObject .
+        ?buyerObject skos:prefLabel ?buyers
+    }
+}
