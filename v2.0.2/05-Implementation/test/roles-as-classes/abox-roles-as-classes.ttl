@@ -1,0 +1,269 @@
+@prefix :     <http://example.org/test-abox#> .
+@prefix epo:  <http://data.europa.eu/a4g/ontology#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml:  <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rt:   <http://data.europa.eu/a4g/ontology/cv/roles-taxonomy#> .
+@prefix lf:   <http://data.europa.eu/a4g/ontology/cv/legal-form#> .
+@prefix es:   <http://data.europa.eu/a4g/ontology/cv/procurement-event-status#> .
+@prefix naj:  <http://data.europa.eu/a4g/ontology/cv/non-awarded-justification#> .
+@prefix xs:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@base         <http://example.org/test-abox#> .
+
+<http://example.org/test-abox#> rdf:type owl:Ontology ;
+                                                 owl:versionIRI <example.org/test-abox> ;
+                                                 owl:imports <http://data.europa.eu/a4g/ontology/core#> ;
+.
+##### Procedures and Lots
+
+### Procedure #1
+:proc1 rdf:type owl:NamedIndividual, epo:Procedure ;
+    epo:id "http://<http://data.europa.eu/a4g/eppi/123456" ;
+    epo:title "XML Framework Agreement 2020" ;
+    epo:isResponsibilityOf :op ; 
+.
+:lot1p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot1" ;
+    epo:title "Lot 1 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot2p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot2" ;
+    epo:title "Lot 2 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot3p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot3" ;
+    epo:title "Lot 3 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot4p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot4" ;
+    epo:title "Lot 4 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot5p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot5" ;
+    epo:title "Lot 5 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+:lot6p1 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot6" ;
+    epo:title "Lot 6 in procedure XML FA" ;
+    epo:isSpecifiedIn :proc1 ;
+.
+### Procedure #2
+:proc2 rdf:type owl:NamedIndividual, epo:Procedure ;
+    epo:id "http://<http://data.europa.eu/a4g/eppi/789101" ;
+    epo:title "Clean Cars Purchase" ;
+    epo:isResponsibilityOf :op, :digit ;
+.
+:lot1p2 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot1" ;
+    epo:title "Lot 1 in procedure Clean Cars Purchase" ;
+    epo:isSpecifiedIn :proc2 ;
+.
+### Procedure #3
+:proc3 rdf:type owl:NamedIndividual, epo:Procedure ;
+    epo:id "http://<http://data.europa.eu/a4g/eppi/112101" ;
+    epo:title "IT Services" ;
+    epo:isResponsibilityOf :isa2 ;
+.
+:lot1p3 a owl:NamedIndividual, epo:Lot ;
+    epo:id "Lot1" ;
+    epo:title "Lot 1 in procedure IT Services" ;
+    epo:isSpecifiedIn :proc3 ;
+.
+#### Agents #####
+:op a owl:NamedIndividual, epo:PublicOrganization ;
+       skos:prefLabel "Publications Office of the European Union"@en ;
+       epo:hasLegalForm lf:euinst ;
+.
+:digit a owl:NamedIndividual, epo:PublicOrganization ;
+       skos:prefLabel "DIGIT (Directorate General of Informatics)"@en ;
+       epo:hasLegalForm lf:euinst ;
+.
+:isa2 a owl:NamedIndividual, epo:PublicOrganization ;
+       skos:prefLabel "ISA2 (Interoperability for Public Administrations)"@en ;
+       epo:hasLegalForm lf:euinst ;
+.
+:everis rdf:type owl:NamedIndividual , epo:Business ;
+       skos:prefLabel "everis, Spain, S.L.U."@en ;
+       epo:hasLegalForm lf:slu ;
+.
+:acme rdf:type owl:NamedIndividual , epo:Business ;
+       skos:prefLabel "ACME, Ltd."@en ;
+       epo:hasLegalForm lf:ltd ;
+.
+:trasys rdf:type owl:NamedIndividual , epo:Business ;
+       skos:prefLabel "Trasys"@en ;
+       epo:hasLegalForm lf:ltd ;
+.
+:numen rdf:type owl:NamedIndividual , epo:Business ;
+       skos:prefLabel "Numen, Ltd."@en ;
+       epo:hasLegalForm lf:ltd ;
+.
+:xavi a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Xavi" ;
+.
+:dupont a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Dupont" ;
+.
+:alice a owl:NamedIndividual, epo:ContactPoint ;
+        skos:prefLabel "Alice" ;
+.
+
+##### Award Decision #1 (Procedure 1, [Lot1, Lot4] are specified in Procedure 1 ) ##############
+# Lot 1:            
+## Winner 1: everis
+## Winner 2: Trasys
+# Lot 2:
+## Winner 1: Trasys
+# Lot 3:
+## Winner 1: everis
+# Lot 4:
+## Winner 1: Trasys
+# Lot 5:
+## Winner 1: Trasys
+## Winner 2: everis
+# Lot 6:
+## Not awarded
+
+:awdec1 a owl:NamedIndividual, epo:AwardDecision ;
+    epo:awardDecisionDate "2020-01-10"^^xsd:date ;
+    epo:awardStatus es:Final ;
+.
+
+####### Award Decision Situation #1 everis is awarded Lot1 and 3 with hasWinnerRank 1
+
+:ads1 rdf:type owl:NamedIndividual, epo:AwardDecisionSituation ;
+    dct:description "Award Decision Situation #1 everis is awarded Lot1 and 3 with hasWinnerRank 1."@en ;
+    epo:involvesAgent :everis ;             
+    epo:involvesAgentContactPoint :xavi ;   
+    epo:involvesRole epo:Winner ;           
+    epo:relatesToLot :lot1p1, 
+                     :lot3p1 ;           
+    epo:hasWinnerRank 1 ;
+    epo:involvesAwardDecision :awdec1 ;
+.
+
+####### Award Decision Situation #2 everis is awarded Lot5 with hasWinnerRank 2
+
+:ads2 rdf:type owl:NamedIndividual, epo:AwardDecisionSituation ;
+    dct:description "Award Decision Situation #2 everis is awarded Lot5 with hasWinnerRank 2."@en ;
+    epo:involvesAgent :everis ;           
+    epo:involvesAgentContactPoint :xavi ; 
+    epo:involvesRole epo:Winner ;      
+    epo:relatesToLot :lot5p1 ;         
+    epo:hasWinnerRank 2 ;
+    epo:involvesAwardDecision :awdec1 ;
+.
+
+####### Award Decision Situation #3: Trasys is awarded Lot1 with hasWinnerRank 2
+:ads3 rdf:type owl:NamedIndividual, epo:AwardDecisionSituation ;
+    dct:description "Award Decision Situation #3: Trasys is awarded Lot1 with hasWinnerRank 2."@en ;
+    epo:involvesProcedure :proc1 ;
+    epo:involvesAgent :trasys ;                     
+    epo:involvesContactPoint :dupont ;              
+    epo:involvesRole epo:Winner ;                 
+    epo:relatesToLot :lot2p1 ;   
+    epo:hasWinnerRank 2 ;
+    epo:involvesAwardDecision :awdec1 ;
+.
+
+##### Award Decision Situation #4: Trasys is awarded Lot2, Lot4 and Lot5 with hasWinnerRank 1
+:ads4 rdf:type owl:NamedIndividual, epo:AwardDecisionSituation ;
+    dct:description "Award Decision Situation #4: Trasys is awarded Lot2, Lot4 and Lot5 with hasWinnerRank 1"@en ;
+    epo:involvesProcedure :proc1 ;
+    epo:involvesAgent :trasys ;                     
+    epo:involvesContactPoint :dupont ;              
+    epo:involvesRole epo:Winner ;                 
+    epo:relatesToLot :lot2p1, :lot4p1, :lot5p1 ;  
+    epo:hasWinnerRank 1 ;
+    epo:involvesAwardDecision :awdec1 ;           
+.
+
+####### Award Decision Situation #5: Nobody wins Lots #2 and #3 with hasWinnerRank 2 for the reason "one single bidder" 
+:ads5 rdf:type owl:NamedIndividual, epo:AwardDecisionSituation ;
+    dct:description "Award Decision Situation #5: Nobody wins Lots #6 No tenders were submitted."@en ;
+    epo:involvesProcedure :proc1 ;
+    epo:relatesToLot :lot6p1 ;   
+    epo:hasNonAwarJustification naj:nonaw ;
+    epo:involvesAwardDecision :awdec1 ;            
+.
+####### Award Decision Situation #6: Nobody wins Lot #4 for the reason "Abnormally Low Tenders" 
+:ads6 rdf:type owl:NamedIndividual, epo:AwardDecisionSituation ;
+    dct:description "Award Decision Situation #6: Nobody wins Lot #4 for the reason Abnormally Low Tenders."@en ;
+    epo:involvesProcedure :proc1 ;               
+    epo:relatesToLot :lot5p1 ;   
+    epo:involvesAwardDecision :awdec1 ;
+.
+
+##### Award Decision #2 (Procedure #2, only one lot (Lot1) ##############
+:awdec2 a owl:NamedIndividual, epo:AwardDecision ;
+    epo:awardDecisionDate "10/10/2019" ;
+    epo:awardStatus es:Final ;
+.
+
+# Lot 1:            
+## Winner 1: Numen
+## Winner 2: everis
+## Winner 3: Trasys
+
+##### Award Decision Situation #7: Numen is awarded Lot1 with rank 1"
+:ads7 rdf:type owl:NamedIndividual, epo:AwardDecisionSituation ;
+    dct:description "Award Decision Situation #7: Numen is awarded Lot1 with rank 1."@en ;
+    epo:involvesProcedure :proc2 ;
+    epo:involvesAgent :numen ;                     
+    epo:involvesContactPoint :alice ;              
+    epo:involvesRole epo:Winner ;                 
+    epo:relatesToLot :lot1p2 ;   
+    epo:hasWinnerRank 1 ;
+    epo:involvesAwardDecision :awdec2 ;             
+.
+# Award Decision Situation #8: everis is awarded Lot 1 with rank 2
+:ads8 rdf:type owl:NamedIndividual, epo:AwardDecisionSituation ;
+    dct:description "Award Decision Situation #8: everis is awarded Lot 1 with rank 2,"@en ;
+    epo:involvesProcedure :proc2 ;
+    epo:involvesAgent :everis ;                     # The Agent
+    epo:involvesContactPoint :xavi ;                # The ContactPoint
+    epo:involvesRole epo:Winner ;                   # The Role code (Winner of the lots indicated)
+    epo:relatesToLot :lot1p2 ;                      # The Lot
+    epo:hasWinnerRank 2 ;                           # The Rank
+    epo:involvesAwardDecision :awdec2 ;             # The Award Decision Object that this involvement refers to  
+.
+# Award Decision Situation #9: Trasys is awarded Lot1 with rank 3.
+:ads9 rdf:type owl:NamedIndividual, epo:AwardDecisionSituation ;
+    dct:description "Award Decision Situation #9: Trasys is awarded Lot1 with rank 3"@en ;
+    epo:involvesProcedure :proc2 ;
+    epo:involvesAgent :trasys ;                     # The Agent
+    epo:involvesContactPoint :dupont ;              # The ContactPoint
+    epo:involvesRole epo:Winner ;                   # The Role code (Winner of the lots indicated)
+    epo:relatesToLot :lot1p2 ;                      
+    epo:hasWinnerRank 3 ;
+    epo:involvesAwardDecision :awdec2 ;             # The Award Decision Object that this involvement refers to     
+.
+
+##### Award Decision #3 (Procedure #3, only one lot (Lot1) and only one winner ##############
+:awdec3 a owl:NamedIndividual, epo:AwardDecision ;
+    epo:awardDecisionDate "10/07/2020" ;
+    epo:awardStatus es:Final ;
+.
+
+# Lot 1:     
+## Winner 1 -> ACME, Ltd.       
+# Award Decision Situation #10: ACME, Ltd. is awarded Procedure 3.
+:ads10 rdf:type owl:NamedIndividual, epo:AwardDecisionSituation ;
+    dct:description "Award Decision Situation #10: ACME, Ltd. is awarded Procedure 3."@en ;
+    epo:involvesProcedure :proc3 ;
+    epo:involvesAgent :acme ;                       # The Agent
+    epo:involvesContactPoint :alice ;               # The ContactPoint
+    epo:involvesRole epo:Winner ;                   # The Role code (Winner of the lots indicated)
+    epo:relatesToLot :lot1p3 ;                      # The Thing, in this case the los won by Trasys
+    epo:hasWinnerRank 1 ;
+    epo:involvesAwardDecision :awdec3 ;             # The Award Decision Object that this involvement refers to (Award Decision) 
+.

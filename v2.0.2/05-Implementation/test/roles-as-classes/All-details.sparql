@@ -1,0 +1,19 @@
+# Story: List the winners of all procedures, including non-awarded Lots
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT (str(?detail) as ?AwardDecisionDetail) ?Lot (str(?agent) as ?Agent) ?Role (str(?rank) as ?Rank)
+WHERE {
+    ?detailObject 	epo:involvesRole  ?roleObject ;
+					epo:hasWinnerRank ?rank ;
+				    dct:description   ?detail ;
+        			epo:relatesToLot  ?lotObject. 
+                
+    OPTIONAL {?detailObject epo:involvesAgent ?AgentObject.
+              ?AgentObject skos:prefLabel ?agent .
+    		  ?roleObject rdfs:label ?Role .
+    		  ?lotObject epo:title ?Lot} 	
+}

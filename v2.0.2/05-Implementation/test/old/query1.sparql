@@ -1,0 +1,20 @@
+SELECT ?Agent ?Role ?SubRole ?Lot ?Period ?ContactPoint
+WHERE {
+    ?subject rdf:type :ProcedureInvolvement ;
+		:agent ?AgentObject ;
+	    :period ?PeriodObject ;
+ 	    :contactPoint ?ContactPointObject ;
+	    :role ?SubRoleObject ;
+		:thing ?LotObject.
+	?AgentObject rdfs:label ?Agent .	 
+	?ContactPointObject rdfs:label ?ContactPoint .
+	?SubRoleObject rdfs:label ?SubRole ;
+  		skos:broader ?RoleObject .
+	?RoleObject rdfs:label ?Role .
+	?LotObject skos:note ?Lot .
+  	?PeriodObject rdfs:label ?label ;
+							:startDate ?sd ;
+							:endDate ?ed .
+    bind(concat("[", str(?sd), "] - [", str(?ed), "]") as ?Period) .
+    
+}

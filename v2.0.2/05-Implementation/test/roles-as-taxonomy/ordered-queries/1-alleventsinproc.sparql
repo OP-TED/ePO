@@ -1,0 +1,22 @@
+# Story: I want to see all the events of one specific procedure
+
+PREFIX : <http://example.org/test-abox#>
+PREFIX epo: <http://data.europa.eu/a4g/ontology/core#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT ?procedure ?eventObject ?event  ?agent ?role ?start ?end
+where { 
+	?eventObject rdf:type epo:ProcurementEvent ;
+	dct:description ?event ;
+    	:involvesProcedure ?proc ;
+	:involvesAgent ?agent ;
+	:involvesAgentRole ?role ;
+	:involvesPeriod ?period .
+	optional {?period epo:startDate ?start .}  
+	optional {?period epo:endDate ?end .}
+	
+    ?proc epo:eppi "http://<http://data.europa.eu/a4g/eppi/123456" ;
+        epo:title ?procedure .
+    
+} ORDER BY ?eventObject
