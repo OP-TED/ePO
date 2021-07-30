@@ -1,4 +1,13 @@
-# ePO - The OP's eProcurement Ontology
+# eProcurement Ontology (ePO)
+
+**Ontology reference URI: http://data.europa.eu/a4g/ontology**
+
+**Download:**
+* [Core module](analysis_and_design/transformation_output/owl_ontology/ePO-owl-core.rdf)
+* [Restrinctions module](analysis_and_design/transformation_output/owl_ontology/ePO_restrictions.rdf)
+* [SHACL Data Shapes module](analysis_and_design/transformation_output/owl_ontology/ePO_shacl_shapes.rdf)
+* [XSD Schema](analysis_and_design/transformation_output/xsd_schema/ePO_CM_XSD.xml)
+
 
 ## Role and main functions
 This repository has been set up to support the collaborative work around the development of the  eProcurement Ontology (ePO). The repository is divided into different sections:
