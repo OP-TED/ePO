@@ -8,6 +8,7 @@
 * [SHACL Data Shapes module](analysis_and_design/transformation_output/owl_ontology/ePO_shacl_shapes.rdf)
 * [XSD Schema](analysis_and_design/transformation_output/xsd_schema/ePO_CM_XSD.xml)
 
+Note: If you discover any issues or have questions please put them on [GitHub issues](https://github.com/eprocurementontology/eprocurementontology/issues) and we will address them. Alternatively, if you need assistance feel free to [contact us by email](mailto:OP-EPROCUREMENT-ONTOLOGY@publications.europa.eu).
 
 ## Role and main functions
 This repository has been set up to support the collaborative work around the development of the  eProcurement Ontology (ePO). The repository is divided into different sections:
