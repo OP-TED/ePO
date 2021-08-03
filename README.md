@@ -1,6 +1,7 @@
 # eProcurement Ontology (ePO)
 
-**Ontology reference URI: http://data.europa.eu/a4g/ontology**
+**Ontology reference URI: http://data.europa.eu/a4g/ontology**  preferred prefix epo
+
 
 **Download:**
 * [Core module](analysis_and_design/transformation_output/owl_ontology/ePO-owl-core.rdf)
