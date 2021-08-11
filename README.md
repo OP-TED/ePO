@@ -11,35 +11,35 @@ Ontology namespace http://data.europa.eu/a4g/ontology# Preferred prefix epo:
 * [XSD Schema](analysis_and_design/transformation_output/xsd_schema/ePO_CM_XSD.xml)
 
 
-Note: If you discover any issues or have questions please put them on [GitHub issues](https://github.com/eprocurementontology/eprocurementontology/issues) and we will address them. Also, we have reorganised the GitHub repository (and moved it from *eprocurementontology/eprocurementontology* to *OP-TED/epo*) and if you experience problems or need assistance feel free to [contact us by email](mailto:OP-EPROCUREMENT-ONTOLOGY@publications.europa.eu).
+Note: If you discover any issues or have questions please put them on [GitHub issues](https://github.com/OP-TED/ePO/issues) and we will address them. Also, we have reorganised the GitHub repository (and moved it from *eprocurementontology/eprocurementontology* to *OP-TED/epo*) and if you experience problems or need assistance feel free to [contact us by email](mailto:OP-EPROCUREMENT-ONTOLOGY@publications.europa.eu).
 
 
 ## Role and main functions
 This repository has been set up to support the collaborative work around the development of the  eProcurement Ontology (ePO). The repository is divided into different sections:
 
 1. The Ontology development repository branches (this section), for the public distribution of any resource related to the Ontology;
-2. The [Issues](https://github.com/eprocurementontology/eprocurementontology/issues) section, where any question, doubt and specific topics are presented and discussed;
-3. The [Projects](https://github.com/eprocurementontology/eprocurementontology/projects) section, reserved to organise the TO-DOs tasks, events, project milestones, etc.;
-4. The [Wiki](https://github.com/eprocurementontology/eprocurementontology/wiki), a section dedicated to organise and document the final decisions made by the working group and at analysis, design and implementation time.
+2. The [Issues](https://github.com/OP-TED/ePO/issues) section, where any question, doubt and specific topics are presented and discussed;
+3. The [Projects](https://github.com/OP-TED/ePO/projects) section, reserved to organise the TO-DOs tasks, events, project milestones, etc.;
+4. The [Wiki](https://github.com/OP-TED/ePO/wiki), a section dedicated to organise and document the final decisions made by the working group and at analysis, design and implementation time.
 
 ## Relevant Documentation
 
 ### Current Release (v2.0.1)
 
 1. [Joinup collection](https://joinup.ec.europa.eu/solution/eprocurement-ontology)
-2. [OP v2.0.1 - GitHub landing page](https://github.com/eprocurementontology/eprocurementontology/tree/v2.0.1)
+2. [OP v2.0.1 - GitHub landing page](https://github.com/OP-TED/ePO/tree/v2.0.1)
 3. [Specification and methodology](https://eprocurementontology.github.io/)
 
 ### Previous Release (v2.0.0)
 
 1. [Joinup collection](https://joinup.ec.europa.eu/solution/eprocurement-ontology)
-2. [OP v2.0.0 - GitHub landing page](https://github.com/eprocurementontology/eprocurementontology/tree/master/v2.0.0)
+2. [OP v2.0.0 - GitHub landing page](https://github.com/OP-TED/ePO/tree/v2.0.0)
 3. [Specification and methodology](https://eprocurementontology.github.io/)
 4. [Release notes](https://eprocurementontology.github.io/release_notes.html)
 
 ### Previous Release (v1.00)
 
-1. [OP v1.00 - GitHub landing page](https://github.com/eprocurementontology/eprocurementontology)
+1. [OP v1.00 - GitHub landing page](https://github.com/OP-TED/ePO)
 2. [Project Charter proposal v1.00](https://joinup.ec.europa.eu/document/d0202-project-charter-proposal-v100)
 3. [Specification and Methodology](https://joinup.ec.europa.eu/sites/default/files/document/2017-08/d02.01_specification_of_the_process_and_methodology_v1.00.pdf)
 4. [Release notes](https://eprocurementontology.github.io/release_notes.html)
