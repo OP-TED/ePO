@@ -1,0 +1,62 @@
+name: transform XMI
+on:
+  push:
+    paths:
+      - "analysis_and_design/transformation_output/xmi_conceptual_model/ePO_CM.xml"
+jobs:
+  transform:
+    runs-on: ubuntu-latest
+    env:
+      ePO_CM_FILE_PATH: analysis_and_design/transformation_output/xmi_conceptual_model/ePO_CM.xml
+      OUTPUT_PATH: analysis_and_design/transformation_output/owl_ontology/
+      OUTPUT_CORE_FILE_NAME: ePO_owl_core.rdf
+      OUTPUT_RESTRICTIONS_FILE_NAME: ePO_restrictions.rdf
+      OUTPUT_SHACL_SHAPES_FILE_NAME: ePO_shacl_shapes.rdf
+    steps:
+      - uses: actions/checkout@master
+
+      - name: get-saxon
+        run: make get-saxon
+
+      - name: get model2owl
+        run: make get-model2owl-repo
+
+      - name: clean previous transformation
+        run: rm $OUTPUT_PATH*.rdf
+
+      - name: transform xml to rdf
+        run: |
+          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/owl-core.xsl -o:$OUTPUT_PATH$OUTPUT_CORE_FILE_NAME
+          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH$OUTPUT_RESTRICTIONS_FILE_NAME
+          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/shacl-shapes.xsl -o:$OUTPUT_PATH$OUTPUT_SHACL_SHAPES_FILE_NAME
+
+      - name: see result
+        run: |
+          ls -l analysis_and_design/transformation_output/owl_ontology
+
+      - name: remove unnecessary files
+        run: |
+          sudo rm -rf transform
+        shell: bash
+
+      - name: commit files
+        id: commit
+        run: |
+               git config --local user.email "action@github.com"
+               git config --local user.name "github-actions"
+               git status
+             
+               git add .
+               if [ -z "$(git status --porcelain)" ]; then 
+               echo "::set-output name=push::false"
+               else
+               git commit -m "Adding transformation files"
+               echo "::set-output name=push::true"
+               fi
+        shell: bash
+
+      - name: Push changes
+        if: steps.commit.outputs.push == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
