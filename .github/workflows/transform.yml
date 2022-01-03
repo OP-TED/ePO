@@ -1,6 +1,8 @@
 name: transform XMI
 on:
   push:
+    branches:
+      - "**"
     paths:
       - "analysis_and_design/transformation_output/xmi_conceptual_model/ePO_CM.xml"
 jobs:
@@ -14,6 +16,8 @@ jobs:
       OUTPUT_SHACL_SHAPES_FILE_NAME: ePO_shacl_shapes.rdf
     steps:
       - uses: actions/checkout@master
+        with:
+          ref: ${{ github.ref }}
 
       - name: get-saxon
         run: make get-saxon
@@ -60,3 +64,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
