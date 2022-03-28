@@ -24,6 +24,10 @@ This repository has been set up to support the collaborative work around the dev
 
 ## Relevant Documentation
 
+Documentation on the eProcurement Ontology can be found [here](https://docs.ted.europa.eu/EPO/dev/index.html).
+
+## Releases
+
 ### Current Release (v2.0.1)
 
 1. [Joinup collection](https://joinup.ec.europa.eu/solution/eprocurement-ontology)
