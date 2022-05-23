@@ -12,10 +12,12 @@ jobs:
       ePO_CM_FILE_PATH: analysis_and_design/transformation_output/xmi_conceptual_model/ePO_CM.xml
       OUTPUT_PATH: analysis_and_design/transformation_output/owl_ontology/
       OUTPUT_REPORT_PATH: analysis_and_design/transformation_output/owl_ontology/conventions_report/
+      OUTPUT_GLOSSARY_PATH: glossary/
       OUTPUT_CORE_FILE_NAME: ePO_owl_core.rdf
       OUTPUT_RESTRICTIONS_FILE_NAME: ePO_restrictions.rdf
       OUTPUT_SHACL_SHAPES_FILE_NAME: ePO_shacl_shapes.rdf
       OUTPUT_REPORT_FILE_NAME: conventions_report.html
+      OUTPUT_GLOSSARY_FILE_NAME: glossary.html
     steps:
       - uses: actions/checkout@master
         with:
@@ -39,6 +41,7 @@ jobs:
           java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH$OUTPUT_RESTRICTIONS_FILE_NAME
           java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/shacl-shapes.xsl -o:$OUTPUT_PATH$OUTPUT_SHACL_SHAPES_FILE_NAME
           java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/html-conventions-report.xsl -o:$OUTPUT_REPORT_PATH$OUTPUT_REPORT_FILE_NAME
+          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/html-model-glossary.xsl -o:$OUTPUT_GLOSSARY_PATH$OUTPUT_GLOSSARY_FILE_NAME
 
       - name: see result
         run: |
