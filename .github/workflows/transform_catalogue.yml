@@ -4,14 +4,15 @@ on:
     branches:
       - "**"
     paths:
-      - "analysis_and_design/transformation_output/eCatalogue/xmi_conceptual_model/ePO_catalogue.xml"
+      - "implementation/eCatalogue/xmi_conceptual_model/ePO_catalogue.xml"
 jobs:
   transform:
     runs-on: ubuntu-latest
     env:
-      ePO_CM_FILE_PATH: analysis_and_design/transformation_output/eCatalogue/xmi_conceptual_model/ePO_catalogue.xml
-      OUTPUT_PATH: analysis_and_design/transformation_output/eCatalogue/owl_ontology/
-      OUTPUT_REPORT_PATH: analysis_and_design/transformation_output/eCatalogue/owl_ontology/conventions_report/
+      ePO_CM_FILE_PATH: implementation/eCatalogue/xmi_conceptual_model/ePO_catalogue.xml
+      OUTPUT_PATH_OWL: implementation/eCatalogue/owl_ontology/
+      OUTPUT_PATH_SHACL: implementation/eCatalogue/shacl_shapes/
+      OUTPUT_REPORT_PATH: implementation/eCatalogue/owl_ontology/conventions_report/
       OUTPUT_GLOSSARY_PATH: glossary/
       OUTPUT_CORE_FILE_NAME: eCatalogue_owl_core.rdf
       OUTPUT_RESTRICTIONS_FILE_NAME: eCatalogue_restrictions.rdf
@@ -37,15 +38,15 @@ jobs:
 
       - name: transform xml to rdf
         run: |
-          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/owl-core.xsl -o:$OUTPUT_PATH$OUTPUT_CORE_FILE_NAME
-          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH$OUTPUT_RESTRICTIONS_FILE_NAME
-          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/shacl-shapes.xsl -o:$OUTPUT_PATH$OUTPUT_SHACL_SHAPES_FILE_NAME
+          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/owl-core.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME
+          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME
+          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/shacl-shapes.xsl -o:$OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME
           java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/html-conventions-report.xsl -o:$OUTPUT_REPORT_PATH$OUTPUT_REPORT_FILE_NAME
           java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/html-model-glossary.xsl -o:$OUTPUT_GLOSSARY_PATH$OUTPUT_GLOSSARY_FILE_NAME
 
       - name: see result
         run: |
-          ls -l analysis_and_design/transformation_output/eCatalogue/owl_ontology
+          ls -l ls -l $OUTPUT_PATH_OWL $OUTPUT_PATH_OWL $OUTPUT_PATH_SHACL
 
       - name: remove unnecessary files
         run: |
