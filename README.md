@@ -11,14 +11,14 @@ Preferred prefix: `epo`
 ## Downloads
 
 **ePO core:**
-* [Core layer](analysis_and_design/transformation_output/ePO/owl_ontology/ePO-owl-core.rdf)
-* [Restrictions layer](analysis_and_design/transformation_output/ePO/owl_ontology/ePO_restrictions.rdf)
-* [SHACL Data Shapes layer](analysis_and_design/transformation_output/ePO/owl_ontology/ePO_shacl_shapes.rdf)
+* [Core layer](implementation/ePO/owl_ontology/ePO-owl-core.rdf)
+* [Restrictions layer](implementation/ePO/owl_ontology/ePO_restrictions.rdf)
+* [SHACL Data Shapes layer](implementation/ePO/shacl_shapes/ePO_shacl_shapes.rdf)
 
 **eCatalogue:**
-* [Core layer](analysis_and_design/transformation_output/eCatalogue/owl_ontology/eCatalogue-owl-core.rdf)
-* [Restrictions layer](analysis_and_design/transformation_output/eCatalogue/owl_ontology/eCatalogue_restrictions.rdf)
-* [SHACL Data Shapes layer](analysis_and_design/transformation_output/eCatalogue/owl_ontology/eCatalogue_shacl_shapes.rdf)
+* [Core layer](implementation/eCatalogue/owl_ontology/eCatalogue-owl-core.rdf)
+* [Restrictions layer](implementation/eCatalogue/owl_ontology/eCatalogue_restrictions.rdf)
+* [SHACL Data Shapes layer](implementation/eCatalogue/shacl_shapes/eCatalogue_shacl_shapes.rdf)
 
 # Documentation
 
