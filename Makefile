@@ -52,6 +52,7 @@ RDF_DIR?=${OUTPUT_PATH_OWL}
 FILELIST=$(shell ls ${RDF_DIR}/*.rdf)
 # download saxon library 	
 get-saxon:
+	@mkdir -p ${PROJECT_DIR}
 	@cd ${PROJECT_DIR}  && curl -L -o saxon.zip "https://kumisystems.dl.sourceforge.net/project/saxon/Saxon-HE/10/Java/SaxonHE10-6J.zip" && unzip saxon.zip && rm -rf saxon.zip
 
 # Clone model2owl if the directory model2owl does not exist
