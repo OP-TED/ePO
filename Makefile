@@ -21,14 +21,14 @@ secrets.GITHUB_TOKEN := *******
 # Model2owl directory
 MODEL2OWL_DIR?="model2owl"
 # Project directory, ie. directory where we store the input/output from model2owl
-PROJECT_DIR?="."
+PROJECT_DIR?="transform"
 # One of the xmi input files to be merged into a single UML xmi/xml file
 FIRST_INPUT_XMI_FILE?="implementation/ePO/xmi_conceptual_model/ePO_CM.xml"
 # Input dir containing files to be merged
 INPUT_XMI_DIR?=$(shell dirname ${FIRST_INPUT_XMI_FILE})
 # rdflib version
 RDF_LIB_VERSION?=6.2.0
-SAXON="../saxon-he-10.6.jar"
+SAXON="transform/saxon-he-10.6.jar"
 # Output directory containing combined file from multiple xmi / xml UML models
 COMBINED_XMI_DIRECTORY?="implementation/ePO/xmi_conceptual_model/combined-xmi"
 COMBINED_FILE_NAME?=ePO-combined.xmi
@@ -56,7 +56,7 @@ get-saxon:
 
 # Clone model2owl if the directory model2owl does not exist
 get-model2owl-repo:
-	@git clone https://github.com/OP-TED/model2owl.git
+	@cd ${PROJECT_DIR} && git clone https://github.com/OP-TED/model2owl.git
 	
 # download xspec framework to run unit tests
 get-xspec:	
@@ -77,7 +77,7 @@ get-rdflib:
 ######################################################################################
 # Download, install saxon, xspec, rdflib and other dependencies
 ######################################################################################
-init:  get-saxon  get-xspec get-rdflib
+init:  get-saxon get-rdflib
 
 ############################ Main tasks ##############################################
 # Run unit_tests
