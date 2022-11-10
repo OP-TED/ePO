@@ -19,7 +19,7 @@ gitRepoFiles :=  $(shell ls -l transform/model2owl/.git >/dev/null 2>&1 | wc -l 
 secrets.GITHUB_TOKEN := *******
 
 # Model2owl directory
-MODEL2OWL_DIR?="model2owl"
+MODEL2OWL_DIR?="transform/model2owl"
 # Project directory, ie. directory where we store the input/output from model2owl
 PROJECT_DIR?="transform"
 # One of the xmi input files to be merged into a single UML xmi/xml file
