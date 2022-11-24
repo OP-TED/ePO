@@ -48,6 +48,7 @@ jobs:
             OUTPUT_REPORT_PATH=$(echo "implementation/$implementation/conventions_report/")
             OUTPUT_CORE_FILE_NAME=$(echo "${implementation}_owl_core.rdf")
             OUTPUT_RESTRICTIONS_FILE_NAME=$(echo "${implementation}_restrictions.rdf")
+            OUTPUT_RESTRICTIONS_FILE_NAME_TTL=$(echo "${implementation}_restrictions.ttl")
             OUTPUT_SHACL_SHAPES_FILE_NAME=$(echo "${implementation}_shacl_shapes.rdf")
             OUTPUT_GLOSSARY_FILE_NAME=$(echo "${implementation}_glossary.html")
             cp transform/model2owl/config/metadata.xml implementation/$implementation/xmi_conceptual_model/
@@ -76,6 +77,7 @@ jobs:
             echo "+++++++++++++++++transform to turtle++++++++++++++++++++++++++++"
             echo $(ls ${OUTPUT_PATH_OWL}/*.rdf)
             make convert-to-turtle FILELIST=$(ls ${OUTPUT_PATH_OWL}/*.rdf)
+            rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME > $OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME_TTL
             make convert-to-turtle FILELIST=$(ls ${OUTPUT_PATH_SHACL}/*.rdf)
             echo "-------------------end transform---------------------------------"
           done
