@@ -25,13 +25,24 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      - name: working dir
-        run: pwd
+      - name: make transform dir
+        run: |
+          mkdir -p transform
+
+      - name: get model2owl
+        run: |
+          cd transform && git clone https://github.com/OP-TED/model2owl.git
+
+      - name: get-saxon
+        run: make get-saxon PROJECT_DIR=transform
+
+      - name: get-rdflib
+        run: make get-rdflib
+
 
       - name: shell script
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eCatalogue)
-          CM_FILE=
+          AVAILABLE_IMPLEMENTATIONS=(eCatalogue ePO)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             CM_FILE_NAME=$(ls implementation/$implementation/xmi_conceptual_model/)
@@ -52,12 +63,29 @@ jobs:
             echo "OUTPUT_RESTRICTIONS_FILE_NAME is $OUTPUT_RESTRICTIONS_FILE_NAME"
             echo "OUTPUT_SHACL_SHAPES_FILE_NAME is $OUTPUT_SHACL_SHAPES_FILE_NAME"
             echo "OUTPUT_GLOSSARY_FILE_NAME is $OUTPUT_GLOSSARY_FILE_NAME"
+
+            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-core.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME
+            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME
+            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/shacl-shapes.xsl -o:$OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME
+            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-conventions-report.xsl -o:$OUTPUT_REPORT_PATH$OUTPUT_REPORT_FILE_NAME
+            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-model-glossary.xsl -o:$OUTPUT_GLOSSARY_PATH$OUTPUT_GLOSSARY_FILE_NAME
+
           done
         shell: bash
 
-      - name: variable still set ?
-        run: echo "$CM_FILE_PATH"
+      - name: verify transform ePO
+        run: |
+          ls -la implementation/ePO/owl_ontology/
+          ls -la implementation/ePO/shacl_shapes/
+          ls -la implementation/ePO/conventions_report/
+          ls -la glossary/
 
+      - name: verify transform eCatalogue
+        run: |
+          ls -la implementation/eCatalogue/owl_ontology/
+          ls -la implementation/eCatalogue/shacl_shapes/
+          ls -la implementation/eCatalogue/conventions_report/
+          ls -la glossary/
 
 #      - name: get model2owl
 #        run: git clone https://github.com/OP-TED/model2owl.git
