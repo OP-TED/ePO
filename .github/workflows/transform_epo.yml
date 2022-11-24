@@ -76,8 +76,10 @@ jobs:
             java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-model-glossary.xsl -o:$OUTPUT_GLOSSARY_PATH$OUTPUT_GLOSSARY_FILE_NAME
             echo "+++++++++++++++++transform to turtle++++++++++++++++++++++++++++"
             echo $(ls ${OUTPUT_PATH_OWL}/*.rdf)
-            make convert-to-turtle FILELIST=$(ls ${OUTPUT_PATH_OWL}/*.rdf)
-            echo "-------------------end transform_________________________________"
+            FILELIST=($(ls ${OUTPUT_PATH_OWL}/*.rdf))
+            echo $FILELIST
+            make convert-to-turtle FILELIST=($(ls ${OUTPUT_PATH_OWL}/*.rdf))
+            echo "-------------------end transform---------------------------------"
           done
         shell: bash
 
