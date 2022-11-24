@@ -32,12 +32,27 @@ jobs:
       - name: shell script
         run: |
           AVAILABLE_IMPLEMENTATIONS=(eCatalogue ePO)
+          CM_FILE_PATH: implementation/ePO/xmi_conceptual_model/ePO_CM.xml
+          OUTPUT_PATH_OWL: implementation/ePO/owl_ontology/
+          OUTPUT_PATH_SHACL: implementation/ePO/shacl_shapes/
+          OUTPUT_REPORT_PATH: implementation/ePO/conventions_report/
+          OUTPUT_GLOSSARY_PATH: glossary/
+          OUTPUT_CORE_FILE_NAME: ePO_owl_core.rdf
+          OUTPUT_RESTRICTIONS_FILE_NAME: ePO_restrictions.rdf
+          OUTPUT_SHACL_SHAPES_FILE_NAME: ePO_shacl_shapes.rdf
+          OUTPUT_REPORT_FILE_NAME: conventions_report.html
+          OUTPUT_GLOSSARY_FILE_NAME: ePO_glossary.html
+
+
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
-            echo "--- $implementation"
+            export CM_FILE_PATH=implementation/$implementation/xmi_conceptual_model/ePO_CM.xml
+            echo "$CM_FILE_PATH"
           done
         shell: bash
 
+      - name: variable still set ?
+        run: echo "$CM_FILE_PATH"
 #      - name: get model2owl
 #        run: git clone https://github.com/OP-TED/model2owl.git
 #
