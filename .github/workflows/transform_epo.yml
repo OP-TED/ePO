@@ -10,6 +10,7 @@ jobs:
   transform:
     runs-on: ubuntu-latest
     env:
+      AVAILABLE_IMPLEMENTATIONS: (eCatalogue ePO)
       ePO_CM_FILE_PATH: implementation/ePO/xmi_conceptual_model/ePO_CM.xml
       OUTPUT_PATH_OWL: implementation/ePO/owl_ontology/
       OUTPUT_PATH_SHACL: implementation/ePO/shacl_shapes/
@@ -28,20 +29,27 @@ jobs:
       - name: working dir
         run: pwd
 
-      - name: get model2owl
-        run: git clone https://github.com/OP-TED/model2owl.git
+      - name: shell script
+        run: >-
+          for implementation in $AVAILABLE_IMPLEMENTATIONS
+          do
+            echo $implementation
+          done
 
-      - name: go in model2owl folder
-        run: cd model2owl
-
-      - name: get-saxon
-        run: make get-saxon PROJECT_DIR=transform
-
-      - name: saxon dir
-        run: cd transform && ls -la
-
-      - name: get-rdflib
-        run: make get-rdflib
+#      - name: get model2owl
+#        run: git clone https://github.com/OP-TED/model2owl.git
+#
+#      - name: go in model2owl folder
+#        run: cd model2owl
+#
+#      - name: get-saxon
+#        run: make get-saxon PROJECT_DIR=transform
+#
+#      - name: saxon dir
+#        run: cd transform && ls -la
+#
+#      - name: get-rdflib
+#        run: make get-rdflib
 
 
 
