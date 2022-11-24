@@ -5,6 +5,7 @@ on:
       - "**"
     paths:
       - "implementation/ePO/xmi_conceptual_model/ePO_CM.xml"
+      - "implementation/eCatalogue/xmi_conceptual_model/ePO_catalogue.xml"
 jobs:
   transform:
     runs-on: ubuntu-latest
@@ -24,66 +25,80 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-#     - name: get-saxon
-#       run: make get-saxon
-
-      - name: install dependency
-        run: |
-          make init
+      - name: working dir
+        run: ls -la
 
       - name: get model2owl
         run: make get-model2owl-repo
 
-      - name: clean previous transformation
-        run: |
-          mkdir -p $OUTPUT_REPORT_PATH
-          rm -f $OUTPUT_REPORT_PATH*.html || true
-          rm -f $OUTPUT_PATH*.rdf || true
+      - name: go in model2owl folder
+        run: cd model2owl
 
-      - name: transform xml to rdf
-        run: |
-          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/owl-core.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME
-          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME
-          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/shacl-shapes.xsl -o:$OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME
-          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/html-conventions-report.xsl -o:$OUTPUT_REPORT_PATH$OUTPUT_REPORT_FILE_NAME
-          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/html-model-glossary.xsl -o:$OUTPUT_GLOSSARY_PATH$OUTPUT_GLOSSARY_FILE_NAME
+      - name: get-saxon
+        run: make get-saxon
 
-      - name: merge xmi files for ePO core, eCatalogue and eNotice
-        run: |
-          make merge-xmi
+      - name: get-rdflib
+        run: make get-rdflib
 
-      - name: generate combined glossary
-        run: |
-          make generate-glossary
 
-      - name: see result
-        run: |
-          ls -l $OUTPUT_PATH_OWL $OUTPUT_PATH_OWL $OUTPUT_PATH_SHACL
 
-      - name: remove unnecessary files
-        run: |
-          sudo rm -rf transform
-        shell: bash
-
-      - name: commit files
-        id: commit
-        run: |
-               git config --local user.email "action@github.com"
-               git config --local user.name "github-actions"
-               git status
-             
-               git add .
-               if [ -z "$(git status --porcelain)" ]; then 
-               echo "::set-output name=push::false"
-               else
-               git commit -m "Adding transformation files"
-               echo "::set-output name=push::true"
-               fi
-        shell: bash
-
-      - name: Push changes
-        if: steps.commit.outputs.push == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+#      - name: install dependency
+#        run: |
+#          make init
+#
+#      - name: get model2owl
+#        run: make get-model2owl-repo
+#
+#      - name: clean previous transformation
+#        run: |
+#          mkdir -p $OUTPUT_REPORT_PATH
+#          rm -f $OUTPUT_REPORT_PATH*.html || true
+#          rm -f $OUTPUT_PATH*.rdf || true
+#
+#      - name: transform xml to rdf
+#        run: |
+#          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/owl-core.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME
+#          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME
+#          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/shacl-shapes.xsl -o:$OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME
+#          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/html-conventions-report.xsl -o:$OUTPUT_REPORT_PATH$OUTPUT_REPORT_FILE_NAME
+#          java -jar transform/saxon-he-10.6.jar -s:$ePO_CM_FILE_PATH -xsl:transform/model2owl/src/html-model-glossary.xsl -o:$OUTPUT_GLOSSARY_PATH$OUTPUT_GLOSSARY_FILE_NAME
+#
+#      - name: merge xmi files for ePO core, eCatalogue and eNotice
+#        run: |
+#          make merge-xmi
+#
+#      - name: generate combined glossary
+#        run: |
+#          make generate-glossary
+#
+#      - name: see result
+#        run: |
+#          ls -l $OUTPUT_PATH_OWL $OUTPUT_PATH_OWL $OUTPUT_PATH_SHACL
+#
+#      - name: remove unnecessary files
+#        run: |
+#          sudo rm -rf transform
+#        shell: bash
+#
+#      - name: commit files
+#        id: commit
+#        run: |
+#               git config --local user.email "action@github.com"
+#               git config --local user.name "github-actions"
+#               git status
+#
+#               git add .
+#               if [ -z "$(git status --porcelain)" ]; then
+#               echo "::set-output name=push::false"
+#               else
+#               git commit -m "Adding transformation files"
+#               echo "::set-output name=push::true"
+#               fi
+#        shell: bash
+#
+#      - name: Push changes
+#        if: steps.commit.outputs.push == 'true'
+#        uses: ad-m/github-push-action@master
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          branch: ${{ github.ref }}
