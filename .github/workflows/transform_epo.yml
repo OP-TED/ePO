@@ -17,11 +17,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-#      - name: set env variable for implementation list
-#        run: |
-#          echo "AVAILABLE_IMPLEMENTATIONS=(eCatalogue ePO)" >> $GITHUB_ENV
-
-      - name: make transform dir
+      - name: make transform process directories
         run: |
           mkdir -p transform
           mkdir -p transform/merge-xmis
@@ -47,9 +43,11 @@ jobs:
             OUTPUT_PATH_SHACL=$(echo "implementation/$implementation/shacl_shapes/")
             OUTPUT_REPORT_PATH=$(echo "implementation/$implementation/conventions_report/")
             OUTPUT_CORE_FILE_NAME=$(echo "${implementation}_owl_core.rdf")
+            OUTPUT_CORE_FILE_NAME_TTL=$(echo "${implementation}_owl_core.ttl")
             OUTPUT_RESTRICTIONS_FILE_NAME=$(echo "${implementation}_restrictions.rdf")
             OUTPUT_RESTRICTIONS_FILE_NAME_TTL=$(echo "${implementation}_restrictions.ttl")
             OUTPUT_SHACL_SHAPES_FILE_NAME=$(echo "${implementation}_shacl_shapes.rdf")
+            OUTPUT_SHACL_SHAPES_FILE_NAME_TTL=$(echo "${implementation}_shacl_shapes.ttl")
             OUTPUT_GLOSSARY_FILE_NAME=$(echo "${implementation}_glossary.html")
             cp transform/model2owl/config/metadata.xml implementation/$implementation/xmi_conceptual_model/
             ls -la implementation/$implementation/xmi_conceptual_model/
@@ -65,6 +63,7 @@ jobs:
             mkdir -p $OUTPUT_REPORT_PATH
             rm -f $OUTPUT_REPORT_PATH*.html || true
             rm -f $OUTPUT_PATH*.rdf || true
+            rm -f $OUTPUT_PATH*.ttl || true
 
             java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-core.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME
             java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME
@@ -76,9 +75,10 @@ jobs:
 
             echo "+++++++++++++++++transform to turtle++++++++++++++++++++++++++++"
             echo $(ls ${OUTPUT_PATH_OWL}/*.rdf)
-            make convert-to-turtle FILELIST=$(ls ${OUTPUT_PATH_OWL}/*.rdf)
+            rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME > $OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME_TTL
             rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME > $OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME_TTL
-            make convert-to-turtle FILELIST=$(ls ${OUTPUT_PATH_SHACL}/*.rdf)
+            echo $(ls ${OUTPUT_PATH_SHACL}/*.rdf)
+            rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME > $OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME_TTL
             echo "-------------------end transform---------------------------------"
           done
         shell: bash
