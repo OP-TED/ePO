@@ -25,103 +25,104 @@ jobs:
         run: |
           mkdir -p transform
           mkdir -p transform/merge-xmis
-          echo $AVAILABLE_IMPLEMENTATIONS
-          echo ${env.AVAILABLE_IMPLEMENTATIONS}
 
-#      - name: get model2owl
-#        run: |
-#          cd transform && git clone https://github.com/OP-TED/model2owl.git
-#
-#      - name: get-saxon
-#        run: make get-saxon PROJECT_DIR=transform
-#
-#      - name: get-rdflib
-#        run: make get-rdflib
-#
-#      - name: transform step
-#        run: |
-##          AVAILABLE_IMPLEMENTATIONS=(eCatalogue ePO)
-#          for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
-#          do
-#            CM_FILE_NAME=$(ls implementation/$implementation/xmi_conceptual_model/)
-#            CM_FILE_PATH=$(echo "implementation/$implementation/xmi_conceptual_model/${CM_FILE_NAME}")
-#            OUTPUT_PATH_OWL=$(echo "implementation/$implementation/owl_ontology/")
-#            OUTPUT_PATH_SHACL=$(echo "implementation/$implementation/shacl_shapes/")
-#            OUTPUT_REPORT_PATH=$(echo "implementation/$implementation/conventions_report/")
-#            OUTPUT_CORE_FILE_NAME=$(echo "${implementation}_owl_core.rdf")
-#            OUTPUT_RESTRICTIONS_FILE_NAME=$(echo "${implementation}_restrictions.rdf")
-#            OUTPUT_SHACL_SHAPES_FILE_NAME=$(echo "${implementation}_shacl_shapes.rdf")
-#            OUTPUT_GLOSSARY_FILE_NAME=$(echo "${implementation}_glossary.html")
-#            cp transform/model2owl/config/metadata.xml implementation/$implementation/xmi_conceptual_model/
-#            ls -la implementation/$implementation/xmi_conceptual_model/
-#            echo "CM_FILE_PATH is $CM_FILE_PATH"
-#            echo "OUTPUT_PATH_OWL is $OUTPUT_PATH_OWL"
-#            echo "OUTPUT_PATH_SHACL is $OUTPUT_PATH_SHACL"
-#            echo "OUTPUT_REPORT_PATH is $OUTPUT_REPORT_PATH"
-#            echo "OUTPUT_CORE_FILE_NAME is $OUTPUT_CORE_FILE_NAME"
-#            echo "OUTPUT_RESTRICTIONS_FILE_NAME is $OUTPUT_RESTRICTIONS_FILE_NAME"
-#            echo "OUTPUT_SHACL_SHAPES_FILE_NAME is $OUTPUT_SHACL_SHAPES_FILE_NAME"
-#            echo "OUTPUT_GLOSSARY_FILE_NAME is $OUTPUT_GLOSSARY_FILE_NAME"
-#
-#            mkdir -p $OUTPUT_REPORT_PATH
-#            rm -f $OUTPUT_REPORT_PATH*.html || true
-#            rm -f $OUTPUT_PATH*.rdf || true
-#
-#            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-core.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME
-#            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME
-#            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/shacl-shapes.xsl -o:$OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME
-#            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-conventions-report.xsl -o:$OUTPUT_REPORT_PATH$OUTPUT_REPORT_FILE_NAME
-#            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-model-glossary.xsl -o:$OUTPUT_GLOSSARY_PATH$OUTPUT_GLOSSARY_FILE_NAME
-#
-#            rm -f implementation/$implementation/xmi_conceptual_model/metadata.xml
-#
-#            echo "+++++++++++++++++transform to turtle++++++++++++++++++++++++++++"
-#            echo $(ls ${OUTPUT_PATH_OWL}/*.rdf)
-#            make convert-to-turtle FILELIST=$(ls ${OUTPUT_PATH_OWL}/*.rdf)
-#            echo "-------------------end transform---------------------------------"
-#          done
-#        shell: bash
-#
-#      - name: merge implementations xmi files into one
-#        run: |
-##          AVAILABLE_IMPLEMENTATIONS=(eCatalogue ePO)
-#          for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
-#          do
-#            cp implementation/$implementation/xmi_conceptual_model/*.xml transform/merge-xmis
-#          done
-#          ls transform/merge-xmis
-#          make merge-xmi COMBINED_XMI_DIRECTORY=transform/merged-xmis-result SAXON=transform/saxon-he-10.6.jar FIRST_INPUT_XMI_FILE=./implementation/ePO/xmi_conceptual_model/ePO_CM.xml
-#        shell: bash
-#
-#
-#      - name: generate combined glossary from the merged xmi
-#        run: |
-#          make generate-glossary OUTPUT_GLOSSARY_PATH=${OUTPUT_GLOSSARY_PATH} UML_INPUT_FILENAME=./transform/merged-xmis-result/ePO-combined.xmi
-#
-#      - name: remove unnecessary files
-#        run: |
-#          sudo rm -rf transform
-#        shell: bash
-#
-#      - name: commit files
-#        id: commit
-#        run: |
-#               git config --local user.email "action@github.com"
-#               git config --local user.name "github-actions"
-#               git status
-#
-#               git add .
-#               if [ -z "$(git status --porcelain)" ]; then
-#               echo "::set-output name=push::false"
-#               else
-#               git commit -m "Adding transformation files"
-#               echo "::set-output name=push::true"
-#               fi
-#        shell: bash
-#
-#      - name: Push changes
-#        if: steps.commit.outputs.push == 'true'
-#        uses: ad-m/github-push-action@master
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          branch: ${{ github.ref }}
+      - name: get model2owl
+        run: |
+          cd transform && git clone https://github.com/OP-TED/model2owl.git
+
+      - name: get-saxon
+        run: make get-saxon PROJECT_DIR=transform
+
+      - name: get-rdflib
+        run: make get-rdflib
+
+      - name: transform step
+        run: |
+#          AVAILABLE_IMPLEMENTATIONS=(eCatalogue ePO)
+          for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
+          do
+            CM_FILE_NAME=$(ls implementation/$implementation/xmi_conceptual_model/)
+            CM_FILE_PATH=$(echo "implementation/$implementation/xmi_conceptual_model/${CM_FILE_NAME}")
+            OUTPUT_PATH_OWL=$(echo "implementation/$implementation/owl_ontology/")
+            OUTPUT_PATH_SHACL=$(echo "implementation/$implementation/shacl_shapes/")
+            OUTPUT_REPORT_PATH=$(echo "implementation/$implementation/conventions_report/")
+            OUTPUT_CORE_FILE_NAME=$(echo "${implementation}_owl_core.rdf")
+            OUTPUT_RESTRICTIONS_FILE_NAME=$(echo "${implementation}_restrictions.rdf")
+            OUTPUT_RESTRICTIONS_FILE_NAME_TTL=$(echo "${implementation}_restrictions.ttl")
+            OUTPUT_SHACL_SHAPES_FILE_NAME=$(echo "${implementation}_shacl_shapes.rdf")
+            OUTPUT_GLOSSARY_FILE_NAME=$(echo "${implementation}_glossary.html")
+            cp transform/model2owl/config/metadata.xml implementation/$implementation/xmi_conceptual_model/
+            ls -la implementation/$implementation/xmi_conceptual_model/
+            echo "CM_FILE_PATH is $CM_FILE_PATH"
+            echo "OUTPUT_PATH_OWL is $OUTPUT_PATH_OWL"
+            echo "OUTPUT_PATH_SHACL is $OUTPUT_PATH_SHACL"
+            echo "OUTPUT_REPORT_PATH is $OUTPUT_REPORT_PATH"
+            echo "OUTPUT_CORE_FILE_NAME is $OUTPUT_CORE_FILE_NAME"
+            echo "OUTPUT_RESTRICTIONS_FILE_NAME is $OUTPUT_RESTRICTIONS_FILE_NAME"
+            echo "OUTPUT_SHACL_SHAPES_FILE_NAME is $OUTPUT_SHACL_SHAPES_FILE_NAME"
+            echo "OUTPUT_GLOSSARY_FILE_NAME is $OUTPUT_GLOSSARY_FILE_NAME"
+
+            mkdir -p $OUTPUT_REPORT_PATH
+            rm -f $OUTPUT_REPORT_PATH*.html || true
+            rm -f $OUTPUT_PATH*.rdf || true
+
+            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-core.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME
+            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME
+            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/shacl-shapes.xsl -o:$OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME
+            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-conventions-report.xsl -o:$OUTPUT_REPORT_PATH$OUTPUT_REPORT_FILE_NAME
+            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-model-glossary.xsl -o:$OUTPUT_GLOSSARY_PATH$OUTPUT_GLOSSARY_FILE_NAME
+
+            rm -f implementation/$implementation/xmi_conceptual_model/metadata.xml
+
+            echo "+++++++++++++++++transform to turtle++++++++++++++++++++++++++++"
+            echo $(ls ${OUTPUT_PATH_OWL}/*.rdf)
+            rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME > $OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME_TTL
+            make convert-to-turtle FILELIST=$(ls ${OUTPUT_PATH_OWL}/*.rdf)
+            make convert-to-turtle FILELIST=$(ls ${OUTPUT_PATH_SHACL}/*.rdf)
+            echo "-------------------end transform---------------------------------"
+          done
+        shell: bash
+
+      - name: merge implementations xmi files into one
+        run: |
+#          AVAILABLE_IMPLEMENTATIONS=(eCatalogue ePO)
+          for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
+          do
+            cp implementation/$implementation/xmi_conceptual_model/*.xml transform/merge-xmis
+          done
+          ls transform/merge-xmis
+          make merge-xmi COMBINED_XMI_DIRECTORY=transform/merged-xmis-result SAXON=transform/saxon-he-10.6.jar FIRST_INPUT_XMI_FILE=./implementation/ePO/xmi_conceptual_model/ePO_CM.xml
+        shell: bash
+
+
+      - name: generate combined glossary from the merged xmi
+        run: |
+          make generate-glossary OUTPUT_GLOSSARY_PATH=${OUTPUT_GLOSSARY_PATH} UML_INPUT_FILENAME=./transform/merged-xmis-result/ePO-combined.xmi
+
+      - name: remove unnecessary files
+        run: |
+          sudo rm -rf transform
+        shell: bash
+
+      - name: commit files
+        id: commit
+        run: |
+               git config --local user.email "action@github.com"
+               git config --local user.name "github-actions"
+               git status
+
+               git add .
+               if [ -z "$(git status --porcelain)" ]; then
+               echo "::set-output name=push::false"
+               else
+               git commit -m "Adding transformation files"
+               echo "::set-output name=push::true"
+               fi
+        shell: bash
+
+      - name: Push changes
+        if: steps.commit.outputs.push == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
