@@ -30,14 +30,16 @@ jobs:
 
       - name: shell script
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eCatalogue ePO)
+          AVAILABLE_IMPLEMENTATIONS=(eCatalogue)
+          CM_FILE=
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
-            CM_FILE_PATH=$(echo "implementation/$implementation/xmi_conceptual_model/ePO_CM.xml")
+            CM_FILE_NAME=$(ls implementation/$implementation/xmi_conceptual_model/)
+            CM_FILE_PATH=$(echo "implementation/$implementation/xmi_conceptual_model/${CM_FILE_NAME}")
             OUTPUT_PATH_OWL=$(echo "implementation/$implementation/owl_ontology/")
             OUTPUT_PATH_SHACL=$(echo "implementation/$implementation/shacl_shapes/")
             OUTPUT_REPORT_PATH=$(echo "implementation/$implementation/conventions_report/")
-            OUTPUT_CORE_FILE_NAME=$(echo "$implementation_owl_core.rdf")
+            OUTPUT_CORE_FILE_NAME=$(echo "${implementation}_owl_core.rdf")
             OUTPUT_RESTRICTIONS_FILE_NAME=$(echo "${implementation}_restrictions.rdf")
             OUTPUT_SHACL_SHAPES_FILE_NAME=$(echo "${implementation}_shacl_shapes.rdf")
             OUTPUT_GLOSSARY_FILE_NAME=$(echo "${implementation}_glossary.html")
