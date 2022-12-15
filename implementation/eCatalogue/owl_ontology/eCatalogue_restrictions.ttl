@@ -192,10 +192,9 @@ epo:specifiesSeller rdfs:domain epo:Catalogue ;
     cc:attributionName "PublicationsOffice of the European Union" ;
     cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/PUBL> ;
     dc:contributor [ a foaf:Person ;
-            foaf:name "Andreea" ;
-            foaf:surname "Pasare" ;
-            schema:affiliation [ foaf:name "Meaningfy" ;
-                    foaf:page <http://meaningfy.ws> ] ],
+            foaf:name "Natalie" ;
+            foaf:surname "Muric" ;
+            schema:affiliation [ foaf:name "Publications Office of the European Union" ] ],
         [ a foaf:Person ;
             foaf:homepage <http://costezki.ro> ;
             foaf:name "Eugeniu" ;
@@ -203,9 +202,10 @@ epo:specifiesSeller rdfs:domain epo:Catalogue ;
             schema:affiliation [ foaf:name "Meaningfy" ;
                     foaf:page <http://meaningfy.ws> ] ],
         [ a foaf:Person ;
-            foaf:name "Natalie" ;
-            foaf:surname "Muric" ;
-            schema:affiliation [ foaf:name "Publications Office of the European Union" ] ] ;
+            foaf:name "Andreea" ;
+            foaf:surname "Pasare" ;
+            schema:affiliation [ foaf:name "Meaningfy" ;
+                    foaf:page <http://meaningfy.ws> ] ] ;
     dc:rights "This ontology is licenced under CC BY-SA 4.0 - http://creativecommons.org/licenses/by-sa/4.0/" ;
     dct:creator [ a foaf:Person ;
             foaf:name "eProcurement Ontology Working Group" ] ;
@@ -368,11 +368,11 @@ epo:Brand a owl:Class ;
 
 epo:CatalogueDocument a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:instantiatesCatalogue ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:hasName ] .
+            owl:onProperty epo:hasName ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:instantiatesCatalogue ] .
 
 epo:ItemModel a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -387,10 +387,10 @@ epo:CatalogueFragment a owl:Class ;
 epo:CatalogueUpdateDocument a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:hasSourceCatalogueVersion ],
+            owl:onProperty epo:hasTargetCatalogueVersion ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:hasTargetCatalogueVersion ] .
+            owl:onProperty epo:hasSourceCatalogueVersion ] .
 
 epo:CertificationLabel a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -399,22 +399,22 @@ epo:CertificationLabel a owl:Class ;
 
 epo:ItemRelation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:isRelatedToItem ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasFactor ] .
+            owl:onProperty epo:hasFactor ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:isRelatedToItem ] .
 
 epo:Batch a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:isProductionOf ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasExpiryDate ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasBestBeforeDate ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:isProductionOf ] .
+            owl:onProperty epo:hasBestBeforeDate ] .
 
 epo:hasName a owl:FunctionalProperty ;
     rdfs:domain [ a owl:Class ;
@@ -423,6 +423,9 @@ epo:hasName a owl:FunctionalProperty ;
 
 epo:ItemDescription a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasLiteralValue ],
+        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty epo:hasAttributeType ],
         [ a owl:Restriction ;
@@ -430,13 +433,13 @@ epo:ItemDescription a owl:Class ;
             owl:onProperty epo:hasClassificationScheme ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:describesItem ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasLiteralValue ] .
+            owl:onProperty epo:describesItem ] .
 
 epo:ItemCertificate a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasURL ],
+        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty epo:attestedByLabel ],
         [ a owl:Restriction ;
@@ -444,47 +447,59 @@ epo:ItemCertificate a owl:Class ;
             owl:onProperty epo:issuedByCertifier ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:hasCertificationNumber ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasURL ] .
+            owl:onProperty epo:hasCertificationNumber ] .
 
 epo:Catalogue a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:comprisesCatalogueLine ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasSpecificPaymentArrangement ] .
+            owl:onProperty epo:hasSpecificPaymentArrangement ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:comprisesCatalogueLine ] .
 
 epo:CatalogueLine a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasOrderableQuantityIncrement ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isOrderable ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasTransactionConditions ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty epo:specifiesItem ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasOrderableUnitFactorRate ],
+            owl:onProperty epo:hasTransactionConditions ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:hasPrice ],
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasOrderableUnitFactorRate ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasWarrantyInformation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isContractedItem ] .
+            owl:onProperty epo:hasOrderableQuantityIncrement ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:hasPrice ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:isContractedItem ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:isOrderable ] .
 
 epo:Item a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasBrand ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasDescription ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasName ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasModel ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasVATRate ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasHazardousClass ],
         [ a owl:Restriction ;
@@ -492,20 +507,5 @@ epo:Item a owl:Class ;
             owl:onProperty epo:hasManufacturer ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasModel ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasName ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasBrand ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasDescription ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isInStock ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasVATRate ] .
+            owl:onProperty epo:isInStock ] .
 
