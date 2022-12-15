@@ -22,7 +22,7 @@ Preferred prefix: `epo`
 
 # Documentation
 
-Documentation on the eProcurement Ontology can be found [here](https://docs.ted.europa.eu/EPO/dev/index.html).
+Documentation on the eProcurement Ontology can be found [here](https://docs.ted.europa.eu/EPO/latest/index.html).
 
 Note: If you discover any issues or have questions please put them on [GitHub issues](https://github.com/OP-TED/ePO/issues) and we will address them. Also, we have reorganised the GitHub repository (and moved it from *eprocurementontology/eprocurementontology* to *OP-TED/epo*) and if you experience problems or need assistance feel free to [contact us by email](mailto:OP-EPROCUREMENT-ONTOLOGY@publications.europa.eu).
 
