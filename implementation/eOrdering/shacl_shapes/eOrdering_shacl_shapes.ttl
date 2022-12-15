@@ -22,15 +22,15 @@
             schema:affiliation [ foaf:name "Meaningfy" ;
                     foaf:page <http://meaningfy.ws> ] ],
         [ a foaf:Person ;
-            foaf:name "Natalie" ;
-            foaf:surname "Muric" ;
-            schema:affiliation [ foaf:name "Publications Office of the European Union" ] ],
-        [ a foaf:Person ;
             foaf:homepage <http://costezki.ro> ;
             foaf:name "Eugeniu" ;
             foaf:surname "Costetchi" ;
             schema:affiliation [ foaf:name "Meaningfy" ;
-                    foaf:page <http://meaningfy.ws> ] ] ;
+                    foaf:page <http://meaningfy.ws> ] ],
+        [ a foaf:Person ;
+            foaf:name "Natalie" ;
+            foaf:surname "Muric" ;
+            schema:affiliation [ foaf:name "Publications Office of the European Union" ] ] ;
     dc:rights "This ontology is licenced under CC BY-SA 4.0 - http://creativecommons.org/licenses/by-sa/4.0/" ;
     dct:creator [ a foaf:Person ;
             foaf:name "eProcurement Ontology Working Group" ] ;
@@ -133,22 +133,22 @@ epo:OrderResponse a sh:NodeShape ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
     sh:name "Order response" ;
     sh:property [ a sh:PropertyShape ;
-            sh:class epo:Seller ;
-            sh:name "Is submitted by seller" ;
-            sh:path epo:isSubmittedBySeller ],
-        [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:name "Has response description" ;
-            sh:path epo:hasResponseDescription ],
+            sh:minCount 1 ;
+            sh:name "Has acceptance status" ;
+            sh:path epo:hasAcceptanceStatus ],
         [ a sh:PropertyShape ;
             sh:datatype rdfs:Literal ;
             sh:name "Has response description" ;
             sh:path epo:hasResponseDescription ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:name "Has acceptance status" ;
-            sh:path epo:hasAcceptanceStatus ] ;
+            sh:name "Has response description" ;
+            sh:path epo:hasResponseDescription ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Seller ;
+            sh:name "Is submitted by seller" ;
+            sh:path epo:isSubmittedBySeller ] ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedBySeller> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedBySeller> ?this .} " ],
         [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasAcceptanceStatus> ?that . ?that <http://data.europa.eu/a4g/ontology#hasAcceptanceStatus> ?this .} " ] ;
     sh:targetClass epo:OrderResponse .
@@ -164,11 +164,11 @@ epo:PriceModifierInformation a sh:NodeShape ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
     sh:name "Price modifier information" ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
             sh:name "Has price percentage" ;
             sh:path epo:hasPricePercentage ],
         [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
+            sh:datatype xsd:decimal ;
             sh:name "Has price percentage" ;
             sh:path epo:hasPricePercentage ] ;
     sh:targetClass epo:PriceModifierInformation .
@@ -258,14 +258,6 @@ epo:DeliveryInformation a sh:NodeShape ;
 """ ;
     sh:name "Delivery information" ;
     sh:property [ a sh:PropertyShape ;
-            sh:class epo:Consignee ;
-            sh:name "Concerns consignee" ;
-            sh:path epo:concernsConsignee ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Concerns beneficiary" ;
-            sh:path epo:concernsBeneficiary ],
-        [ a sh:PropertyShape ;
             sh:class epo:OrderLine ;
             sh:name "Is specific to order line" ;
             sh:path epo:isSpecificToOrderLine ],
@@ -274,16 +266,24 @@ epo:DeliveryInformation a sh:NodeShape ;
             sh:name "Concerns consignee" ;
             sh:path epo:concernsConsignee ],
         [ a sh:PropertyShape ;
-            sh:datatype rdfs:Literal ;
-            sh:name "Has shipping mark" ;
-            sh:path epo:hasShippingMark ],
+            sh:maxCount 1 ;
+            sh:name "Concerns beneficiary" ;
+            sh:path epo:concernsBeneficiary ],
         [ a sh:PropertyShape ;
             sh:class epo:Beneficiary ;
             sh:name "Concerns beneficiary" ;
-            sh:path epo:concernsBeneficiary ] ;
+            sh:path epo:concernsBeneficiary ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Consignee ;
+            sh:name "Concerns consignee" ;
+            sh:path epo:concernsConsignee ],
+        [ a sh:PropertyShape ;
+            sh:datatype rdfs:Literal ;
+            sh:name "Has shipping mark" ;
+            sh:path epo:hasShippingMark ] ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsConsignee> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsConsignee> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsBeneficiary> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsBeneficiary> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ] ;
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsBeneficiary> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsBeneficiary> ?this .} " ] ;
     sh:targetClass epo:DeliveryInformation .
 
 epo:DiscountInformation a sh:NodeShape ;
@@ -326,11 +326,11 @@ epo:OrderLineResponse a sh:NodeShape ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
     sh:name "Order line response" ;
     sh:property [ a sh:PropertyShape ;
-            sh:minCount 1 ;
+            sh:class epo:OrderLine ;
             sh:name "Is submitted for order line" ;
             sh:path epo:isSubmittedForOrderLine ],
         [ a sh:PropertyShape ;
-            sh:class epo:OrderLine ;
+            sh:minCount 1 ;
             sh:name "Is submitted for order line" ;
             sh:path epo:isSubmittedForOrderLine ] ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForOrderLine> ?this .} " ] ;
@@ -363,18 +363,18 @@ epo:OriginatorInformation a sh:NodeShape ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
     sh:name "Originator information" ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:name "Concerns originator" ;
-            sh:path epo:concernsOriginator ],
+            sh:class epo:OrderLine ;
+            sh:name "Is specific to order line" ;
+            sh:path epo:isSpecificToOrderLine ],
         [ a sh:PropertyShape ;
             sh:class epo:Originator ;
             sh:name "Concerns originator" ;
             sh:path epo:concernsOriginator ],
         [ a sh:PropertyShape ;
-            sh:class epo:OrderLine ;
-            sh:name "Is specific to order line" ;
-            sh:path epo:isSpecificToOrderLine ] ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Concerns originator" ;
+            sh:path epo:concernsOriginator ] ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ],
         [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsOriginator> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsOriginator> ?this .} " ] ;
     sh:targetClass epo:OriginatorInformation .
@@ -389,14 +389,15 @@ epo:Order a sh:NodeShape ;
             sh:path epo:comprisesOrderLine ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:name "Supersedes order" ;
-            sh:path epo:supersedesOrder ],
+            sh:minCount 1 ;
+            sh:name "Is submitted to seller" ;
+            sh:path epo:isSubmittedToSeller ],
         [ a sh:PropertyShape ;
-            sh:class epo:Order ;
-            sh:name "Supersedes order" ;
-            sh:path epo:supersedesOrder ],
+            sh:maxCount 1 ;
+            sh:name "Specifies originator information" ;
+            sh:path epo:specifiesOriginatorInformation ],
         [ a sh:PropertyShape ;
-            sh:class epo:Invoicee ;
+            sh:maxCount 1 ;
             sh:name "Invoiced to invoicee" ;
             sh:path epo:invoicedToInvoicee ],
         [ a sh:PropertyShape ;
@@ -404,7 +405,23 @@ epo:Order a sh:NodeShape ;
             sh:name "Is submitted to seller" ;
             sh:path epo:isSubmittedToSeller ],
         [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
+            sh:class epo:Invoicee ;
+            sh:name "Invoiced to invoicee" ;
+            sh:path epo:invoicedToInvoicee ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:name "Specifies delivery information" ;
+            sh:path epo:specifiesDeliveryInformation ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Order ;
+            sh:name "Supersedes order" ;
+            sh:path epo:supersedesOrder ],
+        [ a sh:PropertyShape ;
+            sh:class epo:DiscountInformation ;
+            sh:name "Specifies discount information" ;
+            sh:path epo:specifiesDiscountInformation ],
+        [ a sh:PropertyShape ;
+            sh:class epo:OriginatorInformation ;
             sh:name "Specifies originator information" ;
             sh:path epo:specifiesOriginatorInformation ],
         [ a sh:PropertyShape ;
@@ -412,42 +429,25 @@ epo:Order a sh:NodeShape ;
             sh:name "Comprises order line" ;
             sh:path epo:comprisesOrderLine ],
         [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:name "Specifies delivery information" ;
-            sh:path epo:specifiesDeliveryInformation ],
+            sh:class epo:ContractInformation ;
+            sh:name "Specifies contract information" ;
+            sh:path epo:specifiesContractInformation ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:name "Is submitted to seller" ;
-            sh:path epo:isSubmittedToSeller ],
-        [ a sh:PropertyShape ;
-            sh:class epo:OriginatorInformation ;
-            sh:name "Specifies originator information" ;
-            sh:path epo:specifiesOriginatorInformation ],
-        [ a sh:PropertyShape ;
-            sh:class epo:DiscountInformation ;
-            sh:name "Specifies discount information" ;
-            sh:path epo:specifiesDiscountInformation ],
+            sh:name "Supersedes order" ;
+            sh:path epo:supersedesOrder ],
         [ a sh:PropertyShape ;
             sh:class epo:DeliveryInformation ;
             sh:name "Specifies delivery information" ;
-            sh:path epo:specifiesDeliveryInformation ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Invoiced to invoicee" ;
-            sh:path epo:invoicedToInvoicee ],
-        [ a sh:PropertyShape ;
-            sh:class epo:ContractInformation ;
-            sh:name "Specifies contract information" ;
-            sh:path epo:specifiesContractInformation ] ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedToSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedToSeller> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?this .} " ],
+            sh:path epo:specifiesDeliveryInformation ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?this .} " ],
         [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesOriginatorInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesOriginatorInformation> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#supersedesOrder> ?that . ?that <http://data.europa.eu/a4g/ontology#supersedesOrder> ?this .} " ],
         [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#invoicedToInvoicee> ?that . ?that <http://data.europa.eu/a4g/ontology#invoicedToInvoicee> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDiscountInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDiscountInformation> ?this .} " ] ;
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDiscountInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDiscountInformation> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#supersedesOrder> ?that . ?that <http://data.europa.eu/a4g/ontology#supersedesOrder> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedToSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedToSeller> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?this .} " ] ;
     sh:targetClass epo:Order .
 
 epo:Seller a sh:NodeShape ;
