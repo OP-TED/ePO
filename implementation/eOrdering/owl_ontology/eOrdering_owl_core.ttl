@@ -4,6 +4,7 @@
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <https://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
@@ -34,23 +35,6 @@ WG approval: 20/10/2022
 
 """@en ;
     skos:prefLabel "Beneficiary"@en .
-
-:Carrier a owl:Class ;
-    rdfs:label "Carrier"@en ;
-    rdfs:comment """The role of an Agent who handles the physical delivery/transportation of the (despatched) shipment. 
-
-Additional Information:
-This role is also known as Deliverer.
-
-WG approval: 11/10/2022"""@en ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    skos:definition """The role of an Agent who handles the physical delivery/transportation of the (despatched) shipment. 
-
-Additional Information:
-This role is also known as Deliverer.
-
-WG approval: 11/10/2022"""@en ;
-    skos:prefLabel "Carrier"@en .
 
 :Consignee a owl:Class ;
     rdfs:label "Consignee"@en ;
@@ -122,50 +106,21 @@ WG approval: 20/10/2022
 """@en ;
     skos:prefLabel "Invoicee"@en .
 
-:Invoicer a owl:Class ;
-    rdfs:label "Invoicer"@en ;
-    rdfs:comment """The role of an Agent who claims the payment and is responsible for resolving billing issues and payment arrangements.
-
-Additional information:
-Most of the time the Invoicer is the Seller.
-The Invoicer may or may not be the owner of the credit owed by the Buyer.
-
-Also, known in other contexts as Invoice Issuer, Accounts Receivable or Creditor.
-
-"""@en ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    skos:definition """The role of an Agent who claims the payment and is responsible for resolving billing issues and payment arrangements.
-
-Additional information:
-Most of the time the Invoicer is the Seller.
-The Invoicer may or may not be the owner of the credit owed by the Buyer.
-
-Also, known in other contexts as Invoice Issuer, Accounts Receivable or Creditor.
-
-"""@en ;
-    skos:prefLabel "Invoicer"@en .
-
 :Order a owl:Class ;
     rdfs:label "Order"@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
     skos:prefLabel "Order"@en .
 
-:OrderLine a owl:Class ;
-    rdfs:label "Order line"@en ;
-    rdfs:comment """
-
-Additional information:
-We cannot have an order of an item without specifying quantity and price.  
-
-Price may not be known, as the price may differ from one day to the other. """@en ;
+:OrderResponse a owl:Class ;
+    rdfs:label "Order response"@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    skos:definition """
+    skos:prefLabel "Order response"@en .
 
-Additional information:
-We cannot have an order of an item without specifying quantity and price.  
-
-Price may not be known, as the price may differ from one day to the other. """@en ;
-    skos:prefLabel "Order line"@en .
+:OrderResponseLine a owl:Class ;
+    rdfs:label "Order response line"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    rdfs:subClassOf :OrderLine ;
+    skos:prefLabel "Order response line"@en .
 
 :Ordering a owl:Class ;
     rdfs:label "Ordering"@en ;
@@ -233,6 +188,11 @@ WG acceptance 08/09/2022"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
     skos:prefLabel "Comprises order line"@en .
 
+:comprisesOrderResponseLine a owl:ObjectProperty ;
+    rdfs:label "Comprises order response line"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    skos:prefLabel "Comprises order response line"@en .
+
 :concernsBeneficiary a owl:ObjectProperty ;
     rdfs:label "Concerns beneficiary"@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
@@ -273,6 +233,36 @@ WG acceptance 08/09/2022"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
     skos:prefLabel "Has acceptance status"@en .
 
+:hasAccountingCost a rdf:Property ;
+    rdfs:label "Has accounting cost"@en ;
+    rdfs:comment """The accounting reference used by the Buyer to specify the account to which the order and the corresponding invoice are booked. 
+
+WG approval 2023-01-26 (epo-ord:Order) """@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    skos:definition """The accounting reference used by the Buyer to specify the account to which the order and the corresponding invoice are booked. 
+
+WG approval 2023-01-26 (epo-ord:Order) """@en ;
+    skos:prefLabel "Has accounting cost"@en .
+
+:hasCustomerReference a rdf:Property ;
+    rdfs:label "Has customer reference"@en ;
+    rdfs:comment """A supplementary reference for the order.
+
+Additional information:
+This information can be used for the buyer's internal processes.
+This reference can also be used in the invoice. 
+
+WG approval 2023-01-26 (epo-ord:Order) """@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    skos:definition """A supplementary reference for the order.
+
+Additional information:
+This information can be used for the buyer's internal processes.
+This reference can also be used in the invoice. 
+
+WG approval 2023-01-26 (epo-ord:Order) """@en ;
+    skos:prefLabel "Has customer reference"@en .
+
 :hasDeliveryPeriod a owl:ObjectProperty ;
     rdfs:label "Has delivery period"@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
@@ -289,10 +279,16 @@ WG approval 26/07/2022 (epo-ord:PriceModifierInformation -> epo:MonetaryValue (+
 WG approval 26/07/2022 (epo-ord:PriceModifierInformation -> epo:MonetaryValue (+epo-cat:hasFixedAmount)) """@en ;
     skos:prefLabel "Has fixed amount"@en .
 
-:hasOrderQuantity a owl:ObjectProperty ;
-    rdfs:label "Has order quantity"@en ;
+:hasOrderType a owl:ObjectProperty ;
+    rdfs:label "Has order type"@en ;
+    rdfs:comment """
+
+https://docs.peppol.eu/poacc/upgrade-3/2022-Q4/codelist/UNCL1001_T01/ (epo-ord:Order -> at-voc:order-type (+epo-ord:hasOrderType)) """@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    skos:prefLabel "Has order quantity"@en .
+    skos:definition """
+
+https://docs.peppol.eu/poacc/upgrade-3/2022-Q4/codelist/UNCL1001_T01/ (epo-ord:Order -> at-voc:order-type (+epo-ord:hasOrderType)) """@en ;
+    skos:prefLabel "Has order type"@en .
 
 :hasPrice a owl:ObjectProperty ;
     rdfs:label "Has price"@en ;
@@ -310,10 +306,10 @@ WG approval 26/07/2022 (epo-ord:PriceModifierInformation) """@en ;
 WG approval 26/07/2022 (epo-ord:PriceModifierInformation) """@en ;
     skos:prefLabel "Has price percentage"@en .
 
-:hasPromisedDeliveryPeriod a owl:ObjectProperty ;
-    rdfs:label "Has promised delivery period"@en ;
+:hasQuantity a owl:ObjectProperty ;
+    rdfs:label "Has quantity"@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    skos:prefLabel "Has promised delivery period"@en .
+    skos:prefLabel "Has quantity"@en .
 
 :hasResponseDescription a owl:DatatypeProperty ;
     rdfs:label "Has response description"@en ;
@@ -327,10 +323,10 @@ WG approval 26/07/2022 (epo-ord:PriceModifierInformation) """@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
     skos:prefLabel "Has shipping mark"@en .
 
-:hasValidityPeriod a owl:ObjectProperty ;
-    rdfs:label "Has validity period"@en ;
+:hasTrackingID a owl:ObjectProperty ;
+    rdfs:label "Has tracking i d"@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    skos:prefLabel "Has validity period"@en .
+    skos:prefLabel "Has tracking i d"@en .
 
 :invoicedToInvoicee a owl:ObjectProperty ;
     rdfs:label "Invoiced to invoicee"@en ;
@@ -348,6 +344,11 @@ WG approval 26/07/2022 (epo-ord:PriceModifierInformation) """@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
     skos:definition "Information that is particular to one or multiple OrderLines. (epo-ord:DeliveryInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine)) "@en ;
     skos:prefLabel "Is specific to order line"@en .
+
+:isSpecificToOrderResponseLine a owl:ObjectProperty ;
+    rdfs:label "Is specific to order response line"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    skos:prefLabel "Is specific to order response line"@en .
 
 :isSubmittedByBuyer a owl:ObjectProperty ;
     rdfs:label "Is submitted by buyer"@en ;
@@ -413,11 +414,6 @@ The reference to the catalogue line is for information only, to trace the source
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
     skos:prefLabel "Refers to order line"@en .
 
-:specifiesCarrier a owl:ObjectProperty ;
-    rdfs:label "Specifies carrier"@en ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    skos:prefLabel "Specifies carrier"@en .
-
 :specifiesChargeInformation a owl:ObjectProperty ;
     rdfs:label "Specifies charge information"@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
@@ -461,6 +457,11 @@ The reference to the catalogue line is for information only, to trace the source
     rdfs:label "Specifies order line delivery"@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
     skos:prefLabel "Specifies order line delivery"@en .
+
+:specifiesOrderResponseInformation a owl:ObjectProperty ;
+    rdfs:label "Specifies order response information"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    skos:prefLabel "Specifies order response information"@en .
 
 :specifiesOriginator a owl:ObjectProperty ;
     rdfs:label "Specifies originator"@en ;
@@ -510,29 +511,27 @@ xsd:Integer a rdfs:Datatype ;
     rdfs:label "Integer"@en ;
     skos:prefLabel "Integer"@en .
 
-:OrderHeaderResponse a owl:Class ;
-    rdfs:label "Order header response"@en ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    rdfs:subClassOf :OrderResponse ;
-    owl:disjointWith :OrderLineResponse ;
-    skos:prefLabel "Order header response"@en .
+:OrderLine a owl:Class ;
+    rdfs:label "Order line"@en ;
+    rdfs:comment """
 
-:OrderLineResponse a owl:Class ;
-    rdfs:label "Order line response"@en ;
+Additional information:
+We cannot have an order of an item without specifying quantity and price.  
+
+Price may not be known, as the price may differ from one day to the other. """@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    rdfs:subClassOf :OrderResponse ;
-    owl:disjointWith :OrderHeaderResponse ;
-    skos:prefLabel "Order line response"@en .
+    skos:definition """
+
+Additional information:
+We cannot have an order of an item without specifying quantity and price.  
+
+Price may not be known, as the price may differ from one day to the other. """@en ;
+    skos:prefLabel "Order line"@en .
 
 :PriceModifierInformation a owl:Class ;
     rdfs:label "Price modifier information"@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
     skos:prefLabel "Price modifier information"@en .
-
-:OrderResponse a owl:Class ;
-    rdfs:label "Order response"@en ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    skos:prefLabel "Order response"@en .
 
 <http://data.europa.eu/a4g/ontology> a owl:Ontology ;
     rdfs:label "eProcurement Ontology - eOrdering"@en ;
@@ -556,7 +555,7 @@ xsd:Integer a rdfs:Datatype ;
     dc:rights "This ontology is licenced under CC BY-SA 4.0 - http://creativecommons.org/licenses/by-sa/4.0/" ;
     dct:creator [ a foaf:Person ;
             foaf:name "eProcurement Ontology Working Group" ] ;
-    dct:date "2022-12-15"^^xsd:date ;
+    dct:date "2023-02-07"^^xsd:date ;
     dct:description """
         This module provides the definitions for the eOrdering of eProcurement ontology.
         Procurement data has been identified as data with a high-reuse potential.
@@ -572,13 +571,13 @@ xsd:Integer a rdfs:Datatype ;
     dct:title "eProcurement Ontology - eOrdering"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eOrdering_CM.xml on 2022-12-15" ;
+    rdfs:comment "This version is automatically generated from eOrdering_CM.xml on 2023-02-07" ;
     rdfs:seeAlso <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
     owl:imports dct:,
         <http://www.w3.org/2004/02/skos/core> ;
     owl:incompatibleWith "2.x.x" ;
-    owl:versionIRI :eOrdering_CM.xml-2022-12-15 ;
+    owl:versionIRI :eOrdering_CM.xml-2023-02-07 ;
     owl:versionInfo "3.1.0" .
 

@@ -45,29 +45,6 @@
                      <td></td>
                   </tr>
                   <tr>
-                     <td>epo-ful:Carrier</td>
-                     <td>The role of an Agent who handles the physical delivery/transportation of the (despatched)
-                        shipment. 
-                        
-                        Additional Information:
-                        This role is also known as Deliverer.
-                        
-                        WG approval: 11/10/2022</td>
-                  </tr>
-                  <tr>
-                     <td>epo-ful:Invoicer</td>
-                     <td>The role of an Agent who claims the payment and is responsible for resolving billing
-                        issues and payment arrangements.
-                        
-                        Additional information:
-                        Most of the time the Invoicer is the Seller.
-                        The Invoicer may or may not be the owner of the credit owed by the Buyer.
-                        
-                        Also, known in other contexts as Invoice Issuer, Accounts Receivable or Creditor.
-                        
-                        </td>
-                  </tr>
-                  <tr>
                      <td>epo-ord:Beneficiary</td>
                      <td>The role of an agent that exploits the result of the procurement (service, goods or
                         works). 
@@ -130,10 +107,6 @@
                      <td></td>
                   </tr>
                   <tr>
-                     <td>epo-ord:OrderHeaderResponse</td>
-                     <td></td>
-                  </tr>
-                  <tr>
                      <td>epo-ord:Ordering</td>
                      <td></td>
                   </tr>
@@ -147,11 +120,11 @@
                         Price may not be known, as the price may differ from one day to the other. </td>
                   </tr>
                   <tr>
-                     <td>epo-ord:OrderLineResponse</td>
+                     <td>epo-ord:OrderResponse</td>
                      <td></td>
                   </tr>
                   <tr>
-                     <td>epo-ord:OrderResponse</td>
+                     <td>epo-ord:OrderResponseLine</td>
                      <td></td>
                   </tr>
                   <tr>
@@ -216,6 +189,27 @@
                      <td>rdfs:Literal [0..*]</td>
                   </tr>
                   <tr>
+                     <td>epo-ord:Order</td>
+                     <td>epo-ord:hasAccountingCost</td>
+                     <td>The accounting reference used by the Buyer to specify the account to which the order
+                        and the corresponding invoice are booked. 
+                        
+                        WG approval 2023-01-26</td>
+                     <td>rdf:PlainLiteral [0..1]</td>
+                  </tr>
+                  <tr>
+                     <td>epo-ord:Order</td>
+                     <td>epo-ord:hasCustomerReference</td>
+                     <td>A supplementary reference for the order.
+                        
+                        Additional information:
+                        This information can be used for the buyer's internal processes.
+                        This reference can also be used in the invoice. 
+                        
+                        WG approval 2023-01-26</td>
+                     <td>rdf:PlainLiteral [0..1]</td>
+                  </tr>
+                  <tr>
                      <td>epo-ord:OrderResponse</td>
                      <td>epo-ord:hasResponseDescription</td>
                      <td>Response clarification of the Supplier decision. </td>
@@ -244,6 +238,11 @@
                      <td>epo-ord:Order -&gt; epo-ord:OrderLine [1..*]</td>
                   </tr>
                   <tr>
+                     <td>epo-ord:comprisesOrderResponseLine</td>
+                     <td></td>
+                     <td>epo-ord:OrderResponse -&gt; epo-ord:OrderResponseLine [0..*]</td>
+                  </tr>
+                  <tr>
                      <td>epo-ord:concernsConsignee</td>
                      <td></td>
                      <td>epo-ord:DeliveryInformation -&gt; epo-ord:Consignee [0..1]</td>
@@ -254,9 +253,11 @@
                      <td>epo-ord:OriginatorInformation -&gt; epo-ord:Originator [1]</td>
                   </tr>
                   <tr>
-                     <td>epo-ord:hasAcceptanceStatus</td>
-                     <td></td>
-                     <td>epo-ord:OrderResponse -&gt; epo-voc:OrderLineAcceptanceStatus [1]</td>
+                     <td>epo-ord:hasOrderType</td>
+                     <td>
+                        
+                        https://docs.peppol.eu/poacc/upgrade-3/2022-Q4/codelist/UNCL1001_T01/</td>
+                     <td>epo-ord:Order -&gt; at-voc:order-type [0..1]</td>
                   </tr>
                   <tr>
                      <td>epo-ord:invoicedToInvoicee</td>
@@ -265,8 +266,8 @@
                   </tr>
                   <tr>
                      <td>epo-ord:isSpecificToOrderLine</td>
-                     <td> Information that is particular to one or multiple OrderLines.   </td>
-                     <td>epo-ord:ContractInformation -&gt; epo-ord:OrderLine [0..*]<br>epo-ord:DeliveryInformation -&gt; epo-ord:OrderLine [0..*]<br>epo-ord:DiscountInformation -&gt; epo-ord:OrderLine [0..*]<br><br>epo-ord:OriginatorInformation -&gt; epo-ord:OrderLine [0..*]<br></td>
+                     <td>  Information that is particular to one or multiple OrderLines.  </td>
+                     <td>epo-ord:OriginatorInformation -&gt; epo-ord:OrderLine [0..*]<br>epo-ord:ContractInformation -&gt; epo-ord:OrderLine [0..*]<br>epo-ord:DeliveryInformation -&gt; epo-ord:OrderLine [0..*]<br>epo-ord:DiscountInformation -&gt; epo-ord:OrderLine [0..*]<br><br></td>
                   </tr>
                   <tr>
                      <td>epo-ord:isSubmittedBySeller</td>
@@ -276,12 +277,12 @@
                   <tr>
                      <td>epo-ord:isSubmittedForOrder</td>
                      <td></td>
-                     <td>epo-ord:OrderHeaderResponse -&gt; epo-ord:Order [1]</td>
+                     <td>epo-ord:OrderResponse -&gt; epo-ord:Order [1]</td>
                   </tr>
                   <tr>
                      <td>epo-ord:isSubmittedForOrderLine</td>
                      <td></td>
-                     <td>epo-ord:OrderLineResponse -&gt; epo-ord:OrderLine [1..*]</td>
+                     <td>epo-ord:OrderResponseLine -&gt; epo-ord:OrderLine [1..*]</td>
                   </tr>
                   <tr>
                      <td>epo-ord:isSubmittedToSeller</td>
