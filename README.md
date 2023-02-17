@@ -20,12 +20,6 @@
 2. [Documentation](#documentation)
 3. [Releases](#releases)
 
-Ontology reference URI: `http://data.europa.eu/a4g/ontology`  
-
-Ontology namespace: `http://data.europa.eu/a4g/ontology#` 
-
-Preferred prefix: `epo`
-
 
 ## Download latest
 
@@ -37,6 +31,12 @@ Preferred prefix: `epo`
 | eNotice    |  [eNotice_owl_core.ttl](implementation/eCatalogue/owl_ontology/eNotice_owl_core.ttl)   | [eNotice_restrictions.ttl](implementation/ePO/owl_ontology/eNotice_restrictions.ttl) | [eNotice_shacl_shapes.ttl](implementation/ePO/shacl_shapes/eNotice_shacl_shapes.ttl) |
 
 # Documentation
+
+Ontology reference URI: `http://data.europa.eu/a4g/ontology`  
+
+Ontology namespace: `http://data.europa.eu/a4g/ontology#` 
+
+Preferred prefix: `epo`
 
 Documentation on the eProcurement Ontology can be found [here](https://docs.ted.europa.eu/EPO/latest/index.html).
 
