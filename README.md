@@ -1,5 +1,18 @@
 # eProcurement Ontology (ePO)
 
+[![transform ePO core XMI](https://github.com/OP-TED/ePO/actions/workflows/transform_epo.yml/badge.svg?branch=master)](https://github.com/OP-TED/ePO/actions/workflows/transform_epo.yml)
+[![transform eNotice XMI](https://github.com/OP-TED/ePO/actions/workflows/transform_notice.yml/badge.svg?branch=master)](https://github.com/OP-TED/ePO/actions/workflows/transform_notice.yml)
+[![transform eCatalogue XMI](https://github.com/OP-TED/ePO/actions/workflows/transform_catalogue.yml/badge.svg?branch=master)](https://github.com/OP-TED/ePO/actions/workflows/transform_catalogue.yml)
+
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/OP-TED/epo)
+![GitHub last commit](https://img.shields.io/github/last-commit/OP-TED/epo)
+
+![GitHub contributors](https://img.shields.io/github/contributors-anon/OP-TED/epo)
+![GitHub issues](https://img.shields.io/github/issues/OP-TED/epo)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/OP-TED/epo)
+![GitHub Repo stars](https://img.shields.io/github/stars/OP-TED/epo?style=social)
+![GitHub forks](https://img.shields.io/github/forks/OP-TED/epo?style=social)
+![GitHub](https://img.shields.io/github/license/OP-TED/epo)
 
 Ontology reference URI: `http://data.europa.eu/a4g/ontology`  
 
