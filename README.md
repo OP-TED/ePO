@@ -14,26 +14,29 @@
 ![GitHub forks](https://img.shields.io/github/forks/OP-TED/epo?style=social)
 ![GitHub](https://img.shields.io/github/license/OP-TED/epo)
 
+### Contents
+
+1. [Download latest](#downloads)
+2. [Documentation](#documentation)
+3. [Releases](#releases)
+
+
+## Download latest
+
+| Module     |                             Core layer (OWL)                             | Restrictions layer (OWL) | Data Shapes layer (SHACL) |
+|------------|:------------------------------------------------------------------------:|:---:|:---:|
+| ePO core   |        [ePO_owl_core.ttl](implementation/ePO/owl_ontology/ePO_owl_core.ttl)        | [ePO_restrictions.ttl](implementation/ePO/owl_ontology/ePO_restrictions.ttl) | [ePO_shacl_shapes.ttl](implementation/ePO/shacl_shapes/ePO_shacl_shapes.ttl) |
+| eCatalogue | [eCatalogue_owl_core.ttl](implementation/eCatalogue/owl_ontology/eCatalogue_owl_core.ttl) | [eCatalogue_restrictions.ttl](implementation/ePO/owl_ontology/eCatalogue_restrictions.ttl) | [eCatalogue_shacl_shapes.ttl](implementation/ePO/shacl_shapes/eCatalogue_shacl_shapes.ttl) |
+| eOrdering  | [eOrdering_owl_core.ttl](implementation/eCatalogue/owl_ontology/eOrdering_owl_core.ttl)  | [eOrdering_restrictions.ttl](implementation/ePO/owl_ontology/eOrdering_restrictions.ttl) | [eOrdering_shacl_shapes.ttl](implementation/ePO/shacl_shapes/eOrdering_shacl_shapes.ttl) |
+| eNotice    |  [eNotice_owl_core.ttl](implementation/eCatalogue/owl_ontology/eNotice_owl_core.ttl)   | [eNotice_restrictions.ttl](implementation/ePO/owl_ontology/eNotice_restrictions.ttl) | [eNotice_shacl_shapes.ttl](implementation/ePO/shacl_shapes/eNotice_shacl_shapes.ttl) |
+
+# Documentation
+
 Ontology reference URI: `http://data.europa.eu/a4g/ontology`  
 
 Ontology namespace: `http://data.europa.eu/a4g/ontology#` 
 
 Preferred prefix: `epo`
-
-
-## Downloads
-
-**ePO core:**
-* [Core layer](implementation/ePO/owl_ontology/ePO_owl_core.rdf)
-* [Restrictions layer](implementation/ePO/owl_ontology/ePO_restrictions.rdf)
-* [SHACL Data Shapes layer](implementation/ePO/shacl_shapes/ePO_shacl_shapes.rdf)
-
-**eCatalogue:**
-* [Core layer](implementation/eCatalogue/owl_ontology/eCatalogue_owl_core.rdf)
-* [Restrictions layer](implementation/eCatalogue/owl_ontology/eCatalogue_restrictions.rdf)
-* [SHACL Data Shapes layer](implementation/eCatalogue/shacl_shapes/eCatalogue_shacl_shapes.rdf)
-
-# Documentation
 
 Documentation on the eProcurement Ontology can be found [here](https://docs.ted.europa.eu/EPO/latest/index.html).
 
