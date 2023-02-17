@@ -1,5 +1,18 @@
 # eProcurement Ontology (ePO)
 
+[![transform ePO core XMI](https://github.com/OP-TED/ePO/actions/workflows/transform_epo.yml/badge.svg?branch=master)](https://github.com/OP-TED/ePO/actions/workflows/transform_epo.yml)
+[![transform eNotice XMI](https://github.com/OP-TED/ePO/actions/workflows/transform_notice.yml/badge.svg?branch=master)](https://github.com/OP-TED/ePO/actions/workflows/transform_notice.yml)
+[![transform eCatalogue XMI](https://github.com/OP-TED/ePO/actions/workflows/transform_catalogue.yml/badge.svg?branch=master)](https://github.com/OP-TED/ePO/actions/workflows/transform_catalogue.yml)
+
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/OP-TED/epo)
+![GitHub last commit](https://img.shields.io/github/last-commit/OP-TED/epo)
+
+![GitHub contributors](https://img.shields.io/github/contributors-anon/OP-TED/epo)
+![GitHub issues](https://img.shields.io/github/issues/OP-TED/epo)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/OP-TED/epo)
+![GitHub Repo stars](https://img.shields.io/github/stars/OP-TED/epo?style=social)
+![GitHub forks](https://img.shields.io/github/forks/OP-TED/epo?style=social)
+![GitHub](https://img.shields.io/github/license/OP-TED/epo)
 
 Ontology reference URI: `http://data.europa.eu/a4g/ontology`  
 
@@ -39,23 +52,11 @@ Note: If you discover any issues or have questions please put them on [GitHub is
 
 ## Releases
 
-### Release v3.1.0
-
-1. [Joinup collection](https://joinup.ec.europa.eu/solution/eprocurement-ontology)
-2. [OP v3.1.0 - GitHub landing page](https://github.com/OP-TED/ePO/tree/v3.1.0)
-3. [Specification and methodology](https://docs.ted.europa.eu/EPO/latest/index.html)
-
-### Release v3.0.1
-
-1. [Joinup collection](https://joinup.ec.europa.eu/solution/eprocurement-ontology)
-2. [OP v3.0.1 - GitHub landing page](https://github.com/OP-TED/ePO/tree/v3.0.1)
-3. [Specification and methodology](https://docs.ted.europa.eu/EPO/3.0.1/index.html)
-
 ### Release v3.0.0
 
 1. [Joinup collection](https://joinup.ec.europa.eu/solution/eprocurement-ontology)
 2. [OP v3.0.0 - GitHub landing page](https://github.com/OP-TED/ePO/tree/v3.0.0)
-3. [Specification and methodology](https://docs.ted.europa.eu/EPO/3.0.1/index.html)
+3. [Specification and methodology](https://docs.ted.europa.eu/EPO/dev/index.html)
 
 ### Release v2.0.1
 
