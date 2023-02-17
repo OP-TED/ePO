@@ -52,23 +52,11 @@ Note: If you discover any issues or have questions please put them on [GitHub is
 
 ## Releases
 
-### Release v3.1.0
-
-1. [Joinup collection](https://joinup.ec.europa.eu/solution/eprocurement-ontology)
-2. [OP v3.1.0 - GitHub landing page](https://github.com/OP-TED/ePO/tree/v3.1.0)
-3. [Specification and methodology](https://docs.ted.europa.eu/EPO/latest/index.html)
-
-### Release v3.0.1
-
-1. [Joinup collection](https://joinup.ec.europa.eu/solution/eprocurement-ontology)
-2. [OP v3.0.1 - GitHub landing page](https://github.com/OP-TED/ePO/tree/v3.0.1)
-3. [Specification and methodology](https://docs.ted.europa.eu/EPO/3.0.1/index.html)
-
 ### Release v3.0.0
 
 1. [Joinup collection](https://joinup.ec.europa.eu/solution/eprocurement-ontology)
 2. [OP v3.0.0 - GitHub landing page](https://github.com/OP-TED/ePO/tree/v3.0.0)
-3. [Specification and methodology](https://docs.ted.europa.eu/EPO/3.0.1/index.html)
+3. [Specification and methodology](https://docs.ted.europa.eu/EPO/dev/index.html)
 
 ### Release v2.0.1
 
