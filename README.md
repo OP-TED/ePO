@@ -19,7 +19,8 @@
 1. [Download latest](#downloads)
 2. [Documentation](#documentation)
 3. [Releases](#releases)
-
+4. [Contributing](#contributing)
+5. [Licence](#licence)
 
 ## Download latest
 
@@ -80,3 +81,50 @@ Note: If you discover any issues or have questions please put them on [GitHub is
 2. [Project Charter proposal v1.00](https://joinup.ec.europa.eu/document/d0202-project-charter-proposal-v100)
 3. [Specification and Methodology](https://joinup.ec.europa.eu/sites/default/files/document/2017-08/d02.01_specification_of_the_process_and_methodology_v1.00.pdf)
 4. [Release notes](https://eprocurementontology.github.io/release_notes.html)
+
+# Contributing
+
+You are more than welcome to help expand and mature this project. 
+
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+
+Please note we adhere to [Apache code of conduct](https://www.apache.org/foundation/policies/conduct), please follow it in all your interactions with the project.
+
+## Milestones
+
+Each milestone corresponds to a foreseen release of the ontology.
+
+## Issue labels
+
+The issues are classified based on for classification dimensions: 
+* module label
+  * core - core module
+  * extension-* a specific extension module
+    * ePO core
+    * eNotice
+    * eOrdering
+    * eCatalogue
+    * eFulfillment
+    * eAccess
+    * eContract
+  * generic - no module in particular because the issue is of technical or documentation nature
+* type label
+  * bug - something implemented incorrectly in a release 
+  * feature request - something requested to be implemented in a future release
+  * question - something needs clarified, refined or decided
+  * use case - something describing usage scenario that shall be supported
+* action label
+  * for implementation - it can be implemented and closed, all is clear
+  * for internal discussion - it needs to be discussed within the team  
+  * for WG discussion - it needs to be discussed within the Working Group
+  * for closing - it can be closed but an additional confirmation is needed
+* auxiliary label
+  * mappings - it is related to the TED-SWS mappings project
+  * ppds - it is related to the PPDS project
+  * bdti - it is related to the BDTI project
+
+# Licence 
+
+The documents, such as reports and specifications are licenced under a [CC BY 4.0 licence](https://creativecommons.org/licenses/by/4.0/deed.en).
+
+The source code and other scripts are licenced under [EUPL v1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12) licence.
