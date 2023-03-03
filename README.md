@@ -8,14 +8,33 @@
 <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/OP-TED/epo">
 </picture>
 
-![GitHub last commit](https://img.shields.io/github/last-commit/OP-TED/epo)
+<picture>
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/OP-TED/epo">
+</picture>
 
-![GitHub contributors](https://img.shields.io/github/contributors-anon/OP-TED/epo)
-![GitHub issues](https://img.shields.io/github/issues/OP-TED/epo)
-![GitHub closed issues](https://img.shields.io/github/issues-closed/OP-TED/epo)
-![GitHub Repo stars](https://img.shields.io/github/stars/OP-TED/epo?style=social)
-![GitHub forks](https://img.shields.io/github/forks/OP-TED/epo?style=social)
-![GitHub](https://img.shields.io/github/license/OP-TED/epo)
+<picture>
+<img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/OP-TED/epo">
+</picture>
+
+<picture>
+<img alt="GitHub issues" src="https://img.shields.io/github/issues/OP-TED/epo">
+</picture>
+
+<picture>
+<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/OP-TED/epo">
+</picture>
+
+<picture>
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/OP-TED/epo?style=social">
+</picture>
+
+<picture>
+<img alt="GitHub forks" src="https://img.shields.io/github/forks/OP-TED/epo?style=social">
+</picture>
+
+<picture>
+<img alt="GitHub" src="https://img.shields.io/github/license/OP-TED/epo">
+</picture>
 
 
 Documentation on the eProcurement Ontology can be found [here](https://docs.ted.europa.eu/EPO/latest/index.html).
