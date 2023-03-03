@@ -4,8 +4,11 @@
 [![transform eNotice XMI](https://github.com/OP-TED/ePO/actions/workflows/transform_notice.yml/badge.svg?branch=master)](https://github.com/OP-TED/ePO/actions/workflows/transform_notice.yml)
 [![transform eCatalogue XMI](https://github.com/OP-TED/ePO/actions/workflows/transform_catalogue.yml/badge.svg?branch=master)](https://github.com/OP-TED/ePO/actions/workflows/transform_catalogue.yml)
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/OP-TED/epo)](#)
-[![GitHub last commit](https://img.shields.io/github/last-commit/OP-TED/epo)](#)
+<picture>
+<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/OP-TED/epo"
+</picture>
+
+![GitHub last commit](https://img.shields.io/github/last-commit/OP-TED/epo)
 
 ![GitHub contributors](https://img.shields.io/github/contributors-anon/OP-TED/epo)
 ![GitHub issues](https://img.shields.io/github/issues/OP-TED/epo)
