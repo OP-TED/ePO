@@ -5,7 +5,7 @@
 [![transform eCatalogue XMI](https://github.com/OP-TED/ePO/actions/workflows/transform_catalogue.yml/badge.svg?branch=master)](https://github.com/OP-TED/ePO/actions/workflows/transform_catalogue.yml)
 
 <picture>
-<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/OP-TED/epo"
+<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/OP-TED/epo">
 </picture>
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/OP-TED/epo)
