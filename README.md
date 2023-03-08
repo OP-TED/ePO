@@ -50,7 +50,7 @@ Note: If you discover any issues or have questions please put them on [GitHub is
 
 ### References
 
-1. [eForms EU Regulation (preparing for consultation) 2017-2018]()
+1. [eForms Regulation and Annex](https://ec.europa.eu/docsroom/documents/52697)
 2. [Report on policy support for e-Procurement (landscaping report, 2016)](https://joinup.ec.europa.eu/node/159724)
 3. EU Directives:
 * [Directive 2014/23/EU](http://eur-lex.europa.eu/legal-content/EN/TXT/?uri=uriserv:OJ.L_.2014.094.01.0001.01.ENG), on the award of concession contracts Text
