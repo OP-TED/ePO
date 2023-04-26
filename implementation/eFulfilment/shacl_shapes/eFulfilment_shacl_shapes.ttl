@@ -1,0 +1,616 @@
+@prefix : <http://data.europa.eu/a4g/shape#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix epo: <http://data.europa.eu/a4g/ontology#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+epo:hasSizeType a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:hasValue epo:Size-type ;
+            sh:path <skos:inScheme> ] .
+
+epo:hasTransportEquipmentType a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:hasValue epo:Transport-equipment-type ;
+            sh:path <skos:inScheme> ] .
+
+<http://data.europa.eu/a4g/shape> a owl:Ontology ;
+    rdfs:label """eProcurement Ontology - eFulfilment. This module provides the datashape definitions.
+            """@en ;
+    cc:attributionName "PublicationsOffice of the European Union" ;
+    cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/PUBL> ;
+    dc:contributor [ a foaf:Person ;
+            foaf:homepage <http://costezki.ro> ;
+            foaf:name "Eugeniu" ;
+            foaf:surname "Costetchi" ;
+            schema:affiliation [ foaf:name "Meaningfy" ;
+                    foaf:page <http://meaningfy.ws> ] ],
+        [ a foaf:Person ;
+            foaf:name "Natalie" ;
+            foaf:surname "Muric" ;
+            schema:affiliation [ foaf:name "Publications Office of the European Union" ] ],
+        [ a foaf:Person ;
+            foaf:name "Andreea" ;
+            foaf:surname "Pasare" ;
+            schema:affiliation [ foaf:name "Meaningfy" ;
+                    foaf:page <http://meaningfy.ws> ] ] ;
+    dc:rights "This ontology is licenced under CC BY-SA 4.0 - http://creativecommons.org/licenses/by-sa/4.0/" ;
+    dcterms:creator [ a foaf:Person ;
+            foaf:name "eProcurement Ontology Working Group" ] ;
+    dcterms:date "2023-04-26"^^xsd:date ;
+    dcterms:description """
+        This module provides the definitions for the eCatalogue of eProcurement ontology.
+        Procurement data has been identified as data with a high-reuse potential.
+        Given the increasing importance of data standards for eProcurement, a number of initiatives
+        driven by the public sector, the industry and academia have been kick-started in recent years.
+        Some have grown organically, while others are the result of standardisation work.
+        The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,
+        and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.
+        This creates the need for a common data standard for publishing procurement data, hence allowing data
+        from different sources to be easily accessed and linked, and consequently reused.
+     (SHACL datashape)
+            """@en ;
+    dcterms:license <http://creativecommons.org/licenses/by-sa/4.0/> ;
+    dcterms:title """eProcurement Ontology - eFulfilment. This module provides the datashape definitions.
+            """@en ;
+    vann:preferredNamespacePrefix "epo" ;
+    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
+    rdfs:comment "This version is automatically generated from eFulfilment_CM.xml on 2023-04-26" ;
+    rdfs:seeAlso <https://github.com/eprocurementontology/eprocurementontology>,
+        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
+        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
+    owl:imports <http://data.europa.eu/a4g/ontology>,
+        <http://datashapes.org/dash>,
+        dcterms:,
+        <http://www.w3.org/2004/02/skos/core>,
+        sh: ;
+    owl:incompatibleWith "2.x.x" ;
+    owl:versionIRI :eFulfilment_CM.xml-2023-04-26 ;
+    owl:versionInfo "3.1.0" .
+
+epo:AbstractContainer a sh:NodeShape ;
+    rdfs:label "Abstract container"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:name "Abstract container" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Is hazardous risk" ;
+            sh:path epo:isHazardousRisk ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Is returnable material" ;
+            sh:path epo:isReturnableMaterial ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:name "Is hazardous risk" ;
+            sh:path epo:isHazardousRisk ],
+        [ a sh:PropertyShape ;
+            sh:class epo:TemperatureSpecification ;
+            sh:name "Has temperature specification" ;
+            sh:path epo:hasTemperatureSpecification ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:name "Is returnable material" ;
+            sh:path epo:isReturnableMaterial ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has temperature specification" ;
+            sh:path epo:hasTemperatureSpecification ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTemperatureSpecification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTemperatureSpecification> ?this .} " ] ;
+    sh:targetClass epo:AbstractContainer .
+
+epo:DespatchAdviceDocument a sh:NodeShape ;
+    rdfs:label "Despatch advice document"@en ;
+    rdfs:comment """A document used to describe the despatch or delivery of goods, services or work.
+"""@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """A document used to describe the despatch or delivery of goods, services or work.
+""" ;
+    sh:name "Despatch advice document" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Announces despatch advice" ;
+            sh:path epo:announcesDespatchAdvice ],
+        [ a sh:PropertyShape ;
+            sh:class epo:DespatchAdvice ;
+            sh:name "Announces despatch advice" ;
+            sh:path epo:announcesDespatchAdvice ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesDespatchAdvice> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesDespatchAdvice> ?this .} " ] ;
+    sh:targetClass epo:DespatchAdviceDocument .
+
+epo:hasDespatchAdviceType a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:hasValue <http://publications.europa.eu/resource/authority/new/Despatch-advice-type> ;
+            sh:path <skos:inScheme> ] .
+
+epo:hasPackagingType a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:hasValue epo:Packaging-type ;
+            sh:path <skos:inScheme> ] .
+
+epo:hasTransportMeansType a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:hasValue <http://publications.europa.eu/resource/authority/new/Transport-means-type> ;
+            sh:path <skos:inScheme> ] .
+
+epo:hasTransportMode a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:hasValue epo:Transport-mode ;
+            sh:path <skos:inScheme> ] .
+
+epo:Carrier a sh:NodeShape ;
+    rdfs:label "Carrier"@en ;
+    rdfs:comment """The Role of an Agent who handles the physical Delivery/Transportation of the (Despatched) Shipment. 
+
+Additional Information:
+This Role is also known as Deliverer.
+
+WG approval: 11/10/2022"""@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """The Role of an Agent who handles the physical Delivery/Transportation of the (Despatched) Shipment. 
+
+Additional Information:
+This Role is also known as Deliverer.
+
+WG approval: 11/10/2022""" ;
+    sh:name "Carrier" ;
+    sh:targetClass epo:Carrier .
+
+epo:Consignment a sh:NodeShape ;
+    rdfs:label "Consignment"@en ;
+    rdfs:comment """A batch of goods destined for or delivered to someone.
+
+Additional information:
+Consignment it is a Transport Agreement. They do not care about the content of what is being shipped. (only if there are dangerous goods, and temperature requirements). How to move from place a to place B."""@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """A batch of goods destined for or delivered to someone.
+
+Additional information:
+Consignment it is a Transport Agreement. They do not care about the content of what is being shipped. (only if there are dangerous goods, and temperature requirements). How to move from place a to place B.""" ;
+    sh:name "Consignment" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has main carriage shipment stage" ;
+            sh:path epo:hasMainCarriageShipmentStage ],
+        [ a sh:PropertyShape ;
+            sh:class epo:ShipmentStage ;
+            sh:name "Has pre carriage shipment stage" ;
+            sh:path epo:hasPreCarriageShipmentStage ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has vehicle description" ;
+            sh:path epo:hasVehicleDescription ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:name "Is hazardous risk" ;
+            sh:path epo:isHazardousRisk ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Notifier ;
+            sh:name "Specifies notifier" ;
+            sh:path epo:specifiesNotifier ],
+        [ a sh:PropertyShape ;
+            sh:class epo:TransportHandlingUnit ;
+            sh:name "Contains transport handling unit" ;
+            sh:path epo:containsTransportHandlingUnit ],
+        [ a sh:PropertyShape ;
+            sh:class epo:ShipmentStage ;
+            sh:name "Has main carriage shipment stage" ;
+            sh:path epo:hasMainCarriageShipmentStage ],
+        [ a sh:PropertyShape ;
+            sh:class epo:ShipmentStage ;
+            sh:name "Has on carriage shipment stage" ;
+            sh:path epo:hasOnCarriageShipmentStage ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:name "Contains transport handling unit" ;
+            sh:path epo:containsTransportHandlingUnit ],
+        [ a sh:PropertyShape ;
+            sh:class epo:ShipmentInformation ;
+            sh:name "Has requested pick up information" ;
+            sh:path epo:hasRequestedPickUpInformation ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has handling instruction" ;
+            sh:path epo:hasHandlingInstruction ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Is hazardous risk" ;
+            sh:path epo:isHazardousRisk ],
+        [ a sh:PropertyShape ;
+            sh:class epo:FreightForwarder ;
+            sh:name "Specifies freight forwarder" ;
+            sh:path epo:specifiesFreightForwarder ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Has requested pick up information" ;
+            sh:path epo:hasRequestedPickUpInformation ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesNotifier> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesNotifier> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsTransportHandlingUnit> ?that . ?that <http://data.europa.eu/a4g/ontology#containsTransportHandlingUnit> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesFreightForwarder> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesFreightForwarder> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPreCarriageShipmentStage> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPreCarriageShipmentStage> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasMainCarriageShipmentStage> ?that . ?that <http://data.europa.eu/a4g/ontology#hasMainCarriageShipmentStage> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasOnCarriageShipmentStage> ?that . ?that <http://data.europa.eu/a4g/ontology#hasOnCarriageShipmentStage> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasHandlingInstruction> ?that . ?that <http://data.europa.eu/a4g/ontology#hasHandlingInstruction> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasRequestedPickUpInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasRequestedPickUpInformation> ?this .} " ] ;
+    sh:targetClass epo:Consignment .
+
+epo:DespatchAdvice a sh:NodeShape ;
+    rdfs:label "Despatch advice"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:name "Despatch advice" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class epo:ShipmentInformation ;
+            sh:name "Specifies shipment" ;
+            sh:path epo:specifiesShipment ],
+        [ a sh:PropertyShape ;
+            sh:class epo:TransportHandlingUnit ;
+            sh:name "Specifies transport handling units" ;
+            sh:path epo:specifiesTransportHandlingUnits ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:name "Specifies despatcher" ;
+            sh:path epo:specifiesDespatcher ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Specifies shipment" ;
+            sh:path epo:specifiesShipment ],
+        [ a sh:PropertyShape ;
+            sh:class epo:ShipmentAgreement ;
+            sh:name "Refers to shipment agreement" ;
+            sh:path epo:refersToShipmentAgreement ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:name "Comprises despatch line" ;
+            sh:path epo:comprisesDespatchLine ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has despatch advice type" ;
+            sh:path epo:hasDespatchAdviceType ],
+        [ a sh:PropertyShape ;
+            sh:class epo:DespatchLine ;
+            sh:name "Comprises despatch line" ;
+            sh:path epo:comprisesDespatchLine ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Refers to shipment agreement" ;
+            sh:path epo:refersToShipmentAgreement ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Despatcher ;
+            sh:name "Specifies despatcher" ;
+            sh:path epo:specifiesDespatcher ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Refers to consignment" ;
+            sh:path epo:refersToConsignment ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Consignment ;
+            sh:name "Refers to consignment" ;
+            sh:path epo:refersToConsignment ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesDespatchLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesDespatchLine> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesTransportHandlingUnits> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesTransportHandlingUnits> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToShipmentAgreement> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToShipmentAgreement> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDespatcher> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDespatcher> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToConsignment> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToConsignment> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesShipment> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesShipment> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasDespatchAdviceType> ?that . ?that <http://data.europa.eu/a4g/ontology#hasDespatchAdviceType> ?this .} " ] ;
+    sh:targetClass epo:DespatchAdvice .
+
+epo:Despatcher a sh:NodeShape ;
+    rdfs:label "Despatcher"@en ;
+    rdfs:comment """Role of an Agent who sends the goods or notifies of the service or works execution. 
+
+Additional Information:
+The Role is carried out by the Supplier or on behalf of the Supplier. 
+Despatcher is also known as Despatch Party, Consignor, Deliverer. """@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """Role of an Agent who sends the goods or notifies of the service or works execution. 
+
+Additional Information:
+The Role is carried out by the Supplier or on behalf of the Supplier. 
+Despatcher is also known as Despatch Party, Consignor, Deliverer. """ ;
+    sh:name "Despatcher" ;
+    sh:targetClass epo:Despatcher .
+
+epo:FreightForwarder a sh:NodeShape ;
+    rdfs:label "Freight forwarder"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:name "Freight forwarder" ;
+    sh:targetClass epo:FreightForwarder .
+
+epo:GoodsItem a sh:NodeShape ;
+    rdfs:label "Goods item"@en ;
+    rdfs:comment """An Item including its initial packaging during transportation.
+
+Additional information:
+For example, the Item being bought is the computer. The weight of the computer is X.
+The weight of the Goods Item is the weight of the computer plus the weight of the initial packaging.
+During transportation you have for example trace ID which is applied to the GoodsItem, rather than on the Item itself. 
+The declared statistical value can only apply once you have a GoodsItem.
+
+WG approval 30/03/2023"""@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """An Item including its initial packaging during transportation.
+
+Additional information:
+For example, the Item being bought is the computer. The weight of the computer is X.
+The weight of the Goods Item is the weight of the computer plus the weight of the initial packaging.
+During transportation you have for example trace ID which is applied to the GoodsItem, rather than on the Item itself. 
+The declared statistical value can only apply once you have a GoodsItem.
+
+WG approval 30/03/2023""" ;
+    sh:name "Goods item" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class epo:DespatchLine ;
+            sh:name "Refers to despatch line" ;
+            sh:path epo:refersToDespatchLine ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Refers to despatch line" ;
+            sh:path epo:refersToDespatchLine ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToDespatchLine> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToDespatchLine> ?this .} " ] ;
+    sh:targetClass epo:GoodsItem .
+
+epo:Notifier a sh:NodeShape ;
+    rdfs:label "Notifier"@en ;
+    rdfs:comment """The party to be notified upon arrival of goods and when special occurrences (usually pre-defined) take place during a transportation service. (UBL)
+"""@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """The party to be notified upon arrival of goods and when special occurrences (usually pre-defined) take place during a transportation service. (UBL)
+""" ;
+    sh:name "Notifier" ;
+    sh:targetClass epo:Notifier .
+
+epo:Package a sh:NodeShape ;
+    rdfs:label "Package"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:name "Package" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class epo:GoodsItem ;
+            sh:name "Contains goods item" ;
+            sh:path epo:containsGoodsItem ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has packaging type" ;
+            sh:path epo:hasPackagingType ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Package ;
+            sh:name "Contains package" ;
+            sh:path epo:containsPackage ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:name "Contains goods item" ;
+            sh:path epo:containsGoodsItem ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has packaging type description" ;
+            sh:path epo:hasPackagingTypeDescription ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsGoodsItem> ?that . ?that <http://data.europa.eu/a4g/ontology#containsGoodsItem> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsPackage> ?that . ?that <http://data.europa.eu/a4g/ontology#containsPackage> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPackagingType> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPackagingType> ?this .} " ] ;
+    sh:targetClass epo:Package .
+
+epo:ShipmentAgreement a sh:NodeShape ;
+    rdfs:label "Shipment agreement"@en ;
+    rdfs:comment """The Commercial Agreement between the Commercial Parties.
+
+Additional Information:
+It describes items being shipped. What is being moved. 
+"""@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """The Commercial Agreement between the Commercial Parties.
+
+Additional Information:
+It describes items being shipped. What is being moved. 
+""" ;
+    sh:name "Shipment agreement" ;
+    sh:targetClass epo:ShipmentAgreement .
+
+epo:TemperatureSpecification a sh:NodeShape ;
+    rdfs:label "Temperature specification"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:name "Temperature specification" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Description" ;
+            sh:path dcterms:description ] ;
+    sh:targetClass epo:TemperatureSpecification .
+
+epo:TransportEquipment a sh:NodeShape ;
+    rdfs:label "Transport equipment"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:name "Transport equipment" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Is returnable" ;
+            sh:path epo:isReturnable ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Is power indicated" ;
+            sh:path epo:isPowerIndicated ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:name "Is refrigerated" ;
+            sh:path epo:isRefrigerated ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Is refrigerated" ;
+            sh:path epo:isRefrigerated ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:name "Is power indicated" ;
+            sh:path epo:isPowerIndicated ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:name "Is returnable" ;
+            sh:path epo:isReturnable ],
+        [ a sh:PropertyShape ;
+            sh:class epo:TransportEquipmentSeal ;
+            sh:name "Has transport equipment seal" ;
+            sh:path epo:hasTransportEquipmentSeal ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasSizeType> ?that . ?that <http://data.europa.eu/a4g/ontology#hasSizeType> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTransportEquipmentType> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTransportEquipmentType> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTransportEquipmentSeal> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTransportEquipmentSeal> ?this .} " ] ;
+    sh:targetClass epo:TransportEquipment .
+
+epo:TransportEquipmentSeal a sh:NodeShape ;
+    rdfs:label "Transport equipment seal"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:name "Transport equipment seal" ;
+    sh:targetClass epo:TransportEquipmentSeal .
+
+epo:TransportMeans a sh:NodeShape ;
+    rdfs:label "Transport means"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:name "Transport means" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Has transport mode" ;
+            sh:path epo:hasTransportMode ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:name "Has driver person" ;
+            sh:path epo:hasDriverPerson ],
+        [ a sh:PropertyShape ;
+            sh:class epo:TransportMeansOperator ;
+            sh:name "Has driver person" ;
+            sh:path epo:hasDriverPerson ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has transport means type" ;
+            sh:path epo:hasTransportMeansType ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTransportMode> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTransportMode> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasDriverPerson> ?that . ?that <http://data.europa.eu/a4g/ontology#hasDriverPerson> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTransportMeansType> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTransportMeansType> ?this .} " ] ;
+    sh:targetClass epo:TransportMeans .
+
+epo:TransportMeansOperator a sh:NodeShape ;
+    rdfs:label "Transport means operator"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:name "Transport means operator" ;
+    sh:targetClass epo:TransportMeansOperator .
+
+epo:hasHandlingInstruction a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:hasValue <http://publications.europa.eu/resource/authority/new/Handling-instruction> ;
+            sh:path <skos:inScheme> ],
+        [ a sh:PropertyShape ;
+            sh:hasValue <http://publications.europa.eu/resource/authority/new/Handling-instruction> ;
+            sh:path <skos:inScheme> ] .
+
+epo:TransportHandlingUnit a sh:NodeShape ;
+    rdfs:label "Transport handling unit"@en ;
+    rdfs:comment "A description of Individual Handling Units in which the Line Items are packed."@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description "A description of Individual Handling Units in which the Line Items are packed." ;
+    sh:name "Transport handling unit" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has handling instruction" ;
+            sh:path epo:hasHandlingInstruction ],
+        [ a sh:PropertyShape ;
+            sh:class epo:TransportEquipment ;
+            sh:name "Uses transport equipment" ;
+            sh:path epo:usesTransportEquipment ],
+        [ a sh:PropertyShape ;
+            sh:class epo:DespatchLine ;
+            sh:name "Transports item from" ;
+            sh:path epo:transportsItemFrom ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:name "Transports item from" ;
+            sh:path epo:transportsItemFrom ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#transportsItemFrom> ?that . ?that <http://data.europa.eu/a4g/ontology#transportsItemFrom> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#usesTransportEquipment> ?that . ?that <http://data.europa.eu/a4g/ontology#usesTransportEquipment> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasHandlingInstruction> ?that . ?that <http://data.europa.eu/a4g/ontology#hasHandlingInstruction> ?this .} " ] ;
+    sh:targetClass epo:TransportHandlingUnit .
+
+epo:ShipmentStage a sh:NodeShape ;
+    rdfs:label "Shipment stage"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:name "Shipment stage" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class epo:Carrier ;
+            sh:name "Specifies carrier" ;
+            sh:path epo:specifiesCarrier ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:name "Is hazardous risk" ;
+            sh:path epo:isHazardousRisk ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Is hazardous risk" ;
+            sh:path epo:isHazardousRisk ],
+        [ a sh:PropertyShape ;
+            sh:class epo:ShipmentInformation ;
+            sh:name "Has arrival shipment information" ;
+            sh:path epo:hasArrivalShipmentInformation ],
+        [ a sh:PropertyShape ;
+            sh:class epo:ShipmentInformation ;
+            sh:name "Has departure shipment information" ;
+            sh:path epo:hasDepartureShipmentInformation ],
+        [ a sh:PropertyShape ;
+            sh:class epo:TransportMeans ;
+            sh:name "Uses transport means" ;
+            sh:path epo:usesTransportMeans ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:name "Uses transport means" ;
+            sh:path epo:usesTransportMeans ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Specifies carrier" ;
+            sh:path epo:specifiesCarrier ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasDepartureShipmentInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasDepartureShipmentInformation> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesCarrier> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesCarrier> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasArrivalShipmentInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasArrivalShipmentInformation> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#usesTransportMeans> ?that . ?that <http://data.europa.eu/a4g/ontology#usesTransportMeans> ?this .} " ] ;
+    sh:targetClass epo:ShipmentStage .
+
+epo:DespatchLine a sh:NodeShape ;
+    rdfs:label "Despatch line"@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:name "Despatch line" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has outstanding quantity reason" ;
+            sh:path epo:hasOutstandingQuantityReason ] ;
+    sh:targetClass epo:DespatchLine .
+
+epo:ShipmentInformation a sh:NodeShape ;
+    rdfs:label "Shipment information"@en ;
+    rdfs:comment """The Transportation of an identifiable collection of Goods Items from one party (the Despatch Party) to another party (the Consignee) via one or more modes of transport.
+
+Addition Information
+This represents the "where" and "when"."""@en ;
+    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """The Transportation of an identifiable collection of Goods Items from one party (the Despatch Party) to another party (the Consignee) via one or more modes of transport.
+
+Addition Information
+This represents the "where" and "when".""" ;
+    sh:name "Shipment information" ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Is specific to despatch line" ;
+            sh:path epo:isSpecificToDespatchLine ],
+        [ a sh:PropertyShape ;
+            sh:class epo:DespatchLine ;
+            sh:name "Is specific to despatch line" ;
+            sh:path epo:isSpecificToDespatchLine ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Despatch date" ;
+            sh:path epo:despatchDate ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToDespatchLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToDespatchLine> ?this .} " ] ;
+    sh:targetClass epo:ShipmentInformation .
+
