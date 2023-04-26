@@ -8,6 +8,7 @@ on:
       - "implementation/eCatalogue/xmi_conceptual_model/eCatalogue_CM.xml"
       - "implementation/eNotice/xmi_conceptual_model/eNotice_CM.xml"
       - "implementation/eOrdering/xmi_conceptual_model/eOrdering_CM.xml"
+      - "implementation/eFulfilment/xmi_conceptual_model/eFulfilment_CM.xml"
 jobs:
   transform:
     runs-on: ubuntu-latest
@@ -38,7 +39,7 @@ jobs:
 
       - name: transform step
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eOrdering eCatalogue eNotice ePO)
+          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice ePO)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             CM_FILE_NAME=$(echo "${implementation}_CM.xml")
@@ -87,7 +88,7 @@ jobs:
 
       - name: merge implementations xmi files into one
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eOrdering eCatalogue eNotice ePO)
+          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice ePO)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             cp implementation/$implementation/xmi_conceptual_model/*_CM.xml transform/merge-xmis
