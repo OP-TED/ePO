@@ -74,13 +74,20 @@ jobs:
             rm -f $OUTPUT_PATH*.rdf || true
             rm -f $OUTPUT_PATH*.ttl || true
 
+            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-conventions-report.xsl -o:$OUTPUT_REPORT_PATH$OUTPUT_REPORT_FILE_NAME
+            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-model-glossary.xsl -o:$OUTPUT_GLOSSARY_PATH$OUTPUT_GLOSSARY_FILE_NAME
+            echo "-------------------end transform---------------------------------"
+            sed -i "s/..\/..\/implementation\/${implementation}\/model2owl-config/test\/ePO-default-config/g" transform/model2owl/config-proxy.xsl
+          done
+        shell: bash
+
 #            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-core.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME
 #            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME
 #            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/shacl-shapes.xsl -o:$OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME
-            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-conventions-report.xsl -o:$OUTPUT_REPORT_PATH$OUTPUT_REPORT_FILE_NAME
-            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-model-glossary.xsl -o:$OUTPUT_GLOSSARY_PATH$OUTPUT_GLOSSARY_FILE_NAME
-
-
+#            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-conventions-report.xsl -o:$OUTPUT_REPORT_PATH$OUTPUT_REPORT_FILE_NAME
+#            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-model-glossary.xsl -o:$OUTPUT_GLOSSARY_PATH$OUTPUT_GLOSSARY_FILE_NAME
+#
+#
 #            echo "+++++++++++++++++transform to turtle++++++++++++++++++++++++++++"
 #            echo $(ls ${OUTPUT_PATH_OWL}/*.rdf)
 #            rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME > $OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME_TTL
@@ -88,9 +95,9 @@ jobs:
 #            echo $(ls ${OUTPUT_PATH_SHACL}/*.rdf)
 #            rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME > $OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME_TTL
 #            echo "-------------------end transform---------------------------------"
-            sed -i "s/..\/..\/implementation\/${implementation}\/model2owl-config/test\/ePO-default-config/g" transform/model2owl/config-proxy.xsl
-          done
-        shell: bash
+#            sed -i "s/..\/..\/implementation\/${implementation}\/model2owl-config/test\/ePO-default-config/g" transform/model2owl/config-proxy.xsl
+#          done
+#        shell: bash
 
       - name: merge implementations xmi files into one
         run: |
