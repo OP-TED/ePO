@@ -74,65 +74,67 @@ jobs:
             rm -f $OUTPUT_PATH*.rdf || true
             rm -f $OUTPUT_PATH*.ttl || true
 
-            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-core.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME
-            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME
-            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/shacl-shapes.xsl -o:$OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME
+#            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-core.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME
+#            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/owl-restrictions.xsl -o:$OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME
+#            java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/shacl-shapes.xsl -o:$OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME
             java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-conventions-report.xsl -o:$OUTPUT_REPORT_PATH$OUTPUT_REPORT_FILE_NAME
             java -jar transform/saxon-he-10.6.jar -s:$CM_FILE_PATH -xsl:transform/model2owl/src/html-model-glossary.xsl -o:$OUTPUT_GLOSSARY_PATH$OUTPUT_GLOSSARY_FILE_NAME
 
 
-            echo "+++++++++++++++++transform to turtle++++++++++++++++++++++++++++"
-            echo $(ls ${OUTPUT_PATH_OWL}/*.rdf)
-            rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME > $OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME_TTL
-            rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME > $OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME_TTL
-            echo $(ls ${OUTPUT_PATH_SHACL}/*.rdf)
-            rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME > $OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME_TTL
-            echo "-------------------end transform---------------------------------"
+#            echo "+++++++++++++++++transform to turtle++++++++++++++++++++++++++++"
+#            echo $(ls ${OUTPUT_PATH_OWL}/*.rdf)
+#            rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME > $OUTPUT_PATH_OWL$OUTPUT_CORE_FILE_NAME_TTL
+#            rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME > $OUTPUT_PATH_OWL$OUTPUT_RESTRICTIONS_FILE_NAME_TTL
+#            echo $(ls ${OUTPUT_PATH_SHACL}/*.rdf)
+#            rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME > $OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME_TTL
+#            echo "-------------------end transform---------------------------------"
             sed -i "s/..\/..\/implementation\/${implementation}\/model2owl-config/test\/ePO-default-config/g" transform/model2owl/config-proxy.xsl
           done
         shell: bash
 
-#      - name: merge implementations xmi files into one
-#        run: |
-#          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice ePO)
-#          for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
-#          do
-#            cp implementation/$implementation/xmi_conceptual_model/*_CM.xml transform/merge-xmis
-#          done
-#          ls transform/merge-xmis
-#          make merge-xmi COMBINED_XMI_DIRECTORY=transform/merged-xmis-result SAXON=transform/saxon-he-10.6.jar FIRST_INPUT_XMI_FILE=./implementation/ePO/xmi_conceptual_model/ePO_CM.xml MODEL2OWL_DIR=transform/model2owl
-#        shell: bash
-#
-#
-#      - name: generate combined glossary from the merged xmi
-#        run: |
-#          make generate-glossary OUTPUT_GLOSSARY_PATH=${OUTPUT_GLOSSARY_PATH} UML_INPUT_FILENAME=./transform/merged-xmis-result/ePO-combined.xmi SAXON=transform/saxon-he-10.6.jar MODEL2OWL_DIR=transform/model2owl
-#
-#      - name: remove unnecessary files
-#        run: |
-#          sudo rm -rf transform
-#          sudo rm -rf Makefile
-#        shell: bash
-#
-#      - name: commit files
-#        id: commit
-#        run: |
-#               git config --local user.email "action@github.com"
-#               git config --local user.name "github-actions"
-#               git status
-#
-#               git add .
-#               if [ -z "$(git status --porcelain)" ]; then
-#               echo "::set-output name=push::false"
-#               else
-#               git commit -m "Adding transformation files"
-#               echo "::set-output name=push::true"
-#               fi
-#        shell: bash
-#
-#      - name: Push changes
-#        if: steps.commit.outputs.push == 'true'
-#        uses: ad-m/github-push-action@master
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          branch: ${{ github.ref }}
+      - name: merge implementations xmi files into one
+        run: |
+          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice ePO)
+          for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
+          do
+            cp implementation/$implementation/xmi_conceptual_model/*_CM.xml transform/merge-xmis
+          done
+          ls transform/merge-xmis
+          make merge-xmi COMBINED_XMI_DIRECTORY=transform/merged-xmis-result SAXON=transform/saxon-he-10.6.jar FIRST_INPUT_XMI_FILE=./implementation/ePO/xmi_conceptual_model/ePO_CM.xml MODEL2OWL_DIR=transform/model2owl
+        shell: bash
+
+
+      - name: generate combined glossary from the merged xmi
+        run: |
+          sed -i "s/test\/ePO-default-config/..\/..\/implementation\/ePO\/model2owl-config/g" transform/model2owl/config-proxy.xsl
+          cat transform/model2owl/config-proxy.xsl
+          make generate-glossary OUTPUT_GLOSSARY_PATH=${OUTPUT_GLOSSARY_PATH} UML_INPUT_FILENAME=./transform/merged-xmis-result/ePO-combined.xmi SAXON=transform/saxon-he-10.6.jar MODEL2OWL_DIR=transform/model2owl
+
+      - name: remove unnecessary files
+        run: |
+          sudo rm -rf transform
+          sudo rm -rf Makefile
+        shell: bash
+
+      - name: commit files
+        id: commit
+        run: |
+               git config --local user.email "action@github.com"
+               git config --local user.name "github-actions"
+               git status
+
+               git add .
+               if [ -z "$(git status --porcelain)" ]; then
+               echo "::set-output name=push::false"
+               else
+               git commit -m "Adding transformation files"
+               echo "::set-output name=push::true"
+               fi
+        shell: bash
+
+      - name: Push changes
+        if: steps.commit.outputs.push == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
