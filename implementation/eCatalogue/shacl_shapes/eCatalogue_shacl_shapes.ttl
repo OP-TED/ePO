@@ -22,10 +22,6 @@ epo:hasItemClassification a sh:NodeShape ;
     cc:attributionName "PublicationsOffice of the European Union" ;
     cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/PUBL> ;
     dc:contributor [ a foaf:Person ;
-            foaf:name "Natalie" ;
-            foaf:surname "Muric" ;
-            schema:affiliation [ foaf:name "Publications Office of the European Union" ] ],
-        [ a foaf:Person ;
             foaf:homepage <http://costezki.ro> ;
             foaf:name "Eugeniu" ;
             foaf:surname "Costetchi" ;
@@ -35,7 +31,11 @@ epo:hasItemClassification a sh:NodeShape ;
             foaf:name "Andreea" ;
             foaf:surname "Pasare" ;
             schema:affiliation [ foaf:name "Meaningfy" ;
-                    foaf:page <http://meaningfy.ws> ] ] ;
+                    foaf:page <http://meaningfy.ws> ] ],
+        [ a foaf:Person ;
+            foaf:name "Natalie" ;
+            foaf:surname "Muric" ;
+            schema:affiliation [ foaf:name "Publications Office of the European Union" ] ] ;
     dc:rights "This ontology is licenced under CC BY-SA 4.0 - http://creativecommons.org/licenses/by-sa/4.0/" ;
     dcterms:creator [ a foaf:Person ;
             foaf:name "eProcurement Ontology Working Group" ] ;
@@ -87,25 +87,25 @@ WG Acceptance 10/03/2022
             sh:name "Has best before date" ;
             sh:path epo:hasBestBeforeDate ],
         [ a sh:PropertyShape ;
-            sh:class epo:Item ;
-            sh:name "Is production of" ;
-            sh:path epo:isProductionOf ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:name "Has manufacture date" ;
-            sh:path epo:hasManufactureDate ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:date ;
-            sh:name "Has expiry date" ;
-            sh:path epo:hasExpiryDate ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
             sh:name "Has expiry date" ;
             sh:path epo:hasExpiryDate ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:date ;
             sh:name "Has best before date" ;
             sh:path epo:hasBestBeforeDate ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Item ;
+            sh:name "Is production of" ;
+            sh:path epo:isProductionOf ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has expiry date" ;
+            sh:path epo:hasExpiryDate ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:name "Has manufacture date" ;
+            sh:path epo:hasManufactureDate ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -156,14 +156,14 @@ One or more Catalogue fragments can be provided in such a Document. Each fragmen
 """ ;
     sh:name "Catalogue update document" ;
     sh:property [ a sh:PropertyShape ;
+            sh:class epo:CatalogueFragment ;
+            sh:name "Announces catalogue fragment" ;
+            sh:path epo:announcesCatalogueFragment ],
+        [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:name "Has target catalogue version" ;
             sh:path epo:hasTargetCatalogueVersion ],
-        [ a sh:PropertyShape ;
-            sh:class epo:CatalogueFragment ;
-            sh:name "Announces catalogue fragment" ;
-            sh:path epo:announcesCatalogueFragment ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -243,6 +243,10 @@ WG approval 26/07/2022""" ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
+            sh:name "Has attribute type" ;
+            sh:path epo:hasAttributeType ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Item ;
             sh:name "Describes item" ;
             sh:path epo:describesItem ],
         [ a sh:PropertyShape ;
@@ -250,19 +254,15 @@ WG approval 26/07/2022""" ;
             sh:name "Has literal value" ;
             sh:path epo:hasLiteralValue ],
         [ a sh:PropertyShape ;
-            sh:class epo:Item ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
             sh:name "Describes item" ;
             sh:path epo:describesItem ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:name "Has classification scheme" ;
-            sh:path epo:hasClassificationScheme ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:name "Has attribute type" ;
-            sh:path epo:hasAttributeType ] ;
+            sh:path epo:hasClassificationScheme ] ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#describesItem> ?that . ?that <http://data.europa.eu/a4g/ontology#describesItem> ?this .} " ] ;
     sh:targetClass epo:ItemDescription .
 
@@ -315,19 +315,19 @@ epo:PostAwardObject a sh:NodeShape ;
             sh:name "Description" ;
             sh:path dcterms:description ],
         [ a sh:PropertyShape ;
-            sh:class epo:InformationHub ;
-            sh:name "Specifies information" ;
-            sh:path epo:specifiesInformation ],
-        [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:name "Title" ;
             sh:path dcterms:title ],
         [ a sh:PropertyShape ;
+            sh:class epo:InformationHub ;
+            sh:name "Specifies information" ;
+            sh:path epo:specifiesInformation ],
+        [ a sh:PropertyShape ;
             sh:class epo:Line ;
             sh:name "Comprises line" ;
             sh:path epo:comprisesLine ] ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesInformation> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesLine> ?this .} " ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesLine> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesInformation> ?this .} " ] ;
     sh:targetClass epo:PostAwardObject .
 
 epo:hasActivityCode a sh:NodeShape ;
@@ -468,13 +468,49 @@ Composition: e.g. information referring to its description, how to order it, wha
 """ ;
     sh:name "Catalogue line" ;
     sh:property [ a sh:PropertyShape ;
-            sh:class epo:Price ;
-            sh:name "Has price" ;
-            sh:path epo:hasPrice ],
+            sh:maxCount 1 ;
+            sh:name "Has orderable unit factor rate" ;
+            sh:path epo:hasOrderableUnitFactorRate ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:name "Is orderable" ;
             sh:path epo:isOrderable ],
+        [ a sh:PropertyShape ;
+            sh:class epo:ChargeInformation ;
+            sh:name "Has charge information" ;
+            sh:path epo:hasChargeInformation ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has transaction conditions code" ;
+            sh:path epo:hasTransactionConditionsCode ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has orderable quantity increment" ;
+            sh:path epo:hasOrderableQuantityIncrement ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has orderable unit" ;
+            sh:path epo:hasOrderableUnit ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:name "Is contracted item" ;
+            sh:path epo:isContractedItem ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has transaction conditions" ;
+            sh:path epo:hasTransactionConditions ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:name "Has price" ;
+            sh:path epo:hasPrice ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:decimal ;
+            sh:name "Has orderable unit factor rate" ;
+            sh:path epo:hasOrderableUnitFactorRate ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has warranty information" ;
+            sh:path epo:hasWarrantyInformation ],
         [ a sh:PropertyShape ;
             sh:class epo:Price ;
             sh:name "Has standardised unit price" ;
@@ -484,58 +520,22 @@ Composition: e.g. information referring to its description, how to order it, wha
             sh:name "Is contracted item" ;
             sh:path epo:isContractedItem ],
         [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has transaction conditions" ;
-            sh:path epo:hasTransactionConditions ],
+            sh:class epo:Price ;
+            sh:name "Has price" ;
+            sh:path epo:hasPrice ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:name "Has orderable quantity increment" ;
             sh:path epo:hasOrderableQuantityIncrement ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:decimal ;
-            sh:name "Has orderable unit factor rate" ;
-            sh:path epo:hasOrderableUnitFactorRate ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has orderable quantity increment" ;
-            sh:path epo:hasOrderableQuantityIncrement ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has orderable unit factor rate" ;
-            sh:path epo:hasOrderableUnitFactorRate ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:boolean ;
             sh:name "Is orderable" ;
-            sh:path epo:isOrderable ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:name "Has price" ;
-            sh:path epo:hasPrice ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has transaction conditions code" ;
-            sh:path epo:hasTransactionConditionsCode ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has warranty information" ;
-            sh:path epo:hasWarrantyInformation ],
-        [ a sh:PropertyShape ;
-            sh:class epo:ChargeInformation ;
-            sh:name "Has charge information" ;
-            sh:path epo:hasChargeInformation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:name "Is contracted item" ;
-            sh:path epo:isContractedItem ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has orderable unit" ;
-            sh:path epo:hasOrderableUnit ] ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTransactionConditionsCode> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTransactionConditionsCode> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPrice> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPrice> ?this .} " ],
+            sh:path epo:isOrderable ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPrice> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPrice> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTransactionConditionsCode> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTransactionConditionsCode> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasStandardisedUnitPrice> ?that . ?that <http://data.europa.eu/a4g/ontology#hasStandardisedUnitPrice> ?this .} " ],
         [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasChargeInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasChargeInformation> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasOrderableUnit> ?that . ?that <http://data.europa.eu/a4g/ontology#hasOrderableUnit> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasStandardisedUnitPrice> ?that . ?that <http://data.europa.eu/a4g/ontology#hasStandardisedUnitPrice> ?this .} " ] ;
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasOrderableUnit> ?that . ?that <http://data.europa.eu/a4g/ontology#hasOrderableUnit> ?this .} " ] ;
     sh:targetClass epo:CatalogueLine .
 
 epo:CertificationLabel a sh:NodeShape ;
@@ -557,15 +557,15 @@ WG approval 26/07/2022
 """ ;
     sh:name "Certification label" ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:anyURI ;
+            sh:name "Has reference u r i" ;
+            sh:path epo:hasReferenceURI ],
+        [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:name "Has label type" ;
             sh:path epo:hasLabelType ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:name "Has reference u r i" ;
-            sh:path epo:hasReferenceURI ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:anyURI ;
             sh:name "Has reference u r i" ;
             sh:path epo:hasReferenceURI ] ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasLabelType> ?that . ?that <http://data.europa.eu/a4g/ontology#hasLabelType> ?this .} " ] ;
@@ -629,12 +629,21 @@ epo:ItemCertificate a sh:NodeShape ;
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:name "Has certification number" ;
-            sh:path epo:hasCertificationNumber ],
+            sh:name "Attested by label" ;
+            sh:path epo:attestedByLabel ],
         [ a sh:PropertyShape ;
             sh:class epo:CertificationLabel ;
             sh:name "Attested by label" ;
             sh:path epo:attestedByLabel ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Has certification number" ;
+            sh:path epo:hasCertificationNumber ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Certifier ;
+            sh:name "Issued by certifier" ;
+            sh:path epo:issuedByCertifier ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:anyURI ;
             sh:name "Has u r l" ;
@@ -642,18 +651,9 @@ epo:ItemCertificate a sh:NodeShape ;
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:name "Issued by certifier" ;
-            sh:path epo:issuedByCertifier ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:name "Attested by label" ;
-            sh:path epo:attestedByLabel ],
-        [ a sh:PropertyShape ;
-            sh:class epo:Certifier ;
-            sh:name "Issued by certifier" ;
             sh:path epo:issuedByCertifier ] ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#attestedByLabel> ?that . ?that <http://data.europa.eu/a4g/ontology#attestedByLabel> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#issuedByCertifier> ?that . ?that <http://data.europa.eu/a4g/ontology#issuedByCertifier> ?this .} " ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#issuedByCertifier> ?that . ?that <http://data.europa.eu/a4g/ontology#issuedByCertifier> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#attestedByLabel> ?that . ?that <http://data.europa.eu/a4g/ontology#attestedByLabel> ?this .} " ] ;
     sh:targetClass epo:ItemCertificate .
 
 epo:ItemModel a sh:NodeShape ;
@@ -696,20 +696,20 @@ WG Approval: 30/06/2022
 """ ;
     sh:name "Item relation" ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
+            sh:datatype xsd:decimal ;
             sh:name "Has factor" ;
             sh:path epo:hasFactor ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:decimal ;
+            sh:class epo:Item ;
+            sh:name "Is related to item" ;
+            sh:path epo:isRelatedToItem ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
             sh:name "Has factor" ;
             sh:path epo:hasFactor ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:name "Is related to item" ;
-            sh:path epo:isRelatedToItem ],
-        [ a sh:PropertyShape ;
-            sh:class epo:Item ;
             sh:name "Is related to item" ;
             sh:path epo:isRelatedToItem ] ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isRelatedToItem> ?that . ?that <http://data.europa.eu/a4g/ontology#isRelatedToItem> ?this .} " ] ;
@@ -779,11 +779,11 @@ epo:Catalogue a sh:NodeShape ;
 """ ;
     sh:name "Catalogue" ;
     sh:property [ a sh:PropertyShape ;
-            sh:minCount 1 ;
+            sh:class epo:CatalogueLine ;
             sh:name "Comprises catalogue line" ;
             sh:path epo:comprisesCatalogueLine ],
         [ a sh:PropertyShape ;
-            sh:class epo:CatalogueLine ;
+            sh:minCount 1 ;
             sh:name "Comprises catalogue line" ;
             sh:path epo:comprisesCatalogueLine ],
         [ a sh:PropertyShape ;
@@ -857,45 +857,13 @@ No distinction is provided between services, goods and works to leave room for i
 WG approval 30/06/2022""" ;
     sh:name "Item" ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:name "Is in stock" ;
-            sh:path epo:isInStock ],
+            sh:datatype xsd:decimal ;
+            sh:name "Has v a t rate" ;
+            sh:path epo:hasVATRate ],
         [ a sh:PropertyShape ;
             sh:class epo:Manufacturer ;
             sh:name "Has manufacturer" ;
             sh:path epo:hasManufacturer ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has manufacturer" ;
-            sh:path epo:hasManufacturer ],
-        [ a sh:PropertyShape ;
-            sh:class epo:ItemModel ;
-            sh:name "Has model" ;
-            sh:path epo:hasModel ],
-        [ a sh:PropertyShape ;
-            sh:class epo:Item ;
-            sh:name "Has complementary item" ;
-            sh:path epo:hasComplementaryItem ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Description" ;
-            sh:path dcterms:description ],
-        [ a sh:PropertyShape ;
-            sh:class epo:ItemRelation ;
-            sh:name "Has qualified item relation" ;
-            sh:path epo:hasQualifiedItemRelation ],
-        [ a sh:PropertyShape ;
-            sh:class epo:Item ;
-            sh:name "Has accessory item" ;
-            sh:path epo:hasAccessoryItem ],
-        [ a sh:PropertyShape ;
-            sh:class epo:ItemCertificate ;
-            sh:name "Has certification" ;
-            sh:path epo:hasCertification ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has v a t rate" ;
-            sh:path epo:hasVATRate ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -906,76 +874,108 @@ WG approval 30/06/2022""" ;
             sh:name "Has part" ;
             sh:path epo:hasPart ],
         [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has delivery classification" ;
-            sh:path epo:hasDeliveryClassification ],
+            sh:class epo:Item ;
+            sh:name "Has accessory item" ;
+            sh:path epo:hasAccessoryItem ],
+        [ a sh:PropertyShape ;
+            sh:class epo:ItemCertificate ;
+            sh:name "Has certification" ;
+            sh:path epo:hasCertification ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Item ;
+            sh:name "Has complementary item" ;
+            sh:path epo:hasComplementaryItem ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:name "Is in stock" ;
+            sh:path epo:isInStock ],
         [ a sh:PropertyShape ;
             sh:class epo:Brand ;
             sh:name "Has brand" ;
             sh:path epo:hasBrand ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:name "Has hazardous class" ;
-            sh:path epo:hasHazardousClass ],
-        [ a sh:PropertyShape ;
-            sh:class epo:ProductSpecification ;
-            sh:name "Has specification" ;
-            sh:path epo:hasSpecification ],
+            sh:name "Description" ;
+            sh:path dcterms:description ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:anyURI ;
             sh:name "Has external specification" ;
             sh:path epo:hasExternalSpecification ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:name "Has hazardous item u n d g code" ;
-            sh:path epo:hasHazardousItemUNDGCode ],
+            sh:name "Is in stock" ;
+            sh:path epo:isInStock ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:name "Has brand" ;
-            sh:path epo:hasBrand ],
+            sh:name "Has manufacturer" ;
+            sh:path epo:hasManufacturer ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:name "Has model" ;
             sh:path epo:hasModel ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has hazardous item u n d g code" ;
+            sh:path epo:hasHazardousItemUNDGCode ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Item ;
+            sh:name "Requires" ;
+            sh:path epo:requires ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Item ;
+            sh:name "Replaces" ;
+            sh:path epo:replaces ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has hazardous class" ;
+            sh:path epo:hasHazardousClass ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has delivery classification" ;
+            sh:path epo:hasDeliveryClassification ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has v a t category" ;
+            sh:path epo:hasVATCategory ],
+        [ a sh:PropertyShape ;
+            sh:class epo:ProductSpecification ;
+            sh:name "Has specification" ;
+            sh:path epo:hasSpecification ],
+        [ a sh:PropertyShape ;
+            sh:class epo:ItemRelation ;
+            sh:name "Has qualified item relation" ;
+            sh:path epo:hasQualifiedItemRelation ],
         [ a sh:PropertyShape ;
             sh:class epo:Item ;
             sh:name "Is replaced by" ;
             sh:path epo:isReplacedBy ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:name "Has v a t category" ;
-            sh:path epo:hasVATCategory ],
+            sh:name "Has v a t rate" ;
+            sh:path epo:hasVATRate ],
         [ a sh:PropertyShape ;
-            sh:class epo:Item ;
-            sh:name "Replaces" ;
-            sh:path epo:replaces ],
-        [ a sh:PropertyShape ;
-            sh:class epo:Item ;
-            sh:name "Requires" ;
-            sh:path epo:requires ],
+            sh:class epo:ItemModel ;
+            sh:name "Has model" ;
+            sh:path epo:hasModel ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:name "Is in stock" ;
-            sh:path epo:isInStock ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:decimal ;
-            sh:name "Has v a t rate" ;
-            sh:path epo:hasVATRate ] ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasItemClassification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasItemClassification> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasQualifiedItemRelation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasQualifiedItemRelation> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasSpecification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasSpecification> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasDeliveryClassification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasDeliveryClassification> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasVATCategory> ?that . ?that <http://data.europa.eu/a4g/ontology#hasVATCategory> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#requires> ?that . ?that <http://data.europa.eu/a4g/ontology#requires> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasAccessoryItem> ?that . ?that <http://data.europa.eu/a4g/ontology#hasAccessoryItem> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPart> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPart> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasModel> ?that . ?that <http://data.europa.eu/a4g/ontology#hasModel> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasComplementaryItem> ?that . ?that <http://data.europa.eu/a4g/ontology#hasComplementaryItem> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isReplacedBy> ?that . ?that <http://data.europa.eu/a4g/ontology#isReplacedBy> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasBrand> ?that . ?that <http://data.europa.eu/a4g/ontology#hasBrand> ?this .} " ],
+            sh:name "Has brand" ;
+            sh:path epo:hasBrand ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasQualifiedItemRelation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasQualifiedItemRelation> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasItemClassification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasItemClassification> ?this .} " ],
         [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasHazardousItemUNDGCode> ?that . ?that <http://data.europa.eu/a4g/ontology#hasHazardousItemUNDGCode> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#replaces> ?that . ?that <http://data.europa.eu/a4g/ontology#replaces> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasBrand> ?that . ?that <http://data.europa.eu/a4g/ontology#hasBrand> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasModel> ?that . ?that <http://data.europa.eu/a4g/ontology#hasModel> ?this .} " ],
         [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasManufacturer> ?that . ?that <http://data.europa.eu/a4g/ontology#hasManufacturer> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasCertification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasCertification> ?this .} " ] ;
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#replaces> ?that . ?that <http://data.europa.eu/a4g/ontology#replaces> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isReplacedBy> ?that . ?that <http://data.europa.eu/a4g/ontology#isReplacedBy> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasVATCategory> ?that . ?that <http://data.europa.eu/a4g/ontology#hasVATCategory> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasSpecification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasSpecification> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPart> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPart> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasComplementaryItem> ?that . ?that <http://data.europa.eu/a4g/ontology#hasComplementaryItem> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasAccessoryItem> ?that . ?that <http://data.europa.eu/a4g/ontology#hasAccessoryItem> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#requires> ?that . ?that <http://data.europa.eu/a4g/ontology#requires> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasCertification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasCertification> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasDeliveryClassification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasDeliveryClassification> ?this .} " ] ;
     sh:targetClass epo:Item .
 
