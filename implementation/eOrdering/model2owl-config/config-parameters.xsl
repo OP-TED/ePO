@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet 
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
-    exclude-result-prefixes="xd xsl dc fn"
-    xmlns:cc="http://creativecommons.org/ns#"
-    xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:dct="http://purl.org/dc/terms/"
-    xmlns:fn="http://www.w3.org/2005/xpath-functions"
-    xmlns:functx="http://www.functx.com"
-    xmlns:owl="http://www.w3.org/2002/07/owl#"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-    xmlns:vann="http://purl.org/vocab/vann/"        
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" exclude-result-prefixes="xd xsl dc fn"
+    xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dct="http://purl.org/dc/terms/" xmlns:fn="http://www.w3.org/2005/xpath-functions"
+    xmlns:functx="http://www.functx.com" xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:vann="http://purl.org/vocab/vann/"
     version="3.0">
 
     <xd:doc scope="stylesheet">
@@ -20,19 +14,17 @@
             <xd:p>This module defines project level variables and parameters</xd:p>
         </xd:desc>
     </xd:doc>
-    
 
-    
+
+
     <!-- a set of prefix-baseURI definitions -->
     <xsl:variable name="namespacePrefixes" select="fn:doc('namespaces.xml')"/>
 
     <!-- a mapping between UML atomic types to XSD datatypes  -->
-    <xsl:variable name="umlDataTypesMapping"
-        select="fn:doc('umlToXsdDataTypes.xml')"/>
+    <xsl:variable name="umlDataTypesMapping" select="fn:doc('umlToXsdDataTypes.xml')"/>
 
     <!-- XSD datatypes that conform to OWL2 requirements   -->
-    <xsl:variable name="xsdAndRdfDataTypes"
-        select="fn:doc('xsdAndRdfDataTypes.xml')"/>
+    <xsl:variable name="xsdAndRdfDataTypes" select="fn:doc('xsdAndRdfDataTypes.xml')"/>
     <!--    set default namespace interpretation for lexical Qnames that are not prefix:localSegment or :localSegment. If this 
     is set to true localSegment will transform to :localSegment-->
     <xsl:variable name="defaultNamespaceInterpretation" select="fn:true()"/>
@@ -41,9 +33,17 @@
         like in the namespace definition-->
     <!--<xsl:variable name="base-uri" select="'http://publications.europa.eu/ontology/ePO'"/>-->
     <xsl:variable name="base-ontology-uri" select="'http://data.europa.eu/a4g/ontology'"/>
-    <xsl:variable name="base-shape-uri" select="'http://data.europa.eu/a4g/shape'"/>
-    <xsl:variable name="base-rule-uri" select="'http://data.europa.eu/a4g/rule'"/>
-
+    <xsl:variable name="base-shape-uri" select="'http://data.europa.eu/a4g/data-shape'"/>
+    <xsl:variable name="base-restriction-uri" select="$base-ontology-uri"/>
+    <!--    Shapes Module URI-->
+    <xsl:variable name="shapeArtefactURI"
+        select="fn:concat($base-ontology-uri, $defaultDelimiter, $moduleReference, '-shape')"/>
+    <!--    Restrictions Module URI-->
+    <xsl:variable name="restrictionsArtefactURI"
+        select="fn:concat($base-restriction-uri, $defaultDelimiter, $moduleReference, '-restriction')"/>
+    <!--    Core Module URI-->
+    <xsl:variable name="coreArtefactURI"
+        select="fn:concat($base-shape-uri, $defaultDelimiter, $moduleReference)"/>
 
     <!-- when a delimiter is missing in the base URI of a namespace, use this default value-->
     <xsl:variable name="defaultDelimiter" select="'#'"/>
@@ -51,10 +51,11 @@
     <!-- types of elements and names for attribute types that are acceptable to produce object properties -->
     <xsl:variable name="acceptableTypesForObjectProperties"
         select="('epo:Identifier', 'rdfs:Literal')"/>
-<!--    the type of attributes which takes values from a controlled list-->
+    <!--    the type of attributes which takes values from a controlled list-->
     <xsl:variable name="controlledListType" select="'epo:Code'"/>
     <!-- Acceptable stereotypes -->
     <xsl:variable name="stereotypeValidOnAttributes" select="()"/>
+    <xsl:variable name="stereotypeValidOnObjects" select="()"/>
     <xsl:variable name="stereotypeValidOnGeneralisations"
         select="('Disjoint', 'Equivalent', 'Complete')"/>
     <xsl:variable name="stereotypeValidOnAssociations" select="()"/>
@@ -63,30 +64,27 @@
     <xsl:variable name="stereotypeValidOnDatatypes" select="()"/>
     <xsl:variable name="stereotypeValidOnEnumerations" select="()"/>
     <xsl:variable name="stereotypeValidOnPackages" select="()"/>
-    
-<!--    This variable controlls whether the enumeration items are transformed into skos concepts or ignored-->
+
+    <!--    This variable controlls whether the enumeration items are transformed into skos concepts or ignored-->
     <xsl:variable name="enableGenerationOfSkosConcept" select="fn:false()"/>
 
     <!--Allowed characters for a normalized string-->
     <xsl:variable name="allowedStrings" select="'^[\w\d-_:]+$'"/>
 
-    <!--    Shapes Module URI-->
-    <xsl:variable name="shapeArtefactURI" select="'http://data.europa.eu/a4g/ontology#core-shape'"/>
-    <!--    Restrictions Module URI-->
-    <xsl:variable name="restrictionsArtefactURI" select="'http://data.europa.eu/a4g/ontology#core-restriction'"/>
-    <!--    Core Module URI-->
-    <xsl:variable name="coreArtefactURI" select="'http://data.europa.eu/a4g/ontology#core'"/>
 
-    <xsl:variable name="reference-to-external-classes-in-glossary" select="fn:true()"/>
+
+    <xsl:variable name="reference-to-external-classes-in-glossary" select="fn:false()"/>
     <!-- _______________________________________________________________________   -->
     <!--                            METADATA SECTION                               -->
     <!-- _______________________________________________________________________   -->
     <!--    This section contains the variables used to build the ontology metadata-->
-    
+    <xsl:variable name="moduleReference" select="'core'"/>
     <!--    dct:title -->
     <xsl:variable name="ontologyTitle" select="'eProcurement Ontology - core'"/>
     <!--    dct:description-->
-    <xsl:variable name="ontologyDescription" select="'This module provides the definitions for the eProcurement ontology core.
+    <xsl:variable name="ontologyDescription"
+        select="
+            'This module provides the definitions for the eProcurement ontology core.
         Procurement data has been identified as data with a high-reuse potential.
         Given the increasing importance of data standards for eProcurement, a number of initiatives
         driven by the public sector, the industry and academia have been kick-started in recent years.
@@ -96,17 +94,22 @@
         This creates the need for a common data standard for publishing procurement data, hence allowing data
         from different sources to be easily accessed and linked, and consequently reused.'"/>
     <!--    dct:abstract-->
-    <xsl:variable name="abstractCore" select="'This artefact provides the ontology core specification.'"/>
-    <xsl:variable name="abstractResctrictions" select="'This artefact provides the ontology extention with restrictions and inference-relaated specification.'"/>
-    <xsl:variable name="abstractShapes" select="'This artefact provides the datashape specification. '"/>
+    <xsl:variable name="abstractCore"
+        select="'This artefact provides the ontology core specification.'"/>
+    <xsl:variable name="abstractResctrictions"
+        select="'This artefact provides the ontology extention with restrictions and inference-relaated specification.'"/>
+    <xsl:variable name="abstractShapes"
+        select="'This artefact provides the datashape specification. '"/>
     <!--    rdfs:seeAlso -->
-    <xsl:variable name="seeAlsoResources" select="('https://github.com/eprocurementontology/eprocurementontology',
-        'https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about', 'https://op.europa.eu/en/web/eu-vocabularies/e-procurement',
-        'https://docs.ted.europa.eu/EPO/latest/index.html')"/>
+    <xsl:variable name="seeAlsoResources"
+        select="
+            ('https://github.com/eprocurementontology/eprocurementontology',
+            'https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about', 'https://op.europa.eu/en/web/eu-vocabularies/e-procurement',
+            'https://docs.ted.europa.eu/EPO/latest/index.html')"/>
     <!--    dct:created-->
     <xsl:variable name="createdDate" select="''"/>
     <!--    dct:issued-->
-    <xsl:variable name="issuedDate" select="format-date(current-date(),'[Y0001]-[M01]-[D01]')"/>
+    <xsl:variable name="issuedDate" select="format-date(current-date(), '[Y0001]-[M01]-[D01]')"/>
     <!--    owl:incompatibleWith -->
     <xsl:variable name="incompatibleWith" select="'2.1.0'"/>
     <!--    owl:versionInfo -->
@@ -119,5 +122,5 @@
     <xsl:variable name="preferredNamespaceUri" select="'http://data.europa.eu/a4g/ontology#'"/>
     <!--    vann:preferredNamespacePrefix -->
     <xsl:variable name="preferredNamespacePrefix" select="'epo'"/>
-    
+
 </xsl:stylesheet>
