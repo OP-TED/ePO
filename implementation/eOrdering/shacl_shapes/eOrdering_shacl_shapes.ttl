@@ -17,12 +17,6 @@
     cc:attributionName "PublicationsOffice of the European Union" ;
     cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/PUBL> ;
     dc:contributor [ a foaf:Person ;
-            foaf:homepage <http://costezki.ro> ;
-            foaf:name "Eugeniu" ;
-            foaf:surname "Costetchi" ;
-            schema:affiliation [ foaf:name "Meaningfy" ;
-                    foaf:page <http://meaningfy.ws> ] ],
-        [ a foaf:Person ;
             foaf:name "Andreea" ;
             foaf:surname "Pasare" ;
             schema:affiliation [ foaf:name "Meaningfy" ;
@@ -30,7 +24,13 @@
         [ a foaf:Person ;
             foaf:name "Natalie" ;
             foaf:surname "Muric" ;
-            schema:affiliation [ foaf:name "Publications Office of the European Union" ] ] ;
+            schema:affiliation [ foaf:name "Publications Office of the European Union" ] ],
+        [ a foaf:Person ;
+            foaf:homepage <http://costezki.ro> ;
+            foaf:name "Eugeniu" ;
+            foaf:surname "Costetchi" ;
+            schema:affiliation [ foaf:name "Meaningfy" ;
+                    foaf:page <http://meaningfy.ws> ] ] ;
     dc:rights "This ontology is licenced under CC BY-SA 4.0 - http://creativecommons.org/licenses/by-sa/4.0/" ;
     dcterms:creator [ a foaf:Person ;
             foaf:name "eProcurement Ontology Working Group" ] ;
@@ -67,10 +67,20 @@
 
 epo:AllowanceChargeInformation a sh:NodeShape ;
     rdfs:label "Allowance charge information"@en ;
+    rdfs:comment """Information about discounts, taxes, duties and fees imposed.
+
+WG approval 16/05/2023"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """Information about discounts, taxes, duties and fees imposed.
+
+WG approval 16/05/2023""" ;
     sh:name "Allowance charge information" ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
+            sh:datatype xsd:decimal ;
+            sh:name "Has percentage" ;
+            sh:path epo:hasPercentage ],
+        [ a sh:PropertyShape ;
+            sh:class epo:TaxInformation ;
             sh:name "Has tax information" ;
             sh:path epo:hasTaxInformation ],
         [ a sh:PropertyShape ;
@@ -78,59 +88,51 @@ epo:AllowanceChargeInformation a sh:NodeShape ;
             sh:name "Has percentage" ;
             sh:path epo:hasPercentage ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:decimal ;
-            sh:name "Has percentage" ;
-            sh:path epo:hasPercentage ],
-        [ a sh:PropertyShape ;
-            sh:class epo:TaxInformation ;
+            sh:maxCount 1 ;
             sh:name "Has tax information" ;
             sh:path epo:hasTaxInformation ] ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTaxInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTaxInformation> ?this .} " ] ;
     sh:targetClass epo:AllowanceChargeInformation .
 
-epo:DocumentChargeInformation a sh:NodeShape ;
-    rdfs:label "Document charge information"@en ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:name "Document charge information" ;
-    sh:targetClass epo:DocumentChargeInformation .
-
-epo:LineAllowanceInformation a sh:NodeShape ;
-    rdfs:label "Line allowance information"@en ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:name "Line allowance information" ;
-    sh:targetClass epo:LineAllowanceInformation .
-
-epo:LineChargeInformation a sh:NodeShape ;
-    rdfs:label "Line charge information"@en ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:name "Line charge information" ;
-    sh:targetClass epo:LineChargeInformation .
-
 epo:OrderResponse a sh:NodeShape ;
     rdfs:label "Order response"@en ;
+    rdfs:comment """A formal reply from the Seller to the Buyer stating the Seller's ability to fulfil the order.
+
+Additional Information:
+The Order Response is used to inform on the acceptance or rejection of an Order or to make a counter-offer.
+
+WG approval 20/04/2023
+"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """A formal reply from the Seller to the Buyer stating the Seller's ability to fulfil the order.
+
+Additional Information:
+The Order Response is used to inform on the acceptance or rejection of an Order or to make a counter-offer.
+
+WG approval 20/04/2023
+""" ;
     sh:name "Order response" ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:name "Is submitted for order" ;
-            sh:path epo:isSubmittedForOrder ],
+            sh:name "Specifies seller" ;
+            sh:path epo:specifiesSeller ],
         [ a sh:PropertyShape ;
             sh:class epo:Order ;
             sh:name "Is submitted for order" ;
             sh:path epo:isSubmittedForOrder ],
+        [ a sh:PropertyShape ;
+            sh:class epo:OrderResponseLine ;
+            sh:name "Comprises order response line" ;
+            sh:path epo:comprisesOrderResponseLine ],
         [ a sh:PropertyShape ;
             sh:class epo:Seller ;
             sh:name "Specifies seller" ;
             sh:path epo:specifiesSeller ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:name "Specifies seller" ;
-            sh:path epo:specifiesSeller ],
-        [ a sh:PropertyShape ;
-            sh:class epo:OrderResponseLine ;
-            sh:name "Comprises order response line" ;
-            sh:path epo:comprisesOrderResponseLine ],
+            sh:minCount 1 ;
+            sh:name "Is submitted for order" ;
+            sh:path epo:isSubmittedForOrder ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:name "Has response description" ;
@@ -140,31 +142,24 @@ epo:OrderResponse a sh:NodeShape ;
         [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForOrder> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForOrder> ?this .} " ] ;
     sh:targetClass epo:OrderResponse .
 
-epo:Ordering a sh:NodeShape ;
-    rdfs:label "Ordering"@en ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:name "Ordering" ;
-    sh:targetClass epo:Ordering .
+epo:AllowanceInformation a sh:NodeShape ;
+    rdfs:label "Allowance information"@en ;
+    rdfs:comment """Information about the discounts imposed.
 
-epo:PriceDiscountInformation a sh:NodeShape ;
-    rdfs:label "Price discount information"@en ;
+WG approval 16/05/2023
+"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:name "Price discount information" ;
-    sh:targetClass epo:PriceDiscountInformation .
+    sh:description """Information about the discounts imposed.
 
-epo:TaxInformationSchema a sh:NodeShape ;
-    rdfs:label "Tax information schema"@en ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:name "Tax information schema" ;
+WG approval 16/05/2023
+""" ;
+    sh:name "Allowance information" ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has percentage" ;
-            sh:path epo:hasPercentage ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:decimal ;
-            sh:name "Has percentage" ;
-            sh:path epo:hasPercentage ] ;
-    sh:targetClass epo:TaxInformationSchema .
+            sh:class epo:OrderLine ;
+            sh:name "Is specific to order line" ;
+            sh:path epo:isSpecificToOrderLine ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ] ;
+    sh:targetClass epo:AllowanceInformation .
 
 epo:Consignee a sh:NodeShape ;
     rdfs:label "Consignee"@en ;
@@ -176,7 +171,7 @@ The possession of the goods does not necessary imply ownership.
 The Consignee may be the end-user or the beneficiary.
 
 (Consignee) Definition from PEPPOL Despatch:
-The Consignee is the person or Organization to which the products will be shipped and who is taking possession. The Role is carried out by the Customer or on behalf of the Customer.
+The Consignee is the person or Organisation to which the products will be shipped and who is taking possession. The Role is carried out by the Customer or on behalf of the Customer.
 
 WG approval: 21/02/2023
 """@en ;
@@ -189,7 +184,7 @@ The possession of the goods does not necessary imply ownership.
 The Consignee may be the end-user or the beneficiary.
 
 (Consignee) Definition from PEPPOL Despatch:
-The Consignee is the person or Organization to which the products will be shipped and who is taking possession. The Role is carried out by the Customer or on behalf of the Customer.
+The Consignee is the person or Organisation to which the products will be shipped and who is taking possession. The Role is carried out by the Customer or on behalf of the Customer.
 
 WG approval: 21/02/2023
 """ ;
@@ -198,7 +193,13 @@ WG approval: 21/02/2023
 
 epo:ContractInformation a sh:NodeShape ;
     rdfs:label "Contract information"@en ;
+    rdfs:comment """Information about the Contract.
+
+WG approval 20/04/2023"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """Information about the Contract.
+
+WG approval 20/04/2023""" ;
     sh:name "Contract information" ;
     sh:property [ a sh:PropertyShape ;
             sh:class epo:OrderLine ;
@@ -209,74 +210,158 @@ epo:ContractInformation a sh:NodeShape ;
 
 epo:DeliveryInformation a sh:NodeShape ;
     rdfs:label "Delivery information"@en ;
-    rdfs:comment """Information about the timing, the delivery destination and the involved parties. 
+    rdfs:comment """Information about the timing, the delivery destination, the delivery agreement and the involved parties. 
+
+WG approval 16/05/2023
 """@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:description """Information about the timing, the delivery destination and the involved parties. 
+    sh:description """Information about the timing, the delivery destination, the delivery agreement and the involved parties. 
+
+WG approval 16/05/2023
 """ ;
     sh:name "Delivery information" ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Concerns consignee" ;
-            sh:path epo:concernsConsignee ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has delivery deadline" ;
-            sh:path epo:hasDeliveryDeadline ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:dateTime ;
             sh:name "Has delivery deadline" ;
             sh:path epo:hasDeliveryDeadline ],
         [ a sh:PropertyShape ;
-            sh:class epo:OrderLine ;
-            sh:name "Is specific to order line" ;
-            sh:path epo:isSpecificToOrderLine ],
+            sh:maxCount 1 ;
+            sh:name "Concerns consignee" ;
+            sh:path epo:concernsConsignee ],
         [ a sh:PropertyShape ;
             sh:class epo:Consignee ;
             sh:name "Concerns consignee" ;
-            sh:path epo:concernsConsignee ] ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsConsignee> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsConsignee> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ] ;
-    sh:targetClass epo:DeliveryInformation .
-
-epo:DocumentAllowanceInformation a sh:NodeShape ;
-    rdfs:label "Document allowance information"@en ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:name "Document allowance information" ;
-    sh:property [ a sh:PropertyShape ;
+            sh:path epo:concernsConsignee ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Specifies specific delivery agreement" ;
+            sh:path epo:specifiesSpecificDeliveryAgreement ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Specifies general delivery agreement" ;
+            sh:path epo:specifiesGeneralDeliveryAgreement ],
+        [ a sh:PropertyShape ;
+            sh:class epo:DeliveryAgreement ;
+            sh:name "Specifies specific delivery agreement" ;
+            sh:path epo:specifiesSpecificDeliveryAgreement ],
+        [ a sh:PropertyShape ;
+            sh:class epo:DeliveryAgreement ;
+            sh:name "Specifies general delivery agreement" ;
+            sh:path epo:specifiesGeneralDeliveryAgreement ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has delivery deadline" ;
+            sh:path epo:hasDeliveryDeadline ],
+        [ a sh:PropertyShape ;
             sh:class epo:OrderLine ;
             sh:name "Is specific to order line" ;
             sh:path epo:isSpecificToOrderLine ] ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ] ;
-    sh:targetClass epo:DocumentAllowanceInformation .
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesGeneralDeliveryAgreement> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesGeneralDeliveryAgreement> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSpecificDeliveryAgreement> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSpecificDeliveryAgreement> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsConsignee> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsConsignee> ?this .} " ] ;
+    sh:targetClass epo:DeliveryInformation .
 
-epo:OrderDocument a sh:NodeShape ;
-    rdfs:label "Order document"@en ;
+epo:Order a sh:NodeShape ;
+    rdfs:label "Order"@en ;
+    rdfs:comment """A formal request of the Buyer to the Seller specifying the goods, services or works to be delivered.
+
+Additional Information:
+A Buyer submits an Order for delivery of goods, services or works to a Seller.
+
+WG approval 23/04/2023
+
+"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:name "Order document" ;
+    sh:description """A formal request of the Buyer to the Seller specifying the goods, services or works to be delivered.
+
+Additional Information:
+A Buyer submits an Order for delivery of goods, services or works to a Seller.
+
+WG approval 23/04/2023
+
+""" ;
+    sh:name "Order" ;
     sh:property [ a sh:PropertyShape ;
+            sh:class epo:Seller ;
+            sh:name "Specifies seller" ;
+            sh:path epo:specifiesSeller ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:name "Specifies delivery information" ;
+            sh:path epo:specifiesDeliveryInformation ],
+        [ a sh:PropertyShape ;
+            sh:class epo:DeliveryInformation ;
+            sh:name "Specifies delivery information" ;
+            sh:path epo:specifiesDeliveryInformation ],
+        [ a sh:PropertyShape ;
+            sh:class epo:OrderLine ;
+            sh:name "Comprises order line" ;
+            sh:path epo:comprisesOrderLine ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:name "Has customer reference" ;
+            sh:path epo:hasCustomerReference ],
+        [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:name "Announces order" ;
-            sh:path epo:announcesOrder ],
-        [ a sh:PropertyShape ;
-            sh:class epo:OrderDocument ;
-            sh:name "Supersedes order" ;
-            sh:path epo:supersedesOrder ],
+            sh:minCount 1 ;
+            sh:name "Specifies seller" ;
+            sh:path epo:specifiesSeller ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:name "Supersedes order" ;
-            sh:path epo:supersedesOrder ],
+            sh:name "Has payment term" ;
+            sh:path epo:hasPaymentTerm ],
         [ a sh:PropertyShape ;
-            sh:class epo:Order ;
-            sh:name "Announces order" ;
-            sh:path epo:announcesOrder ] ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesOrder> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesOrder> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#supersedesOrder> ?that . ?that <http://data.europa.eu/a4g/ontology#supersedesOrder> ?this .} " ] ;
-    sh:targetClass epo:OrderDocument .
+            sh:class epo:OriginatorInformation ;
+            sh:name "Specifies originator information" ;
+            sh:path epo:specifiesOriginatorInformation ],
+        [ a sh:PropertyShape ;
+            sh:class epo:ContractInformation ;
+            sh:name "Specifies contract information" ;
+            sh:path epo:specifiesContractInformation ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Specifies originator information" ;
+            sh:path epo:specifiesOriginatorInformation ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:name "Comprises order line" ;
+            sh:path epo:comprisesOrderLine ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has accounting cost" ;
+            sh:path epo:hasAccountingCost ],
+        [ a sh:PropertyShape ;
+            sh:class epo:AllowanceInformation ;
+            sh:name "Specifies discount information" ;
+            sh:path epo:specifiesDiscountInformation ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has customer reference" ;
+            sh:path epo:hasCustomerReference ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDiscountInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDiscountInformation> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesOriginatorInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesOriginatorInformation> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?this .} " ] ;
+    sh:targetClass epo:Order .
 
 epo:OrderResponseLine a sh:NodeShape ;
     rdfs:label "Order response line"@en ;
+    rdfs:comment """Details concerning the Seller's ability to fulfil a given Order Line.
+
+Additional Information:
+The Order Response Line is used to inform on the acceptance or rejection of an Order Line or to make a counter-offer.
+
+WG approval 20/04/2023"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """Details concerning the Seller's ability to fulfil a given Order Line.
+
+Additional Information:
+The Order Response Line is used to inform on the acceptance or rejection of an Order Line or to make a counter-offer.
+
+WG approval 20/04/2023""" ;
     sh:name "Order response line" ;
     sh:property [ a sh:PropertyShape ;
             sh:class epo:OrderLine ;
@@ -313,7 +398,13 @@ WG approval: 20/10/2022
 
 epo:OriginatorInformation a sh:NodeShape ;
     rdfs:label "Originator information"@en ;
+    rdfs:comment """Information about the Originator of the Order.
+
+WG approval 20/03/2023"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """Information about the Originator of the Order.
+
+WG approval 20/03/2023""" ;
     sh:name "Originator information" ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
@@ -321,28 +412,28 @@ epo:OriginatorInformation a sh:NodeShape ;
             sh:name "Concerns originator" ;
             sh:path epo:concernsOriginator ],
         [ a sh:PropertyShape ;
-            sh:class epo:Originator ;
-            sh:name "Concerns originator" ;
-            sh:path epo:concernsOriginator ],
-        [ a sh:PropertyShape ;
             sh:class epo:OrderLine ;
             sh:name "Is specific to order line" ;
-            sh:path epo:isSpecificToOrderLine ] ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsOriginator> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsOriginator> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ] ;
+            sh:path epo:isSpecificToOrderLine ],
+        [ a sh:PropertyShape ;
+            sh:class epo:Originator ;
+            sh:name "Concerns originator" ;
+            sh:path epo:concernsOriginator ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsOriginator> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsOriginator> ?this .} " ] ;
     sh:targetClass epo:OriginatorInformation .
-
-epo:Project a sh:NodeShape ;
-    rdfs:label "Project"@en ;
-    rdfs:comment "A collaborative enterprise that is carefully planned to achieve a particular aim."@en ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:description "A collaborative enterprise that is carefully planned to achieve a particular aim." ;
-    sh:name "Project" ;
-    sh:targetClass epo:Project .
 
 epo:TaxInformation a sh:NodeShape ;
     rdfs:label "Tax information"@en ;
+    rdfs:comment """Information about the imposition of mandatory levies required by law.
+
+WG approval 25/04/2023
+"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
+    sh:description """Information about the imposition of mandatory levies required by law.
+
+WG approval 25/04/2023
+""" ;
     sh:name "Tax information" ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
@@ -354,83 +445,27 @@ epo:TaxInformation a sh:NodeShape ;
             sh:path epo:hasPercentage ] ;
     sh:targetClass epo:TaxInformation .
 
-epo:Order a sh:NodeShape ;
-    rdfs:label "Order"@en ;
+epo:DeliveryAgreement a sh:NodeShape ;
+    rdfs:label "Delivery agreement"@en ;
+    rdfs:comment """Term applying to the delivery of goods, services and works.
+
+Additional Information:
+Delivery terms identifier can normally be Incoterms accompanied by the description of specific conditions related to the delivery.
+
+WG approval 16/05/2023"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:name "Order" ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Refers to project" ;
-            sh:path epo:refersToProject ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:name "Specifies delivery information" ;
-            sh:path epo:specifiesDeliveryInformation ],
-        [ a sh:PropertyShape ;
-            sh:class epo:ContractInformation ;
-            sh:name "Specifies contract information" ;
-            sh:path epo:specifiesContractInformation ],
-        [ a sh:PropertyShape ;
-            sh:class epo:OriginatorInformation ;
-            sh:name "Specifies originator information" ;
-            sh:path epo:specifiesOriginatorInformation ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:name "Comprises order line" ;
-            sh:path epo:comprisesOrderLine ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Specifies originator information" ;
-            sh:path epo:specifiesOriginatorInformation ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has accounting cost" ;
-            sh:path epo:hasAccountingCost ],
-        [ a sh:PropertyShape ;
-            sh:class epo:Seller ;
-            sh:name "Specifies seller" ;
-            sh:path epo:specifiesSeller ],
-        [ a sh:PropertyShape ;
-            sh:class epo:DeliveryInformation ;
-            sh:name "Specifies delivery information" ;
-            sh:path epo:specifiesDeliveryInformation ],
-        [ a sh:PropertyShape ;
-            sh:class epo:OrderLine ;
-            sh:name "Comprises order line" ;
-            sh:path epo:comprisesOrderLine ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has payment term" ;
-            sh:path epo:hasPaymentTerm ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:name "Specifies seller" ;
-            sh:path epo:specifiesSeller ],
-        [ a sh:PropertyShape ;
-            sh:class epo:DocumentAllowanceInformation ;
-            sh:name "Specifies discount information" ;
-            sh:path epo:specifiesDiscountInformation ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has customer reference" ;
-            sh:path epo:hasCustomerReference ],
-        [ a sh:PropertyShape ;
-            sh:class epo:Project ;
-            sh:name "Refers to project" ;
-            sh:path epo:refersToProject ] ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDiscountInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDiscountInformation> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToProject> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToProject> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesOriginatorInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesOriginatorInformation> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?this .} " ] ;
-    sh:targetClass epo:Order .
+    sh:description """Term applying to the delivery of goods, services and works.
+
+Additional Information:
+Delivery terms identifier can normally be Incoterms accompanied by the description of specific conditions related to the delivery.
+
+WG approval 16/05/2023""" ;
+    sh:name "Delivery agreement" ;
+    sh:targetClass epo:DeliveryAgreement .
 
 epo:Seller a sh:NodeShape ;
     rdfs:label "Seller"@en ;
-    rdfs:comment """A Role of an Agent who transfers the ownership of the Procurement results (goods, services or work) to the Buyer.
+    rdfs:comment """A Role of an Agent who transfers the ownership of the Procurement results (goods, services or works) to the Buyer.
 
 Additional information:
 A Role of an Agent that sells a Procurement Result (goods, services or work) to a Buyer. 
@@ -441,7 +476,7 @@ The Seller may or may not be the owner of the credit owed by the Buyer.
 
 WG acceptance 08/09/2022"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:description """A Role of an Agent who transfers the ownership of the Procurement results (goods, services or work) to the Buyer.
+    sh:description """A Role of an Agent who transfers the ownership of the Procurement results (goods, services or works) to the Buyer.
 
 Additional information:
 A Role of an Agent that sells a Procurement Result (goods, services or work) to a Buyer. 
@@ -456,19 +491,21 @@ WG acceptance 08/09/2022""" ;
 
 epo:OrderLine a sh:NodeShape ;
     rdfs:label "Order line"@en ;
-    rdfs:comment """
+    rdfs:comment """Details concerning a given unit of goods, services or works requested in the Order.
 
 Additional information:
-We cannot have an Order of an item without specifying Quantity and Price.  
+In general, an Order Line contains the Quantity and Price of the goods, services and goods requested in the Order. 
+However, in certain cases, the Price may not be known, as the Price may fluctuate from one day to the other. 
 
-Price may not be known, as the Price may differ from one day to the other. """@en ;
+WG approval 20/04/2023"""@en ;
     rdfs:isDefinedBy <http://data.europa.eu/a4g/ontology> ;
-    sh:description """
+    sh:description """Details concerning a given unit of goods, services or works requested in the Order.
 
 Additional information:
-We cannot have an Order of an item without specifying Quantity and Price.  
+In general, an Order Line contains the Quantity and Price of the goods, services and goods requested in the Order. 
+However, in certain cases, the Price may not be known, as the Price may fluctuate from one day to the other. 
 
-Price may not be known, as the Price may differ from one day to the other. """ ;
+WG approval 20/04/2023""" ;
     sh:name "Order line" ;
     sh:targetClass epo:OrderLine .
 
