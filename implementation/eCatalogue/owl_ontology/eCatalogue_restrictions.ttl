@@ -4,21 +4,13 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix epo: <http://data.europa.eu/a4g/ontology#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <https://schema.org/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-epo:announcesCatalogueFragment rdfs:domain epo:CatalogueUpdateDocument ;
-    rdfs:range epo:CatalogueFragment .
-
-epo:announcesPostAwardObject rdfs:domain epo:Document ;
-    rdfs:range epo:PostAwardObject .
-
-epo:comprisesLine rdfs:domain epo:PostAwardObject ;
-    rdfs:range epo:Line .
 
 epo:hasAccessoryItem a owl:AsymmetricProperty ;
     rdfs:domain epo:Item ;
@@ -27,23 +19,22 @@ epo:hasAccessoryItem a owl:AsymmetricProperty ;
 epo:hasActivityCode rdfs:domain epo:CatalogueFragment ;
     rdfs:range <skos:Concept> .
 
-epo:hasAdditionalInformation rdfs:domain epo:PostAwardObject ;
-    rdfs:range rdf:PlainLiteral .
-
 epo:hasBaseQuantity rdfs:domain epo:Price ;
     rdfs:range epo:Quantity .
 
-epo:hasBuyerItemID rdfs:domain epo:Item ;
+epo:hasBatchID rdfs:domain epo:Batch ;
     rdfs:range <http://unknown.domain/for/prefix#Identifier> .
 
-epo:hasCatalogueItemID rdfs:domain epo:Item ;
+epo:hasBuyerItemID rdfs:domain epo:Item ;
     rdfs:range <http://unknown.domain/for/prefix#Identifier> .
 
 epo:hasCatalogueLineValidity rdfs:domain epo:CatalogueLine ;
     rdfs:range epo:Period .
 
-epo:hasCertification rdfs:domain epo:Item ;
-    rdfs:range epo:ItemCertificate .
+epo:hasCertification rdfs:domain [ a owl:Class ;
+            owl:unionOf ( foaf:Person epo:Item org:Organization ) ] ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( epo:Certificate ) ] .
 
 epo:hasChargeInformation rdfs:domain epo:CatalogueLine ;
     rdfs:range epo:ChargeInformation .
@@ -54,9 +45,6 @@ epo:hasComplementaryItem a owl:AsymmetricProperty ;
 
 epo:hasCountryOfOrigin rdfs:domain epo:Item ;
     rdfs:range <skos:Concept> .
-
-epo:hasCustomizationID rdfs:domain epo:PostAwardObject ;
-    rdfs:range <http://unknown.domain/for/prefix#Identifier> .
 
 epo:hasDeliveryClassification rdfs:domain epo:Item ;
     rdfs:range <skos:Concept> .
@@ -74,8 +62,7 @@ epo:hasExpectedDeliveryTime rdfs:domain epo:Price ;
     rdfs:range epo:Duration .
 
 epo:hasExternalSpecification rdfs:domain epo:Item ;
-    rdfs:range epo:Document,
-        xsd:anyURI .
+    rdfs:range epo:Document .
 
 epo:hasFreightAllowanceCharge rdfs:domain epo:Consignment ;
     rdfs:range epo:ChargeInformation .
@@ -124,16 +111,13 @@ epo:hasPart a owl:AsymmetricProperty ;
     rdfs:range epo:Item .
 
 epo:hasPriceDiscountInformation rdfs:domain epo:Price ;
-    rdfs:range epo:PriceDiscountInformation .
+    rdfs:range epo:AllowanceInformation .
 
 epo:hasPriceType rdfs:domain epo:Price ;
     rdfs:range <skos:Concept> .
 
 epo:hasPriceValidity rdfs:domain epo:Price ;
     rdfs:range epo:Period .
-
-epo:hasProfileID rdfs:domain epo:PostAwardObject ;
-    rdfs:range <http://unknown.domain/for/prefix#Identifier> .
 
 epo:hasQualifiedItemRelation rdfs:domain epo:Item ;
     rdfs:range epo:ItemRelation .
@@ -144,6 +128,9 @@ epo:hasQualifiedValue rdfs:domain epo:ItemDescription ;
 epo:hasQuantityThreshold rdfs:domain epo:Price ;
     rdfs:range epo:Quantity .
 
+epo:hasSellerItemID rdfs:domain epo:Item ;
+    rdfs:range <http://unknown.domain/for/prefix#Identifier> .
+
 epo:hasSerialID rdfs:domain epo:Item ;
     rdfs:range <http://unknown.domain/for/prefix#Identifier> .
 
@@ -153,30 +140,26 @@ epo:hasSpecification rdfs:domain epo:Item ;
 epo:hasStandardisedUnitPrice rdfs:domain epo:CatalogueLine ;
     rdfs:range epo:Price .
 
-epo:hasTaxCategory rdfs:domain [ a owl:Class ;
-            owl:unionOf ( epo:TaxInformation epo:TaxInformationSchema ) ] ;
+epo:hasTaxCategory rdfs:domain epo:TaxInformation ;
     rdfs:range <skos:Concept> .
 
-epo:hasTaxInformationSchema rdfs:domain epo:Item ;
-    rdfs:range epo:TaxInformationSchema .
+epo:hasTaxInformation rdfs:domain epo:Item ;
+    rdfs:range epo:TaxInformation .
 
-epo:hasTaxScheme rdfs:domain [ a owl:Class ;
-            owl:unionOf ( epo:TaxInformation epo:TaxInformationSchema ) ] ;
+epo:hasTaxScheme rdfs:domain epo:TaxInformation ;
     rdfs:range <skos:Concept> .
 
 epo:hasTransactionConditionsCode rdfs:domain epo:CatalogueLine ;
     rdfs:range <skos:Concept> .
 
-epo:hasVATCategory rdfs:domain epo:Item ;
+epo:hasVATCategory rdfs:domain epo:TaxInformation ;
     rdfs:range <skos:Concept> .
 
-epo:hasValidityPeriod rdfs:domain [ a owl:Class ;
-            owl:unionOf ( epo:ItemCertificate epo:PostAwardObject ) ] ;
-    rdfs:range [ a owl:Class ;
-            owl:unionOf ( epo:Period ) ] .
+epo:hasValidityPeriod rdfs:domain epo:Certificate ;
+    rdfs:range epo:Period .
 
 epo:identifier rdfs:domain [ a owl:Class ;
-            owl:unionOf ( epo:CatalogueLine epo:Batch epo:Line epo:PostAwardObject ) ] ;
+            owl:unionOf ( epo:CatalogueLine epo:Line ) ] ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( <http://unknown.domain/for/prefix#Identifier> ) ] .
 
@@ -215,9 +198,6 @@ epo:specifiesCatalogueReceiver rdfs:domain epo:Catalogue ;
 
 epo:specifiesChargeInformation rdfs:domain epo:Order ;
     rdfs:range epo:ChargeInformation .
-
-epo:specifiesInformation rdfs:domain epo:PostAwardObject ;
-    rdfs:range epo:InformationHub .
 
 epo:specifiesSeller rdfs:domain epo:Catalogue ;
     rdfs:range epo:Seller .
@@ -274,16 +254,8 @@ epo:specifiesSeller rdfs:domain epo:Catalogue ;
     owl:versionIRI :eCatalogue_CM.xml-2023-05-23 ;
     owl:versionInfo "3.1.0" .
 
-epo:CatalogueDocument a owl:Class ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:announcesCatalogue ] .
-
-epo:announcesCatalogue rdfs:domain epo:CatalogueDocument ;
-    rdfs:range epo:Catalogue .
-
 epo:attestedByLabel a owl:FunctionalProperty ;
-    rdfs:domain epo:ItemCertificate ;
+    rdfs:domain epo:Certificate ;
     rdfs:range epo:CertificationLabel .
 
 epo:comprisesCatalogueLine rdfs:domain epo:Catalogue ;
@@ -304,7 +276,7 @@ epo:hasBrand rdfs:domain epo:Item ;
     rdfs:range epo:Brand .
 
 epo:hasCertificationNumber a owl:FunctionalProperty ;
-    rdfs:domain epo:ItemCertificate ;
+    rdfs:domain epo:Certificate ;
     rdfs:range rdf:PlainLiteral .
 
 epo:hasClassificationScheme a owl:FunctionalProperty ;
@@ -343,28 +315,20 @@ epo:hasPrice rdfs:domain [ a owl:Class ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( epo:Price ) ] .
 
+epo:hasPriceSurchargeInformation rdfs:domain epo:Price ;
+    rdfs:range epo:ChargeInformation .
+
 epo:hasReferenceURI rdfs:domain epo:CertificationLabel ;
     rdfs:range xsd:anyURI .
 
-epo:hasSourceCatalogueVersion a owl:FunctionalProperty ;
-    rdfs:domain epo:CatalogueUpdateDocument ;
-    rdfs:range rdf:PlainLiteral .
-
 epo:hasSpecificPaymentArrangement rdfs:domain epo:Catalogue ;
-    rdfs:range rdf:PlainLiteral .
-
-epo:hasTargetCatalogueVersion a owl:FunctionalProperty ;
-    rdfs:domain epo:CatalogueUpdateDocument ;
     rdfs:range rdf:PlainLiteral .
 
 epo:hasTransactionConditions rdfs:domain epo:CatalogueLine ;
     rdfs:range rdf:PlainLiteral .
 
-epo:hasURL rdfs:domain epo:ItemCertificate ;
+epo:hasURL rdfs:domain epo:Certificate ;
     rdfs:range xsd:anyURI .
-
-epo:hasVATRate rdfs:domain epo:Item ;
-    rdfs:range xsd:decimal .
 
 epo:hasWarrantyInformation rdfs:domain epo:CatalogueLine ;
     rdfs:range rdf:PlainLiteral .
@@ -386,15 +350,14 @@ epo:isRelatedToItem a owl:FunctionalProperty ;
     rdfs:domain epo:ItemRelation ;
     rdfs:range epo:Item .
 
-epo:issuedByCertifier rdfs:domain epo:ItemCertificate ;
+epo:issuedByCertifier rdfs:domain epo:Certificate ;
     rdfs:range epo:Certifier .
 
 epo:replaces rdfs:domain epo:Item ;
     rdfs:range epo:Item .
 
 epo:specifiesItem a owl:FunctionalProperty ;
-    rdfs:domain epo:Deliverable,
-        epo:Line ;
+    rdfs:domain epo:Line ;
     rdfs:range epo:Item .
 
 epo:updatesCatalogue a owl:FunctionalProperty ;
@@ -406,23 +369,19 @@ epo:Brand a owl:Class ;
             owl:cardinality 1 ;
             owl:onProperty dcterms:title ] .
 
-epo:ItemModel a owl:Class ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty dcterms:title ] .
-
 epo:CatalogueFragment a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty epo:updatesCatalogue ] .
 
-epo:CatalogueUpdateDocument a owl:Class ;
+epo:ItemModel a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:hasTargetCatalogueVersion ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasSourceCatalogueVersion ] .
+            owl:onProperty dcterms:title ] .
+
+dcterms:description rdfs:domain [ a owl:Class ;
+            owl:unionOf ( epo:Item epo:Line ) ] ;
+    rdfs:range rdf:PlainLiteral .
 
 epo:CertificationLabel a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -437,126 +396,117 @@ epo:ItemRelation a owl:Class ;
             owl:cardinality 1 ;
             owl:onProperty epo:isRelatedToItem ] .
 
-dcterms:description rdfs:domain [ a owl:Class ;
-            owl:unionOf ( epo:Item epo:Line epo:PostAwardObject ) ] ;
+dcterms:title a owl:FunctionalProperty ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( epo:ItemModel epo:Brand epo:Item ) ] ;
     rdfs:range rdf:PlainLiteral .
 
-dcterms:title rdfs:domain [ a owl:Class ;
-            owl:unionOf ( epo:Brand epo:ItemModel epo:Item epo:PostAwardObject ) ] ;
-    rdfs:range rdf:PlainLiteral .
+epo:Line a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:specifiesItem ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty dcterms:description ] .
 
 epo:Batch a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasManufactureDate ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasExpiryDate ],
+            owl:cardinality 1 ;
+            owl:onProperty epo:isProductionOf ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasBestBeforeDate ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:isProductionOf ] .
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasManufactureDate ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasExpiryDate ] .
 
 epo:ItemDescription a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty epo:hasClassificationScheme ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasLiteralValue ],
+        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty epo:describesItem ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:hasAttributeType ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasLiteralValue ] .
+            owl:onProperty epo:hasAttributeType ] .
 
-epo:Line a owl:Class ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty dcterms:description ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:specifiesItem ] .
-
-epo:ItemCertificate a owl:Class ;
+epo:Certificate a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty epo:attestedByLabel ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:issuedByCertifier ],
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasCertificationNumber ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasURL ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasCertificationNumber ] .
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:issuedByCertifier ] .
 
 epo:Catalogue a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasSpecificPaymentArrangement ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty epo:comprisesCatalogueLine ] .
+            owl:onProperty epo:comprisesCatalogueLine ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasSpecificPaymentArrangement ] .
 
-epo:PostAwardObject a owl:Class ;
+epo:Price a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty dcterms:description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty dcterms:title ] .
+            owl:onProperty epo:hasPriceSurchargeInformation ] .
 
 epo:CatalogueLine a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasWarrantyInformation ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isContractedItem ],
+            owl:minCardinality 1 ;
+            owl:onProperty epo:hasPrice ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasTransactionConditions ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty epo:isContractedItem ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty epo:hasOrderableQuantityIncrement ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isOrderable ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:hasPrice ],
+            owl:onProperty epo:hasOrderableUnitFactorRate ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasOrderableUnitFactorRate ] .
+            owl:onProperty epo:isOrderable ] .
 
 epo:Item a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasHazardousClass ],
+            owl:onProperty epo:hasModel ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isInStock ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasVATRate ],
+            owl:onProperty epo:hasManufacturer ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty dcterms:title ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasManufacturer ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasModel ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty dcterms:description ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasBrand ] .
+            owl:onProperty epo:isInStock ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasBrand ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasHazardousClass ] .
 
