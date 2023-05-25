@@ -34,7 +34,7 @@
     dc:rights "This ontology is licenced under CC BY-SA 4.0 - http://creativecommons.org/licenses/by-sa/4.0/" ;
     dcterms:creator [ a foaf:Person ;
             foaf:name "eProcurement Ontology Working Group" ] ;
-    dcterms:date "2023-05-23"^^xsd:date ;
+    dcterms:date "2023-05-25"^^xsd:date ;
     dcterms:description """
         This module provides the definitions for the eOrdering of eProcurement ontology.
         Procurement data has been identified as data with a high-reuse potential.
@@ -52,7 +52,7 @@
             """@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eOrdering_CM.xml on 2023-05-23" ;
+    rdfs:comment "This version is automatically generated from eOrdering_CM.xml on 2023-05-25" ;
     rdfs:seeAlso <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
@@ -62,7 +62,7 @@
         <http://www.w3.org/2004/02/skos/core>,
         sh: ;
     owl:incompatibleWith "2.x.x" ;
-    owl:versionIRI :eOrdering_CM.xml-2023-05-23 ;
+    owl:versionIRI :eOrdering_CM.xml-2023-05-25 ;
     owl:versionInfo "3.1.0" .
 
 epo:AllowanceChargeInformation a sh:NodeShape ;
@@ -76,7 +76,7 @@ WG approval 16/05/2023"""@en ;
 WG approval 16/05/2023""" ;
     sh:name "Allowance charge information" ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
             sh:name "Has percentage" ;
             sh:path epo:hasPercentage ],
         [ a sh:PropertyShape ;
@@ -84,7 +84,7 @@ WG approval 16/05/2023""" ;
             sh:name "Has tax information" ;
             sh:path epo:hasTaxInformation ],
         [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
+            sh:datatype xsd:decimal ;
             sh:name "Has percentage" ;
             sh:path epo:hasPercentage ],
         [ a sh:PropertyShape ;
@@ -113,18 +113,6 @@ WG approval 20/04/2023
 """ ;
     sh:name "Order response" ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Specifies seller" ;
-            sh:path epo:specifiesSeller ],
-        [ a sh:PropertyShape ;
-            sh:class epo:Order ;
-            sh:name "Is submitted for order" ;
-            sh:path epo:isSubmittedForOrder ],
-        [ a sh:PropertyShape ;
-            sh:class epo:OrderResponseLine ;
-            sh:name "Comprises order response line" ;
-            sh:path epo:comprisesOrderResponseLine ],
-        [ a sh:PropertyShape ;
             sh:class epo:Seller ;
             sh:name "Specifies seller" ;
             sh:path epo:specifiesSeller ],
@@ -134,11 +122,23 @@ WG approval 20/04/2023
             sh:name "Is submitted for order" ;
             sh:path epo:isSubmittedForOrder ],
         [ a sh:PropertyShape ;
+            sh:class epo:Order ;
+            sh:name "Is submitted for order" ;
+            sh:path epo:isSubmittedForOrder ],
+        [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:name "Has response description" ;
-            sh:path epo:hasResponseDescription ] ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesOrderResponseLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesOrderResponseLine> ?this .} " ],
+            sh:path epo:hasResponseDescription ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Specifies seller" ;
+            sh:path epo:specifiesSeller ],
+        [ a sh:PropertyShape ;
+            sh:class epo:OrderResponseLine ;
+            sh:name "Comprises order response line" ;
+            sh:path epo:comprisesOrderResponseLine ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesOrderResponseLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesOrderResponseLine> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .} " ],
         [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForOrder> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForOrder> ?this .} " ] ;
     sh:targetClass epo:OrderResponse .
 
@@ -225,17 +225,25 @@ WG approval 16/05/2023
             sh:name "Has delivery deadline" ;
             sh:path epo:hasDeliveryDeadline ],
         [ a sh:PropertyShape ;
+            sh:class epo:OrderLine ;
+            sh:name "Is specific to order line" ;
+            sh:path epo:isSpecificToOrderLine ],
+        [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:name "Concerns consignee" ;
             sh:path epo:concernsConsignee ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Specifies specific delivery agreement" ;
+            sh:path epo:specifiesSpecificDeliveryAgreement ],
         [ a sh:PropertyShape ;
             sh:class epo:Consignee ;
             sh:name "Concerns consignee" ;
             sh:path epo:concernsConsignee ],
         [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Specifies specific delivery agreement" ;
-            sh:path epo:specifiesSpecificDeliveryAgreement ],
+            sh:class epo:DeliveryAgreement ;
+            sh:name "Specifies general delivery agreement" ;
+            sh:path epo:specifiesGeneralDeliveryAgreement ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:name "Specifies general delivery agreement" ;
@@ -244,22 +252,14 @@ WG approval 16/05/2023
             sh:class epo:DeliveryAgreement ;
             sh:name "Specifies specific delivery agreement" ;
             sh:path epo:specifiesSpecificDeliveryAgreement ],
-        [ a sh:PropertyShape ;
-            sh:class epo:DeliveryAgreement ;
-            sh:name "Specifies general delivery agreement" ;
-            sh:path epo:specifiesGeneralDeliveryAgreement ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:name "Has delivery deadline" ;
-            sh:path epo:hasDeliveryDeadline ],
-        [ a sh:PropertyShape ;
-            sh:class epo:OrderLine ;
-            sh:name "Is specific to order line" ;
-            sh:path epo:isSpecificToOrderLine ] ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesGeneralDeliveryAgreement> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesGeneralDeliveryAgreement> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSpecificDeliveryAgreement> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSpecificDeliveryAgreement> ?this .} " ],
+            sh:path epo:hasDeliveryDeadline ] ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsConsignee> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsConsignee> ?this .} " ],
         [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsConsignee> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsConsignee> ?this .} " ] ;
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesGeneralDeliveryAgreement> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesGeneralDeliveryAgreement> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSpecificDeliveryAgreement> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSpecificDeliveryAgreement> ?this .} " ] ;
     sh:targetClass epo:DeliveryInformation .
 
 epo:Order a sh:NodeShape ;
@@ -283,13 +283,46 @@ WG approval 23/04/2023
 """ ;
     sh:name "Order" ;
     sh:property [ a sh:PropertyShape ;
+            sh:class epo:OriginatorInformation ;
+            sh:name "Specifies originator information" ;
+            sh:path epo:specifiesOriginatorInformation ],
+        [ a sh:PropertyShape ;
             sh:class epo:Seller ;
             sh:name "Specifies seller" ;
             sh:path epo:specifiesSeller ],
         [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Specifies originator information" ;
+            sh:path epo:specifiesOriginatorInformation ],
+        [ a sh:PropertyShape ;
+            sh:class epo:AllowanceInformation ;
+            sh:name "Specifies discount information" ;
+            sh:path epo:specifiesDiscountInformation ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has customer reference" ;
+            sh:path epo:hasCustomerReference ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "Specifies seller" ;
+            sh:path epo:specifiesSeller ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:name "Has customer reference" ;
+            sh:path epo:hasCustomerReference ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:name "Has accounting cost" ;
+            sh:path epo:hasAccountingCost ],
+        [ a sh:PropertyShape ;
             sh:minCount 1 ;
             sh:name "Specifies delivery information" ;
             sh:path epo:specifiesDeliveryInformation ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:name "Comprises order line" ;
+            sh:path epo:comprisesOrderLine ],
         [ a sh:PropertyShape ;
             sh:class epo:DeliveryInformation ;
             sh:name "Specifies delivery information" ;
@@ -299,51 +332,18 @@ WG approval 23/04/2023
             sh:name "Comprises order line" ;
             sh:path epo:comprisesOrderLine ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:name "Has customer reference" ;
-            sh:path epo:hasCustomerReference ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:name "Specifies seller" ;
-            sh:path epo:specifiesSeller ],
-        [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:name "Has payment term" ;
             sh:path epo:hasPaymentTerm ],
         [ a sh:PropertyShape ;
-            sh:class epo:OriginatorInformation ;
-            sh:name "Specifies originator information" ;
-            sh:path epo:specifiesOriginatorInformation ],
-        [ a sh:PropertyShape ;
             sh:class epo:ContractInformation ;
             sh:name "Specifies contract information" ;
-            sh:path epo:specifiesContractInformation ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Specifies originator information" ;
-            sh:path epo:specifiesOriginatorInformation ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:name "Comprises order line" ;
-            sh:path epo:comprisesOrderLine ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has accounting cost" ;
-            sh:path epo:hasAccountingCost ],
-        [ a sh:PropertyShape ;
-            sh:class epo:AllowanceInformation ;
-            sh:name "Specifies discount information" ;
-            sh:path epo:specifiesDiscountInformation ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:name "Has customer reference" ;
-            sh:path epo:hasCustomerReference ] ;
+            sh:path epo:specifiesContractInformation ] ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDiscountInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDiscountInformation> ?this .} " ],
-        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?this .} " ],
         [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesOriginatorInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesOriginatorInformation> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?this .} " ],
+        [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDiscountInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDiscountInformation> ?this .} " ],
         [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?this .} " ] ;
     sh:targetClass epo:Order .
 
@@ -436,11 +436,11 @@ WG approval 25/04/2023
 """ ;
     sh:name "Tax information" ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
+            sh:datatype xsd:decimal ;
             sh:name "Has percentage" ;
             sh:path epo:hasPercentage ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
             sh:name "Has percentage" ;
             sh:path epo:hasPercentage ] ;
     sh:targetClass epo:TaxInformation .
