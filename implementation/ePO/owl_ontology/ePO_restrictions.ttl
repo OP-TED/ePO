@@ -29,7 +29,7 @@ epo:announcesLot rdfs:domain epo:CompetitionNotice ;
 epo:announcesLotAwardOutcome rdfs:domain [ a owl:Class ;
             owl:unionOf ( epo:ResultNotice epo:DirectAwardPrenotificationNotice ) ] ;
     rdfs:range [ a owl:Class ;
-            owl:unionOf ( epo:LotAwardOutcome ) ] .
+            owl:unionOf ( epo:AwardDecision ) ] .
 
 epo:announcesLotGroup rdfs:domain epo:CompetitionNotice ;
     rdfs:range epo:LotGroup .
@@ -82,7 +82,7 @@ epo:bindsBuyer rdfs:domain epo:Contract ;
 epo:bindsContractor rdfs:domain epo:Contract ;
     rdfs:range epo:Contractor .
 
-epo:comprisesTenderAwardOutcome rdfs:domain epo:LotAwardOutcome ;
+epo:comprisesTenderAwardOutcome rdfs:domain epo:AwardDecision ;
     rdfs:range epo:TenderAwardOutcome .
 
 epo:concernsContract rdfs:domain epo:ContractInformation ;
@@ -102,11 +102,14 @@ epo:conformsToLegalBasis rdfs:domain epo:Notice ;
 epo:conformsToSpecificLegalBasis rdfs:domain epo:Notice ;
     rdfs:range <skos:Concept> .
 
-epo:considersEvaluationResult rdfs:domain epo:LotAwardOutcome ;
+epo:considersEvaluationResult rdfs:domain epo:LotAwardDecision ;
     rdfs:range epo:TenderEvaluationResult .
 
 epo:constrains rdfs:domain <http://data.europa.eu/m8g/Constraint> ;
     rdfs:range <http://data.europa.eu/m8g/InformationConcept> .
+
+epo:containsCandidate rdfs:domain epo:CandidateList ;
+    rdfs:range epo:Candidate .
 
 epo:contextualisedBy rdfs:domain epo:AgentInRole ;
     rdfs:range epo:ProcurementObject .
@@ -160,7 +163,7 @@ epo:foreseesSubcontracting rdfs:domain epo:Tender ;
     rdfs:range epo:SubcontractingEstimate .
 
 epo:foreseesTechnique rdfs:domain epo:PlannedProcurementPart ;
-    rdfs:range epo:TechniqueUsage .
+    rdfs:range epo:Technique .
 
 epo:fulfillsRequirement rdfs:domain [ a owl:Class ;
             owl:unionOf ( epo:GreenProcurement epo:InnovativeProcurement epo:SocialProcurement ) ] ;
@@ -210,7 +213,7 @@ epo:hasAwardCriteriaEvaluationFormula rdfs:domain epo:AwardEvaluationTerm ;
 epo:hasAwardCriterionType rdfs:domain epo:AwardCriterion ;
     rdfs:range <skos:Concept> .
 
-epo:hasAwardStatus rdfs:domain epo:LotAwardOutcome ;
+epo:hasAwardStatus rdfs:domain epo:AwardDecision ;
     rdfs:range <skos:Concept> .
 
 epo:hasBaseQuantity rdfs:domain epo:Price ;
@@ -237,6 +240,9 @@ epo:hasBuyerItemID rdfs:domain epo:Item ;
 
 epo:hasBuyerLegalType rdfs:domain org:Organization ;
     rdfs:range <skos:Concept> .
+
+epo:hasCandidateList rdfs:domain epo:DynamicPurchasingSystem ;
+    rdfs:range epo:CandidateList .
 
 epo:hasCarrierConsignmentID rdfs:domain epo:Consignment ;
     rdfs:range <http://unknown.domain/for/prefix#Identifier> .
@@ -316,7 +322,7 @@ epo:hasCurrencyCodeListAgencyName rdfs:domain epo:MonetaryValue ;
 epo:hasCurrencyCodeListID rdfs:domain epo:MonetaryValue ;
     rdfs:range rdf:PlainLiteral .
 
-epo:hasDPSScope rdfs:domain epo:DynamicPurchaseSystemTechniqueUsage ;
+epo:hasDPSScope rdfs:domain epo:DynamicPurchaseSystemTechnique ;
     rdfs:range <skos:Concept> .
 
 epo:hasDeclaredStatisticalValue rdfs:domain epo:GoodsItem ;
@@ -539,7 +545,7 @@ epo:hasNetWeight rdfs:domain [ a owl:Class ;
 epo:hasNonAccessibilityCriterionJustification rdfs:domain epo:StrategicProcurement ;
     rdfs:range rdf:PlainLiteral .
 
-epo:hasNonAwardJustification rdfs:domain epo:LotAwardOutcome ;
+epo:hasNonAwardJustification rdfs:domain epo:AwardDecision ;
     rdfs:range <skos:Concept> .
 
 epo:hasNonElectronicSubmissionDescription rdfs:domain epo:SubmissionTerm ;
@@ -614,7 +620,7 @@ epo:hasProcurementClassification rdfs:domain [ a owl:Class ;
 epo:hasQualificationCondition rdfs:domain epo:QualificationCriteriaSummary ;
     rdfs:range rdf:PlainLiteral .
 
-epo:hasQualifiedValue rdfs:domain epo:ItemDescription ;
+epo:hasQualifiedValue rdfs:domain epo:ItemProperty ;
     rdfs:range epo:Quantity .
 
 epo:hasQuantity rdfs:domain [ a owl:Class ;
@@ -742,7 +748,7 @@ epo:hasUnitDescription rdfs:domain epo:Quantity ;
 epo:hasUnofficialLanguage rdfs:domain epo:Document ;
     rdfs:range <skos:Concept> .
 
-epo:hasUsage rdfs:domain epo:TechniqueUsage ;
+epo:hasUsage rdfs:domain epo:Technique ;
     rdfs:range <skos:Concept> .
 
 epo:hasVariantPermission rdfs:domain epo:SubmissionTerm ;
@@ -878,14 +884,20 @@ epo:refersToRole rdfs:domain epo:CompetitionNotice,
 epo:requestsRemedyType rdfs:domain epo:ReviewRequest ;
     rdfs:range <skos:Concept> .
 
-epo:resultsFromLotAwardOutcome rdfs:domain epo:Contract ;
-    rdfs:range epo:LotAwardOutcome .
+epo:resultsFromLotAwardDecision rdfs:domain epo:FrameworkAgreement ;
+    rdfs:range epo:LotAwardDecision .
 
 epo:signedByBuyer rdfs:domain epo:Contract ;
     rdfs:range epo:Buyer .
 
 epo:signedByContractor rdfs:domain epo:Contract ;
     rdfs:range epo:Contractor .
+
+epo:signsAwardDecision rdfs:domain epo:Buyer ;
+    rdfs:range epo:AwardDecision .
+
+epo:specifiesAwardCriterion rdfs:domain epo:MiniCompetition ;
+    rdfs:range epo:AwardCriterion .
 
 epo:specifiesBuyer rdfs:domain [ a owl:Class ;
             owl:unionOf ( epo:Catalogue epo:Order ) ],
@@ -937,7 +949,7 @@ epo:usesChannel rdfs:domain epo:ProcurementObject ;
     rdfs:range <http://data.europa.eu/m8g/Channel> .
 
 epo:usesTechnique rdfs:domain epo:ProcurementObject ;
-    rdfs:range epo:TechniqueUsage .
+    rdfs:range epo:Technique .
 
 <http://data.europa.eu/a4g/rule> a owl:Ontology ;
     rdfs:label """eProcurement Ontology - core. This module provides the inference-related definitions.
@@ -945,6 +957,12 @@ epo:usesTechnique rdfs:domain epo:ProcurementObject ;
     cc:attributionName "PublicationsOffice of the European Union" ;
     cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/PUBL> ;
     dc:contributor [ a foaf:Person ;
+            foaf:homepage <http://costezki.ro> ;
+            foaf:name "Eugeniu" ;
+            foaf:surname "Costetchi" ;
+            schema:affiliation [ foaf:name "Meaningfy" ;
+                    foaf:page <http://meaningfy.ws> ] ],
+        [ a foaf:Person ;
             foaf:name "Natalie" ;
             foaf:surname "Muric" ;
             schema:affiliation [ foaf:name "Publications Office of the European Union" ] ],
@@ -952,17 +970,11 @@ epo:usesTechnique rdfs:domain epo:ProcurementObject ;
             foaf:name "Andreea" ;
             foaf:surname "Pasare" ;
             schema:affiliation [ foaf:name "Meaningfy" ;
-                    foaf:page <http://meaningfy.ws> ] ],
-        [ a foaf:Person ;
-            foaf:homepage <http://costezki.ro> ;
-            foaf:name "Eugeniu" ;
-            foaf:surname "Costetchi" ;
-            schema:affiliation [ foaf:name "Meaningfy" ;
                     foaf:page <http://meaningfy.ws> ] ] ;
     dc:rights "This ontology is licenced under CC BY-SA 4.0 - http://creativecommons.org/licenses/by-sa/4.0/" ;
     dcterms:creator [ a foaf:Person ;
             foaf:name "eProcurement Ontology Working Group" ] ;
-    dcterms:date "2023-05-23"^^xsd:date ;
+    dcterms:date "2023-05-25"^^xsd:date ;
     dcterms:description """
         This module provides the definitions for the eProcurement ontology core.
         Procurement data has been identified as data with a high-reuse potential.
@@ -980,7 +992,7 @@ epo:usesTechnique rdfs:domain epo:ProcurementObject ;
             """@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from ePO_CM.xml on 2023-05-23" ;
+    rdfs:comment "This version is automatically generated from ePO_CM.xml on 2023-05-25" ;
     rdfs:seeAlso <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
@@ -988,7 +1000,7 @@ epo:usesTechnique rdfs:domain epo:ProcurementObject ;
         dcterms:,
         <http://www.w3.org/2004/02/skos/core> ;
     owl:incompatibleWith "2.x.x" ;
-    owl:versionIRI :ePO_CM.xml-2023-05-23 ;
+    owl:versionIRI :ePO_CM.xml-2023-05-25 ;
     owl:versionInfo "3.1.0" .
 
 <http://data.europa.eu/m8g/confidentialityLevelType> rdfs:range <skos:Concept> .
@@ -1039,11 +1051,6 @@ foaf:givenName rdfs:domain <http://data.europa.eu/m8g/Person> ;
 foaf:name rdfs:domain <http://data.europa.eu/m8g/Person> ;
     rdfs:range rdf:langString .
 
-epo:AwardDecision a owl:Class ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:comprisesLotAwardOutcome ] .
-
 epo:actsOnBehalfOf rdfs:domain epo:ProcurementServiceProvider ;
     rdfs:range epo:Buyer .
 
@@ -1051,10 +1058,13 @@ epo:addressID rdfs:domain <http://www.w3.org/ns/locn#Address> ;
     rdfs:range <http://unknown.domain/for/prefix#Identifier> .
 
 epo:comprisesLotAwardOutcome rdfs:domain epo:AwardDecision ;
-    rdfs:range epo:LotAwardOutcome .
+    rdfs:range epo:LotAwardDecision .
 
 epo:comprisesTender rdfs:domain epo:TenderGroup ;
     rdfs:range epo:Tender .
+
+epo:concernsMiniCompetition rdfs:domain epo:MiniCompetitionAwardDecision ;
+    rdfs:range epo:MiniCompetition .
 
 epo:concernsProcedure rdfs:domain epo:ProcurementProcessInformation ;
     rdfs:range epo:Procedure .
@@ -1142,7 +1152,7 @@ epo:describesProfessionRelevantLaw rdfs:domain epo:ProfessionalSuitabilitySummar
 epo:describesVerificationMethod rdfs:domain epo:ParticipationConditionsSummary ;
     rdfs:range rdf:PlainLiteral .
 
-epo:followsRulesSetBy rdfs:domain epo:PurchaseContract ;
+epo:followsRulesSetBy rdfs:domain epo:MiniCompetition ;
     rdfs:range epo:FrameworkAgreement .
 
 epo:foreseesConcession rdfs:domain epo:Tender ;
@@ -1170,7 +1180,7 @@ epo:hasAccessibilityDate rdfs:domain epo:ElementConfidentialityDescription ;
 epo:hasAdditionalInformationDeadline rdfs:domain epo:AccessTerm ;
     rdfs:range xsd:dateTime .
 
-epo:hasAdditionalNonAwardJustification rdfs:domain epo:LotAwardOutcome ;
+epo:hasAdditionalNonAwardJustification rdfs:domain epo:AwardDecision ;
     rdfs:range rdf:PlainLiteral .
 
 epo:hasAddressURL rdfs:domain <http://data.europa.eu/m8g/Channel> ;
@@ -1190,19 +1200,19 @@ epo:hasAwardCriteriaStatedInProcurementDocuments a owl:FunctionalProperty ;
 epo:hasAwardDateScheduled rdfs:domain epo:ProcessPlanningTerm ;
     rdfs:range xsd:date .
 
-epo:hasAwardDecisionDate rdfs:domain epo:LotAwardOutcome ;
+epo:hasAwardDecisionDate rdfs:domain epo:AwardDecision ;
     rdfs:range xsd:dateTime .
 
 epo:hasAwardRank rdfs:domain epo:TenderAwardOutcome ;
     rdfs:range xsd:integer .
 
-epo:hasAwardedEstimatedValue rdfs:domain epo:LotAwardOutcome ;
+epo:hasAwardedEstimatedValue rdfs:domain epo:LotAwardDecision ;
     rdfs:range epo:MonetaryValue .
 
-epo:hasAwardedValue rdfs:domain epo:LotAwardOutcome ;
+epo:hasAwardedValue rdfs:domain epo:AwardDecision ;
     rdfs:range epo:MonetaryValue .
 
-epo:hasBargainPrice rdfs:domain epo:LotAwardOutcome ;
+epo:hasBargainPrice rdfs:domain epo:AwardDecision ;
     rdfs:range epo:MonetaryValue .
 
 epo:hasBeginning rdfs:domain epo:Period ;
@@ -1331,10 +1341,10 @@ epo:hasFormNumber rdfs:domain epo:Notice ;
 epo:hasFormula rdfs:domain epo:ProcurementCriterion ;
     rdfs:range rdf:PlainLiteral .
 
-epo:hasFrameworkAgreementEstimatedValue rdfs:domain epo:LotAwardOutcome ;
+epo:hasFrameworkAgreementEstimatedValue rdfs:domain epo:LotAwardDecision ;
     rdfs:range epo:MonetaryValue .
 
-epo:hasFrameworkAgreementMaximumValue rdfs:domain epo:LotAwardOutcome ;
+epo:hasFrameworkAgreementMaximumValue rdfs:domain epo:LotAwardDecision ;
     rdfs:range epo:MonetaryValue .
 
 epo:hasGroupFrameworkAgreementAwardedValue rdfs:domain epo:LotGroupAwardInformation ;
@@ -1414,10 +1424,10 @@ epo:hasMinimumSubcontractorsProposedObligation rdfs:domain epo:SubcontractTerm ;
 epo:hasNoNegotiationNecessary rdfs:domain epo:MultipleStageProcedureTerm ;
     rdfs:range xsd:boolean .
 
-epo:hasNonAwardedContractNumber rdfs:domain epo:LotAwardOutcome ;
+epo:hasNonAwardedContractNumber rdfs:domain epo:LotAwardDecision ;
     rdfs:range rdf:PlainLiteral .
 
-epo:hasNonAwardedContractTitle rdfs:domain epo:LotAwardOutcome ;
+epo:hasNonAwardedContractTitle rdfs:domain epo:LotAwardDecision ;
     rdfs:range rdf:PlainLiteral .
 
 epo:hasNoticePublicationNumber rdfs:domain epo:Notice ;
@@ -1597,6 +1607,9 @@ epo:hasSelectionCriteriaStatedInProcurementDocuments rdfs:domain epo:SelectionCr
 epo:hasServiceReservedToParticularProfession rdfs:domain epo:ProfessionalSuitabilitySummary ;
     rdfs:range xsd:boolean .
 
+epo:hasStartDate rdfs:domain epo:CandidateList ;
+    rdfs:range epo:Period .
+
 epo:hasSubcontractingEstimatedValue rdfs:domain epo:SubcontractingEstimate ;
     rdfs:range epo:MonetaryValue .
 
@@ -1664,9 +1677,6 @@ epo:involvesProcurementDocument a owl:FunctionalProperty ;
 
 epo:isAccelerated rdfs:domain epo:Procedure ;
     rdfs:range xsd:boolean .
-
-epo:isAdoptedByBuyer rdfs:domain epo:LotAwardOutcome ;
-    rdfs:range epo:Buyer .
 
 epo:isAdvancedElectronicSignatureRequired rdfs:domain epo:SubmissionTerm ;
     rdfs:range xsd:boolean .
@@ -1826,15 +1836,26 @@ epo:resolvesReviewRequest a owl:FunctionalProperty ;
     rdfs:domain epo:ReviewDecision ;
     rdfs:range epo:ReviewRequest .
 
+epo:resultsFromMiniCompetitionAwardDecision rdfs:domain epo:PurchaseContract ;
+    rdfs:range epo:MiniCompetitionAwardDecision .
+
+epo:resultsInDynamicPurchasingSystem a owl:FunctionalProperty ;
+    rdfs:domain epo:DynamicPurchaseSystemTechnique ;
+    rdfs:range epo:DynamicPurchasingSystem .
+
 epo:setsGroupingContextForLot rdfs:domain epo:LotGroup ;
     rdfs:range epo:Lot .
 
 epo:substantiatesExclusionGround rdfs:domain epo:Tenderer ;
     rdfs:range epo:ExclusionGround .
 
-epo:summarisesInformationForLotAwardOutcome a owl:FunctionalProperty ;
+epo:summarisesInformationForAwardDecision a owl:FunctionalProperty ;
     rdfs:domain epo:SubmissionStatisticalInformation ;
-    rdfs:range epo:LotAwardOutcome .
+    rdfs:range epo:AwardDecision .
+
+epo:usesCandidateList a owl:FunctionalProperty ;
+    rdfs:domain epo:MiniCompetition ;
+    rdfs:range epo:CandidateList .
 
 <http://data.europa.eu/m8g/bias> rdfs:domain <http://data.europa.eu/m8g/Criterion> ;
     rdfs:range xsd:decimal .
@@ -1891,10 +1912,20 @@ time:numericDuration a owl:FunctionalProperty ;
 <http://www.w3.org/ns/locn#locatorName> rdfs:domain <http://www.w3.org/ns/locn#Address> ;
     rdfs:range rdf:langString .
 
+epo:DynamicPurchaseSystemTechnique a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:resultsInDynamicPurchasingSystem ] .
+
 epo:ElectronicSignature a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty dcterms:description ] .
+
+epo:MiniCompetitionAwardDecision a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:concernsMiniCompetition ] .
 
 epo:NoticeChange a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -1912,10 +1943,10 @@ epo:NoticeDescription a owl:Class ;
 epo:ParticipationRequestTerm a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:definesParticipationRequestReceiver ],
+            owl:onProperty epo:definesParticipationRequestProcessor ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:definesParticipationRequestProcessor ] .
+            owl:onProperty epo:definesParticipationRequestReceiver ] .
 
 epo:ProcurementCriteriaSummary a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -1929,11 +1960,11 @@ epo:Project a owl:Class ;
 
 epo:PurchaseContract a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:followsRulesSetBy ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:isWithinFrameworkAgreement ] .
+            owl:onProperty epo:isWithinFrameworkAgreement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:resultsFromMiniCompetitionAwardDecision ] .
 
 epo:SecurityClearanceTerm a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -1962,7 +1993,7 @@ epo:address rdfs:domain [ a owl:Class ;
 
 epo:concernsLot a owl:FunctionalProperty ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( epo:ProcurementProcessInformation epo:LotAwardOutcome ) ] ;
+            owl:unionOf ( epo:ProcurementProcessInformation epo:LotAwardDecision ) ] ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( epo:Lot ) ] .
 
@@ -1976,7 +2007,7 @@ epo:hasEstimatedValue rdfs:domain [ a owl:Class ;
             owl:unionOf ( epo:MonetaryValue ) ] .
 
 epo:hasValidityPeriod rdfs:domain [ a owl:Class ;
-            owl:unionOf ( epo:SubmissionTerm epo:TechniqueUsage epo:Certificate ) ] ;
+            owl:unionOf ( epo:SubmissionTerm epo:Technique epo:Certificate ) ] ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( epo:Period ) ] .
 
@@ -1992,11 +2023,11 @@ owl:Thing a owl:Class ;
 
 epo:ContractModification a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:hasElementModification ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:refersToOriginalNotice ] .
+            owl:onProperty epo:refersToOriginalNotice ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:hasElementModification ] .
 
 epo:Contractor a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2005,11 +2036,11 @@ epo:Contractor a owl:Class ;
 
 epo:LotGroupAwardInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:describesLotGroup ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasGroupFrameworkAgreementAwardedValue ] .
+            owl:onProperty epo:hasGroupFrameworkAgreementAwardedValue ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:describesLotGroup ] .
 
 epo:OrganisationGroup a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2030,21 +2061,21 @@ epo:ParticipationConditionsSummary a owl:Class ;
 epo:Prize a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPrizeValue ],
+            owl:onProperty epo:hasPrizeRank ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPrizeRank ] .
+            owl:onProperty epo:hasPrizeValue ] .
 
 epo:ProcessPlanningTerm a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEstimatedTenderInvitationDate ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty epo:hasAwardDateScheduled ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEstimatedContractNoticePublicationDate ] .
+            owl:onProperty epo:hasEstimatedContractNoticePublicationDate ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasEstimatedTenderInvitationDate ] .
 
 epo:ProcurementServiceProvider a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2054,21 +2085,21 @@ epo:ProcurementServiceProvider a owl:Class ;
 epo:ProfessionalSuitabilitySummary a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasServiceReservedToParticularProfession ],
+            owl:onProperty epo:describesProfessionRelevantLaw ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:describesProfessionRelevantLaw ],
+            owl:onProperty epo:hasServiceReservedToParticularProfession ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:describesProfession ] .
 
 epo:PublicationProvision a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:hasElementConfidentiality ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPreferredPublicationDate ] .
+            owl:onProperty epo:hasPreferredPublicationDate ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:hasElementConfidentiality ] .
 
 epo:ReviewIrregularitySummary a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2090,14 +2121,14 @@ epo:System a owl:Class ;
 
 epo:TenderGroup a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasTotalValue ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty epo:comprisesTender ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:isSubmittedForLotGroup ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasTotalValue ] .
+            owl:onProperty epo:isSubmittedForLotGroup ] .
 
 epo:Tenderer a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2114,30 +2145,35 @@ epo:Business a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:isListedCompany ] .
 
+epo:CandidateList a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasStartDate ] .
+
 epo:ConcessionEstimate a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEstimatedBuyerConcessionRevenue ],
+            owl:onProperty epo:hasEstimatedUserConcessionRevenue ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasCalculationMethod ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEstimatedUserConcessionRevenue ] .
+            owl:onProperty epo:hasEstimatedBuyerConcessionRevenue ] .
 
 epo:ContractLotCompletionInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPenaltyValue ],
+            owl:cardinality 1 ;
+            owl:onProperty epo:describesLotCompletion ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty epo:refersToContract ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPaymentValue ],
+            owl:onProperty epo:hasPenaltyValue ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:describesLotCompletion ] .
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasPaymentValue ] .
 
 epo:DirectAwardTerm a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2155,35 +2191,43 @@ epo:GreenProcurement a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasTotalVehicles ] .
 
+epo:MiniCompetition a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:followsRulesSetBy ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:usesCandidateList ] .
+
 epo:OpeningTerm a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasOpeningDateTime ],
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:definesOpeningPlace ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasOpeningURL ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:definesOpeningPlace ] .
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasOpeningDateTime ] .
 
 epo:ProcurementElement a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEstimatedValue ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:identifier ] .
+            owl:onProperty epo:identifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasEstimatedValue ] .
 
 epo:TenderAwardOutcome a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:indicatesAwardOfLotToWinner ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasAwardRank ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:concernsTender ] .
+            owl:onProperty epo:concernsTender ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasAwardRank ] .
 
 <http://data.europa.eu/m8g/Constraint> a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2193,36 +2237,28 @@ epo:TenderAwardOutcome a owl:Class ;
 <http://data.europa.eu/m8g/Criterion> a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty <http://data.europa.eu/m8g/weightingConsiderationDescription> ],
+            owl:onProperty <http://data.europa.eu/m8g/bias> ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty <http://data.europa.eu/m8g/weight> ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty <http://data.europa.eu/m8g/bias> ] .
+            owl:onProperty <http://data.europa.eu/m8g/weightingConsiderationDescription> ] .
 
 dcterms:description rdfs:domain [ a owl:Class ;
-            owl:unionOf ( epo:ProcurementElement epo:Fund epo:System epo:AgentInRole <http://data.europa.eu/m8g/ContactPoint> <http://data.europa.eu/m8g/Channel> epo:SecurityClearanceTerm epo:SubcontractTerm <http://data.europa.eu/m8g/InformationConcept> <http://data.europa.eu/m8g/Requirement> epo:TechniqueUsage epo:SubcontractingEstimate epo:Document epo:ElectronicSignature ) ] ;
+            owl:unionOf ( epo:ProcurementElement epo:Fund epo:System epo:AgentInRole <http://data.europa.eu/m8g/ContactPoint> <http://data.europa.eu/m8g/Channel> epo:SecurityClearanceTerm epo:SubcontractTerm <http://data.europa.eu/m8g/InformationConcept> <http://data.europa.eu/m8g/Requirement> epo:Technique epo:SubcontractingEstimate epo:Document epo:ElectronicSignature ) ] ;
     rdfs:range rdf:PlainLiteral .
-
-epo:AwardCriterion a owl:Class ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasAwardCriteriaStatedInProcurementDocuments ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasFixedValue ] .
 
 epo:AwardEvaluationTerm a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasOverallQualityAwardCriteriaPonderation ],
+            owl:onProperty epo:hasOverallPriceAwardCriteriaPonderation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasAwardCriteriaOrderJustification ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasOverallPriceAwardCriteriaPonderation ],
+            owl:onProperty epo:hasOverallQualityAwardCriteriaPonderation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasOverallCostAwardCriteriaPonderation ] .
@@ -2230,10 +2266,10 @@ epo:AwardEvaluationTerm a owl:Class ;
 epo:DesignContestRegimeTerm a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasFollowupContract ],
+            owl:onProperty epo:isJuryDecisionBinding ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isJuryDecisionBinding ],
+            owl:onProperty epo:hasFollowupContract ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasParticipationPayment ] .
@@ -2249,10 +2285,10 @@ epo:FrameworkAgreementTerm a owl:Class ;
             owl:onProperty epo:hasOverallMaximumValue ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasDurationExtensionJustification ],
+            owl:onProperty epo:hasMaximumParticipantsNumber ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasMaximumParticipantsNumber ] .
+            owl:onProperty epo:hasDurationExtensionJustification ] .
 
 epo:ProcurementCriterion a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2262,19 +2298,19 @@ epo:ProcurementCriterion a owl:Class ;
 epo:ProcurementProcessInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty epo:concernsProcedure ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:concernsLot ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty epo:isToBeRelaunched ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:isDPSTerminated ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:concernsProcedure ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isCompetitionTerminated ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:concernsLot ] .
+            owl:onProperty epo:isCompetitionTerminated ] .
 
 epo:ReviewDecision a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2287,13 +2323,13 @@ epo:ReviewDecision a owl:Class ;
 epo:ReviewObject a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:refersToPreviousReview ],
+            owl:onProperty epo:hasRemedyValue ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasReviewURL ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasRemedyValue ] .
+            owl:onProperty epo:refersToPreviousReview ] .
 
 epo:SelectionCriterion a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2303,12 +2339,12 @@ epo:SelectionCriterion a owl:Class ;
 epo:SubcontractingEstimate a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasSubcontractingEstimatedValue ],
+            owl:onProperty epo:hasEstimatedPercentage ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEstimatedPercentage ] .
+            owl:onProperty epo:hasSubcontractingEstimatedValue ] .
 
-epo:TechniqueUsage a owl:Class ;
+epo:Technique a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasValidityPeriod ] .
@@ -2332,19 +2368,27 @@ epo:identifier a owl:FunctionalProperty ;
             owl:maxCardinality 1 ;
             owl:onProperty skos:prefLabel ] .
 
+epo:AwardCriterion a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasAwardCriteriaStatedInProcurementDocuments ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasFixedValue ] .
+
 epo:ElementConfidentialityDescription a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasAccessibilityDate ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasConfidentialityJustification ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:hasPropertyReference ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasAccessibilityDate ],
+            owl:onProperty epo:hasInstanceReference ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:hasInstanceReference ] .
+            owl:onProperty epo:hasPropertyReference ] .
 
 epo:Fund a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2357,16 +2401,16 @@ epo:Fund a owl:Class ;
 epo:NoticeAwardInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasTotalAwardedValue ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty epo:hasMaximumFrameworkAgreementAwardedValue ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasProcurementHighestReceivedTenderValue ],
+            owl:onProperty epo:hasTotalAwardedValue ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasProcurementLowestReceivedTenderValue ] .
+            owl:onProperty epo:hasProcurementLowestReceivedTenderValue ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasProcurementHighestReceivedTenderValue ] .
 
 epo:PlannedProcurementPart a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2390,10 +2434,10 @@ epo:ReviewTerm a owl:Class ;
 <http://data.europa.eu/m8g/Channel> a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty dcterms:description ],
+            owl:onProperty epo:hasAddressURL ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasAddressURL ] .
+            owl:onProperty dcterms:description ] .
 
 epo:Purpose a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2402,25 +2446,25 @@ epo:Purpose a owl:Class ;
 
 epo:ElementChangeDescription a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isProcurementDocumentChanged ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasProcurementDocumentChangeDate ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty epo:hasElementReference ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPreviousVersionOfElementReference ] .
+            owl:onProperty epo:hasProcurementDocumentChangeDate ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasPreviousVersionOfElementReference ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:isProcurementDocumentChanged ] .
 
 epo:SubcontractTerm a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasMaximumShare ],
+            owl:onProperty epo:hasMinimumSubcontractorsProposedObligation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasMinimumShare ],
+            owl:onProperty epo:hasMaximumShare ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasSubcontractingInvolved ],
@@ -2429,12 +2473,32 @@ epo:SubcontractTerm a owl:Class ;
             owl:onProperty epo:hasSubcontractorsProposedAboveObligation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasMinimumSubcontractorsProposedObligation ] .
+            owl:onProperty epo:hasMinimumShare ] .
 
 epo:AgentInRole a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty epo:playedBy ] .
+
+epo:LotAwardDecision a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasFrameworkAgreementEstimatedValue ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasNonAwardedContractTitle ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasAwardedEstimatedValue ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:concernsLot ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasFrameworkAgreementMaximumValue ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasNonAwardedContractNumber ] .
 
 epo:LotGroup a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2450,40 +2514,31 @@ epo:MultipleStageProcedureTerm a owl:Class ;
             owl:onProperty epo:hasMinimumNumberOfCandidates ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasMaximumNumberOfCandidates ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEstimatedInvitationToExpressInterestDate ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEstimatedInvitationToTenderDate ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty epo:hasSuccessiveReduction ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasQualificationSystemRenewalDescription ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasQualificationSystemPeriod ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty epo:hasQualificationSystemRenewalDescription ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasMaximumNumberOfCandidates ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty epo:hasQualificationSystemDuration ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasNoNegotiationNecessary ] .
+            owl:onProperty epo:hasEstimatedInvitationToTenderDate ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasNoNegotiationNecessary ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasEstimatedInvitationToExpressInterestDate ] .
 
 epo:ReviewRequest a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasNumberOfReviewRequests ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasWithdrawalReason ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:paidReviewRequestFee ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:isWithdrawn ],
         [ a owl:Restriction ;
@@ -2491,55 +2546,84 @@ epo:ReviewRequest a owl:Class ;
             owl:onProperty epo:hasWithdrawalDate ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasRequestDate ] .
+            owl:onProperty epo:hasWithdrawalReason ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasNumberOfReviewRequests ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasRequestDate ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:paidReviewRequestFee ] .
 
 <http://data.europa.eu/m8g/ContactPoint> a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:address ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasInternetAddress ],
+            owl:onProperty epo:hasContactName ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty <http://data.europa.eu/m8g/email> ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasContactName ] .
+            owl:onProperty <http://unknown.domain/for/prefix#unnamed> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:address ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasInternetAddress ] .
 
 epo:AccessTerm a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty epo:definesOfflineAccessProvider ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty epo:hasAdditionalInformationDeadline ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:isProcurementDocumentRestricted ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:definesProcurementProcedureInformationProvider ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:definesOfflineAccessProvider ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPublicAccessURL ],
+            owl:cardinality 1 ;
+            owl:onProperty epo:involvesProcurementDocument ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasRestrictedAccessURL ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isProcurementDocumentRestricted ],
+            owl:onProperty epo:hasPublicAccessURL ] .
+
+epo:AwardDecision a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasBargainPrice ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:involvesProcurementDocument ] .
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasAwardDecisionDate ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:comprisesLotAwardOutcome ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasAdditionalNonAwardJustification ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasAwardedValue ] .
 
 epo:ProcedureTerm a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasLotAwardCombination ],
+            owl:onProperty epo:isOneLotOnlyAllowed ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:definesMediator ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasMaximumNumberOfLotsToBeAwarded ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:definesBudgetProvider ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:isSubmissionForAllLotsAllowed ],
@@ -2548,19 +2632,16 @@ epo:ProcedureTerm a owl:Class ;
             owl:onProperty epo:isAwardedByCPB ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isOneLotOnlyAllowed ],
+            owl:onProperty epo:definesBudgetProvider ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasMaximumLotSubmissionAllowed ],
+            owl:onProperty epo:hasLotAwardCombination ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:definesMediator ] .
+            owl:onProperty epo:hasMaximumLotSubmissionAllowed ] .
 
 <http://data.europa.eu/m8g/Person> a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:placeOfBirth ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty <http://data.europa.eu/m8g/birthDate> ],
         [ a owl:Restriction ;
@@ -2568,98 +2649,144 @@ epo:ProcedureTerm a owl:Class ;
             owl:onProperty epo:registeredAddress ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty epo:placeOfBirth ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty epo:placeOfDeath ] .
 
 dcterms:Location a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty <http://www.w3.org/ns/locn#geographicName> ],
+            owl:onProperty epo:geographicIdentifier ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:geometry ],
+            owl:onProperty epo:address ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:identifier ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:geographicIdentifier ],
+            owl:onProperty <http://www.w3.org/ns/locn#geographicName> ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:address ] .
+            owl:onProperty epo:geometry ] .
 
 epo:Buyer a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isContractingEntity ],
+            owl:onProperty epo:hasBuyerProfile ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasBuyerProfile ] .
+            owl:onProperty epo:isContractingEntity ] .
 
 epo:Procedure a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isJointProcurement ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty epo:isSubjectToProcedureSpecificTerm ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isExecutedByProcurementServiceProvider ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty epo:hasProcurementScopeDividedIntoLot ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isDesignContest ],
+            owl:onProperty epo:isExecutedByProcurementServiceProvider ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isAccelerated ] .
+            owl:onProperty epo:isAccelerated ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:isJointProcurement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:isDesignContest ] .
 
 epo:Tender a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasElectronicSubmission ],
+            owl:cardinality 1 ;
+            owl:onProperty epo:isSubmittedForLot ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isSubmitedBy ],
+            owl:onProperty epo:isVariant ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:foreseesConcession ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasElectronicSubmission ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasFinancialOfferValue ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:foreseesConcession ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:isSubmittedForLot ],
+            owl:onProperty epo:isSubmitedBy ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isSubjectToGrouping ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isVariant ] .
+            owl:onProperty epo:isSubjectToGrouping ] .
 
 <http://www.w3.org/ns/locn#Address> a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty <http://www.w3.org/ns/locn#fullAddress> ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty <http://www.w3.org/ns/locn#adminUnitL2> ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty <http://www.w3.org/ns/locn#locatorName> ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:addressID ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty <http://www.w3.org/ns/locn#adminUnitL1> ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty <http://www.w3.org/ns/locn#locatorDesignator> ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty <http://www.w3.org/ns/locn#addressArea> ] .
+            owl:onProperty <http://www.w3.org/ns/locn#locatorName> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <http://www.w3.org/ns/locn#addressArea> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <http://www.w3.org/ns/locn#fullAddress> ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:addressID ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty <http://www.w3.org/ns/locn#adminUnitL1> ] .
+
+org:Organization a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasLegalFormType ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:registeredAddress ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasMainActivityDescription ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasBuyerLegalTypeDescription ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasOrganisationUnitName ] .
+
+epo:Notice a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasNoticePublicationNumber ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:refersToNotice ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasLongTitle ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasEFormsSubtype ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasOJSIssueNumber ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasOJSType ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasFormNumber ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:isEUInstitution ] .
 
 epo:Period a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2669,123 +2796,45 @@ epo:Period a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasEnd ] .
 
-org:Organization a owl:Class ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:registeredAddress ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasMainActivityDescription ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasOrganisationUnitName ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasLegalFormType ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasBuyerLegalTypeDescription ] .
-
-epo:Notice a owl:Class ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isEUInstitution ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEFormsSubtype ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasOJSType ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasOJSIssueNumber ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasNoticePublicationNumber ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasLongTitle ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:refersToNotice ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasFormNumber ] .
-
 epo:ProcurementObject a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isRecurrent ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty epo:hasRecurrenceDescription ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasLegalBasisDescription ],
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:isSMESuitable ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:isRecurrent ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:isUsingEUFunds ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPurpose ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty epo:isCoveredByGPA ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isSMESuitable ] .
-
-epo:LotAwardOutcome a owl:Class ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasAwardedEstimatedValue ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasBargainPrice ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isAdoptedByBuyer ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasFrameworkAgreementEstimatedValue ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:concernsLot ],
+            owl:onProperty epo:hasLegalBasisDescription ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasNonAwardedContractTitle ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasAdditionalNonAwardJustification ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasFrameworkAgreementMaximumValue ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasAwardDecisionDate ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasAwardedValue ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasNonAwardedContractNumber ] .
+            owl:onProperty epo:hasPurpose ] .
 
 epo:SubmissionTerm a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasValidityPeriod ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasReceiptDeadline ],
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:isAdvancedElectronicSignatureRequired ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasReceiptExpressionDeadline ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:isMultipleTenderSubmissionAllowed ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isAdvancedElectronicSignatureRequired ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEAuctionURL ],
+            owl:onProperty epo:isGuaranteeRequired ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:definesTenderReceiver ],
@@ -2794,33 +2843,48 @@ epo:SubmissionTerm a owl:Class ;
             owl:onProperty epo:definesTenderProcessor ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasReceiptExpressionDeadline ],
+            owl:onProperty epo:hasEAuctionURL ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isGuaranteeRequired ] .
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasReceiptDeadline ] .
 
 epo:SubmissionStatisticalInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasInadmissibleTenders ],
+            owl:onProperty epo:hasElectronicTenders ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEEAReceivedTenders ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasAbnormallyLowTenders ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasLowestReceivedTenderValue ],
+            owl:onProperty epo:hasEUReceivedTenders ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasReceivedNonEEATenders ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty epo:hasMediumTenderPerLots ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasReceivedSmallTenders ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasLowestReceivedTenderValue ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasEstimatedTotalSubcontracts ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasAbnormallyLowTenders ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasUnverifiedTenders ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty epo:hasReceivedOtherCountriesTenders ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasHighestReceivedTenderValue ],
+            owl:onProperty epo:hasEEAReceivedTenders ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasReceivedSMETenders ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasReceivedNonEUTenders ],
@@ -2829,51 +2893,36 @@ epo:SubmissionStatisticalInformation a owl:Class ;
             owl:onProperty epo:hasReceivedMicroTenders ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasElectronicTenders ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:summarisesInformationForLotAwardOutcome ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasUnverifiedTenders ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasMediumTenderPerLots ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasReceivedSMETenders ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasReceivedParticipationRequests ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasNumberOfTenderersInvited ],
+            owl:onProperty epo:hasHighestReceivedTenderValue ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasReceivedTenders ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEstimatedTotalSubcontracts ],
+            owl:onProperty epo:hasReceivedParticipationRequests ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:summarisesInformationForAwardDecision ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEUReceivedTenders ],
+            owl:onProperty epo:hasInadmissibleTenders ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasReceivedSmallTenders ] .
+            owl:onProperty epo:hasNumberOfTenderersInvited ] .
 
 epo:Contract a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:hasLotReference ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEntryIntoForceDate ],
+            owl:onProperty epo:hasEstimatedDuration ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasContractValue ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEstimatedDuration ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:hasLotReference ],
+            owl:onProperty epo:hasEntryIntoForceDate ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasAccessURL ],
@@ -2884,69 +2933,69 @@ epo:Contract a owl:Class ;
 epo:Document a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasReceptionDate ],
+            owl:onProperty dcterms:description ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasVersion ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasDispatchDate ],
+            owl:onProperty epo:hasUUID ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty dcterms:title ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty dcterms:description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty dcterms:issued ],
+            owl:onProperty epo:hasReceptionDate ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasPublicationDate ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasUUID ] .
+            owl:onProperty dcterms:issued ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasDispatchDate ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty dcterms:title ] .
 
 epo:ContractTerm a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEInvoicing ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty epo:isRenewalIndicator ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:definesSubcontractingTerm ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEOrdering ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasReservedExecution ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasOptions ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:definesPaymentExecutor ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasExceedingDurationJustification ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasEPayment ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:definesContractDuration ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasMaximumNumberOfRenewals ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasOrganisationGroupType ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:definesContractPeriod ] .
+            owl:onProperty epo:hasEPayment ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasOptions ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:definesContractDuration ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:definesContractPeriod ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:definesPaymentExecutor ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasMaximumNumberOfRenewals ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasReservedExecution ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasEOrdering ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:definesSubcontractingTerm ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasExceedingDurationJustification ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasEInvoicing ] .
 
 <http://unknown.domain/for/prefix#Identifier> a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
