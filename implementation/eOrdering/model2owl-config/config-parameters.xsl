@@ -73,7 +73,7 @@
 
 
 
-    <xsl:variable name="reference-to-external-classes-in-glossary" select="fn:false()"/>
+    <xsl:variable name="reference-to-external-classes-in-glossary" select="fn:true()"/>
     <!-- _______________________________________________________________________   -->
     <!--                            METADATA SECTION                               -->
     <!-- _______________________________________________________________________   -->
