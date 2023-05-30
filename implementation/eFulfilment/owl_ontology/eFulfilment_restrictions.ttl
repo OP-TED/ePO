@@ -91,9 +91,9 @@ epo:hasGrossWeight rdfs:domain [ a owl:Class ;
             owl:unionOf ( epo:Quantity ) ] .
 
 epo:hasHandlingInstruction rdfs:domain [ a owl:Class ;
-            owl:unionOf ( epo:TransportHandlingUnit epo:Consignment ) ],
+            owl:unionOf ( epo:Consignment epo:TransportHandlingUnit ) ],
         [ a owl:Class ;
-            owl:unionOf ( epo:Consignment epo:TransportHandlingUnit ) ] ;
+            owl:unionOf ( epo:TransportHandlingUnit epo:Consignment ) ] ;
     rdfs:range rdf:PlainLiteral,
         <skos:Concept> .
 
@@ -223,6 +223,12 @@ epo:usesTransportEquipment rdfs:domain epo:TransportHandlingUnit ;
     cc:attributionName "PublicationsOffice of the European Union" ;
     cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/PUBL> ;
     dc:contributor [ a foaf:Person ;
+            foaf:homepage <http://costezki.ro> ;
+            foaf:name "Eugeniu" ;
+            foaf:surname "Costetchi" ;
+            schema:affiliation [ foaf:name "Meaningfy" ;
+                    foaf:page <http://meaningfy.ws> ] ],
+        [ a foaf:Person ;
             foaf:name "Natalie" ;
             foaf:surname "Muric" ;
             schema:affiliation [ foaf:name "Publications Office of the European Union" ] ],
@@ -230,17 +236,11 @@ epo:usesTransportEquipment rdfs:domain epo:TransportHandlingUnit ;
             foaf:name "Andreea" ;
             foaf:surname "Pasare" ;
             schema:affiliation [ foaf:name "Meaningfy" ;
-                    foaf:page <http://meaningfy.ws> ] ],
-        [ a foaf:Person ;
-            foaf:homepage <http://costezki.ro> ;
-            foaf:name "Eugeniu" ;
-            foaf:surname "Costetchi" ;
-            schema:affiliation [ foaf:name "Meaningfy" ;
                     foaf:page <http://meaningfy.ws> ] ] ;
     dc:rights "This ontology is licenced under CC BY-SA 4.0 - http://creativecommons.org/licenses/by-sa/4.0/" ;
     dcterms:creator [ a foaf:Person ;
             foaf:name "eProcurement Ontology Working Group" ] ;
-    dcterms:date "2023-05-25"^^xsd:date ;
+    dcterms:date "2023-05-30"^^xsd:date ;
     dcterms:description """
         This module provides the definitions for the eCatalogue of eProcurement ontology.
         Procurement data has been identified as data with a high-reuse potential.
@@ -258,7 +258,7 @@ epo:usesTransportEquipment rdfs:domain epo:TransportHandlingUnit ;
             """@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eFulfilment_CM.xml on 2023-05-25" ;
+    rdfs:comment "This version is automatically generated from eFulfilment_CM.xml on 2023-05-30" ;
     rdfs:seeAlso <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
@@ -266,7 +266,7 @@ epo:usesTransportEquipment rdfs:domain epo:TransportHandlingUnit ;
         dcterms:,
         <http://www.w3.org/2004/02/skos/core> ;
     owl:incompatibleWith "2.x.x" ;
-    owl:versionIRI :eFulfilment_CM.xml-2023-05-25 ;
+    owl:versionIRI :eFulfilment_CM.xml-2023-05-30 ;
     owl:versionInfo "3.1.0" .
 
 epo:comprisesDespatchLine rdfs:domain epo:DespatchAdvice ;
@@ -388,11 +388,11 @@ epo:DespatchLine a owl:Class ;
 
 epo:ShipmentStage a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:usesTransportMeans ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:isHazardousRisk ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:usesTransportMeans ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:specifiesCarrier ] .
@@ -400,30 +400,30 @@ epo:ShipmentStage a owl:Class ;
 epo:TransportEquipment a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isPowerIndicated ],
+            owl:onProperty epo:isRefrigerated ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:isReturnable ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isRefrigerated ] .
+            owl:onProperty epo:isPowerIndicated ] .
 
 epo:DespatchAdvice a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:refersToConsignment ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:specifiesShipment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:specifiesDespatcher ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:refersToShipmentAgreement ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty epo:comprisesDespatchLine ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:specifiesDespatcher ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:refersToConsignment ] .
+            owl:onProperty epo:comprisesDespatchLine ] .
 
 epo:ShipmentInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -439,18 +439,18 @@ epo:AbstractContainer a owl:Class ;
             owl:onProperty epo:hasTemperatureSpecification ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isReturnableMaterial ],
+            owl:onProperty epo:isHazardousRisk ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isHazardousRisk ] .
+            owl:onProperty epo:isReturnableMaterial ] .
 
 epo:Consignment a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasRequestedPickUpInformation ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasVehicleDescription ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:containsTransportHandlingUnit ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasMainCarriageShipmentStage ],
@@ -458,6 +458,6 @@ epo:Consignment a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:isHazardousRisk ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:containsTransportHandlingUnit ] .
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasRequestedPickUpInformation ] .
 
