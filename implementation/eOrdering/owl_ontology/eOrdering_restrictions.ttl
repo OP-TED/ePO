@@ -172,10 +172,6 @@ epo:specifiesSpecificDeliveryTerm rdfs:domain epo:DeliveryInformation ;
     cc:attributionName "PublicationsOffice of the European Union" ;
     cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/PUBL> ;
     dc:contributor [ a foaf:Person ;
-            foaf:name "Natalie" ;
-            foaf:surname "Muric" ;
-            schema:affiliation [ foaf:name "Publications Office of the European Union" ] ],
-        [ a foaf:Person ;
             foaf:name "Andreea" ;
             foaf:surname "Pasare" ;
             schema:affiliation [ foaf:name "Meaningfy" ;
@@ -185,7 +181,11 @@ epo:specifiesSpecificDeliveryTerm rdfs:domain epo:DeliveryInformation ;
             foaf:name "Eugeniu" ;
             foaf:surname "Costetchi" ;
             schema:affiliation [ foaf:name "Meaningfy" ;
-                    foaf:page <http://meaningfy.ws> ] ] ;
+                    foaf:page <http://meaningfy.ws> ] ],
+        [ a foaf:Person ;
+            foaf:name "Natalie" ;
+            foaf:surname "Muric" ;
+            schema:affiliation [ foaf:name "Publications Office of the European Union" ] ] ;
     dc:rights "This ontology is licenced under CC BY-SA 4.0 - http://creativecommons.org/licenses/by-sa/4.0/" ;
     dcterms:creator [ a foaf:Person ;
             foaf:name "eProcurement Ontology Working Group" ] ;
@@ -307,10 +307,10 @@ epo:TaxInformationSchema a owl:Class ;
 epo:AllowanceChargeInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPercentage ],
+            owl:onProperty epo:hasTaxInformation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasTaxInformation ] .
+            owl:onProperty epo:hasPercentage ] .
 
 epo:TaxInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -319,33 +319,33 @@ epo:TaxInformation a owl:Class ;
 
 epo:OrderResponse a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:isSubmittedForOrder ],
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasResponseDescription ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:specifiesSeller ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasResponseDescription ] .
+            owl:cardinality 1 ;
+            owl:onProperty epo:isSubmittedForOrder ] .
 
 epo:DeliveryInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:concernsConsignee ],
+            owl:onProperty epo:hasDeliveryDeadline ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasDeliveryDeadline ] .
+            owl:onProperty epo:concernsConsignee ] .
 
 epo:Order a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasAccountingCost ],
+            owl:minCardinality 1 ;
+            owl:onProperty epo:specifiesDeliveryInformation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:specifiesOriginatorInformation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPaymentTerm ],
+            owl:onProperty epo:hasAccountingCost ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasCustomerReference ],
@@ -353,12 +353,12 @@ epo:Order a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:refersToProject ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasPaymentTerm ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty epo:specifiesDeliveryInformation ],
+            owl:onProperty epo:comprisesOrderLine ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:specifiesSeller ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:comprisesOrderLine ] .
+            owl:onProperty epo:specifiesSeller ] .
 
