@@ -94,30 +94,15 @@ jobs:
 
       - name: merge implementations xmi files into one
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice ePO)
+          AVAILABLE_IMPLEMENTATIONS=(eOrdering eCatalogue eNotice eFulfilment ePO)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             cp implementation/$implementation/xmi_conceptual_model/*_CM.xml transform/merge-xmis
           done
           ls transform/merge-xmis
           make merge-xmi COMBINED_XMI_DIRECTORY=transform/merged-xmis-result SAXON=transform/saxon-he-10.6.jar FIRST_INPUT_XMI_FILE=./implementation/ePO/xmi_conceptual_model/ePO_CM.xml MODEL2OWL_DIR=transform/model2owl
-        shell: bash
-
-
-      - name: generate combined glossary from the merged xmi
-        run: |
-          sed -i "s/test\/ePO-default-config/..\/..\/implementation\/ePO\/model2owl-config/g" transform/model2owl/config-proxy.xsl
-          cat transform/model2owl/config-proxy.xsl
-          make generate-glossary OUTPUT_GLOSSARY_PATH=${OUTPUT_GLOSSARY_PATH} UML_INPUT_FILENAME=./transform/merged-xmis-result/ePO-combined.xmi SAXON=transform/saxon-he-10.6.jar MODEL2OWL_DIR=transform/model2owl
-      - name: merge implementations xmi files into one
-        run: |
-          AVAILABLE_IMPLEMENTATIONS=(eOrdering eCatalogue eNotice ePO eFulfilment)
-          for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
-          do
-            cp implementation/$implementation/xmi_conceptual_model/*_CM.xml transform/merge-xmis
-          done
-          ls transform/merge-xmis
-          make merge-xmi COMBINED_XMI_DIRECTORY=transform/merged-xmis-result SAXON=transform/saxon-he-10.6.jar FIRST_INPUT_XMI_FILE=./implementation/ePO/xmi_conceptual_model/ePO_CM.xml MODEL2OWL_DIR=transform/model2owl
+          echo "merged XMI file"
+          ls transform/merged-xmis-result
         shell: bash
 
       - name: change config to core
