@@ -373,11 +373,11 @@ epo:TemperatureSpecification a owl:Class ;
 
 epo:Package a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPackagingTypeDescription ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty epo:containsGoodsItem ] .
+            owl:onProperty epo:containsGoodsItem ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasPackagingTypeDescription ] .
 
 epo:TransportMeans a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -396,14 +396,14 @@ epo:DespatchLine a owl:Class ;
 
 epo:ShipmentStage a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:specifiesCarrier ],
+            owl:minCardinality 1 ;
+            owl:onProperty epo:usesTransportMeans ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:isHazardousRisk ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:usesTransportMeans ] .
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:specifiesCarrier ] .
 
 epo:TransportEquipment a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -411,10 +411,10 @@ epo:TransportEquipment a owl:Class ;
             owl:onProperty epo:isPowerIndicated ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isReturnable ],
+            owl:onProperty epo:isRefrigerated ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isRefrigerated ] .
+            owl:onProperty epo:isReturnable ] .
 
 epo:ShipmentInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -427,16 +427,19 @@ epo:ShipmentInformation a owl:Class ;
 epo:AbstractContainer a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty epo:hasTemperatureSpecification ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty epo:isHazardousRisk ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isReturnableMaterial ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasTemperatureSpecification ] .
+            owl:onProperty epo:isReturnableMaterial ] .
 
 epo:DespatchAdvice a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:refersToShipmentAgreement ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty epo:specifiesDespatcher ],
         [ a owl:Restriction ;
@@ -446,26 +449,23 @@ epo:DespatchAdvice a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:specifiesShipment ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:refersToShipmentAgreement ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty epo:comprisesDespatchLine ] .
 
 epo:Consignment a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasRequestedPickUpInformation ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty epo:containsTransportHandlingUnit ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty epo:isHazardousRisk ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty epo:hasVehicleDescription ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasRequestedPickUpInformation ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasMainCarriageShipmentStage ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isHazardousRisk ] .
+            owl:onProperty epo:hasMainCarriageShipmentStage ] .
 
