@@ -65,8 +65,13 @@
     <xsl:variable name="stereotypeValidOnEnumerations" select="()"/>
     <xsl:variable name="stereotypeValidOnPackages" select="()"/>
 
-    <!--    This variable controlls whether the enumeration items are transformed into skos concepts or ignored-->
+    <xsl:variable name="abstractClassesStereotypes" select="('Abstract', 'abstract class', 'abstract')"/>
+
+    <!--    This variable controls whether the enumeration items are transformed into skos concepts or ignored-->
     <xsl:variable name="enableGenerationOfSkosConcept" select="fn:false()"/>
+
+    <!--    This variable controls whether the enumerations are transformed into skos schemes or ignored-->
+    <xsl:variable name="enableGenerationOfConceptSchemes" select="fn:false()"/>
 
     <!--Allowed characters for a normalized string-->
     <xsl:variable name="allowedStrings" select="'^[\w\d-_:]+$'"/>
