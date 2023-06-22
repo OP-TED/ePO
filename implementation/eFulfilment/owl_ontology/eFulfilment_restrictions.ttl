@@ -240,7 +240,7 @@ epo:usesTransportEquipment rdfs:domain epo:TransportHandlingUnit ;
     dc:rights "This ontology is licenced under CC BY-SA 4.0 - http://creativecommons.org/licenses/by-sa/4.0/" ;
     dcterms:creator [ a foaf:Person ;
             foaf:name "eProcurement Ontology Working Group" ] ;
-    dcterms:date "2023-05-30"^^xsd:date ;
+    dcterms:date "2023-06-22"^^xsd:date ;
     dcterms:description """
         This module provides the definitions for the eCatalogue of eProcurement ontology.
         Procurement data has been identified as data with a high-reuse potential.
@@ -258,7 +258,7 @@ epo:usesTransportEquipment rdfs:domain epo:TransportHandlingUnit ;
             """@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eFulfilment_CM.xml on 2023-05-30" ;
+    rdfs:comment "This version is automatically generated from eFulfilment_CM.xml on 2023-06-22" ;
     rdfs:seeAlso <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
@@ -266,7 +266,7 @@ epo:usesTransportEquipment rdfs:domain epo:TransportHandlingUnit ;
         dcterms:,
         <http://www.w3.org/2004/02/skos/core> ;
     owl:incompatibleWith "2.x.x" ;
-    owl:versionIRI :eFulfilment_CM.xml-2023-05-30 ;
+    owl:versionIRI :eFulfilment_CM.xml-2023-06-22 ;
     owl:versionInfo "3.1.0" .
 
 epo:comprisesDespatchLine rdfs:domain epo:DespatchAdvice ;
@@ -389,24 +389,24 @@ epo:DespatchLine a owl:Class ;
 epo:ShipmentStage a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isHazardousRisk ],
+            owl:onProperty epo:specifiesCarrier ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty epo:usesTransportMeans ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:specifiesCarrier ] .
+            owl:onProperty epo:isHazardousRisk ] .
 
 epo:TransportEquipment a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty epo:isPowerIndicated ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty epo:isRefrigerated ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isReturnable ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:isPowerIndicated ] .
+            owl:onProperty epo:isReturnable ] .
 
 epo:DespatchAdvice a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -414,24 +414,24 @@ epo:DespatchAdvice a owl:Class ;
             owl:onProperty epo:refersToConsignment ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:specifiesShipment ],
+            owl:onProperty epo:refersToShipmentAgreement ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty epo:specifiesDespatcher ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:refersToShipmentAgreement ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty epo:comprisesDespatchLine ] .
+            owl:onProperty epo:comprisesDespatchLine ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:specifiesShipment ] .
 
 epo:ShipmentInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:despatchDate ],
+            owl:onProperty epo:isSpecificToDespatchLine ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isSpecificToDespatchLine ] .
+            owl:onProperty epo:despatchDate ] .
 
 epo:AbstractContainer a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -439,25 +439,25 @@ epo:AbstractContainer a owl:Class ;
             owl:onProperty epo:hasTemperatureSpecification ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isHazardousRisk ],
+            owl:onProperty epo:isReturnableMaterial ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:isReturnableMaterial ] .
+            owl:onProperty epo:isHazardousRisk ] .
 
 epo:Consignment a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasVehicleDescription ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty epo:containsTransportHandlingUnit ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasMainCarriageShipmentStage ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty epo:isHazardousRisk ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasVehicleDescription ],
+        [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:hasRequestedPickUpInformation ] .
+            owl:onProperty epo:hasRequestedPickUpInformation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasMainCarriageShipmentStage ] .
 
