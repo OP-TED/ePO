@@ -1,19 +1,15 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
-@prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix at-voc: <http://publications.europa.eu/resource/authority/> .
-@prefix at-voc-new: <http://publications.europa.eu/resource/authority/new/> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix cc: <http://creativecommons.org/ns#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix locn: <http://www.w3.org/ns/locn#> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix person: <http://www.w3.org/ns/person#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix time: <http://www.w3.org/2006/time#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 
 :announcesAwardDecision rdfs:domain [ a owl:Class ;
@@ -73,36 +69,42 @@
         :AgentInRole .
 
 :core-restriction a owl:Ontology ;
+    cc:attributionName "European Union" ;
+    cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/EURUN> ;
     dcterms:abstract "This artefact provides the ontology extention with restrictions and inference-relaated specification." ;
     dcterms:created "" ;
     dcterms:description "This module provides the definitions for the eProcurement ontology core.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
-    dcterms:issued "2023-06-23" ;
+    dcterms:issued "2023-06-25" ;
+    dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
+    dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
     dcterms:title "eProcurement Ontology - core"@en ;
     bibo:status "Semantic Specification Realease" ;
-    vann:preferredNamespacePrefix "epo" ;
+    vann:preferredNamespacePrefix "epo-not" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/EPO/latest/index.html>,
         <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports cccev:,
+    owl:imports :core,
+        cccev:,
+        <http://data.europa.eu/nuts>,
         at-voc:,
-        at-voc-new:,
         dcterms:,
-        skos:,
-        time:,
-        adms:,
-        locn:,
+        <http://www.opengis.net/ont/geosparql>,
+        <http://www.w3.org/2004/02/skos/core>,
+        <http://www.w3.org/2006/time>,
+        <http://www.w3.org/ns/adms>,
+        <http://www.w3.org/ns/locn>,
         org:,
-        person:,
+        <http://www.w3.org/ns/person>,
         foaf:,
         <https://data.europa.eu/m8g/> ;
-    owl:incompatibleWith "2.1.0" ;
-    owl:priorVersion "3.0.1" ;
-    owl:versionIRI "http://data.europa.eu/a4g/data-shape#core-3.1.0" ;
-    owl:versionInfo "3.1.0" ;
+    owl:incompatibleWith "3.1.0" ;
+    owl:priorVersion "3.1.0" ;
+    owl:versionIRI "http://data.europa.eu/a4g/ontology#core-4.0.0" ;
+    owl:versionInfo "4.0.0" ;
     skos:changeNote """This version is automatically generated from eNotice_CM.xml on 
-                2023-06-23""" .
+                2023-06-25""" .
 
 :describesContractModification rdfs:domain :ContractModificationNotice ;
     rdfs:range :ContractModification .
@@ -150,6 +152,12 @@
         :ResultNotice ;
     rdfs:range :AgentInRole .
 
+:StandardForm a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    owl:equivalentClass [ a owl:Restriction ;
+            owl:hasValue :StandardForm ;
+            owl:onProperty skos:inScheme ] .
+
 :PlanningNotice a owl:Class .
 
 :CompetitionNotice a owl:Class .
@@ -161,4 +169,490 @@
 :CompletionNotice a owl:Class .
 
 :ResultNotice a owl:Class .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice2 :PINProfile-D25 :PINProfile-D81 :Notice3 :PINProfile-D24 :Notice1 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :VEAT-D81 :VEAT-D23 :VEAT-D24 :Notice25 :Notice27 :Notice26 :VEAT-D25 :Notice28 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice2 :PINProfile-D25 :PINProfile-D81 :Notice3 :PINProfile-D24 :Notice1 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-CFCStandard-D24 :Notice11 :Notice10 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice31 :CANStandard-D24 :Notice30 :Notice32 :Notice29 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice2 :PINProfile-D25 :PINProfile-D81 :Notice3 :PINProfile-D24 :Notice1 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice16 :Notice19 :CNStandard-D24 :Notice18 :Notice17 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-CFCStandardNotice :PIN-CFCSocialNotice :CNSocialNotice :QSNotice :CNStandardNotice :DesignContestNotice :SubcontractNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice33 :CANSocial-D25 :Notice35 :CANSocialNotice-D25 :Notice34 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Modification-D24 :Notice39 :Modification-D25 :Notice38 :Modification-D23 :Notice40 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Modification-D24 :Notice39 :Modification-D25 :Notice38 :Modification-D23 :Notice40 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PMCNotice :PINTimeLimitNotice :PINOnlyNotice :PINDefence-D81 :PINProfileNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-RTL-D25 :Notice9 :PIN-RTL-D24 :Notice7 :Notice8 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-RTL-D25 :Notice9 :PIN-RTL-D24 :Notice7 :Notice8 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice36 :Notice37 :DesignContestResult-D25 :DesignContestResult-D24 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANDefence-D81 :CANSocialNotice :CANStandardNotice :DesignContestResultNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CNSocialNotice-D25 :Notice20 :CNSocial-D25 :Notice21 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :VEAT-D81 :VEAT-D23 :VEAT-D24 :Notice25 :Notice27 :Notice26 :VEAT-D25 :Notice28 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CNSocialNotice-D25 :Notice20 :CNSocial-D25 :Notice21 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice14 :Notice13 :Notice12 :PIN-CFCSocialNotice-D25 :PIN-CFCSocial-D25 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-RTL-D25 :Notice9 :PIN-RTL-D24 :Notice7 :Notice8 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :VEAT-D81 :VEAT-D23 :VEAT-D24 :Notice25 :Notice27 :Notice26 :VEAT-D25 :Notice28 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice14 :Notice13 :Notice12 :PIN-CFCSocialNotice-D25 :PIN-CFCSocial-D25 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :VEAT-D81 :VEAT-D23 :VEAT-D24 :Notice25 :Notice27 :Notice26 :VEAT-D25 :Notice28 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :DesignContest-D24 :DesignContest-D25 :Notice23 :Notice24 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice31 :CANStandard-D24 :Notice30 :Notice32 :Notice29 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PMCNotice :PINTimeLimitNotice :PINOnlyNotice :PINDefence-D81 :PINProfileNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice4 :Notice5 :Notice6 :PINOnly-D24 :PINOnly-D25 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :VEAT-D81 :VEAT-D23 :VEAT-D24 :Notice25 :Notice27 :Notice26 :VEAT-D25 :Notice28 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice36 :Notice37 :DesignContestResult-D25 :DesignContestResult-D24 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Modification-D24 :Notice39 :Modification-D25 :Notice38 :Modification-D23 :Notice40 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :DesignContest-D24 :DesignContest-D25 :Notice23 :Notice24 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice4 :Notice5 :Notice6 :PINOnly-D24 :PINOnly-D25 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-RTL-D25 :Notice9 :PIN-RTL-D24 :Notice7 :Notice8 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :VEAT-D81 :VEAT-D23 :VEAT-D24 :Notice25 :Notice27 :Notice26 :VEAT-D25 :Notice28 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :QS-D25 :QSNotice-D25 :Notice15 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANDefence-D81 :CANSocialNotice :CANStandardNotice :DesignContestResultNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Modification-D24 :Notice39 :Modification-D25 :Notice38 :Modification-D23 :Notice40 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CNSocialNotice-D25 :Notice20 :CNSocial-D25 :Notice21 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CNSocialNotice-D25 :Notice20 :CNSocial-D25 :Notice21 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANDefence-D81 :CANSocialNotice :CANStandardNotice :DesignContestResultNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Subcontract-D81 :Notice22 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-CFCStandard-D24 :Notice11 :Notice10 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice4 :Notice5 :Notice6 :PINOnly-D24 :PINOnly-D25 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-RTL-D25 :Notice9 :PIN-RTL-D24 :Notice7 :Notice8 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :QS-D25 :QSNotice-D25 :Notice15 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice2 :PINProfile-D25 :PINProfile-D81 :Notice3 :PINProfile-D24 :Notice1 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :QS-D25 :QSNotice-D25 :Notice15 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice2 :PINProfile-D25 :PINProfile-D81 :Notice3 :PINProfile-D24 :Notice1 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice2 :PINProfile-D25 :PINProfile-D81 :Notice3 :PINProfile-D24 :Notice1 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice31 :CANStandard-D24 :Notice30 :Notice32 :Notice29 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice33 :CANSocial-D25 :Notice35 :CANSocialNotice-D25 :Notice34 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-CFCStandardNotice :PIN-CFCSocialNotice :CNSocialNotice :QSNotice :CNStandardNotice :DesignContestNotice :SubcontractNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice33 :CANSocial-D25 :Notice35 :CANSocialNotice-D25 :Notice34 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice4 :Notice5 :Notice6 :PINOnly-D24 :PINOnly-D25 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice14 :Notice13 :Notice12 :PIN-CFCSocialNotice-D25 :PIN-CFCSocial-D25 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice36 :Notice37 :DesignContestResult-D25 :DesignContestResult-D24 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice16 :Notice19 :CNStandard-D24 :Notice18 :Notice17 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-CFCStandardNotice :PIN-CFCSocialNotice :CNSocialNotice :QSNotice :CNStandardNotice :DesignContestNotice :SubcontractNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :VEAT-D81 :VEAT-D23 :VEAT-D24 :Notice25 :Notice27 :Notice26 :VEAT-D25 :Notice28 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice33 :CANSocial-D25 :Notice35 :CANSocialNotice-D25 :Notice34 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice33 :CANSocial-D25 :Notice35 :CANSocialNotice-D25 :Notice34 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice16 :Notice19 :CNStandard-D24 :Notice18 :Notice17 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :DesignContest-D24 :DesignContest-D25 :Notice23 :Notice24 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :DesignContest-D24 :DesignContest-D25 :Notice23 :Notice24 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice16 :Notice19 :CNStandard-D24 :Notice18 :Notice17 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice14 :Notice13 :Notice12 :PIN-CFCSocialNotice-D25 :PIN-CFCSocial-D25 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice31 :CANStandard-D24 :Notice30 :Notice32 :Notice29 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice16 :Notice19 :CNStandard-D24 :Notice18 :Notice17 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Modification-D24 :Notice39 :Modification-D25 :Notice38 :Modification-D23 :Notice40 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PMCNotice :PINTimeLimitNotice :PINOnlyNotice :PINDefence-D81 :PINProfileNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PMCNotice :PINTimeLimitNotice :PINOnlyNotice :PINDefence-D81 :PINProfileNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice4 :Notice5 :Notice6 :PINOnly-D24 :PINOnly-D25 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANDefence-D81 :CANSocialNotice :CANStandardNotice :DesignContestResultNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice31 :CANStandard-D24 :Notice30 :Notice32 :Notice29 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice36 :Notice37 :DesignContestResult-D25 :DesignContestResult-D24 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-CFCStandard-D24 :Notice11 :Notice10 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-CFCStandardNotice :PIN-CFCSocialNotice :CNSocialNotice :QSNotice :CNStandardNotice :DesignContestNotice :SubcontractNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice14 :Notice13 :Notice12 :PIN-CFCSocialNotice-D25 :PIN-CFCSocial-D25 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :VEAT-D81 :VEAT-D23 :VEAT-D24 :Notice25 :Notice27 :Notice26 :VEAT-D25 :Notice28 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-CFCStandardNotice :PIN-CFCSocialNotice :CNSocialNotice :QSNotice :CNStandardNotice :DesignContestNotice :SubcontractNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-CFCStandardNotice :PIN-CFCSocialNotice :CNSocialNotice :QSNotice :CNStandardNotice :DesignContestNotice :SubcontractNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PMCNotice :PINTimeLimitNotice :PINOnlyNotice :PINDefence-D81 :PINProfileNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Subcontract-D81 :Notice22 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Notice13 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :Notice24 :Notice35 :Notice39 :Notice17 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :Notice6 :Notice36 :Notice16 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :PIN-CFCStandardNotice :PIN-CFCSocialNotice :CNSocialNotice :QSNotice :CNStandardNotice :DesignContestNotice :SubcontractNotice ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
+
+[] a <http://www.w3.org/2002/07/owl##AllDisjointClasses> ;
+    owl:members ( :Modification-D24 :Notice39 :Modification-D25 :Notice38 :Modification-D23 :Notice40 ) .
 
