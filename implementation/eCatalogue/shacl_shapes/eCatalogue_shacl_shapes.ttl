@@ -1,10 +1,11 @@
+@prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix at-voc: <http://publications.europa.eu/resource/authority/> .
 @prefix at-voc-new: <http://publications.europa.eu/resource/authority/new/> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix cat-shape: <http://data.europa.eu/a4g/data-shape#> .
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix epo: <http://data.europa.eu/a4g/ontology#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -15,19 +16,20 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Batch> a sh:NodeShape ;
+cat-shape:epo-cat-Batch a sh:NodeShape ;
     rdfs:label "Batch" ;
     rdfs:comment """A production Lot in which the Item instances were produced. 
 
 WG Acceptance 10/03/2022
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Batch-epo-cat-hasBestBeforeDate>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-Batch-epo-cat-hasExpiryDate>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-Batch-epo-cat-hasManufactureDate> ;
-    sh:targetClass epo:Batch .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-Batch-epo-cat-hasBestBeforeDate,
+        cat-shape:epo-cat-Batch-epo-cat-hasExpiryDate,
+        cat-shape:epo-cat-Batch-epo-cat-hasManufactureDate,
+        cat-shape:epo-cat-Batch-epo-cat-isProductionOf ;
+    sh:targetClass :Batch .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Brand> a sh:NodeShape ;
+cat-shape:epo-cat-Brand a sh:NodeShape ;
     rdfs:label "Brand" ;
     rdfs:comment """Name given by an organisation to its product or service, or range of products or services. 
 
@@ -36,28 +38,31 @@ Brand name allows economic operators to distinctively describe an item in their 
 
 WG acceptance 10/03/2022
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Brand-dct-title> ;
-    sh:targetClass epo:Brand .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-Brand-dct-title ;
+    sh:targetClass :Brand .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Catalogue> a sh:NodeShape ;
+cat-shape:epo-cat-Catalogue a sh:NodeShape ;
     rdfs:label "Catalogue" ;
     rdfs:comment """A Document describing a set of Items offered for purchase that can be processed in an electronic way.
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Catalogue-epo-cat-hasSpecificPaymentArrangement> ;
-    sh:targetClass epo:Catalogue .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-Catalogue-epo-cat-comprisesCatalogueLine,
+        cat-shape:epo-cat-Catalogue-epo-cat-hasSpecificPaymentArrangement ;
+    sh:targetClass :Catalogue .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueFragment> a sh:NodeShape ;
+cat-shape:epo-cat-CatalogueFragment a sh:NodeShape ;
     rdfs:label "Catalogue fragment" ;
     rdfs:comment """A part of the Catalogue.
 
 Additional Information:
 The Catalogue fragment generally represents a difference between two Catalogue versions, but there may be other use cases.""" ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:targetClass epo:CatalogueFragment .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-CatalogueFragment-epo-cat-hasActivityCode,
+        cat-shape:epo-cat-CatalogueFragment-epo-cat-updatesCatalogue ;
+    sh:targetClass :CatalogueFragment .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine> a sh:NodeShape ;
+cat-shape:epo-cat-CatalogueLine a sh:NodeShape ;
     rdfs:label "Catalogue line" ;
     rdfs:comment """Aggregated information about the Terms and specifications for procuring an Item.
 
@@ -76,16 +81,21 @@ Composition: e.g. information referring to its description, how to order it, wha
 
 
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasOrderableQuantityIncrement>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasOrderableUnitFactorRate>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasTransactionConditions>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasWarrantyInformation>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-isContractedItem>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-isOrderable> ;
-    sh:targetClass epo:CatalogueLine .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-CatalogueLine-epo-cat-hasChargeInformation,
+        cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableQuantityIncrement,
+        cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableUnit,
+        cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableUnitFactorRate,
+        cat-shape:epo-cat-CatalogueLine-epo-cat-hasPrice,
+        cat-shape:epo-cat-CatalogueLine-epo-cat-hasStandardisedUnitPrice,
+        cat-shape:epo-cat-CatalogueLine-epo-cat-hasTransactionConditions,
+        cat-shape:epo-cat-CatalogueLine-epo-cat-hasTransactionConditionsCode,
+        cat-shape:epo-cat-CatalogueLine-epo-cat-hasWarrantyInformation,
+        cat-shape:epo-cat-CatalogueLine-epo-cat-isContractedItem,
+        cat-shape:epo-cat-CatalogueLine-epo-cat-isOrderable ;
+    sh:targetClass :CatalogueLine .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Certificate> a sh:NodeShape ;
+cat-shape:epo-cat-Certificate a sh:NodeShape ;
     rdfs:label "Certificate" ;
     rdfs:comment """Proof of conformance of the instance of the concept to a defined set of criteria. 
 
@@ -94,12 +104,14 @@ Certificates provide assurance of credibility, trust, and transparency in the pr
 
 WG approval 16/05/2023
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Certificate-epo-cat-hasCertificationNumber>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-Certificate-epo-hasURL> ;
-    sh:targetClass epo:Certificate .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-Certificate-epo-cat-attestedByLabel,
+        cat-shape:epo-cat-Certificate-epo-cat-hasCertificationNumber,
+        cat-shape:epo-cat-Certificate-epo-cat-issuedByCertifier,
+        cat-shape:epo-cat-Certificate-epo-hasURL ;
+    sh:targetClass :Certificate .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CertificationLabel> a sh:NodeShape ;
+cat-shape:epo-cat-CertificationLabel a sh:NodeShape ;
     rdfs:label "Certification label" ;
     rdfs:comment """Concept that stands for a set of norms, expectations, standards and policies.
 
@@ -108,11 +120,12 @@ Such standards may relate to social, ethical and quality etc.
 
 WG approval 26/07/2022
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-CertificationLabel-epo-cat-hasReferenceURI> ;
-    sh:targetClass epo:CertificationLabel .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-CertificationLabel-epo-cat-hasLabelType,
+        cat-shape:epo-cat-CertificationLabel-epo-cat-hasReferenceURI ;
+    sh:targetClass :CertificationLabel .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Certifier> a sh:NodeShape ;
+cat-shape:epo-cat-Certifier a sh:NodeShape ;
     rdfs:label "Certifier" ;
     rdfs:comment """The role of an agent who issues a certificate. 
 
@@ -120,10 +133,10 @@ Additional Information:
 The certifier is responsible for verifying and confirming the conformance of the instance of the concept to a defined set of criteria.
 
 WG approval 16/05/2023""" ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:targetClass epo:Certifier .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:targetClass :Certifier .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ChargeInformation> a sh:NodeShape ;
+cat-shape:epo-cat-ChargeInformation a sh:NodeShape ;
     rdfs:label "Charge information" ;
     rdfs:comment """Information about tax, fee or duty imposed.
 
@@ -133,10 +146,10 @@ Charge category modifier may be used in case different levels, exemptions or oth
 The charge can be fixed or relative to the price.
 
 WG approval 16/05/2023""" ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:targetClass epo:ChargeInformation .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:targetClass :ChargeInformation .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-InformationHub> a sh:NodeShape ;
+cat-shape:epo-cat-InformationHub a sh:NodeShape ;
     rdfs:label "Information hub" ;
     rdfs:comment """Grouping of data that may be associated to various concepts.
 
@@ -144,10 +157,11 @@ Additional Information:
 For example, AllowanceChargeInformation may be associated to the Order or the Catalogue (either at the Line level or at the Document level), amongst others.
 
 WG approval 16/05/2023""" ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:targetClass epo:InformationHub .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-InformationHub-epo-cat-isSpecificToLine ;
+    sh:targetClass :InformationHub .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item> a sh:NodeShape ;
+cat-shape:epo-cat-Item a sh:NodeShape ;
     rdfs:label "Item" ;
     rdfs:comment """A product, work, service or any combination of them.
 
@@ -157,35 +171,50 @@ An Item can be an atomic Thing or a composition of things that together are seen
 No distinction is provided between services, goods and works to leave room for innovation.
 
 WG approval 30/06/2022""" ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-dct-description>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-Item-dct-title>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasDimensionDescription>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasHazardousClass>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasKeyword>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-isInStock> ;
-    sh:targetClass epo:Item .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-Item-dct-description,
+        cat-shape:epo-cat-Item-dct-hasPart,
+        cat-shape:epo-cat-Item-dct-isReplacedBy,
+        cat-shape:epo-cat-Item-dct-replaces,
+        cat-shape:epo-cat-Item-dct-requires,
+        cat-shape:epo-cat-Item-dct-title,
+        cat-shape:epo-cat-Item-epo-cat-hasAccessoryItem,
+        cat-shape:epo-cat-Item-epo-cat-hasBrand,
+        cat-shape:epo-cat-Item-epo-cat-hasComplementaryItem,
+        cat-shape:epo-cat-Item-epo-cat-hasDeliveryClassification,
+        cat-shape:epo-cat-Item-epo-cat-hasDimensionDescription,
+        cat-shape:epo-cat-Item-epo-cat-hasHazardousClass,
+        cat-shape:epo-cat-Item-epo-cat-hasHazardousItemUNDGCode,
+        cat-shape:epo-cat-Item-epo-cat-hasItemClassification,
+        cat-shape:epo-cat-Item-epo-cat-hasKeyword,
+        cat-shape:epo-cat-Item-epo-cat-hasManufacturer,
+        cat-shape:epo-cat-Item-epo-cat-hasModel,
+        cat-shape:epo-cat-Item-epo-cat-hasQualifiedItemRelation,
+        cat-shape:epo-cat-Item-epo-cat-hasSpecification,
+        cat-shape:epo-cat-Item-epo-cat-isInStock,
+        cat-shape:epo-cat-Item-epo-hasCertification ;
+    sh:targetClass :Item .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemAccessoryRelation> a sh:NodeShape ;
+cat-shape:epo-cat-ItemAccessoryRelation a sh:NodeShape ;
     rdfs:label "Item accessory relation" ;
     rdfs:comment """Combination of two Items where the former enhances the latter.
 
 WG Approval: 30/06/2022
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:targetClass epo:ItemAccessoryRelation .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:targetClass :ItemAccessoryRelation .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemComplementaryRelation> a sh:NodeShape ;
+cat-shape:epo-cat-ItemComplementaryRelation a sh:NodeShape ;
     rdfs:label "Item complementary relation" ;
     rdfs:comment """Combination of two Items which mutually enhance one another.
 
 WG Approval: 30/06/2022
 
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:targetClass epo:ItemComplementaryRelation .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:targetClass :ItemComplementaryRelation .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemComposition> a sh:NodeShape ;
+cat-shape:epo-cat-ItemComposition a sh:NodeShape ;
     rdfs:label "Item composition" ;
     rdfs:comment """Inclusion of an Item into in the described Item.
 
@@ -198,10 +227,10 @@ WG Approval: 19/05/2022
 
 
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:targetClass epo:ItemComposition .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:targetClass :ItemComposition .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemModel> a sh:NodeShape ;
+cat-shape:epo-cat-ItemModel a sh:NodeShape ;
     rdfs:label "Item model" ;
     rdfs:comment """A specific design or version of a product or service.
 
@@ -211,41 +240,43 @@ This class is meant as a reusable reference to the model name rather than as a s
 WG acceptance 10/03/2022
 
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-ItemModel-dct-title> ;
-    sh:targetClass epo:ItemModel .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-ItemModel-dct-title ;
+    sh:targetClass :ItemModel .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemProperty> a sh:NodeShape ;
+cat-shape:epo-cat-ItemProperty a sh:NodeShape ;
     rdfs:label "Item property" ;
     rdfs:comment """Construct meant to represent the association between an attribute defined in an external classification scheme and the value ascribed to it.
 
 WG approval 26/07/2022""" ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-ItemProperty-epo-cat-hasAttributeType>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-ItemProperty-epo-cat-hasClassificationScheme>,
-        <http://data.europa.eu/a4g/data-shape#epo-cat-ItemProperty-epo-cat-hasLiteralValue> ;
-    sh:targetClass epo:ItemProperty .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-ItemProperty-epo-cat-describesItem,
+        cat-shape:epo-cat-ItemProperty-epo-cat-hasAttributeType,
+        cat-shape:epo-cat-ItemProperty-epo-cat-hasClassificationScheme,
+        cat-shape:epo-cat-ItemProperty-epo-cat-hasLiteralValue ;
+    sh:targetClass :ItemProperty .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemRelation> a sh:NodeShape ;
+cat-shape:epo-cat-ItemRelation a sh:NodeShape ;
     rdfs:label "Item relation" ;
     rdfs:comment """Connection between two Items.
 
 WG Approval: 30/06/2022
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-ItemRelation-epo-cat-hasFactor> ;
-    sh:targetClass epo:ItemRelation .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-ItemRelation-epo-cat-hasFactor,
+        cat-shape:epo-cat-ItemRelation-epo-cat-isRelatedToItem ;
+    sh:targetClass :ItemRelation .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemReplacement> a sh:NodeShape ;
+cat-shape:epo-cat-ItemReplacement a sh:NodeShape ;
     rdfs:label "Item replacement" ;
     rdfs:comment """Supplantment, displacement or suspension of an Item by the described Item.
 
 WG Approval: 30/06/2022
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:targetClass epo:ItemReplacement .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:targetClass :ItemReplacement .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemRequirement> a sh:NodeShape ;
+cat-shape:epo-cat-ItemRequirement a sh:NodeShape ;
     rdfs:label "Item requirement" ;
     rdfs:comment """Necessity of an Item by the described item. 
 
@@ -257,16 +288,17 @@ For example, a printer cannot be used without ink cartridge; or a Server cannot 
 WG Approval: 19/05/2022
 
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:targetClass epo:ItemRequirement .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:targetClass :ItemRequirement .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Line> a sh:NodeShape ;
+cat-shape:epo-cat-Line a sh:NodeShape ;
     rdfs:label "Line" ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Line-dct-description> ;
-    sh:targetClass epo:Line .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-Line-dct-description,
+        cat-shape:epo-cat-Line-epo-cat-specifiesItem ;
+    sh:targetClass :Line .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Manufacturer> a sh:NodeShape ;
+cat-shape:epo-cat-Manufacturer a sh:NodeShape ;
     rdfs:label "Manufacturer" ;
     rdfs:comment """The Producer of goods or provider of services. 
 
@@ -282,10 +314,10 @@ PEPPOL - Order: The supplier is the legal person or organisation who provides a 
 Examples of supplier roles: seller, despatch party, creditor, economic operator.
 
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:targetClass epo:Manufacturer .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:targetClass :Manufacturer .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Price> a sh:NodeShape ;
+cat-shape:epo-cat-Price a sh:NodeShape ;
     rdfs:label "Price" ;
     rdfs:comment """Amount of money required or given in exchange for Items.
 
@@ -293,31 +325,34 @@ Additional information:
 The Price excludes any charges (such as taxes, duties and fees) and discounts.
 
 WG approval 26/07/2022""" ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:targetClass epo:Price .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-Price-epo-cat-hasPriceType,
+        cat-shape:epo-cat-Price-epo-hasPriceSurchargeInformation ;
+    sh:targetClass :Price .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ProductSpecification> a sh:NodeShape ;
+cat-shape:epo-cat-ProductSpecification a sh:NodeShape ;
     rdfs:label "Product specification" ;
     rdfs:comment """Document providing information about an Item. 
 
 WG approval 07/04/2022
 
 """ ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
-    sh:targetClass epo:ProductSpecification .
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-ProductSpecification-epo-cat-hasDocumentType ;
+    sh:targetClass :ProductSpecification .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Batch-epo-cat-hasBestBeforeDate> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Batch-epo-cat-hasBestBeforeDate a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype xsd:date ;
     sh:description """The day until which the quality of the item will remain optimal.
 
 WG approval 10/03/2021""" ;
     sh:maxCount 1 ;
     sh:name "Has best before date" ;
-    sh:path epo:hasBestBeforeDate .
+    sh:path :hasBestBeforeDate .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Batch-epo-cat-hasExpiryDate> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Batch-epo-cat-hasExpiryDate a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype xsd:date ;
     sh:description """The last day until which the item can be used.
 
@@ -325,28 +360,27 @@ WG approval 10/03/2021
 """ ;
     sh:maxCount 1 ;
     sh:name "Has expiry date" ;
-    sh:path epo:hasExpiryDate .
+    sh:path :hasExpiryDate .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Batch-epo-cat-hasManufactureDate> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Batch-epo-cat-hasManufactureDate a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype xsd:dateTime ;
     sh:description """The day of production.
 """ ;
     sh:maxCount 1 ;
     sh:name "Has manufacture date" ;
-    sh:path epo:hasManufactureDate .
+    sh:path :hasManufactureDate .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Batch-epo-cat-isProductionOf> a sh:PropertyShape ;
-    sh:class epo:Item ;
+cat-shape:epo-cat-Batch-epo-cat-isProductionOf a sh:PropertyShape ;
+    sh:class :Item ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "epo-cat:isProductionOf" ;
-    sh:path epo:isProductionOf ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Batch-epo-cat-isProductionOf> ;
+    sh:name "Is production of" ;
+    sh:path :isProductionOf ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isProductionOf> ?that . ?that <http://data.europa.eu/a4g/ontology#isProductionOf> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Brand-dct-title> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Brand-dct-title a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """A name given to the resource.
 
@@ -357,16 +391,15 @@ WG approval 30/05/2023
     sh:name "Title" ;
     sh:path dcterms:title .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Catalogue-epo-cat-comprisesCatalogueLine> a sh:PropertyShape ;
-    sh:class epo:CatalogueLine ;
+cat-shape:epo-cat-Catalogue-epo-cat-comprisesCatalogueLine a sh:PropertyShape ;
+    sh:class :CatalogueLine ;
     sh:minCount 1 ;
-    sh:name "epo-cat:comprisesCatalogueLine" ;
-    sh:path epo:comprisesCatalogueLine ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Catalogue-epo-cat-comprisesCatalogueLine> ;
+    sh:name "Comprises catalogue line" ;
+    sh:path :comprisesCatalogueLine ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesCatalogueLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesCatalogueLine> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Catalogue-epo-cat-hasSpecificPaymentArrangement> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Catalogue-epo-cat-hasSpecificPaymentArrangement a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """Information about payment conditions applied to all items in the catalogue.
 
@@ -378,132 +411,124 @@ WG approval 30/06/2022
 """ ;
     sh:maxCount 1 ;
     sh:name "Has specific payment arrangement" ;
-    sh:path epo:hasSpecificPaymentArrangement .
+    sh:path :hasSpecificPaymentArrangement .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueFragment-epo-cat-hasActivityCode> a sh:PropertyShape ;
+cat-shape:epo-cat-CatalogueFragment-epo-cat-hasActivityCode a sh:PropertyShape ;
     sh:class at-voc-new:activity-code ;
     sh:description """Code that defines how the line should be applied to an existing eCatalogue.
 """ ;
     sh:maxCount 1 ;
-    sh:name "epo-cat:hasActivityCode" ;
-    sh:path epo:hasActivityCode ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueFragment-epo-cat-hasActivityCode> .
+    sh:name "Has activity code" ;
+    sh:path :hasActivityCode .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueFragment-epo-cat-updatesCatalogue> a sh:PropertyShape ;
-    sh:class epo:Catalogue ;
+cat-shape:epo-cat-CatalogueFragment-epo-cat-updatesCatalogue a sh:PropertyShape ;
+    sh:class :Catalogue ;
     sh:description "Relation indicating" ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "epo-cat:updatesCatalogue" ;
-    sh:path epo:updatesCatalogue ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueFragment-epo-cat-updatesCatalogue> ;
+    sh:name "Updates catalogue" ;
+    sh:path :updatesCatalogue ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#updatesCatalogue> ?that . ?that <http://data.europa.eu/a4g/ontology#updatesCatalogue> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasChargeInformation> a sh:PropertyShape ;
-    sh:class epo:ChargeInformation ;
-    sh:name "epo-cat:hasChargeInformation" ;
-    sh:path epo:hasChargeInformation ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasChargeInformation> ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasChargeInformation a sh:PropertyShape ;
+    sh:class :ChargeInformation ;
+    sh:name "Has charge information" ;
+    sh:path :hasChargeInformation ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasChargeInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasChargeInformation> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasOrderableQuantityIncrement> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableQuantityIncrement a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype xsd:integer ;
     sh:description "Orderable quantity increment: The increment of Orderable units that can be ordered." ;
     sh:maxCount 1 ;
     sh:name "Has orderable quantity increment" ;
-    sh:path epo:hasOrderableQuantityIncrement .
+    sh:path :hasOrderableQuantityIncrement .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasOrderableUnit> a sh:PropertyShape ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableUnit a sh:PropertyShape ;
     sh:class at-voc-new:orderable-unit ;
     sh:description "The unit in which the item described in this catalogue line can be ordered." ;
     sh:maxCount 1 ;
-    sh:name "epo-cat:hasOrderableUnit" ;
-    sh:path epo:hasOrderableUnit ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasOrderableUnit> .
+    sh:name "Has orderable unit" ;
+    sh:path :hasOrderableUnit .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasOrderableUnitFactorRate> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableUnitFactorRate a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype xsd:decimal ;
     sh:description "The factor by which the Item net price of an unit of an item can be converted to the orderable unit." ;
     sh:maxCount 1 ;
     sh:name "Has orderable unit factor rate" ;
-    sh:path epo:hasOrderableUnitFactorRate .
+    sh:path :hasOrderableUnitFactorRate .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasPrice> a sh:PropertyShape ;
-    sh:class epo:Price ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasPrice a sh:PropertyShape ;
+    sh:class :Price ;
     sh:minCount 1 ;
-    sh:name "epo-cat:hasPrice" ;
-    sh:path epo:hasPrice ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasPrice> ;
+    sh:name "Has price" ;
+    sh:path :hasPrice ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPrice> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPrice> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasStandardisedUnitPrice> a sh:PropertyShape ;
-    sh:class epo:Price ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasStandardisedUnitPrice a sh:PropertyShape ;
+    sh:class :Price ;
     sh:description """The item price based on a standardised unit.
 
 Additional Information:
 The unit must be indicated in the Quantity, with a quantity value of 1.""" ;
-    sh:name "epo-cat:hasStandardisedUnitPrice" ;
-    sh:path epo:hasStandardisedUnitPrice ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasStandardisedUnitPrice> ;
+    sh:name "Has standardised unit price" ;
+    sh:path :hasStandardisedUnitPrice ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasStandardisedUnitPrice> ?that . ?that <http://data.europa.eu/a4g/ontology#hasStandardisedUnitPrice> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasTransactionConditions> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasTransactionConditions a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description "Textual description of the specific transaction conditions (purchasing, sales, payment) for an item." ;
     sh:maxCount 1 ;
     sh:name "Has transaction conditions" ;
-    sh:path epo:hasTransactionConditions .
+    sh:path :hasTransactionConditions .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasTransactionConditionsCode> a sh:PropertyShape ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasTransactionConditionsCode a sh:PropertyShape ;
     sh:class at-voc-new:transaction-conditions ;
     sh:description """Coded description of the specific transaction conditions (purchasing, sales, payment) for an item.
 """ ;
     sh:maxCount 1 ;
-    sh:name "epo-cat:hasTransactionConditionsCode" ;
-    sh:path epo:hasTransactionConditionsCode ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasTransactionConditionsCode> .
+    sh:name "Has transaction conditions code" ;
+    sh:path :hasTransactionConditionsCode .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-hasWarrantyInformation> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasWarrantyInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description "Warranty information that applies to the catalogue line item." ;
     sh:maxCount 1 ;
     sh:name "Has warranty information" ;
-    sh:path epo:hasWarrantyInformation .
+    sh:path :hasWarrantyInformation .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-isContractedItem> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-isContractedItem a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype xsd:boolean ;
     sh:description "Indicator if the item is offered in accordance to an existing contract." ;
     sh:maxCount 1 ;
     sh:name "Is contracted item" ;
-    sh:path epo:isContractedItem .
+    sh:path :isContractedItem .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CatalogueLine-epo-cat-isOrderable> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-isOrderable a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype xsd:boolean ;
     sh:description "Indicator, if the item is orderable or not, e.g. because it is temporarily out of stock." ;
     sh:maxCount 1 ;
     sh:name "Is orderable" ;
-    sh:path epo:isOrderable .
+    sh:path :isOrderable .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Certificate-epo-cat-attestedByLabel> a sh:PropertyShape ;
-    sh:class epo:CertificationLabel ;
+cat-shape:epo-cat-Certificate-epo-cat-attestedByLabel a sh:PropertyShape ;
+    sh:class :CertificationLabel ;
     sh:description """Relation indicating which label the certificate is about. 
 
 WG approval 28/07/2022""" ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "epo-cat:attestedByLabel" ;
-    sh:path epo:attestedByLabel ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Certificate-epo-cat-attestedByLabel> ;
+    sh:name "Attested by label" ;
+    sh:path :attestedByLabel ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#attestedByLabel> ?that . ?that <http://data.europa.eu/a4g/ontology#attestedByLabel> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Certificate-epo-cat-hasCertificationNumber> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Certificate-epo-cat-hasCertificationNumber a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """The unique identifier of the certificate.
 
@@ -511,10 +536,10 @@ WG approval 26/07/2022""" ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
     sh:name "Has certification number" ;
-    sh:path epo:hasCertificationNumber .
+    sh:path :hasCertificationNumber .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Certificate-epo-cat-issuedByCertifier> a sh:PropertyShape ;
-    sh:class epo:Certifier ;
+cat-shape:epo-cat-Certificate-epo-cat-issuedByCertifier a sh:PropertyShape ;
+    sh:class :Certifier ;
     sh:description """Relation indicating the Certifier responsible for providing the ItemCertificate.
 
 Additional Information:
@@ -522,13 +547,12 @@ Certifier is a role played by an organisation.
 
 WG approval 26/07/2022""" ;
     sh:maxCount 1 ;
-    sh:name "epo-cat:issuedByCertifier" ;
-    sh:path epo:issuedByCertifier ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Certificate-epo-cat-issuedByCertifier> ;
+    sh:name "Issued by certifier" ;
+    sh:path :issuedByCertifier ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#issuedByCertifier> ?that . ?that <http://data.europa.eu/a4g/ontology#issuedByCertifier> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Certificate-epo-hasURL> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Certificate-epo-hasURL a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype xsd:anyURI ;
     sh:description """The identifier of a resource.
 
@@ -546,35 +570,33 @@ WG Approval 30/09/2019
 """ ;
     sh:maxCount 1 ;
     sh:name "Has u r l" ;
-    sh:path epo:hasURL .
+    sh:path :hasURL .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CertificationLabel-epo-cat-hasLabelType> a sh:PropertyShape ;
+cat-shape:epo-cat-CertificationLabel-epo-cat-hasLabelType a sh:PropertyShape ;
     sh:class at-voc-new:certification-label-type ;
     sh:description "The label type such environmental, quality, social etc." ;
     sh:maxCount 1 ;
-    sh:name "epo-cat:hasLabelType" ;
-    sh:path epo:hasLabelType ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-CertificationLabel-epo-cat-hasLabelType> .
+    sh:name "Has label type" ;
+    sh:path :hasLabelType .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-CertificationLabel-epo-cat-hasReferenceURI> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-CertificationLabel-epo-cat-hasReferenceURI a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype xsd:anyURI ;
     sh:description """A reference to where the label specification (norms, expectations, standards and policies) can be found.
 
 WG approval 26/07/2022""" ;
     sh:maxCount 1 ;
     sh:name "Has reference u r i" ;
-    sh:path epo:hasReferenceURI .
+    sh:path :hasReferenceURI .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-InformationHub-epo-cat-isSpecificToLine> a sh:PropertyShape ;
-    sh:class epo:Line ;
-    sh:name "epo-cat:isSpecificToLine" ;
-    sh:path epo:isSpecificToLine ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-InformationHub-epo-cat-isSpecificToLine> ;
+cat-shape:epo-cat-InformationHub-epo-cat-isSpecificToLine a sh:PropertyShape ;
+    sh:class :Line ;
+    sh:name "Is specific to line" ;
+    sh:path :isSpecificToLine ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToLine> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-dct-description> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Item-dct-description a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """An account of the resource.
 
@@ -586,8 +608,8 @@ WG Approval 30/05/2023""" ;
     sh:name "Description" ;
     sh:path dcterms:description .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-dct-hasPart> a sh:PropertyShape ;
-    sh:class epo:Item ;
+cat-shape:epo-cat-Item-dct-hasPart a sh:PropertyShape ;
+    sh:class :Item ;
     sh:description """A related resource that is included either physically or logically in the described resource.
 
 Additional Information: 
@@ -595,13 +617,12 @@ In the eCatalogue context, when this relation is used between two items, the res
 
 WG Approval: 30/06/2022
 """ ;
-    sh:name "dct:hasPart" ;
+    sh:name "Has part" ;
     sh:path dcterms:hasPart ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-dct-hasPart> ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://purl.org/dc/terms/hasPart> ?that . ?that <http://purl.org/dc/terms/hasPart> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-dct-isReplacedBy> a sh:PropertyShape ;
-    sh:class epo:Item ;
+cat-shape:epo-cat-Item-dct-isReplacedBy a sh:PropertyShape ;
+    sh:class :Item ;
     sh:description """A related resource that is supplanted, displaced, or superseded by the described resource.
 
 Additional Information: 
@@ -609,22 +630,20 @@ In the eCatalogue context, when this relation is used between two items, the res
 
 WG Approval: 30/06/2022
 """ ;
-    sh:name "dct:isReplacedBy" ;
+    sh:name "Is replaced by" ;
     sh:path dcterms:isReplacedBy ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-dct-isReplacedBy> ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://purl.org/dc/terms/isReplacedBy> ?that . ?that <http://purl.org/dc/terms/isReplacedBy> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-dct-replaces> a sh:PropertyShape ;
-    sh:class epo:Item ;
+cat-shape:epo-cat-Item-dct-replaces a sh:PropertyShape ;
+    sh:class :Item ;
     sh:description """A related resource that is supplanted, displaced, or superseded by the described resource.
 """ ;
-    sh:name "dct:replaces" ;
+    sh:name "Replaces" ;
     sh:path dcterms:replaces ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-dct-replaces> ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://purl.org/dc/terms/replaces> ?that . ?that <http://purl.org/dc/terms/replaces> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-dct-requires> a sh:PropertyShape ;
-    sh:class epo:Item ;
+cat-shape:epo-cat-Item-dct-requires a sh:PropertyShape ;
+    sh:class :Item ;
     sh:description """A related resource that is required by the described resource to support its function, delivery, or coherence.
 
 Additional Information:
@@ -632,13 +651,12 @@ In the eCatalogue context, when this relation is used between two items, the res
 
 WG Approval: 30/06/2022
 """ ;
-    sh:name "dct:requires" ;
+    sh:name "Requires" ;
     sh:path dcterms:requires ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-dct-requires> ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://purl.org/dc/terms/requires> ?that . ?that <http://purl.org/dc/terms/requires> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-dct-title> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Item-dct-title a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """A name given to the resource.
 
@@ -648,27 +666,25 @@ WG approval 30/05/2023""" ;
     sh:name "Title" ;
     sh:path dcterms:title .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasAccessoryItem> a sh:PropertyShape ;
-    sh:class epo:Item ;
+cat-shape:epo-cat-Item-epo-cat-hasAccessoryItem a sh:PropertyShape ;
+    sh:class :Item ;
     sh:description """An additional item that can enhance the original item. 
 
 WG Approval: 19/05/2022
 """ ;
-    sh:name "epo-cat:hasAccessoryItem" ;
-    sh:path epo:hasAccessoryItem ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasAccessoryItem> ;
+    sh:name "Has accessory item" ;
+    sh:path :hasAccessoryItem ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasAccessoryItem> ?that . ?that <http://data.europa.eu/a4g/ontology#hasAccessoryItem> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasBrand> a sh:PropertyShape ;
-    sh:class epo:Brand ;
+cat-shape:epo-cat-Item-epo-cat-hasBrand a sh:PropertyShape ;
+    sh:class :Brand ;
     sh:maxCount 1 ;
-    sh:name "epo-cat:hasBrand" ;
-    sh:path epo:hasBrand ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasBrand> ;
+    sh:name "Has brand" ;
+    sh:path :hasBrand ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasBrand> ?that . ?that <http://data.europa.eu/a4g/ontology#hasBrand> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasComplementaryItem> a sh:PropertyShape ;
-    sh:class epo:Item ;
+cat-shape:epo-cat-Item-epo-cat-hasComplementaryItem a sh:PropertyShape ;
+    sh:class :Item ;
     sh:description """An item that if used with another item provides mutual enhancements to both of them.
 
 Additional information:
@@ -677,43 +693,40 @@ For example, gin and tonic; or smart-phone and smart-watch.
 WG Approval: 19/05/2022
 
 """ ;
-    sh:name "epo-cat:hasComplementaryItem" ;
-    sh:path epo:hasComplementaryItem ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasComplementaryItem> ;
+    sh:name "Has complementary item" ;
+    sh:path :hasComplementaryItem ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasComplementaryItem> ?that . ?that <http://data.europa.eu/a4g/ontology#hasComplementaryItem> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasDeliveryClassification> a sh:PropertyShape ;
+cat-shape:epo-cat-Item-epo-cat-hasDeliveryClassification a sh:PropertyShape ;
     sh:class at-voc-new:delivery-item-type ;
     sh:maxCount 1 ;
-    sh:name "epo-cat:hasDeliveryClassification" ;
-    sh:path epo:hasDeliveryClassification ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasDeliveryClassification> .
+    sh:name "Has delivery classification" ;
+    sh:path :hasDeliveryClassification .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasDimensionDescription> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Item-epo-cat-hasDimensionDescription a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description "Textual description of the item's dimensions." ;
     sh:name "Has dimension description" ;
-    sh:path epo:hasDimensionDescription .
+    sh:path :hasDimensionDescription .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasHazardousClass> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Item-epo-cat-hasHazardousClass a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description "Specification of the hazardous nature of an item according to a classification schema. Provides detail of the classification and nature of a hazardous item." ;
     sh:maxCount 1 ;
     sh:name "Has hazardous class" ;
-    sh:path epo:hasHazardousClass .
+    sh:path :hasHazardousClass .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasHazardousItemUNDGCode> a sh:PropertyShape ;
+cat-shape:epo-cat-Item-epo-cat-hasHazardousItemUNDGCode a sh:PropertyShape ;
     sh:class at-voc-new:dangerous-goods-list ;
     sh:description """Specification of the hazardous nature of an item according to the UNDG classification schema. Provides detail of the classification and nature of a hazardous item.
 """ ;
     sh:maxCount 1 ;
-    sh:name "epo-cat:hasHazardousItemUNDGCode" ;
-    sh:path epo:hasHazardousItemUNDGCode ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasHazardousItemUNDGCode> .
+    sh:name "Has hazardous item u n d g code" ;
+    sh:path :hasHazardousItemUNDGCode .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasItemClassification> a sh:PropertyShape ;
+cat-shape:epo-cat-Item-epo-cat-hasItemClassification a sh:PropertyShape ;
     sh:class at-voc-new:item-classification ;
     sh:description """A classification of this item according to a specific system for classifying products or services.
 
@@ -721,71 +734,65 @@ Additional information:
 Examples of classification schemes are: CPV, UNSPC, eCl@ss, GPC, ...
 
 WG acceptance 10/03/2022""" ;
-    sh:name "epo-cat:hasItemClassification" ;
-    sh:path epo:hasItemClassification ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasItemClassification> .
+    sh:name "Has item classification" ;
+    sh:path :hasItemClassification .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasKeyword> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Item-epo-cat-hasKeyword a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """List of words (e.g, synonyms) to make the item searchable. 
 
 WG Approval 7/04/2022
 """ ;
     sh:name "Has keyword" ;
-    sh:path epo:hasKeyword .
+    sh:path :hasKeyword .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasManufacturer> a sh:PropertyShape ;
-    sh:class epo:Manufacturer ;
+cat-shape:epo-cat-Item-epo-cat-hasManufacturer a sh:PropertyShape ;
+    sh:class :Manufacturer ;
     sh:description "The product maker or service provider." ;
     sh:maxCount 1 ;
-    sh:name "epo-cat:hasManufacturer" ;
-    sh:path epo:hasManufacturer ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasManufacturer> ;
+    sh:name "Has manufacturer" ;
+    sh:path :hasManufacturer ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasManufacturer> ?that . ?that <http://data.europa.eu/a4g/ontology#hasManufacturer> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasModel> a sh:PropertyShape ;
-    sh:class epo:ItemModel ;
+cat-shape:epo-cat-Item-epo-cat-hasModel a sh:PropertyShape ;
+    sh:class :ItemModel ;
     sh:maxCount 1 ;
-    sh:name "epo-cat:hasModel" ;
-    sh:path epo:hasModel ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasModel> ;
+    sh:name "Has model" ;
+    sh:path :hasModel ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasModel> ?that . ?that <http://data.europa.eu/a4g/ontology#hasModel> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasQualifiedItemRelation> a sh:PropertyShape ;
-    sh:class epo:ItemRelation ;
-    sh:name "epo-cat:hasQualifiedItemRelation" ;
-    sh:path epo:hasQualifiedItemRelation ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasQualifiedItemRelation> ;
+cat-shape:epo-cat-Item-epo-cat-hasQualifiedItemRelation a sh:PropertyShape ;
+    sh:class :ItemRelation ;
+    sh:name "Has qualified item relation" ;
+    sh:path :hasQualifiedItemRelation ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasQualifiedItemRelation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasQualifiedItemRelation> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasSpecification> a sh:PropertyShape ;
-    sh:class epo:ProductSpecification ;
-    sh:name "epo-cat:hasSpecification" ;
-    sh:path epo:hasSpecification ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-hasSpecification> ;
+cat-shape:epo-cat-Item-epo-cat-hasSpecification a sh:PropertyShape ;
+    sh:class :ProductSpecification ;
+    sh:name "Has specification" ;
+    sh:path :hasSpecification ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasSpecification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasSpecification> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-cat-isInStock> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Item-epo-cat-isInStock a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype xsd:boolean ;
     sh:description "Indicator whether an item is in the supplier's stock. If not in stock the supplier has to order the item." ;
     sh:maxCount 1 ;
     sh:name "Is in stock" ;
-    sh:path epo:isInStock .
+    sh:path :isInStock .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-hasCertification> a sh:PropertyShape ;
-    sh:class epo:Certificate ;
+cat-shape:epo-cat-Item-epo-hasCertification a sh:PropertyShape ;
+    sh:class :Certificate ;
     sh:description """Relation to the proof of conformance.
 
 WG approval 30/05/2023""" ;
-    sh:name "epo:hasCertification" ;
-    sh:path epo:hasCertification ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Item-epo-hasCertification> ;
+    sh:name "Has certification" ;
+    sh:path :hasCertification ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasCertification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasCertification> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemModel-dct-title> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-ItemModel-dct-title a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """A name given to the resource.
 
@@ -795,17 +802,16 @@ WG approval 30/05/2023""" ;
     sh:name "Title" ;
     sh:path dcterms:title .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemProperty-epo-cat-describesItem> a sh:PropertyShape ;
-    sh:class epo:Item ;
+cat-shape:epo-cat-ItemProperty-epo-cat-describesItem a sh:PropertyShape ;
+    sh:class :Item ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "epo-cat:describesItem" ;
-    sh:path epo:describesItem ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-ItemProperty-epo-cat-describesItem> ;
+    sh:name "Describes item" ;
+    sh:path :describesItem ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#describesItem> ?that . ?that <http://data.europa.eu/a4g/ontology#describesItem> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemProperty-epo-cat-hasAttributeType> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-ItemProperty-epo-cat-hasAttributeType a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """The property defined in a classification scheme. 
 
@@ -817,10 +823,10 @@ WG approval 28/07/2022""" ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
     sh:name "Has attribute type" ;
-    sh:path epo:hasAttributeType .
+    sh:path :hasAttributeType .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemProperty-epo-cat-hasClassificationScheme> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-ItemProperty-epo-cat-hasClassificationScheme a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """The classification scheme where a property is defined. 
 
@@ -832,10 +838,10 @@ WG approval 28/07/2022
     sh:maxCount 1 ;
     sh:minCount 1 ;
     sh:name "Has classification scheme" ;
-    sh:path epo:hasClassificationScheme .
+    sh:path :hasClassificationScheme .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemProperty-epo-cat-hasLiteralValue> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-ItemProperty-epo-cat-hasLiteralValue a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """Simple value of the property, which is defined in a classification scheme.
 
@@ -850,27 +856,26 @@ WG approval 28/07/2022
 """ ;
     sh:maxCount 1 ;
     sh:name "Has literal value" ;
-    sh:path epo:hasLiteralValue .
+    sh:path :hasLiteralValue .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemRelation-epo-cat-hasFactor> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-ItemRelation-epo-cat-hasFactor a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype xsd:decimal ;
     sh:description "The number or the fraction of a related item. " ;
     sh:maxCount 1 ;
     sh:name "Has factor" ;
-    sh:path epo:hasFactor .
+    sh:path :hasFactor .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ItemRelation-epo-cat-isRelatedToItem> a sh:PropertyShape ;
-    sh:class epo:Item ;
+cat-shape:epo-cat-ItemRelation-epo-cat-isRelatedToItem a sh:PropertyShape ;
+    sh:class :Item ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "epo-cat:isRelatedToItem" ;
-    sh:path epo:isRelatedToItem ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-ItemRelation-epo-cat-isRelatedToItem> ;
+    sh:name "Is related to item" ;
+    sh:path :isRelatedToItem ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isRelatedToItem> ?that . ?that <http://data.europa.eu/a4g/ontology#isRelatedToItem> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Line-dct-description> a sh:PropertyShape ;
-    rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape#cat-shape> ;
+cat-shape:epo-cat-Line-dct-description a sh:PropertyShape ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """An account of the resource.
 
@@ -882,44 +887,40 @@ WG Approval 30/05/2023""" ;
     sh:name "Description" ;
     sh:path dcterms:description .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Line-epo-cat-specifiesItem> a sh:PropertyShape ;
-    sh:class epo:Item ;
+cat-shape:epo-cat-Line-epo-cat-specifiesItem a sh:PropertyShape ;
+    sh:class :Item ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "epo-cat:specifiesItem" ;
-    sh:path epo:specifiesItem ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Line-epo-cat-specifiesItem> ;
+    sh:name "Specifies item" ;
+    sh:path :specifiesItem ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesItem> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesItem> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Price-epo-cat-hasPriceType> a sh:PropertyShape ;
+cat-shape:epo-cat-Price-epo-cat-hasPriceType a sh:PropertyShape ;
     sh:class at-voc-new:price-type ;
     sh:maxCount 1 ;
-    sh:name "epo-cat:hasPriceType" ;
-    sh:path epo:hasPriceType ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Price-epo-cat-hasPriceType> .
+    sh:name "Has price type" ;
+    sh:path :hasPriceType .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-Price-epo-hasPriceSurchargeInformation> a sh:PropertyShape ;
-    sh:class epo:ChargeInformation ;
+cat-shape:epo-cat-Price-epo-hasPriceSurchargeInformation a sh:PropertyShape ;
+    sh:class :ChargeInformation ;
     sh:maxCount 1 ;
-    sh:name "epo:hasPriceSurchargeInformation" ;
-    sh:path epo:hasPriceSurchargeInformation ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-Price-epo-hasPriceSurchargeInformation> ;
+    sh:name "Has price surcharge information" ;
+    sh:path :hasPriceSurchargeInformation ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPriceSurchargeInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPriceSurchargeInformation> ?this .} " ] .
 
-<http://data.europa.eu/a4g/data-shape#epo-cat-ProductSpecification-epo-cat-hasDocumentType> a sh:PropertyShape ;
+cat-shape:epo-cat-ProductSpecification-epo-cat-hasDocumentType a sh:PropertyShape ;
     sh:class at-voc-new:document-type ;
     sh:maxCount 1 ;
-    sh:name "epo-cat:hasDocumentType" ;
-    sh:path epo:hasDocumentType ;
-    sh:property <http://data.europa.eu/a4g/data-shape#epo-cat-ProductSpecification-epo-cat-hasDocumentType> .
+    sh:name "Has document type" ;
+    sh:path :hasDocumentType .
 
-<http://data.europa.eu/a4g/data-shape#cat-shape> a owl:Ontology ;
+cat-shape:cat-shape a owl:Ontology ;
     cc:attributionName "European Union" ;
     cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/EURUN> ;
     dcterms:abstract "This artefact provides the datashape specification. " ;
-    dcterms:created "" ;
+    dcterms:created ""^^xsd:date ;
     dcterms:description "This module provides the definitions for the eProcurement ontology core.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
-    dcterms:issued "2023-06-25" ;
+    dcterms:issued "2023-06-25"^^xsd:date ;
     dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
     dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
     dcterms:title "eProcurement Ontology - cat"@en ;
@@ -930,8 +931,8 @@ WG Approval 30/05/2023""" ;
         <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports epo:cat,
-        epo:cat-restriction,
+    owl:imports :cat,
+        :cat-restriction,
         cccev:,
         <http://data.europa.eu/nuts>,
         at-voc:,
@@ -947,7 +948,7 @@ WG Approval 30/05/2023""" ;
         <https://data.europa.eu/m8g/> ;
     owl:incompatibleWith "3.1.0" ;
     owl:priorVersion "3.1.0" ;
-    owl:versionIRI "http://data.europa.eu/a4g/ontology#cat-4.0.0" ;
+    owl:versionIRI :cat-4.0.0 ;
     owl:versionInfo "4.0.0" ;
     skos:changeNote """This version is automatically generated from eCatalogue_CM.xml on 
                 2023-06-25""" .
