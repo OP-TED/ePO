@@ -37,13 +37,13 @@
     <xsl:variable name="base-restriction-uri" select="$base-ontology-uri"/>
     <!--    Shapes Module URI-->
     <xsl:variable name="shapeArtefactURI"
-        select="fn:concat($base-ontology-uri, $defaultDelimiter, $moduleReference, '-shape')"/>
+        select="fn:concat($base-shape-uri, $defaultDelimiter, $moduleReference, '-shape')"/>
     <!--    Restrictions Module URI-->
     <xsl:variable name="restrictionsArtefactURI"
         select="fn:concat($base-restriction-uri, $defaultDelimiter, $moduleReference, '-restriction')"/>
     <!--    Core Module URI-->
     <xsl:variable name="coreArtefactURI"
-        select="fn:concat($base-shape-uri, $defaultDelimiter, $moduleReference)"/>
+        select="fn:concat($base-ontology-uri, $defaultDelimiter, $moduleReference)"/>
 
     <!-- when a delimiter is missing in the base URI of a namespace, use this default value-->
     <xsl:variable name="defaultDelimiter" select="'#'"/>
@@ -71,7 +71,7 @@
     <xsl:variable name="enableGenerationOfSkosConcept" select="fn:false()"/>
 
     <!--    This variable controls whether the enumerations are transformed into skos schemes or ignored-->
-    <xsl:variable name="enableGenerationOfConceptSchemes" select="fn:false()"/>
+    <xsl:variable name="enableGenerationOfConceptSchemes" select="fn:true()"/>
 
     <!--Allowed characters for a normalized string-->
     <xsl:variable name="allowedStrings" select="'^[\w\d-_:]+$'"/>
@@ -116,16 +116,23 @@
     <!--    dct:issued-->
     <xsl:variable name="issuedDate" select="format-date(current-date(), '[Y0001]-[M01]-[D01]')"/>
     <!--    owl:incompatibleWith -->
-    <xsl:variable name="incompatibleWith" select="'2.1.0'"/>
+    <xsl:variable name="incompatibleWith" select="'3.1.0'"/>
     <!--    owl:versionInfo -->
-    <xsl:variable name="versionInfo" select="'3.1.0'"/>
+    <xsl:variable name="versionInfo" select="'4.0.0'"/>
     <!--    bibo:status-->
     <xsl:variable name="ontologyStatus" select="'Semantic Specification Realease'"/>
     <!--    owl:priorVersion -->
-    <xsl:variable name="priorVersion" select="'3.0.1'"/>
+    <xsl:variable name="priorVersion" select="'3.1.0'"/>
     <!--    vann:preferredNamespaceUri -->
     <xsl:variable name="preferredNamespaceUri" select="'http://data.europa.eu/a4g/ontology#'"/>
     <!--    vann:preferredNamespacePrefix -->
-    <xsl:variable name="preferredNamespacePrefix" select="'epo'"/>
+    <xsl:variable name="preferredNamespacePrefix" select="'epo-ful'"/>
+        <xsl:variable name="rightsLiteral" select="'The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents
+        (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the
+        CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided
+        that appropriate credit is given and any changes are indicated.'"/>
+    <xsl:variable name="licenseURI" select="'http://creativecommons.org/licenses/by-sa/4.0'"/>
+    <xsl:variable name="attributionNameLiteral" select="'European Union'"/>
+    <xsl:variable name="attributionURL" select="'http://publications.europa.eu/resource/authority/corporate-body/EURUN'"/>
 
 </xsl:stylesheet>
