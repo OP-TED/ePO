@@ -58,7 +58,7 @@
         <https://data.europa.eu/m8g/> ;
     owl:incompatibleWith "3.1.0" ;
     owl:priorVersion "3.1.0" ;
-    owl:versionIRI :ful-4.0.0 ;
+    owl:versionIRI :ful-restriction-4.0.0 ;
     owl:versionInfo "4.0.0" ;
     skos:changeNote """This version is automatically generated from eFulfilment_CM.xml on 
                 2023-06-25""" .
@@ -130,9 +130,9 @@
     rdfs:range :Quantity .
 
 :hasHandlingInstruction rdfs:domain [ a owl:Class ;
-            owl:unionOf ( :Consignment :TransportHandlingUnit ) ],
+            owl:unionOf ( :TransportHandlingUnit :Consignment ) ],
         [ a owl:Class ;
-            owl:unionOf ( :TransportHandlingUnit :Consignment ) ] ;
+            owl:unionOf ( :Consignment :TransportHandlingUnit ) ] ;
     rdfs:range rdf:PlainLiteral,
         skos:Concept .
 
@@ -422,41 +422,41 @@ dcterms:description rdfs:domain [ a owl:Class ;
 
 :ShipmentStage a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :isHazardousRisk ],
+            owl:minCardinality 1 ;
+            owl:onProperty :usesTransportMeans ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :specifiesCarrier ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :usesTransportMeans ] .
+            owl:maxCardinality 1 ;
+            owl:onProperty :isHazardousRisk ] .
 
 :TransportEquipment a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty :isPowerIndicated ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty :isRefrigerated ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :isReturnable ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :isPowerIndicated ] .
+            owl:onProperty :isReturnable ] .
 
 :DespatchAdvice rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :refersToShipmentAgreement ],
+            owl:onProperty :specifiesShipment ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty :specifiesDespatcher ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :comprisesDespatchLine ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty :refersToConsignment ],
         [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty :comprisesDespatchLine ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :specifiesShipment ] .
+            owl:onProperty :refersToShipmentAgreement ] .
 
 :ShipmentInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -469,28 +469,28 @@ dcterms:description rdfs:domain [ a owl:Class ;
 :AbstractContainer a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :isReturnableMaterial ],
+            owl:onProperty :hasTemperatureSpecification ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :isHazardousRisk ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasTemperatureSpecification ] .
+            owl:onProperty :isReturnableMaterial ] .
 
 :Consignment a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasMainCarriageShipmentStage ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty :hasRequestedPickUpInformation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasVehicleDescription ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasMainCarriageShipmentStage ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :isHazardousRisk ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty :containsTransportHandlingUnit ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasVehicleDescription ] .
+            owl:onProperty :containsTransportHandlingUnit ] .
 

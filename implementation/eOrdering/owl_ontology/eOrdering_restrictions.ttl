@@ -135,7 +135,7 @@
         <https://data.europa.eu/m8g/> ;
     owl:incompatibleWith "3.1.0" ;
     owl:priorVersion "3.1.0" ;
-    owl:versionIRI :ord-4.0.0 ;
+    owl:versionIRI :ord-restriction-4.0.0 ;
     owl:versionInfo "4.0.0" ;
     skos:changeNote """This version is automatically generated from eOrdering_CM.xml on 
                 2023-06-25""" .
@@ -273,30 +273,33 @@ dcterms:description rdfs:domain [ a owl:Class ;
 :AllowanceChargeInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasTaxInformation ],
+            owl:onProperty :hasPercentage ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasPercentage ] .
+            owl:onProperty :hasTaxInformation ] .
 
 :OrderResponse rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasResponseDescription ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty :isSubmittedForOrder ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :specifiesSeller ] .
+            owl:onProperty :specifiesSeller ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasResponseDescription ] .
 
 :TaxInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasPercentage ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty dcterms:description ] .
+            owl:onProperty dcterms:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasPercentage ] .
 
 :DeliveryInformation rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :specifiesGeneralDeliveryAgreement ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasDeliveryDeadline ],
         [ a owl:Restriction ;
@@ -304,30 +307,27 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:onProperty :concernsConsignee ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :specifiesGeneralDeliveryAgreement ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty :specifiesSpecificDeliveryAgreement ] .
 
 :Order rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :comprisesOrderLine ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :specifiesSeller ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasPaymentTerm ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :specifiesOriginatorInformation ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty :specifiesDeliveryInformation ],
         [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty :specifiesSeller ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasCustomerReference ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty :comprisesOrderLine ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasAccountingCost ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasCustomerReference ] .
+            owl:onProperty :hasPaymentTerm ] .
 
