@@ -9,6 +9,7 @@ on:
       - "implementation/eNotice/xmi_conceptual_model/eNotice_CM.xml"
       - "implementation/eOrdering/xmi_conceptual_model/eOrdering_CM.xml"
       - "implementation/eFulfilment/xmi_conceptual_model/eFulfilment_CM.xml"
+      - "implementation/eFulfilment/xmi_conceptual_model/eContract_CM.xml"
 jobs:
   transform:
     runs-on: ubuntu-latest
@@ -39,7 +40,7 @@ jobs:
 
       - name: transform step
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice ePO)
+          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice eContract ePO)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             echo "-------------------${implementation}---------------------------------"
@@ -94,7 +95,7 @@ jobs:
 
       - name: merge implementations xmi files into one
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eOrdering eNotice eCatalogue eFulfilment ePO)
+          AVAILABLE_IMPLEMENTATIONS=(eOrdering eNotice eCatalogue eFulfilment eContract ePO)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             cp implementation/$implementation/xmi_conceptual_model/*_CM.xml transform/merge-xmis
