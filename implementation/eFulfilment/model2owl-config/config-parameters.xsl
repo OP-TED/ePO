@@ -83,9 +83,9 @@
     <!--                            METADATA SECTION                               -->
     <!-- _______________________________________________________________________   -->
     <!--    This section contains the variables used to build the ontology metadata-->
-    <xsl:variable name="moduleReference" select="'core'"/>
+    <xsl:variable name="moduleReference" select="'ful'"/>
     <!--    dct:title -->
-    <xsl:variable name="ontologyTitle" select="'eProcurement Ontology - core'"/>
+    <xsl:variable name="ontologyTitle" select="'eProcurement Ontology - ful'"/>
     <!--    dct:description-->
     <xsl:variable name="ontologyDescription"
         select="
