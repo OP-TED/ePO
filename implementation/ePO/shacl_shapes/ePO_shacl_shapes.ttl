@@ -164,7 +164,8 @@ WG approval 2023-02-14""" ;
 
 core-shape:dct-Location a sh:NodeShape ;
     rdfs:label "Location" ;
-    rdfs:comment "An identifiable geographic place or named place." ;
+    rdfs:comment """An identifiable geographic place or named place.
+""" ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:dct-Location-adms-identifier,
         core-shape:dct-Location-epo-hasCountryCode,
@@ -275,15 +276,9 @@ core-shape:epo-AwardDecision a sh:NodeShape ;
 
 WG approval 14/11/2018""" ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-AwardDecision-epo-comprisesLotAwardDecision,
-        core-shape:epo-AwardDecision-epo-comprisesMiniCompetitionAwardDecision,
-        core-shape:epo-AwardDecision-epo-comprisesTenderAwardOutcome,
+    sh:property core-shape:epo-AwardDecision-epo-comprisesAwardOutcome,
         core-shape:epo-AwardDecision-epo-hasAdditionalNonAwardJustification,
-        core-shape:epo-AwardDecision-epo-hasAwardDecisionDate,
-        core-shape:epo-AwardDecision-epo-hasAwardStatus,
-        core-shape:epo-AwardDecision-epo-hasAwardedValue,
-        core-shape:epo-AwardDecision-epo-hasBargainPrice,
-        core-shape:epo-AwardDecision-epo-hasNonAwardJustification ;
+        core-shape:epo-AwardDecision-epo-hasAwardDecisionDate ;
     sh:targetClass :AwardDecision .
 
 core-shape:epo-AwardEvaluationTerm a sh:NodeShape ;
@@ -296,6 +291,16 @@ core-shape:epo-AwardEvaluationTerm a sh:NodeShape ;
         core-shape:epo-AwardEvaluationTerm-epo-hasOverallPriceAwardCriteriaPonderation,
         core-shape:epo-AwardEvaluationTerm-epo-hasOverallQualityAwardCriteriaPonderation ;
     sh:targetClass :AwardEvaluationTerm .
+
+core-shape:epo-AwardOutcome a sh:NodeShape ;
+    rdfs:label "Award outcome" ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:property core-shape:epo-AwardOutcome-epo-comprisesTenderAwardOutcome,
+        core-shape:epo-AwardOutcome-epo-hasAwardStatus,
+        core-shape:epo-AwardOutcome-epo-hasAwardedValue,
+        core-shape:epo-AwardOutcome-epo-hasBargainPrice,
+        core-shape:epo-AwardOutcome-epo-hasNonAwardJustification ;
+    sh:targetClass :AwardOutcome .
 
 core-shape:epo-Awarder a sh:NodeShape ;
     rdfs:label "Awarder" ;
@@ -456,8 +461,9 @@ This includes Concession Contracts.
         core-shape:epo-Contract-epo-hasEntryIntoForceDate,
         core-shape:epo-Contract-epo-hasEstimatedDuration,
         core-shape:epo-Contract-epo-hasLotReference,
-        core-shape:epo-Contract-epo-hasProcurementClassification,
+        core-shape:epo-Contract-epo-hasPurpose,
         core-shape:epo-Contract-epo-includesTender,
+        core-shape:epo-Contract-epo-isFundedBy,
         core-shape:epo-Contract-epo-isSubjectToContractSpecificTerm,
         core-shape:epo-Contract-epo-signedByBuyer,
         core-shape:epo-Contract-epo-signedByContractor ;
@@ -473,14 +479,6 @@ core-shape:epo-ContractLotCompletionInformation a sh:NodeShape ;
         core-shape:epo-ContractLotCompletionInformation-epo-providesContractTotalPenaltyValue,
         core-shape:epo-ContractLotCompletionInformation-epo-refersToContract ;
     sh:targetClass :ContractLotCompletionInformation .
-
-core-shape:epo-ContractModification a sh:NodeShape ;
-    rdfs:label "Contract modification" ;
-    rdfs:comment "An Announcement of the Modification Of a Contract/Concession during its Term by a Buyer." ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-ContractModification-epo-hasElementModification,
-        core-shape:epo-ContractModification-epo-refersToOriginalNotice ;
-    sh:targetClass :ContractModification .
 
 core-shape:epo-ContractSpecificTerm a sh:NodeShape ;
     rdfs:label "Contract specific term" ;
@@ -498,7 +496,7 @@ core-shape:epo-ContractTerm a sh:NodeShape ;
     sh:property core-shape:epo-ContractTerm-epo-definesContractDuration,
         core-shape:epo-ContractTerm-epo-definesContractPeriod,
         core-shape:epo-ContractTerm-epo-definesPaymentExecutor,
-        core-shape:epo-ContractTerm-epo-definesPlaceOfPerformance,
+        core-shape:epo-ContractTerm-epo-definesSpecificPlaceOfPerformance,
         core-shape:epo-ContractTerm-epo-definesSubcontractingTerm,
         core-shape:epo-ContractTerm-epo-hasAdditionalContractNature,
         core-shape:epo-ContractTerm-epo-hasBroadPlaceOfPerformance,
@@ -567,7 +565,7 @@ WG Approval 22/11/2019
 core-shape:epo-DirectContract a sh:NodeShape ;
     rdfs:label "Direct contract" ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-DirectContract-epo-resultsFromLotAwardDecision ;
+    sh:property core-shape:epo-DirectContract-epo-resultsFromLotAwardOutcome ;
     sh:targetClass :DirectContract .
 
 core-shape:epo-Document a sh:NodeShape ;
@@ -608,19 +606,8 @@ core-shape:epo-DynamicPurchaseSystemTechnique a sh:NodeShape ;
 
 WG approval 23/05/2023""" ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-DynamicPurchaseSystemTechnique-epo-hasDPSScope,
-        core-shape:epo-DynamicPurchaseSystemTechnique-epo-resultsInDynamicPurchasingSystem ;
+    sh:property core-shape:epo-DynamicPurchaseSystemTechnique-epo-hasDPSScope ;
     sh:targetClass :DynamicPurchaseSystemTechnique .
-
-core-shape:epo-DynamicPurchasingSystem a sh:NodeShape ;
-    rdfs:label "Dynamic purchasing system" ;
-    rdfs:comment """An electronic System that is set up by a Buyer which lists the Economic Operators that satisfy the Qualification Criteria, which may later be put into competition via a Mini-Competition in view of awarding a Purchase Contract.
-
-WG approval 23/05/2023
-""" ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-DynamicPurchasingSystem-epo-hasCandidateList ;
-    sh:targetClass :DynamicPurchasingSystem .
 
 core-shape:epo-EAuctionTechnique a sh:NodeShape ;
     rdfs:label "E auction technique" ;
@@ -678,16 +665,6 @@ core-shape:epo-ElementDescription a sh:NodeShape ;
     rdfs:comment "Description about a specific resource." ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:targetClass :ElementDescription .
-
-core-shape:epo-ElementModificationDescription a sh:NodeShape ;
-    rdfs:label "Element modification description" ;
-    rdfs:comment "Information about a specific field to be changed with regard to the Modification Of a Contract." ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-ElementModificationDescription-epo-hasElementReference,
-        core-shape:epo-ElementModificationDescription-epo-hasModificationDescription,
-        core-shape:epo-ElementModificationDescription-epo-hasModificationJustification,
-        core-shape:epo-ElementModificationDescription-epo-hasModificationReasonDescription ;
-    sh:targetClass :ElementModificationDescription .
 
 core-shape:epo-EmploymentInformationProvider a sh:NodeShape ;
     rdfs:label "Employment information provider" ;
@@ -750,7 +727,7 @@ When a Framework Agreement is concerned, the FA will result from LotAwardOutcome
 
 WG approval 18/05/2021""" ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-FrameworkAgreement-epo-resultsFromLotAwardDecision ;
+    sh:property core-shape:epo-FrameworkAgreement-epo-resultsFromLotAwardOutcome ;
     sh:targetClass :FrameworkAgreement .
 
 core-shape:epo-FrameworkAgreementTechnique a sh:NodeShape ;
@@ -866,18 +843,18 @@ WG approval 12/09/2018""" ;
         core-shape:epo-Lot-epo-specifiesProcurementCriterion ;
     sh:targetClass :Lot .
 
-core-shape:epo-LotAwardDecision a sh:NodeShape ;
-    rdfs:label "Lot award decision" ;
+core-shape:epo-LotAwardOutcome a sh:NodeShape ;
+    rdfs:label "Lot award outcome" ;
     rdfs:comment "Result concerning the Lot attributed by the Awarder." ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-LotAwardDecision-epo-concernsLot,
-        core-shape:epo-LotAwardDecision-epo-hasApproximateFrameworkAgreementValue,
-        core-shape:epo-LotAwardDecision-epo-hasAwardedEstimatedValue,
-        core-shape:epo-LotAwardDecision-epo-hasFrameworkAgreementEstimatedValue,
-        core-shape:epo-LotAwardDecision-epo-hasFrameworkAgreementMaximumValue,
-        core-shape:epo-LotAwardDecision-epo-hasNonAwardedContractNumber,
-        core-shape:epo-LotAwardDecision-epo-hasNonAwardedContractTitle ;
-    sh:targetClass :LotAwardDecision .
+    sh:property core-shape:epo-LotAwardOutcome-epo-concernsLot,
+        core-shape:epo-LotAwardOutcome-epo-hasApproximateFrameworkAgreementValue,
+        core-shape:epo-LotAwardOutcome-epo-hasAwardedEstimatedValue,
+        core-shape:epo-LotAwardOutcome-epo-hasFrameworkAgreementEstimatedValue,
+        core-shape:epo-LotAwardOutcome-epo-hasFrameworkAgreementMaximumValue,
+        core-shape:epo-LotAwardOutcome-epo-hasNonAwardedContractNumber,
+        core-shape:epo-LotAwardOutcome-epo-hasNonAwardedContractTitle ;
+    sh:targetClass :LotAwardOutcome .
 
 core-shape:epo-LotGroup a sh:NodeShape ;
     rdfs:label "Lot group" ;
@@ -919,28 +896,16 @@ WG approval 20/04/2021""" ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:targetClass :Mediator .
 
-core-shape:epo-MiniCompetition a sh:NodeShape ;
-    rdfs:label "Mini competition" ;
-    rdfs:comment """A process where multiple winners or candidates of previous stages of a procedure bid for a specific procurement.
+core-shape:epo-MiniCompetitionAwardOutcome a sh:NodeShape ;
+    rdfs:label "Mini competition award outcome" ;
+    rdfs:comment """Result concerning the process where multiple winners or candidates of previous stages of a procedure bid for a specific procurement attributed by the Awarder.
 
 Additional Information:
 It is typically used in framework agreements where the suppliers have already been pre-selected, and the mini competition is used to determine which supplier is best suited for a particular project or contract.
-It is also used in a Dynamic Purchasing System where the suppliers come from a list of Candidates.
-
-WG approval 30/05/2023""" ;
+It is also used in a Dynamic Purchasing System where the suppliers come from a list of Candidates.""" ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-MiniCompetition-epo-followsRulesSetBy,
-        core-shape:epo-MiniCompetition-epo-specifiesAwardCriterion,
-        core-shape:epo-MiniCompetition-epo-usesCandidateList ;
-    sh:targetClass :MiniCompetition .
-
-core-shape:epo-MiniCompetitionAwardDecision a sh:NodeShape ;
-    rdfs:label "Mini competition award decision" ;
-    rdfs:comment """Result concerning the Mini-Competition attributed by the Awarder.
-""" ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-MiniCompetitionAwardDecision-epo-concernsMiniCompetition ;
-    sh:targetClass :MiniCompetitionAwardDecision .
+    sh:property core-shape:epo-MiniCompetitionAwardOutcome-epo-resultsFromUsingCandidateList ;
+    sh:targetClass :MiniCompetitionAwardOutcome .
 
 core-shape:epo-MonetaryValue a sh:NodeShape ;
     rdfs:label "Monetary value" ;
@@ -1409,9 +1374,10 @@ WG Approval 16/05/2019
 
 core-shape:epo-PurchaseContract a sh:NodeShape ;
     rdfs:label "Purchase contract" ;
-    rdfs:comment "A Contract resulting from a Dynamic Purchasing System or Framework Agreement Contract." ;
+    rdfs:comment "A Contract resulting from using a Dynamic Purchasing System Technique or Framework Agreement Technique." ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-PurchaseContract-epo-resultsFromMiniCompetitionAwardDecision ;
+    sh:property core-shape:epo-PurchaseContract-epo-followsRulesSetBy,
+        core-shape:epo-PurchaseContract-epo-resultsFromMiniCompetitionAwardOutcome ;
     sh:targetClass :PurchaseContract .
 
 core-shape:epo-Purpose a sh:NodeShape ;
@@ -1748,7 +1714,7 @@ WG approval 30/05/2023""" ;
         core-shape:epo-SubmissionStatisticalInformation-epo-hasReceivedTenders,
         core-shape:epo-SubmissionStatisticalInformation-epo-hasSMEReceivedTenders,
         core-shape:epo-SubmissionStatisticalInformation-epo-hasUnverifiedTenders,
-        core-shape:epo-SubmissionStatisticalInformation-epo-summarisesInformationForAwardDecision ;
+        core-shape:epo-SubmissionStatisticalInformation-epo-summarisesInformationForAwardOutcome ;
     sh:targetClass :SubmissionStatisticalInformation .
 
 core-shape:epo-SubmissionTerm a sh:NodeShape ;
@@ -1839,6 +1805,7 @@ core-shape:epo-Tender a sh:NodeShape ;
         core-shape:epo-Tender-epo-hasElectronicSubmission,
         core-shape:epo-Tender-epo-hasFinancialOfferValue,
         core-shape:epo-Tender-epo-hasItemCountryOfOrigin,
+        core-shape:epo-Tender-epo-hasSubcontracting,
         core-shape:epo-Tender-epo-isSubjectToGrouping,
         core-shape:epo-Tender-epo-isSubmitedBy,
         core-shape:epo-Tender-epo-isSubmittedForLot,
@@ -1992,18 +1959,6 @@ core-shape:org-Organization a sh:NodeShape ;
         core-shape:org-Organization-epo-hasRegistrationCountry,
         core-shape:org-Organization-epo-hasTaxIdentifier ;
     sh:targetClass org:Organization .
-
-core-shape:owl-Thing a sh:NodeShape ;
-    rdfs:label "Thing" ;
-    rdfs:comment """Any individual in the domain of discourse is a Thing. 
-
-
-Additional Information:
-
-The most basic concepts in a domain should correspond to classes that are the roots of various taxonomic trees. Every individual in the OWL world is a member of the class owl:Thing.""" ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:owl-Thing-epo-containsModificationsOf ;
-    sh:targetClass owl:Thing .
 
 core-shape:adms-Identifier-adms-schemaAgency a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
@@ -2449,7 +2404,7 @@ The use of a URIs has added advantages:
 
 core-shape:dct-Location-locn-geographicName a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:datatype rdf:langString ;
+    sh:datatype rdf:PlainLiteral ;
     sh:description """A textual description for a Location.
 
 Additional Information:
@@ -2466,7 +2421,8 @@ The country codes defined in ISO 3166 may be used as geographic names and these 
 
 - use 'UK' in preference to the ISO 3166 code GB for the United Kingdom;
 - use 'EL' in preference to the ISO 3166 code GR for Greece.
-Where a country has changed its name or no longer exists (such as Czechoslovakia, Yugoslavia etc.) use the ISO 3166-3 code.""" ;
+Where a country has changed its name or no longer exists (such as Czechoslovakia, Yugoslavia etc.) use the ISO 3166-3 code.
+""" ;
     sh:maxCount 1 ;
     sh:name "Geographic name" ;
     sh:path locn:geographicName .
@@ -2676,25 +2632,12 @@ WG Approval 17/09/2019
     sh:name "Has fixed value type" ;
     sh:path :hasFixedValueType .
 
-core-shape:epo-AwardDecision-epo-comprisesLotAwardDecision a sh:PropertyShape ;
-    sh:class :LotAwardDecision ;
-    sh:description "Incorporates LotAwardOutcome." ;
-    sh:name "Comprises lot award decision" ;
-    sh:path :comprisesLotAwardDecision ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesLotAwardDecision> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesLotAwardDecision> ?this .} " ] .
-
-core-shape:epo-AwardDecision-epo-comprisesMiniCompetitionAwardDecision a sh:PropertyShape ;
-    sh:class :MiniCompetitionAwardDecision ;
-    sh:name "Comprises mini competition award decision" ;
-    sh:path :comprisesMiniCompetitionAwardDecision ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesMiniCompetitionAwardDecision> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesMiniCompetitionAwardDecision> ?this .} " ] .
-
-core-shape:epo-AwardDecision-epo-comprisesTenderAwardOutcome a sh:PropertyShape ;
-    sh:class :TenderAwardOutcome ;
-    sh:description "Incorporates TenderAwardOutcome." ;
-    sh:name "Comprises tender award outcome" ;
-    sh:path :comprisesTenderAwardOutcome ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesTenderAwardOutcome> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesTenderAwardOutcome> ?this .} " ] .
+core-shape:epo-AwardDecision-epo-comprisesAwardOutcome a sh:PropertyShape ;
+    sh:class :AwardOutcome ;
+    sh:description "Incorporates AwardOutcome." ;
+    sh:name "Comprises award outcome" ;
+    sh:path :comprisesAwardOutcome ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesAwardOutcome> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesAwardOutcome> ?this .} " ] .
 
 core-shape:epo-AwardDecision-epo-hasAdditionalNonAwardJustification a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
@@ -2722,51 +2665,6 @@ WG Approval 09/01/2020
     sh:maxCount 1 ;
     sh:name "Has award decision date" ;
     sh:path :hasAwardDecisionDate .
-
-core-shape:epo-AwardDecision-epo-hasAwardStatus a sh:PropertyShape ;
-    sh:class at-voc:winner-selection-status ;
-    sh:description """Indicates whether the lot is awarded, not awarded or still open.
-WG Approval 03/12/2019
-
-""" ;
-    sh:maxCount 1 ;
-    sh:name "Has award status" ;
-    sh:path :hasAwardStatus .
-
-core-shape:epo-AwardDecision-epo-hasAwardedValue a sh:PropertyShape ;
-    sh:class :MonetaryValue ;
-    sh:description """The value of the procurement provided by the Award Decision.
-
-Additional Information:
-Different cases of awarded values may refer to a lot, the global value of the procedure, or of a combinatorial value of a group of lots.
-
-In the case of framework agreements and dynamic purchasing systems this refers to the maximum awarded value.
-
-WG Approval 10/12/2019""" ;
-    sh:maxCount 1 ;
-    sh:name "Has awarded value" ;
-    sh:path :hasAwardedValue ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasAwardedValue> ?that . ?that <http://data.europa.eu/a4g/ontology#hasAwardedValue> ?this .} " ] .
-
-core-shape:epo-AwardDecision-epo-hasBargainPrice a sh:PropertyShape ;
-    sh:class :MonetaryValue ;
-    sh:description """The value of procured supplies that have used a particularly advantageous opportunity available for a very short time at a value considerably lower than normal market prices.
-
-WG approval 23/05/2023""" ;
-    sh:maxCount 1 ;
-    sh:name "Has bargain price" ;
-    sh:path :hasBargainPrice ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasBargainPrice> ?that . ?that <http://data.europa.eu/a4g/ontology#hasBargainPrice> ?this .} " ] .
-
-core-shape:epo-AwardDecision-epo-hasNonAwardJustification a sh:PropertyShape ;
-    sh:class at-voc:non-award-justification ;
-    sh:description """On hold; Enumeration.
-
-
-""" ;
-    sh:maxCount 1 ;
-    sh:name "Has non award justification" ;
-    sh:path :hasNonAwardJustification .
 
 core-shape:epo-AwardEvaluationTerm-epo-hasAwardCriteriaEvaluationFormula a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
@@ -2821,6 +2719,58 @@ This weighting covers usually all quality criteria against price or cost criteri
     sh:maxCount 1 ;
     sh:name "Has overall quality award criteria ponderation" ;
     sh:path :hasOverallQualityAwardCriteriaPonderation .
+
+core-shape:epo-AwardOutcome-epo-comprisesTenderAwardOutcome a sh:PropertyShape ;
+    sh:class :TenderAwardOutcome ;
+    sh:description "Incorporates TenderAwardOutcome." ;
+    sh:name "Comprises tender award outcome" ;
+    sh:path :comprisesTenderAwardOutcome ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesTenderAwardOutcome> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesTenderAwardOutcome> ?this .} " ] .
+
+core-shape:epo-AwardOutcome-epo-hasAwardStatus a sh:PropertyShape ;
+    sh:class at-voc:winner-selection-status ;
+    sh:description """Indicates whether the lot is awarded, not awarded or still open.
+WG Approval 03/12/2019
+
+""" ;
+    sh:maxCount 1 ;
+    sh:name "Has award status" ;
+    sh:path :hasAwardStatus .
+
+core-shape:epo-AwardOutcome-epo-hasAwardedValue a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:description """The value of the procurement provided by the Award Decision.
+
+Additional Information:
+Different cases of awarded values may refer to a lot, the global value of the procedure, or of a combinatorial value of a group of lots.
+
+In the case of framework agreements and dynamic purchasing systems this refers to the maximum awarded value.
+
+WG Approval 10/12/2019""" ;
+    sh:maxCount 1 ;
+    sh:name "Has awarded value" ;
+    sh:path :hasAwardedValue ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasAwardedValue> ?that . ?that <http://data.europa.eu/a4g/ontology#hasAwardedValue> ?this .} " ] .
+
+core-shape:epo-AwardOutcome-epo-hasBargainPrice a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:description """The value of procured supplies that have used a particularly advantageous opportunity available for a very short time at a value considerably lower than normal market prices.
+
+WG approval 23/05/2023""" ;
+    sh:maxCount 1 ;
+    sh:name "Has bargain price" ;
+    sh:path :hasBargainPrice ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasBargainPrice> ?that . ?that <http://data.europa.eu/a4g/ontology#hasBargainPrice> ?this .} " ] .
+
+core-shape:epo-AwardOutcome-epo-hasNonAwardJustification a sh:PropertyShape ;
+    sh:class at-voc:non-award-justification ;
+    sh:description """On hold; Enumeration.
+
+
+""" ;
+    sh:maxCount 1 ;
+    sh:name "Has non award justification" ;
+    sh:path :hasNonAwardJustification .
 
 core-shape:epo-Business-epo-hasBeneficialOwner a sh:PropertyShape ;
     sh:class cccev:Person ;
@@ -3063,11 +3013,12 @@ core-shape:epo-Contract-epo-hasLotReference a sh:PropertyShape ;
     sh:path :hasLotReference ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasLotReference> ?that . ?that <http://data.europa.eu/a4g/ontology#hasLotReference> ?this .} " ] .
 
-core-shape:epo-Contract-epo-hasProcurementClassification a sh:PropertyShape ;
-    sh:class at-voc:cpv ;
+core-shape:epo-Contract-epo-hasPurpose a sh:PropertyShape ;
+    sh:class :Purpose ;
     sh:maxCount 1 ;
-    sh:name "Has procurement classification" ;
-    sh:path :hasProcurementClassification .
+    sh:name "Has purpose" ;
+    sh:path :hasPurpose ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPurpose> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPurpose> ?this .} " ] .
 
 core-shape:epo-Contract-epo-includesTender a sh:PropertyShape ;
     sh:class :Tender ;
@@ -3077,6 +3028,12 @@ This corresponds in eForms to BT-3202  Contract Tender Identifier.
     sh:name "Includes tender" ;
     sh:path :includesTender ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#includesTender> ?that . ?that <http://data.europa.eu/a4g/ontology#includesTender> ?this .} " ] .
+
+core-shape:epo-Contract-epo-isFundedBy a sh:PropertyShape ;
+    sh:class :Fund ;
+    sh:name "Is funded by" ;
+    sh:path :isFundedBy ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isFundedBy> ?that . ?that <http://data.europa.eu/a4g/ontology#isFundedBy> ?this .} " ] .
 
 core-shape:epo-Contract-epo-isSubjectToContractSpecificTerm a sh:PropertyShape ;
     sh:class :ContractSpecificTerm ;
@@ -3139,20 +3096,6 @@ core-shape:epo-ContractLotCompletionInformation-epo-refersToContract a sh:Proper
     sh:path :refersToContract ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToContract> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToContract> ?this .} " ] .
 
-core-shape:epo-ContractModification-epo-hasElementModification a sh:PropertyShape ;
-    sh:class :ElementModificationDescription ;
-    sh:minCount 1 ;
-    sh:name "Has element modification" ;
-    sh:path :hasElementModification ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasElementModification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasElementModification> ?this .} " ] .
-
-core-shape:epo-ContractModification-epo-refersToOriginalNotice a sh:PropertyShape ;
-    sh:class :Notice ;
-    sh:maxCount 1 ;
-    sh:name "Refers to original notice" ;
-    sh:path :refersToOriginalNotice ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToOriginalNotice> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToOriginalNotice> ?this .} " ] .
-
 core-shape:epo-ContractTerm-epo-definesContractDuration a sh:PropertyShape ;
     sh:class :Duration ;
     sh:description "Relation indicating a ContractTerm has a Duration." ;
@@ -3177,14 +3120,12 @@ core-shape:epo-ContractTerm-epo-definesPaymentExecutor a sh:PropertyShape ;
     sh:path :definesPaymentExecutor ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#definesPaymentExecutor> ?that . ?that <http://data.europa.eu/a4g/ontology#definesPaymentExecutor> ?this .} " ] .
 
-core-shape:epo-ContractTerm-epo-definesPlaceOfPerformance a sh:PropertyShape ;
+core-shape:epo-ContractTerm-epo-definesSpecificPlaceOfPerformance a sh:PropertyShape ;
     sh:class dcterms:Location ;
-    sh:description """Relation indicating the place of performance of a Contract.
-
-WG approval 21/03/2023""" ;
-    sh:name "Defines place of performance" ;
-    sh:path :definesPlaceOfPerformance ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#definesPlaceOfPerformance> ?that . ?that <http://data.europa.eu/a4g/ontology#definesPlaceOfPerformance> ?this .} " ] .
+    sh:description "Relation indicating a ContractTerm has a specific place of performance." ;
+    sh:name "Defines specific place of performance" ;
+    sh:path :definesSpecificPlaceOfPerformance ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#definesSpecificPlaceOfPerformance> ?that . ?that <http://data.europa.eu/a4g/ontology#definesSpecificPlaceOfPerformance> ?this .} " ] .
 
 core-shape:epo-ContractTerm-epo-definesSubcontractingTerm a sh:PropertyShape ;
     sh:class :SubcontractTerm ;
@@ -3471,11 +3412,11 @@ WG Approval 22/11/2019 14:33:55""" ;
     sh:path :refersToPreviousProcedureLot ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToPreviousProcedureLot> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToPreviousProcedureLot> ?this .} " ] .
 
-core-shape:epo-DirectContract-epo-resultsFromLotAwardDecision a sh:PropertyShape ;
-    sh:class :LotAwardDecision ;
-    sh:name "Results from lot award decision" ;
-    sh:path :resultsFromLotAwardDecision ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#resultsFromLotAwardDecision> ?that . ?that <http://data.europa.eu/a4g/ontology#resultsFromLotAwardDecision> ?this .} " ] .
+core-shape:epo-DirectContract-epo-resultsFromLotAwardOutcome a sh:PropertyShape ;
+    sh:class :LotAwardOutcome ;
+    sh:name "Results from lot award outcome" ;
+    sh:path :resultsFromLotAwardOutcome ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#resultsFromLotAwardOutcome> ?that . ?that <http://data.europa.eu/a4g/ontology#resultsFromLotAwardOutcome> ?this .} " ] .
 
 core-shape:epo-Document-adms-identifier a sh:PropertyShape ;
     sh:class adms:Identifier ;
@@ -3643,20 +3584,6 @@ The codelist to be used is at-voc:dps-usage which is available at http://publica
     sh:name "Has d p s scope" ;
     sh:path :hasDPSScope .
 
-core-shape:epo-DynamicPurchaseSystemTechnique-epo-resultsInDynamicPurchasingSystem a sh:PropertyShape ;
-    sh:class :DynamicPurchasingSystem ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Results in dynamic purchasing system" ;
-    sh:path :resultsInDynamicPurchasingSystem ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#resultsInDynamicPurchasingSystem> ?that . ?that <http://data.europa.eu/a4g/ontology#resultsInDynamicPurchasingSystem> ?this .} " ] .
-
-core-shape:epo-DynamicPurchasingSystem-epo-hasCandidateList a sh:PropertyShape ;
-    sh:class :SelectedCandidateList ;
-    sh:name "Has candidate list" ;
-    sh:path :hasCandidateList ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasCandidateList> ?that . ?that <http://data.europa.eu/a4g/ontology#hasCandidateList> ?this .} " ] .
-
 core-shape:epo-ElectronicSignature-dct-description a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:datatype rdf:PlainLiteral ;
@@ -3818,70 +3745,11 @@ core-shape:epo-ElementConfidentialityDescription-epo-hasPropertyReference a sh:P
     sh:name "Has property reference" ;
     sh:path :hasPropertyReference .
 
-core-shape:epo-ElementModificationDescription-epo-hasElementReference a sh:PropertyShape ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:datatype xsd:anyURI ;
-    sh:description """Reference to the class instance in the current notice.
-
-Additional information: 
-This corresponds in eForms to BT-13716 Change Previous Notice Section Identifier, BT-786     Review Notice Section Identifier and BT-1501     Modification Previous Notice Section Identifier.
-""" ;
-    sh:maxCount 1 ;
-    sh:name "Has element reference" ;
-    sh:path :hasElementReference .
-
-core-shape:epo-ElementModificationDescription-epo-hasModificationDescription a sh:PropertyShape ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:description """An explanatory text about this context. 
-
-Additional Information
-
-This corresponds in Standard forms to Field VII.2.1 in F20
-This corresponds in eForms to BT-202 .
-
-WG Approval 5/11/2019""" ;
-    sh:name "Has modification description" ;
-    sh:path :hasModificationDescription .
-
-core-shape:epo-ElementModificationDescription-epo-hasModificationJustification a sh:PropertyShape ;
-    sh:class at-voc:modification-justification ;
-    sh:description """Explanation of why a contract was modified.
-WG Approval 09/11/2021
-
-The codelist to be used is at-voc:modification-justification which is available at http://publications.europa.eu/resource/dataset/modification-justification
-
-Additional Information
-
-This corresponds in Standard forms to Field VII.2.2.1 and VII.2.2.3 in F20 .
-
-This corresponds in eForms to BT-200.
-
-""" ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Has modification justification" ;
-    sh:path :hasModificationJustification .
-
-core-shape:epo-ElementModificationDescription-epo-hasModificationReasonDescription a sh:PropertyShape ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:description """An explanation about the reasons for using the concept. 
-
-Additional Information
-This corresponds in Standard forms to Field VII.2.2.2 and VII.2.2.4 in F20.
-
-This corresponds in eForms to BT-201 .
-
-WG Approval 5/11/2019""" ;
-    sh:name "Has modification reason description" ;
-    sh:path :hasModificationReasonDescription .
-
-core-shape:epo-FrameworkAgreement-epo-resultsFromLotAwardDecision a sh:PropertyShape ;
-    sh:class :LotAwardDecision ;
-    sh:name "Results from lot award decision" ;
-    sh:path :resultsFromLotAwardDecision ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#resultsFromLotAwardDecision> ?that . ?that <http://data.europa.eu/a4g/ontology#resultsFromLotAwardDecision> ?this .} " ] .
+core-shape:epo-FrameworkAgreement-epo-resultsFromLotAwardOutcome a sh:PropertyShape ;
+    sh:class :LotAwardOutcome ;
+    sh:name "Results from lot award outcome" ;
+    sh:path :resultsFromLotAwardOutcome ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#resultsFromLotAwardOutcome> ?that . ?that <http://data.europa.eu/a4g/ontology#resultsFromLotAwardOutcome> ?this .} " ] .
 
 core-shape:epo-FrameworkAgreementTerm-epo-hasBuyerCategoryDescription a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
@@ -4104,7 +3972,7 @@ core-shape:epo-Lot-epo-specifiesProcurementCriterion a sh:PropertyShape ;
     sh:path :specifiesProcurementCriterion ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesProcurementCriterion> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesProcurementCriterion> ?this .} " ] .
 
-core-shape:epo-LotAwardDecision-epo-concernsLot a sh:PropertyShape ;
+core-shape:epo-LotAwardOutcome-epo-concernsLot a sh:PropertyShape ;
     sh:class :Lot ;
     sh:description "Relates to Lot." ;
     sh:maxCount 1 ;
@@ -4113,14 +3981,14 @@ core-shape:epo-LotAwardDecision-epo-concernsLot a sh:PropertyShape ;
     sh:path :concernsLot ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsLot> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsLot> ?this .} " ] .
 
-core-shape:epo-LotAwardDecision-epo-hasApproximateFrameworkAgreementValue a sh:PropertyShape ;
+core-shape:epo-LotAwardOutcome-epo-hasApproximateFrameworkAgreementValue a sh:PropertyShape ;
     sh:class :MonetaryValue ;
     sh:maxCount 1 ;
     sh:name "Has approximate framework agreement value" ;
     sh:path :hasApproximateFrameworkAgreementValue ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasApproximateFrameworkAgreementValue> ?that . ?that <http://data.europa.eu/a4g/ontology#hasApproximateFrameworkAgreementValue> ?this .} " ] .
 
-core-shape:epo-LotAwardDecision-epo-hasAwardedEstimatedValue a sh:PropertyShape ;
+core-shape:epo-LotAwardOutcome-epo-hasAwardedEstimatedValue a sh:PropertyShape ;
     sh:class :MonetaryValue ;
     sh:description """The estimated value that can be spent as provided by the Award Decision.
 
@@ -4136,7 +4004,7 @@ WG Approval 12/12/2019
     sh:path :hasAwardedEstimatedValue ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasAwardedEstimatedValue> ?that . ?that <http://data.europa.eu/a4g/ontology#hasAwardedEstimatedValue> ?this .} " ] .
 
-core-shape:epo-LotAwardDecision-epo-hasFrameworkAgreementEstimatedValue a sh:PropertyShape ;
+core-shape:epo-LotAwardOutcome-epo-hasFrameworkAgreementEstimatedValue a sh:PropertyShape ;
     sh:class :MonetaryValue ;
     sh:description "This refers to BT-660 in eForms." ;
     sh:maxCount 1 ;
@@ -4144,14 +4012,14 @@ core-shape:epo-LotAwardDecision-epo-hasFrameworkAgreementEstimatedValue a sh:Pro
     sh:path :hasFrameworkAgreementEstimatedValue ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasFrameworkAgreementEstimatedValue> ?that . ?that <http://data.europa.eu/a4g/ontology#hasFrameworkAgreementEstimatedValue> ?this .} " ] .
 
-core-shape:epo-LotAwardDecision-epo-hasFrameworkAgreementMaximumValue a sh:PropertyShape ;
+core-shape:epo-LotAwardOutcome-epo-hasFrameworkAgreementMaximumValue a sh:PropertyShape ;
     sh:class :MonetaryValue ;
     sh:maxCount 1 ;
     sh:name "Has framework agreement maximum value" ;
     sh:path :hasFrameworkAgreementMaximumValue ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasFrameworkAgreementMaximumValue> ?that . ?that <http://data.europa.eu/a4g/ontology#hasFrameworkAgreementMaximumValue> ?this .} " ] .
 
-core-shape:epo-LotAwardDecision-epo-hasNonAwardedContractNumber a sh:PropertyShape ;
+core-shape:epo-LotAwardOutcome-epo-hasNonAwardedContractNumber a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """The number the contract would have had if it had been awarded. 
@@ -4166,7 +4034,7 @@ WG agreement: 06/09/2022
     sh:name "Has non awarded contract number" ;
     sh:path :hasNonAwardedContractNumber .
 
-core-shape:epo-LotAwardDecision-epo-hasNonAwardedContractTitle a sh:PropertyShape ;
+core-shape:epo-LotAwardOutcome-epo-hasNonAwardedContractTitle a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description """The title the contract would have had if it had been awarded. 
@@ -4223,32 +4091,12 @@ core-shape:epo-LotGroupAwardInformation-epo-hasGroupFrameworkAgreementMaximumVal
     sh:path :hasGroupFrameworkAgreementMaximumValue ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasGroupFrameworkAgreementMaximumValue> ?that . ?that <http://data.europa.eu/a4g/ontology#hasGroupFrameworkAgreementMaximumValue> ?this .} " ] .
 
-core-shape:epo-MiniCompetition-epo-followsRulesSetBy a sh:PropertyShape ;
-    sh:class :FrameworkAgreement ;
-    sh:maxCount 1 ;
-    sh:name "Follows rules set by" ;
-    sh:path :followsRulesSetBy ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#followsRulesSetBy> ?that . ?that <http://data.europa.eu/a4g/ontology#followsRulesSetBy> ?this .} " ] .
-
-core-shape:epo-MiniCompetition-epo-specifiesAwardCriterion a sh:PropertyShape ;
-    sh:class :AwardCriterion ;
-    sh:name "Specifies award criterion" ;
-    sh:path :specifiesAwardCriterion ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesAwardCriterion> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesAwardCriterion> ?this .} " ] .
-
-core-shape:epo-MiniCompetition-epo-usesCandidateList a sh:PropertyShape ;
+core-shape:epo-MiniCompetitionAwardOutcome-epo-resultsFromUsingCandidateList a sh:PropertyShape ;
     sh:class :SelectedCandidateList ;
     sh:maxCount 1 ;
-    sh:name "Uses candidate list" ;
-    sh:path :usesCandidateList ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#usesCandidateList> ?that . ?that <http://data.europa.eu/a4g/ontology#usesCandidateList> ?this .} " ] .
-
-core-shape:epo-MiniCompetitionAwardDecision-epo-concernsMiniCompetition a sh:PropertyShape ;
-    sh:class :MiniCompetition ;
-    sh:maxCount 1 ;
-    sh:name "Concerns mini competition" ;
-    sh:path :concernsMiniCompetition ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsMiniCompetition> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsMiniCompetition> ?this .} " ] .
+    sh:name "Results from using candidate list" ;
+    sh:path :resultsFromUsingCandidateList ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#resultsFromUsingCandidateList> ?that . ?that <http://data.europa.eu/a4g/ontology#resultsFromUsingCandidateList> ?this .} " ] .
 
 core-shape:epo-MonetaryValue-epo-hasAmountValue a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
@@ -5545,12 +5393,19 @@ WG Approval 12/05/2020""" ;
     sh:name "Has preferred publication date" ;
     sh:path :hasPreferredPublicationDate .
 
-core-shape:epo-PurchaseContract-epo-resultsFromMiniCompetitionAwardDecision a sh:PropertyShape ;
-    sh:class :MiniCompetitionAwardDecision ;
+core-shape:epo-PurchaseContract-epo-followsRulesSetBy a sh:PropertyShape ;
+    sh:class :FrameworkAgreement ;
     sh:maxCount 1 ;
-    sh:name "Results from mini competition award decision" ;
-    sh:path :resultsFromMiniCompetitionAwardDecision ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#resultsFromMiniCompetitionAwardDecision> ?that . ?that <http://data.europa.eu/a4g/ontology#resultsFromMiniCompetitionAwardDecision> ?this .} " ] .
+    sh:name "Follows rules set by" ;
+    sh:path :followsRulesSetBy ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#followsRulesSetBy> ?that . ?that <http://data.europa.eu/a4g/ontology#followsRulesSetBy> ?this .} " ] .
+
+core-shape:epo-PurchaseContract-epo-resultsFromMiniCompetitionAwardOutcome a sh:PropertyShape ;
+    sh:class :MiniCompetitionAwardOutcome ;
+    sh:maxCount 1 ;
+    sh:name "Results from mini competition award outcome" ;
+    sh:path :resultsFromMiniCompetitionAwardOutcome ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#resultsFromMiniCompetitionAwardOutcome> ?that . ?that <http://data.europa.eu/a4g/ontology#resultsFromMiniCompetitionAwardOutcome> ?this .} " ] .
 
 core-shape:epo-Purpose-epo-hasAdditionalClassification a sh:PropertyShape ;
     sh:class at-voc:cpv ;
@@ -6351,16 +6206,16 @@ WG Approval 28/07/2020
     sh:name "Has unverified tenders" ;
     sh:path :hasUnverifiedTenders .
 
-core-shape:epo-SubmissionStatisticalInformation-epo-summarisesInformationForAwardDecision a sh:PropertyShape ;
-    sh:class :AwardDecision ;
+core-shape:epo-SubmissionStatisticalInformation-epo-summarisesInformationForAwardOutcome a sh:PropertyShape ;
+    sh:class :AwardOutcome ;
     sh:description """Relates to submission for the given competition, either at Lot level or Mini-Competition level.
 
 WG approval 30/05/2023""" ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "Summarises information for award decision" ;
-    sh:path :summarisesInformationForAwardDecision ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#summarisesInformationForAwardDecision> ?that . ?that <http://data.europa.eu/a4g/ontology#summarisesInformationForAwardDecision> ?this .} " ] .
+    sh:name "Summarises information for award outcome" ;
+    sh:path :summarisesInformationForAwardOutcome ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#summarisesInformationForAwardOutcome> ?that . ?that <http://data.europa.eu/a4g/ontology#summarisesInformationForAwardOutcome> ?this .} " ] .
 
 core-shape:epo-SubmissionTerm-epo-definesTenderProcessor a sh:PropertyShape ;
     sh:class :TenderProcessor ;
@@ -6721,6 +6576,13 @@ WG Approval 07/01/2020
 The codelist to be used is at-voc:country which is available at http://publications.europa.eu/resource/dataset/country""" ;
     sh:name "Has item country of origin" ;
     sh:path :hasItemCountryOfOrigin .
+
+core-shape:epo-Tender-epo-hasSubcontracting a sh:PropertyShape ;
+    sh:class at-voc:applicability ;
+    sh:maxCount 1 ;
+    sh:name "Has subcontracting" ;
+    sh:path :hasSubcontracting ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasSubcontracting> ?that . ?that <http://data.europa.eu/a4g/ontology#hasSubcontracting> ?this .} " ] .
 
 core-shape:epo-Tender-epo-isSubjectToGrouping a sh:PropertyShape ;
     sh:class :LotGroup ;
@@ -7162,29 +7024,13 @@ core-shape:org-Organization-epo-hasTaxIdentifier a sh:PropertyShape ;
     sh:path :hasTaxIdentifier ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTaxIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTaxIdentifier> ?this .} " ] .
 
-core-shape:owl-Thing-epo-containsModificationsOf a sh:PropertyShape ;
-    sh:class owl:Thing ;
-    sh:description """
-
-Additional information
-This relation shall be used between Instances of the SAME type/class. 
-
-The "modifying-instance" can be minimally instantiated, carrying the fields/information that override the fields in the "modified-instance".
-
-This means that the "modifying-instance" (is under-specified) and might violate minimal cardinality restrictions in case they are checked. But the purpose of such an instance is not to be used as a full instance.
-""" ;
-    sh:maxCount 1 ;
-    sh:name "Contains modifications of" ;
-    sh:path :containsModificationsOf ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsModificationsOf> ?that . ?that <http://data.europa.eu/a4g/ontology#containsModificationsOf> ?this .} " ] .
-
 core-shape:core-shape a owl:Ontology ;
     cc:attributionName "European Union" ;
     cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/EURUN> ;
     dcterms:abstract "This artefact provides the datashape specification. " ;
     dcterms:created ""^^xsd:date ;
     dcterms:description "This module provides the definitions for the eProcurement ontology core.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
-    dcterms:issued "2023-06-25"^^xsd:date ;
+    dcterms:issued "2023-06-27"^^xsd:date ;
     dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
     dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
     dcterms:title "eProcurement Ontology - core"@en ;
@@ -7215,5 +7061,5 @@ core-shape:core-shape a owl:Ontology ;
     owl:versionIRI core-shape:core-shape-4.0.0 ;
     owl:versionInfo "4.0.0" ;
     skos:changeNote """This version is automatically generated from ePO_CM.xml on 
-                2023-06-25""" .
+                2023-06-27""" .
 
