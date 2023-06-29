@@ -970,7 +970,6 @@ WG Approval 23/05/2019
         core-shape:epo-Notice-epo-hasOJSIssueNumber,
         core-shape:epo-Notice-epo-hasOJSType,
         core-shape:epo-Notice-epo-isBasedOnImplementingRegulation,
-        core-shape:epo-Notice-epo-isEUInstitution,
         core-shape:epo-Notice-epo-refersToLot,
         core-shape:epo-Notice-epo-refersToNotice,
         core-shape:epo-Notice-epo-refersToProcedure ;
@@ -2171,6 +2170,11 @@ core-shape:cpov-ContactPoint-cpov-telephone a sh:PropertyShape ;
 
 core-shape:cpov-ContactPoint-cv-address a sh:PropertyShape ;
     sh:class locn:Address ;
+    sh:description """Associates any Resource with the corresponding Address.
+
+Additional Information:
+Asserting the address relationship implies that the Resource has an Address.
+""" ;
     sh:maxCount 1 ;
     sh:name "Address" ;
     sh:path cccev:address ;
@@ -3031,6 +3035,13 @@ This corresponds in eForms to BT-3202  Contract Tender Identifier.
 
 core-shape:epo-Contract-epo-isFundedBy a sh:PropertyShape ;
     sh:class :Fund ;
+    sh:description """Funding is provided either completely or partially by a Fund.
+
+Additional information:
+This corresponds in eForms to BG - 61 EU Funds (specified per Lot) and to BG - 611 Contract EU Funds (applied per Contract lot)
+Funds may change between the lot and the contract, for example in the case of an emergency crisis, a contract may be financed by a budget that was not foreseen in the call.
+
+""" ;
     sh:name "Is funded by" ;
     sh:path :isFundedBy ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isFundedBy> ?that . ?that <http://data.europa.eu/a4g/ontology#isFundedBy> ?this .} " ] .
@@ -4360,13 +4371,6 @@ WG Acceptance 06/09/2022""" ;
     sh:maxCount 1 ;
     sh:name "Is based on implementing regulation" ;
     sh:path :isBasedOnImplementingRegulation .
-
-core-shape:epo-Notice-epo-isEUInstitution a sh:PropertyShape ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:datatype xsd:boolean ;
-    sh:maxCount 1 ;
-    sh:name "Is e u institution" ;
-    sh:path :isEUInstitution .
 
 core-shape:epo-Notice-epo-refersToLot a sh:PropertyShape ;
     sh:class :Lot ;
@@ -6581,8 +6585,7 @@ core-shape:epo-Tender-epo-hasSubcontracting a sh:PropertyShape ;
     sh:class at-voc:applicability ;
     sh:maxCount 1 ;
     sh:name "Has subcontracting" ;
-    sh:path :hasSubcontracting ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasSubcontracting> ?that . ?that <http://data.europa.eu/a4g/ontology#hasSubcontracting> ?this .} " ] .
+    sh:path :hasSubcontracting .
 
 core-shape:epo-Tender-epo-isSubjectToGrouping a sh:PropertyShape ;
     sh:class :LotGroup ;
@@ -7030,7 +7033,7 @@ core-shape:core-shape a owl:Ontology ;
     dcterms:abstract "This artefact provides the datashape specification. " ;
     dcterms:created ""^^xsd:date ;
     dcterms:description "This module provides the definitions for the eProcurement ontology core.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
-    dcterms:issued "2023-06-27"^^xsd:date ;
+    dcterms:issued "2023-06-29"^^xsd:date ;
     dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
     dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
     dcterms:title "eProcurement Ontology - core"@en ;
@@ -7061,5 +7064,5 @@ core-shape:core-shape a owl:Ontology ;
     owl:versionIRI core-shape:core-shape-4.0.0 ;
     owl:versionInfo "4.0.0" ;
     skos:changeNote """This version is automatically generated from ePO_CM.xml on 
-                2023-06-27""" .
+                2023-06-29""" .
 
