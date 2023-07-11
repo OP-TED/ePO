@@ -249,16 +249,6 @@ WG approval 20/07/2018"""@en ;
     skos:definition "Information about a specific field to be changed with regard to a previous Notice."@en ;
     skos:prefLabel "Element change description"@en .
 
-:ElementConfidentialityDescription a owl:Class ;
-    rdfs:isDefinedBy :core ;
-    rdfs:subClassOf :ElementDescription ;
-    skos:definition """Information about a specific field not intended for publication. 
-
-Additional Information:
-In the model, a field is identified by a combination of a class and a property on that class. Therefore, these two references should be both provided.
-"""@en ;
-    skos:prefLabel "Element confidentiality description"@en .
-
 :EmploymentInformationProvider a owl:Class ;
     rdfs:isDefinedBy :core ;
     rdfs:subClassOf :AuxiliaryParty ;
@@ -315,7 +305,8 @@ WG approval 18/05/2021"""@en ;
 
 :FrameworkAgreementTerm a owl:Class ;
     rdfs:isDefinedBy :core ;
-    rdfs:subClassOf :LotSpecificTerm,
+    rdfs:subClassOf :ContractSpecificTerm,
+        :LotSpecificTerm,
         :ProcedureSpecificTerm ;
     skos:definition "Conditions and stipulations defining particularities in a Framework Agreement."@en ;
     skos:prefLabel "Framework agreement term"@en .
@@ -469,6 +460,17 @@ WG Approval 15/04/2021"""@en ;
     skos:definition "Conditions and stipulations"@en ;
     skos:prefLabel "Non disclosure agreement term"@en .
 
+:NonPublishedInformation a owl:Class ;
+    rdfs:isDefinedBy :core ;
+    skos:definition """Information about fields not published in this Notice. 
+
+Additional Information:
+The non-published information may become available at a later date and may differ from one element to another within a given Document.
+
+Examples of fields that may not be immediately published are Winner, Tender and Procedure Lot Result, etc., e.g. for security reasons.
+"""@en ;
+    skos:prefLabel "Non published information"@en .
+
 :Notice a owl:Class ;
     rdfs:isDefinedBy :core ;
     rdfs:subClassOf :Document ;
@@ -484,11 +486,10 @@ WG Approval 23/05/2019
     skos:definition "Information about an Award Notice."@en ;
     skos:prefLabel "Notice award information"@en .
 
-:NoticeChange a owl:Class ;
+:NoticeChangeInformation a owl:Class ;
     rdfs:isDefinedBy :core ;
-    rdfs:subClassOf :NoticeDescription ;
     skos:definition "Information about a corrigendum in a Notice."@en ;
-    skos:prefLabel "Notice change"@en .
+    skos:prefLabel "Notice change information"@en .
 
 :Offer a owl:Class ;
     rdfs:isDefinedBy :core ;
@@ -689,25 +690,6 @@ WG Approval 24/03/2020
     rdfs:isDefinedBy :core ;
     skos:definition "A collaborative enterprise that is carefully planned to achieve a particular aim."@en ;
     skos:prefLabel "Project"@en .
-
-:PublicationProvision a owl:Class ;
-    rdfs:isDefinedBy :core ;
-    rdfs:subClassOf :NoticeDescription ;
-    skos:definition """Information about fields not intended for publication. 
-
-
-Additional Information:
-The non-published information may become available at a later date and may differ from one element to another within a given Document.
-
-Examples of fields that may not be immediately published are Winner, Tender and Procedure Lot Result, etc., e.g. for security reasons.
-
-WG Approval 16/05/2019
-
-
-
-
-"""@en ;
-    skos:prefLabel "Publication provision"@en .
 
 :PurchaseContract a owl:Class ;
     rdfs:isDefinedBy :core ;
@@ -990,6 +972,10 @@ A Tenderer is an Economic Operator or group of Economic Operators that has submi
 WG approval 05/08/2021"""@en ;
     skos:prefLabel "Tenderer"@en .
 
+:VehicleInformation a owl:Class ;
+    rdfs:isDefinedBy :core ;
+    skos:prefLabel "Vehicle information"@en .
+
 :Winner a owl:Class ;
     rdfs:isDefinedBy :core ;
     rdfs:subClassOf :OfferingParty ;
@@ -1037,18 +1023,6 @@ WG approval 05/08/2021 (revised 26/10/2021)"""@en ;
 :announcesLotGroupAwardInformation a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Announces lot group award information"@en .
-
-:announcesNonPublishedElement a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:definition """Relation indicating which parts of a document are not published. 
-
-Additional Information:
-For example, elements in the Contract Award Notice that should be published at a later date. (epo-not:ResultNotice -> epo:PublicationProvision (+epo:announcesNonPublishedElement)) Relation indicating which parts of a document are not published. 
-
-Additional Information:
-For example, elements in the Contract Award Notice that should be published at a later date.
- (epo-not:DirectAwardPrenotificationNotice -> epo:PublicationProvision (+epo:announcesNonPublishedElement)) """@en ;
-    skos:prefLabel "Announces non published element"@en .
 
 :announcesNoticeAwardInformation a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -1122,6 +1096,10 @@ WGM 01/03/2022
 :concernsContract a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Concerns contract"@en .
+
+:concernsGreenProcurement a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:prefLabel "Concerns green procurement"@en .
 
 :concernsLot a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -1294,10 +1272,6 @@ Directive 2014/24/EU describes ancillary purchasing activities as activities con
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Describes minimum level of standards"@en .
 
-:describesNotice a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Describes notice"@en .
-
 :describesObjectiveParticipationRules a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Describes objective participation rules"@en .
@@ -1364,6 +1338,8 @@ For example, Procedure isFundedBy should be read as Procedure foreseesToBeFunded
     rdfs:isDefinedBy :core ;
     skos:definition """The requirement to which the concept meets.
 WG Approval 09/11/2021
+ (epo:GreenProcurement -> at-voc:green-public-procurement-criteria (+epo:fulfillsRequirement)) The requirement to which the concept meets.
+WG Approval 09/11/2021
 
  (epo:GreenProcurement -> at-voc:environmental-impact (+epo:fulfillsRequirement)) The requirement to which the concept meets.
 WG Approval 09/11/2021
@@ -1413,7 +1389,7 @@ WG approval 07/04/2022 (epo:Document) """@en ;
     rdfs:isDefinedBy :core ;
     skos:definition """The date at which unpublished data shall be published.
 
-WG Approval 11/06/2020 (epo:ElementConfidentialityDescription) """@en ;
+WG Approval 11/06/2020 (epo:NonPublishedInformation) """@en ;
     skos:prefLabel "Has accessibility date"@en .
 
 :hasActivityDescription a owl:DatatypeProperty ;
@@ -1446,7 +1422,7 @@ WG Approval 15/10/2019 (epo:ProcurementObject) Supplementary data about the inst
 WG Approval 15/10/2019 (epo:Notice) Supplementary data about the instance of the concept.
 
 WG Approval 15/10/2019
- (epo:ElementChangeDescription) """@en ;
+ (epo:NoticeChangeInformation) """@en ;
     skos:prefLabel "Has additional information"@en .
 
 :hasAdditionalInformationDeadline a owl:DatatypeProperty ;
@@ -1743,7 +1719,7 @@ WG approval 30/05/2023 (org:Organization -> epo-cat:Certificate (+epo:hasCertifi
     rdfs:isDefinedBy :core ;
     skos:definition """Explanatory text about the instance of the concept.
 
-WG Approval 30/09/2019 (epo:ElementChangeDescription) """@en ;
+WG Approval 30/09/2019 (epo:NoticeChangeInformation) """@en ;
     skos:prefLabel "Has change description"@en .
 
 :hasChangeJustification a owl:ObjectProperty ;
@@ -1751,7 +1727,7 @@ WG Approval 30/09/2019 (epo:ElementChangeDescription) """@en ;
     skos:definition """Code explaining the change.
 
 WG Approval 5/11/2019
- (epo:ElementChangeDescription -> at-voc:change-corrig-justification (+epo:hasChangeJustification)) """@en ;
+ (epo:NoticeChangeInformation -> at-voc:change-corrig-justification (+epo:hasChangeJustification)) """@en ;
     skos:prefLabel "Has change justification"@en .
 
 :hasChangeReasonDescription a owl:DatatypeProperty ;
@@ -1759,7 +1735,7 @@ WG Approval 5/11/2019
     skos:definition """Explanatory text about why the element is altered.
 
 Additional information:
-This corresponds in eForms to BT-762 Change Reason Description. (epo:ElementChangeDescription) """@en ;
+This corresponds in eForms to BT-762 Change Reason Description. (epo:NoticeChangeInformation) """@en ;
     skos:prefLabel "Has change reason description"@en .
 
 :hasChargeableWeight a owl:ObjectProperty ;
@@ -1774,7 +1750,7 @@ Additional Information
 In the European Union, the legal requirements and scope for the provision of these vehicles or services are covered by Directive 2009/33/EC.
 
 WG Approval 28/07/2020
- (epo:GreenProcurement) """@en ;
+ (epo:VehicleInformation) """@en ;
     skos:prefLabel "Has clean vehicles"@en .
 
 :hasConcessionEstimatedValue a owl:ObjectProperty ;
@@ -1793,7 +1769,7 @@ Additional Information:
 This element is generally used when the non-publication-justification code chosen is "other".
 
 WG Approval 09/11/2021
- (epo:ElementConfidentialityDescription) """@en ;
+ (epo:NonPublishedInformation) """@en ;
     skos:prefLabel "Has confidentiality justification"@en .
 
 :hasConfirmedIrregularityType a owl:ObjectProperty ;
@@ -2118,14 +2094,7 @@ WG Approval 28/07/2020
 
 :hasElementChange a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
-    rdfs:subPropertyOf :hasElementDescription ;
     skos:prefLabel "Has element change"@en .
-
-:hasElementConfidentiality a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    rdfs:subPropertyOf :hasElementDescription ;
-    skos:definition "Relation indication that the publication provision applies to a given field of a document. (epo:PublicationProvision -> epo:ElementConfidentialityDescription (+epo:hasElementConfidentiality)) "@en ;
-    skos:prefLabel "Has element confidentiality"@en .
 
 :hasElementReference a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
@@ -2449,11 +2418,6 @@ Non-compliance with a Procurement Document requirements include exclusion ground
 WG Approval 12/12/2019 (epo:SubmissionStatisticalInformation) """@en ;
     skos:prefLabel "Has inadmissible tenders"@en .
 
-:hasInstanceReference a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:definition "The URI of a given class that is being referred to. (epo:ElementConfidentialityDescription) "@en ;
-    skos:prefLabel "Has instance reference"@en .
-
 :hasInternalIdentifier a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Has internal identifier"@en .
@@ -2590,10 +2554,6 @@ Note that the codelist provided at national level should be used.
 
 WG Approval 10/01/2023 (org:Organization) """@en ;
     skos:prefLabel "Has legal name"@en .
-
-:hasLegalRegime a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Has legal regime"@en .
 
 :hasLength a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -2849,7 +2809,7 @@ This corresponds in Standard forms to Field VII.2.2.1 and VII.2.2.3 in F20 .
 This corresponds in eForms to BT-200.
 
 
- (epo:AmendedContract -> at-voc:modification-justification (+epo:hasModificationJustification)) """@en ;
+ (epo-con:ContractModificationInformation -> at-voc:modification-justification (+epo:hasModificationJustification)) """@en ;
     skos:prefLabel "Has modification justification"@en .
 
 :hasNationalProcedureRules a owl:DatatypeProperty ;
@@ -2965,9 +2925,20 @@ WG Approval 21/07/2020
     rdfs:isDefinedBy :core ;
     skos:definition """The reason why data is not published. 
 WG Approval 11/06/2020 
-
- (epo:ElementConfidentialityDescription -> at-voc:non-publication-justification (+epo:hasNonPublicationJustification)) """@en ;
+ (epo:NonPublishedInformation -> at-voc:non-publication-justification (+epo:hasNonPublicationJustification)) """@en ;
     skos:prefLabel "Has non publication justification"@en .
+
+:hasNonPublishedInformation a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:prefLabel "Has non published information"@en .
+
+:hasNonPublishedInformationIdentifier a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:prefLabel "Has non published information identifier"@en .
+
+:hasNoticeChangeInformation a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:prefLabel "Has notice change information"@en .
 
 :hasNoticePublicationNumber a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
@@ -2976,13 +2947,6 @@ WG Approval 11/06/2020
 :hasNoticeType a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Has notice type"@en .
-
-:hasNotificationContentType a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:definition """A categorisation of templates for sets of Procurement information to be conveyed in Notices.
-
-WG Approval 12/05/2020 (epo:Notice -> epo:notification-phases-content-types (+epo:hasNotificationContentType)) """@en ;
-    skos:prefLabel "Has notification content type"@en .
 
 :hasNumberOfReviewRequests a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
@@ -3164,16 +3128,6 @@ WG Approval 30/07/2019 (epo:ContractTerm) """@en ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Has planned period"@en .
 
-:hasPreferredPublicationDate a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:definition """The date the buyer would like to have the record made publicly available.
-
-Additional Information:
-This corresponds in eForms to BT-738 Notice Publication Date Preferred.
-
-WG Approval 12/05/2020 (epo:PublicationProvision) """@en ;
-    skos:prefLabel "Has preferred publication date"@en .
-
 :hasPrepaidAmount a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Has prepaid amount"@en .
@@ -3231,7 +3185,7 @@ Additional information:
 This corresponds in eForms to BT-719  Change Procurement Documents Date
 
 WG Approval 5/11/2019
- (epo:ElementChangeDescription) """@en ;
+ (epo:NoticeChangeInformation) """@en ;
     skos:prefLabel "Has procurement document change date"@en .
 
 :hasProcurementHighestReceivedTenderValue a owl:ObjectProperty ;
@@ -3254,11 +3208,6 @@ This corresponds to section II.1.7.2. according to Regulation (EU) 2015/1986. (e
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Has procurement scope divided into lot"@en .
 
-:hasPropertyReference a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:definition "The URI of a given attribute (property) that is being referred to. (epo:ElementConfidentialityDescription) "@en ;
-    skos:prefLabel "Has property reference"@en .
-
 :hasPublicAccessURL a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
     skos:definition """Web page where the procurement documents can be downloaded.
@@ -3279,7 +3228,7 @@ WG approval 20/06/2023 (epo:Document) """@en ;
 
 :hasPurpose a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
-    skos:definition "Relation indicating a procurement part has a puropse. (epo:ProcurementObject -> epo:Purpose (+epo:hasPurpose)) "@en ;
+    skos:definition "Relation indicating the Purpose of a concept. (epo:ProcurementObject -> epo:Purpose (+epo:hasPurpose)) "@en ;
     skos:prefLabel "Has purpose"@en .
 
 :hasQualificationCondition a owl:DatatypeProperty ;
@@ -3452,6 +3401,10 @@ This property corresponds in eForms to the BT-71
 WG Approval 09/11/2021
  (epo:ParticipationConditionsSummary -> at-voc:reserved-procurement (+epo:hasReservedProcurement)) """@en ;
     skos:prefLabel "Has reserved procurement"@en .
+
+:hasRestatedContractValue a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:prefLabel "Has restated contract value"@en .
 
 :hasRestrictedAccessURL a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
@@ -3772,7 +3725,7 @@ Additional Information
 In the European Union, the legal requirements and scope for the provision of these vehicles or services are covered by Directive 2009/33/EC.
 
 WG Approval 28/07/2020
- (epo:GreenProcurement) """@en ;
+ (epo:VehicleInformation) """@en ;
     skos:prefLabel "Has total vehicles"@en .
 
 :hasTraceID a owl:ObjectProperty ;
@@ -3925,7 +3878,7 @@ Additional Information
 In the European Union, the legal requirements and scope for the provision of these vehicles or services are covered by Directive 2009/33/EC.
 
 WG Approval 28/07/2020
- (epo:GreenProcurement) """@en ;
+ (epo:VehicleInformation) """@en ;
     skos:prefLabel "Has zero emission vehicles"@en .
 
 :implementsContract a owl:ObjectProperty ;
@@ -4190,7 +4143,7 @@ WG approval 23/08/2022
 Additional information: 
 This corresponds in eForms to BT-718 Change Procurement Documents
 
-WG Approval 05/11/2019 (epo:ElementChangeDescription) """@en ;
+WG Approval 05/11/2019 (epo:NoticeChangeInformation) """@en ;
     skos:prefLabel "Is procurement document changed"@en .
 
 :isProcurementDocumentRestricted a owl:DatatypeProperty ;
@@ -4362,10 +4315,6 @@ This attribute corresponds in eForms to BT-796 Review Request Withdrawn. (epo:Re
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Lead by"@en .
 
-:legal-regime a skos:ConceptScheme ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Legal-regime"@en .
-
 :needsToBeATenderer a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:definition "The Winner must be a Tenderer. (epo:Winner -> epo:Tenderer (+epo:needsToBeATenderer)) "@en ;
@@ -4376,10 +4325,6 @@ This attribute corresponds in eForms to BT-796 Review Request Withdrawn. (epo:Re
     skos:definition """The Contractor must be a Winner.
  (epo:Contractor -> epo:Winner (+epo:needsToBeAWinner)) """@en ;
     skos:prefLabel "Needs to be a winner"@en .
-
-:notification-phases-content-types a skos:ConceptScheme ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Notification-phases-content-types"@en .
 
 :ownsSystem a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -4420,6 +4365,10 @@ This corresponds to BT-782 in eForms.
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Refers to contract to be modified"@en .
 
+:refersToEFormSectionIdentifier a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:prefLabel "Refers to e form section identifier"@en .
+
 :refersToLot a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Refers to lot"@en .
@@ -4431,10 +4380,6 @@ This corresponds to BT-782 in eForms.
 :refersToLotGroupAwardInformation a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Refers to lot group award information"@en .
-
-:refersToNonPublishedElement a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Refers to non published element"@en .
 
 :refersToNotice a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -4456,7 +4401,7 @@ This corresponds to BT-782 in eForms.
     rdfs:isDefinedBy :core ;
     skos:definition """
 Additional information: 
-This corresponds in eForms to BT-758 Change Notice Version Identifier. (epo:NoticeChange -> epo:Notice (+epo:refersToPreviousNotice)) """@en ;
+This corresponds in eForms to BT-758 Change Notice Version Identifier. (epo:NoticeChangeInformation -> epo:Notice (+epo:refersToPreviousNotice)) """@en ;
     skos:prefLabel "Refers to previous notice"@en .
 
 :refersToPreviousProcedure a owl:ObjectProperty ;
@@ -4549,6 +4494,14 @@ This relation corresponds in eForms to     BT-792   Review Remedy Type (epo:Revi
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Specifies catalogue receiver"@en .
 
+:specifiesCleanVehicleDirectiveContractType a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:prefLabel "Specifies clean vehicle directive contract type"@en .
+
+:specifiesCleanVehicleDirectiveVehicleCategory a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:prefLabel "Specifies clean vehicle directive vehicle category"@en .
+
 :specifiesDeliverable a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Specifies deliverable"@en .
@@ -4591,6 +4544,11 @@ WG approval 30/05/2023 (epo:SubmissionStatisticalInformation -> epo:AwardOutcome
 :usesChannel a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Uses channel"@en .
+
+:usesCleanVehicleDirective a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:definition "The procurement falls within the scope of the European Parliament and Council 2009/33/EC (Clean Vehicles Directive – CVD). (epo:GreenProcurement) "@en ;
+    skos:prefLabel "Uses clean vehicle directive"@en .
 
 :usesTechnique a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -4810,6 +4768,9 @@ The concepts included are correlated with the ISO 4217 international standard.
 """@en ;
     skos:prefLabel "Currency"@en .
 
+at-voc:cvd-contract-type a skos:ConceptScheme ;
+    skos:prefLabel "Cvd-contract-type"@en .
+
 at-voc:direct-award-justification a skos:ConceptScheme ;
     skos:definition "This table provides the list of reasons for using a Procedure which allows awarding Contracts directly without the Requirement of publishing a call for competition in the Official Journal of the European Union."@en ;
     skos:prefLabel "Direct-award-justification"@en .
@@ -4836,6 +4797,9 @@ at-voc:form-type a skos:ConceptScheme ;
 at-voc:framework-agreement a skos:ConceptScheme ;
     skos:definition "This table provides the list of codes to distinguish the different type Framework Agreement involved in a Tender."@en ;
     skos:prefLabel "Framework-agreement"@en .
+
+at-voc:green-public-procurement-criteria a skos:ConceptScheme ;
+    skos:prefLabel "Green-public-procurement-criteria"@en .
 
 at-voc:innovative-acquisition a skos:ConceptScheme ;
     skos:definition "This table provides the codes and values used for innovative works, supplies or services being bought."@en ;
@@ -4985,6 +4949,9 @@ at-voc:timeperiod a skos:ConceptScheme ;
 at-voc:usage a skos:ConceptScheme ;
     skos:definition "This table provides the list of codes and values indicating the application of Criteria or other concepts and information."@en ;
     skos:prefLabel "Usage"@en .
+
+at-voc:vehicle-category a skos:ConceptScheme ;
+    skos:prefLabel "Vehicle-category"@en .
 
 at-voc:winner-selection-status a skos:ConceptScheme ;
     skos:definition "This table provides the list of codes and values used to indicate whether a tenderer was chosen to be awarded with a Contract and wether the competition is open."@en ;
@@ -5378,6 +5345,11 @@ foaf:name a owl:DatatypeProperty ;
     skos:definition "The complete name of the Person as one string. (cpv:Person) "@en ;
     skos:prefLabel "Name"@en .
 
+:ElementDescription a owl:Class ;
+    rdfs:isDefinedBy :core ;
+    skos:definition "Description about a specific resource."@en ;
+    skos:prefLabel "Element description"@en .
+
 :involvesBuyer a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Involves buyer"@en .
@@ -5440,21 +5412,10 @@ Contracting Authority procuring activities conducted on a permanent basis, in on
 WG approval 05/08/2021"""@en ;
     skos:prefLabel "Central purchasing body"@en .
 
-:ContractSpecificTerm a owl:Class ;
-    rdfs:isDefinedBy :core ;
-    rdfs:subClassOf :Term ;
-    skos:definition "Gathering class for conditions and stipulations related to a contract in the Post-Award Phase."@en ;
-    skos:prefLabel "Contract specific term"@en .
-
 :Duration a owl:Class ;
     rdfs:isDefinedBy :core ;
     skos:definition "The length of time in which a concept occurs."@en ;
     skos:prefLabel "Duration"@en .
-
-:ElementDescription a owl:Class ;
-    rdfs:isDefinedBy :core ;
-    skos:definition "Description about a specific resource."@en ;
-    skos:prefLabel "Element description"@en .
 
 :Estimate a owl:Class ;
     rdfs:isDefinedBy :core ;
@@ -5471,11 +5432,6 @@ WG approval 05/08/2021"""@en ;
 
 """@en ;
     skos:prefLabel "Evaluation term"@en .
-
-:NoticeDescription a owl:Class ;
-    rdfs:isDefinedBy :core ;
-    skos:definition "Descriptions about the notice publishing, or providing evolutions of resources."@en ;
-    skos:prefLabel "Notice description"@en .
 
 :ProcurementElement a owl:Class ;
     rdfs:isDefinedBy :core ;
@@ -5524,10 +5480,6 @@ This class corresponds to the BG-714 Review in eForms.
 """@en ;
     skos:prefLabel "Review object"@en .
 
-:hasElementDescription a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Has element description"@en .
-
 :isSubjectToTerm a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Is subject to term"@en .
@@ -5572,6 +5524,12 @@ We say that ContextualProjection *describes* an Entity.
 Adaptation of ContextSlices pattern encoding a 4D view.
 http://ontologydesignpatterns.org/wiki/Submissions:Context_Slices"""@en ;
     skos:prefLabel "Contextual projection"@en .
+
+:ContractSpecificTerm a owl:Class ;
+    rdfs:isDefinedBy :core ;
+    rdfs:subClassOf :Term ;
+    skos:definition "Gathering class for conditions and stipulations related to a contract in the Post-Award Phase."@en ;
+    skos:prefLabel "Contract specific term"@en .
 
 :ProcurementCriteriaSummary a owl:Class ;
     rdfs:isDefinedBy :core ;
@@ -5722,7 +5680,7 @@ WG Approval 23/05/2019
     dcterms:abstract "This artefact provides the ontology core specification." ;
     dcterms:created ""^^xsd:date ;
     dcterms:description "This module provides the definitions for the eProcurement ontology core.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
-    dcterms:issued "2023-06-29"^^xsd:date ;
+    dcterms:issued "2023-07-11"^^xsd:date ;
     dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
     dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
     dcterms:title "eProcurement Ontology - core"@en ;
@@ -5750,5 +5708,5 @@ WG Approval 23/05/2019
     owl:priorVersion "3.1.0" ;
     owl:versionIRI :core-4.0.0 ;
     owl:versionInfo "4.0.0" ;
-    skos:changeNote "This version is automatically generated from ePO_CM.xml on 2023-06-29" .
+    skos:changeNote "This version is automatically generated from ePO_CM.xml on 2023-07-11" .
 
