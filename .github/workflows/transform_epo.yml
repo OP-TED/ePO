@@ -1,13 +1,16 @@
-name: transform ePO core XMI
+name: transform ePO and ePO modules XMIs
 on:
   push:
     branches:
       - "**"
+      - "!demo"
     paths:
       - "implementation/ePO/xmi_conceptual_model/ePO_CM.xml"
       - "implementation/eCatalogue/xmi_conceptual_model/eCatalogue_CM.xml"
       - "implementation/eNotice/xmi_conceptual_model/eNotice_CM.xml"
       - "implementation/eOrdering/xmi_conceptual_model/eOrdering_CM.xml"
+      - "implementation/eFulfilment/xmi_conceptual_model/eFulfilment_CM.xml"
+      - "implementation/eFulfilment/xmi_conceptual_model/eContract_CM.xml"
 jobs:
   transform:
     runs-on: ubuntu-latest
@@ -26,7 +29,7 @@ jobs:
 
       - name: get model2owl
         run: |
-          cd transform && git clone https://github.com/OP-TED/model2owl.git
+          cd transform && git clone --branch 2.0.0 https://github.com/OP-TED/model2owl.git
           pwd
           cp ./model2owl/Makefile /home/runner/work/ePO/ePO/
 
@@ -38,9 +41,14 @@ jobs:
 
       - name: transform step
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eOrdering eCatalogue eNotice ePO)
+          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice eContract ePO)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
+            echo "-------------------${implementation}---------------------------------"
+            sed -i "s/test\/ePO-default-config/..\/..\/implementation\/${implementation}\/model2owl-config/g" transform/model2owl/config-proxy.xsl
+            cat transform/model2owl/config-proxy.xsl
+
+
             CM_FILE_NAME=$(echo "${implementation}_CM.xml")
             CM_FILE_PATH=$(echo "implementation/$implementation/xmi_conceptual_model/${CM_FILE_NAME}")
             OUTPUT_PATH_OWL=$(echo "implementation/$implementation/owl_ontology/")
@@ -82,20 +90,27 @@ jobs:
             echo $(ls ${OUTPUT_PATH_SHACL}/*.rdf)
             rdfpipe -i application/rdf+xml -o turtle  $OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME > $OUTPUT_PATH_SHACL$OUTPUT_SHACL_SHAPES_FILE_NAME_TTL
             echo "-------------------end transform---------------------------------"
+            sed -i "s/..\/..\/implementation\/${implementation}\/model2owl-config/test\/ePO-default-config/g" transform/model2owl/config-proxy.xsl
           done
         shell: bash
 
       - name: merge implementations xmi files into one
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eOrdering eCatalogue eNotice ePO)
+          AVAILABLE_IMPLEMENTATIONS=(eOrdering eNotice eCatalogue eFulfilment eContract ePO)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             cp implementation/$implementation/xmi_conceptual_model/*_CM.xml transform/merge-xmis
           done
           ls transform/merge-xmis
-          make merge-xmi COMBINED_XMI_DIRECTORY=transform/merged-xmis-result SAXON=transform/saxon-he-10.6.jar FIRST_INPUT_XMI_FILE=./implementation/ePO/xmi_conceptual_model/ePO_CM.xml MODEL2OWL_DIR=transform/model2owl
+          make merge-xmi COMBINED_XMI_DIRECTORY=transform/merged-xmis-result SAXON=transform/saxon-he-10.6.jar FIRST_INPUT_XMI_FILE=/home/runner/work/ePO/ePO/transform/merge-xmis/ePO_CM.xml MODEL2OWL_DIR=transform/model2owl
+          echo "merged XMI file"
+          ls transform/merged-xmis-result
         shell: bash
 
+      - name: change config to core
+        run: |
+          sed -i "s/test\/ePO-default-config/..\/..\/implementation\/ePO\/model2owl-config/g" transform/model2owl/config-proxy.xsl
+          cat transform/model2owl/config-proxy.xsl
 
       - name: generate combined glossary from the merged xmi
         run: |
