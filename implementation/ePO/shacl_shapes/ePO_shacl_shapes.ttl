@@ -452,7 +452,7 @@ core-shape:epo-Contract a sh:NodeShape ;
 Additional information:
 This includes Concession Contracts.
 
-(WG approval 01/06/2018)""" ;
+WG approval 01/06/2018""" ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:epo-Contract-epo-bindsBuyer,
         core-shape:epo-Contract-epo-bindsContractor,
@@ -630,20 +630,6 @@ core-shape:epo-ElectronicSignature a sh:NodeShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:epo-ElectronicSignature-dct-description ;
     sh:targetClass :ElectronicSignature .
-
-core-shape:epo-ElementChangeDescription a sh:NodeShape ;
-    rdfs:label "Element change description" ;
-    rdfs:comment "Information about a specific field to be changed with regard to a previous Notice." ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-ElementChangeDescription-epo-hasElementReference,
-        core-shape:epo-ElementChangeDescription-epo-hasPreviousVersionOfElementReference ;
-    sh:targetClass :ElementChangeDescription .
-
-core-shape:epo-ElementDescription a sh:NodeShape ;
-    rdfs:label "Element description" ;
-    rdfs:comment "Description about a specific resource." ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:targetClass :ElementDescription .
 
 core-shape:epo-EmploymentInformationProvider a sh:NodeShape ;
     rdfs:label "Employment information provider" ;
@@ -936,10 +922,11 @@ The non-published information may become available at a later date and may diffe
 Examples of fields that may not be immediately published are Winner, Tender and Procedure Lot Result, etc., e.g. for security reasons.
 """ ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-NonPublishedInformation-epo-hasAccessibilityDate,
+    sh:property core-shape:epo-NonPublishedInformation-epo-concernsNotice,
+        core-shape:epo-NonPublishedInformation-epo-hasAccessibilityDate,
         core-shape:epo-NonPublishedInformation-epo-hasConfidentialityJustification,
         core-shape:epo-NonPublishedInformation-epo-hasNonPublicationJustification,
-        core-shape:epo-NonPublishedInformation-epo-hasNonPublishedInformationIdentifier ;
+        core-shape:epo-NonPublishedInformation-epo-relatesToEFormSectionIdentifier ;
     sh:targetClass :NonPublishedInformation .
 
 core-shape:epo-Notice a sh:NodeShape ;
@@ -957,8 +944,6 @@ WG Approval 23/05/2019
         core-shape:epo-Notice-epo-hasFormNumber,
         core-shape:epo-Notice-epo-hasFormType,
         core-shape:epo-Notice-epo-hasLongTitle,
-        core-shape:epo-Notice-epo-hasNonPublishedInformation,
-        core-shape:epo-Notice-epo-hasNoticeChangeInformation,
         core-shape:epo-Notice-epo-hasNoticePublicationNumber,
         core-shape:epo-Notice-epo-hasNoticeType,
         core-shape:epo-Notice-epo-hasOJSIssueNumber,
@@ -984,15 +969,15 @@ core-shape:epo-NoticeChangeInformation a sh:NodeShape ;
     rdfs:label "Notice change information" ;
     rdfs:comment "Information about a corrigendum in a Notice." ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-NoticeChangeInformation-epo-hasAdditionalInformation,
+    sh:property core-shape:epo-NoticeChangeInformation-epo-concernsNotice,
+        core-shape:epo-NoticeChangeInformation-epo-hasAdditionalInformation,
         core-shape:epo-NoticeChangeInformation-epo-hasChangeDescription,
         core-shape:epo-NoticeChangeInformation-epo-hasChangeJustification,
         core-shape:epo-NoticeChangeInformation-epo-hasChangeReasonDescription,
-        core-shape:epo-NoticeChangeInformation-epo-hasElementChange,
         core-shape:epo-NoticeChangeInformation-epo-hasProcurementDocumentChangeDate,
         core-shape:epo-NoticeChangeInformation-epo-isProcurementDocumentChanged,
-        core-shape:epo-NoticeChangeInformation-epo-refersToEFormSectionIdentifier,
-        core-shape:epo-NoticeChangeInformation-epo-refersToPreviousNotice ;
+        core-shape:epo-NoticeChangeInformation-epo-refersToPreviousNotice,
+        core-shape:epo-NoticeChangeInformation-epo-relatesToEFormSectionIdentifier ;
     sh:targetClass :NoticeChangeInformation .
 
 core-shape:epo-Offer a sh:NodeShape ;
@@ -1497,6 +1482,19 @@ core-shape:epo-ReviewRequester a sh:NodeShape ;
 WG Approval 23/10/2021""" ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:targetClass :ReviewRequester .
+
+core-shape:epo-ReviewTerm a sh:NodeShape ;
+    rdfs:label "Review term" ;
+    rdfs:comment """Conditions and stipulations defining particularities of the review.
+
+WG approval 23/11/2018""" ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:property core-shape:epo-ReviewTerm-epo-definesReviewProcedureInformationProvider,
+        core-shape:epo-ReviewTerm-epo-definesReviewer,
+        core-shape:epo-ReviewTerm-epo-hasReviewDeadline,
+        core-shape:epo-ReviewTerm-epo-hasReviewDeadlineInformation,
+        core-shape:epo-ReviewTerm-epo-hasReviewProcedure ;
+    sh:targetClass :ReviewTerm .
 
 core-shape:epo-Reviewer a sh:NodeShape ;
     rdfs:label "Reviewer" ;
@@ -3591,30 +3589,6 @@ WG Approval 30/05/2023""" ;
     sh:name "Description" ;
     sh:path dcterms:description .
 
-core-shape:epo-ElementChangeDescription-epo-hasElementReference a sh:PropertyShape ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:datatype xsd:anyURI ;
-    sh:description """Reference to the class instance in the current notice.
-
-Additional information: 
-This corresponds in eForms to BT-13716 Change Previous Notice Section Identifier, BT-786     Review Notice Section Identifier and BT-1501     Modification Previous Notice Section Identifier.""" ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Has element reference" ;
-    sh:path :hasElementReference .
-
-core-shape:epo-ElementChangeDescription-epo-hasPreviousVersionOfElementReference a sh:PropertyShape ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:datatype xsd:anyURI ;
-    sh:description """Reference to the class instance in the previous version of the notice, which was changed.
-
-Additional information: 
-This corresponds in eForms to BT-13716 Change Previous Notice Section Identifier.
-""" ;
-    sh:maxCount 1 ;
-    sh:name "Has previous version of element reference" ;
-    sh:path :hasPreviousVersionOfElementReference .
-
 core-shape:epo-FrameworkAgreement-epo-resultsFromLotAwardOutcome a sh:PropertyShape ;
     sh:class :LotAwardOutcome ;
     sh:name "Results from lot award outcome" ;
@@ -4079,6 +4053,14 @@ core-shape:epo-NonDisclosureAgreementTerm-epo-isNonDisclosureAgreementRequired a
     sh:name "Is non disclosure agreement required" ;
     sh:path :isNonDisclosureAgreementRequired .
 
+core-shape:epo-NonPublishedInformation-epo-concernsNotice a sh:PropertyShape ;
+    sh:class :Notice ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Concerns notice" ;
+    sh:path :concernsNotice ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsNotice> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsNotice> ?this .} " ] .
+
 core-shape:epo-NonPublishedInformation-epo-hasAccessibilityDate a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:datatype xsd:date ;
@@ -4113,12 +4095,12 @@ WG Approval 11/06/2020
     sh:name "Has non publication justification" ;
     sh:path :hasNonPublicationJustification .
 
-core-shape:epo-NonPublishedInformation-epo-hasNonPublishedInformationIdentifier a sh:PropertyShape ;
+core-shape:epo-NonPublishedInformation-epo-relatesToEFormSectionIdentifier a sh:PropertyShape ;
     sh:class adms:Identifier ;
     sh:minCount 1 ;
-    sh:name "Has non published information identifier" ;
-    sh:path :hasNonPublishedInformationIdentifier ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasNonPublishedInformationIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasNonPublishedInformationIdentifier> ?this .} " ] .
+    sh:name "Relates to e form section identifier" ;
+    sh:path :relatesToEFormSectionIdentifier ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#relatesToEFormSectionIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#relatesToEFormSectionIdentifier> ?this .} " ] .
 
 core-shape:epo-Notice-epo-conformsToLegalBasis a sh:PropertyShape ;
     sh:class at-voc:legal-basis ;
@@ -4191,18 +4173,6 @@ core-shape:epo-Notice-epo-hasLongTitle a sh:PropertyShape ;
     sh:maxCount 1 ;
     sh:name "Has long title" ;
     sh:path :hasLongTitle .
-
-core-shape:epo-Notice-epo-hasNonPublishedInformation a sh:PropertyShape ;
-    sh:class :NonPublishedInformation ;
-    sh:name "Has non published information" ;
-    sh:path :hasNonPublishedInformation ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasNonPublishedInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasNonPublishedInformation> ?this .} " ] .
-
-core-shape:epo-Notice-epo-hasNoticeChangeInformation a sh:PropertyShape ;
-    sh:class :NoticeChangeInformation ;
-    sh:name "Has notice change information" ;
-    sh:path :hasNoticeChangeInformation ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasNoticeChangeInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasNoticeChangeInformation> ?this .} " ] .
 
 core-shape:epo-Notice-epo-hasNoticePublicationNumber a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
@@ -4328,6 +4298,14 @@ WG Approval 03/12/2019
     sh:path :hasTotalAwardedValue ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalAwardedValue> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalAwardedValue> ?this .} " ] .
 
+core-shape:epo-NoticeChangeInformation-epo-concernsNotice a sh:PropertyShape ;
+    sh:class :Notice ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Concerns notice" ;
+    sh:path :concernsNotice ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsNotice> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsNotice> ?this .} " ] .
+
 core-shape:epo-NoticeChangeInformation-epo-hasAdditionalInformation a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:datatype rdf:PlainLiteral ;
@@ -4371,13 +4349,6 @@ This corresponds in eForms to BT-762 Change Reason Description.""" ;
     sh:name "Has change reason description" ;
     sh:path :hasChangeReasonDescription .
 
-core-shape:epo-NoticeChangeInformation-epo-hasElementChange a sh:PropertyShape ;
-    sh:class :ElementChangeDescription ;
-    sh:minCount 1 ;
-    sh:name "Has element change" ;
-    sh:path :hasElementChange ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasElementChange> ?that . ?that <http://data.europa.eu/a4g/ontology#hasElementChange> ?this .} " ] .
-
 core-shape:epo-NoticeChangeInformation-epo-hasProcurementDocumentChangeDate a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:datatype xsd:dateTime ;
@@ -4405,13 +4376,6 @@ WG Approval 05/11/2019""" ;
     sh:name "Is procurement document changed" ;
     sh:path :isProcurementDocumentChanged .
 
-core-shape:epo-NoticeChangeInformation-epo-refersToEFormSectionIdentifier a sh:PropertyShape ;
-    sh:class adms:Identifier ;
-    sh:minCount 1 ;
-    sh:name "Refers to e form section identifier" ;
-    sh:path :refersToEFormSectionIdentifier ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToEFormSectionIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToEFormSectionIdentifier> ?this .} " ] .
-
 core-shape:epo-NoticeChangeInformation-epo-refersToPreviousNotice a sh:PropertyShape ;
     sh:class :Notice ;
     sh:description """
@@ -4422,6 +4386,13 @@ This corresponds in eForms to BT-758 Change Notice Version Identifier.""" ;
     sh:name "Refers to previous notice" ;
     sh:path :refersToPreviousNotice ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToPreviousNotice> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToPreviousNotice> ?this .} " ] .
+
+core-shape:epo-NoticeChangeInformation-epo-relatesToEFormSectionIdentifier a sh:PropertyShape ;
+    sh:class adms:Identifier ;
+    sh:minCount 1 ;
+    sh:name "Relates to e form section identifier" ;
+    sh:path :relatesToEFormSectionIdentifier ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#relatesToEFormSectionIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#relatesToEFormSectionIdentifier> ?this .} " ] .
 
 core-shape:epo-OfferIssuer-epo-distributesOffer a sh:PropertyShape ;
     sh:class :Offer ;
@@ -5595,6 +5566,49 @@ WG Approval 11/04/2019""" ;
     sh:maxCount 1 ;
     sh:name "Has total number of complainants" ;
     sh:path :hasTotalNumberOfComplainants .
+
+core-shape:epo-ReviewTerm-epo-definesReviewProcedureInformationProvider a sh:PropertyShape ;
+    sh:class :ReviewProcedureInformationProvider ;
+    sh:description "Relation indicating a ReviewTerm has a ReviewProcedureInformationProvider." ;
+    sh:maxCount 1 ;
+    sh:name "Defines review procedure information provider" ;
+    sh:path :definesReviewProcedureInformationProvider ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#definesReviewProcedureInformationProvider> ?that . ?that <http://data.europa.eu/a4g/ontology#definesReviewProcedureInformationProvider> ?this .} " ] .
+
+core-shape:epo-ReviewTerm-epo-definesReviewer a sh:PropertyShape ;
+    sh:class :Reviewer ;
+    sh:description "Relation indicating a ReviewTerm has a Reviewer." ;
+    sh:name "Defines reviewer" ;
+    sh:path :definesReviewer ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#definesReviewer> ?that . ?that <http://data.europa.eu/a4g/ontology#definesReviewer> ?this .} " ] .
+
+core-shape:epo-ReviewTerm-epo-hasReviewDeadline a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:datatype xsd:dateTime ;
+    sh:description """The time limit for review procedures.
+
+WG Approval 09/11/2021""" ;
+    sh:maxCount 1 ;
+    sh:name "Has review deadline" ;
+    sh:path :hasReviewDeadline .
+
+core-shape:epo-ReviewTerm-epo-hasReviewDeadlineInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:datatype rdf:PlainLiteral ;
+    sh:description """The description of the time limits for review procedures.
+
+WG Approval 01/10/2019""" ;
+    sh:name "Has review deadline information" ;
+    sh:path :hasReviewDeadlineInformation .
+
+core-shape:epo-ReviewTerm-epo-hasReviewProcedure a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:datatype rdf:PlainLiteral ;
+    sh:description """The description of the method used to request the verification that the procedure has been carried out correctly.
+
+WG Approval 09/11/2021""" ;
+    sh:name "Has review procedure" ;
+    sh:path :hasReviewProcedure .
 
 core-shape:epo-Reviewer-epo-hasReviewBodyType a sh:PropertyShape ;
     sh:class at-voc:review-body-type ;
@@ -7003,7 +7017,7 @@ core-shape:core-shape a owl:Ontology ;
     dcterms:abstract "This artefact provides the datashape specification. " ;
     dcterms:created ""^^xsd:date ;
     dcterms:description "This module provides the definitions for the eProcurement ontology core.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
-    dcterms:issued "2023-07-11"^^xsd:date ;
+    dcterms:issued "2023-07-18"^^xsd:date ;
     dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
     dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
     dcterms:title "eProcurement Ontology - core"@en ;
@@ -7034,5 +7048,5 @@ core-shape:core-shape a owl:Ontology ;
     owl:versionIRI core-shape:core-shape-4.0.0 ;
     owl:versionInfo "4.0.0" ;
     skos:changeNote """This version is automatically generated from ePO_CM.xml on 
-                2023-07-11""" .
+                2023-07-18""" .
 

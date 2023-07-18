@@ -1,5 +1,6 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix at-voc: <http://publications.europa.eu/resource/authority/> .
+@prefix at-voc-new: <http://publications.europa.eu/resource/authority/new/> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
@@ -136,8 +137,16 @@ WG approval 20/04/2023
     sh:property ord-shape:epo-ord-OrderResponse-epo-ord-comprisesOrderResponseLine,
         ord-shape:epo-ord-OrderResponse-epo-ord-hasResponseDescription,
         ord-shape:epo-ord-OrderResponse-epo-ord-isSubmittedForOrder,
+        ord-shape:epo-ord-OrderResponse-epo-ord-specifiesOrderResponseInformation,
         ord-shape:epo-ord-OrderResponse-epo-ord-specifiesSeller ;
     sh:targetClass :OrderResponse .
+
+ord-shape:epo-ord-OrderResponseInformation a sh:NodeShape ;
+    rdfs:label "Order response information" ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:property ord-shape:epo-ord-OrderResponseInformation-epo-ord-hasAcceptanceStatus,
+        ord-shape:epo-ord-OrderResponseInformation-epo-ord-isSpecificToOrderResponseLine ;
+    sh:targetClass :OrderResponseInformation .
 
 ord-shape:epo-ord-OrderResponseLine a sh:NodeShape ;
     rdfs:label "Order response line" ;
@@ -387,12 +396,31 @@ ord-shape:epo-ord-OrderResponse-epo-ord-isSubmittedForOrder a sh:PropertyShape ;
     sh:path :isSubmittedForOrder ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForOrder> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForOrder> ?this .} " ] .
 
+ord-shape:epo-ord-OrderResponse-epo-ord-specifiesOrderResponseInformation a sh:PropertyShape ;
+    sh:class :OrderResponseInformation ;
+    sh:name "Specifies order response information" ;
+    sh:path :specifiesOrderResponseInformation ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesOrderResponseInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesOrderResponseInformation> ?this .} " ] .
+
 ord-shape:epo-ord-OrderResponse-epo-ord-specifiesSeller a sh:PropertyShape ;
     sh:class :Seller ;
     sh:maxCount 1 ;
     sh:name "Specifies seller" ;
     sh:path :specifiesSeller ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .} " ] .
+
+ord-shape:epo-ord-OrderResponseInformation-epo-ord-hasAcceptanceStatus a sh:PropertyShape ;
+    sh:class at-voc-new:ResponseStatus ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Has acceptance status" ;
+    sh:path :hasAcceptanceStatus .
+
+ord-shape:epo-ord-OrderResponseInformation-epo-ord-isSpecificToOrderResponseLine a sh:PropertyShape ;
+    sh:class :OrderResponseLine ;
+    sh:name "Is specific to order response line" ;
+    sh:path :isSpecificToOrderResponseLine ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderResponseLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderResponseLine> ?this .} " ] .
 
 ord-shape:epo-ord-OrderResponseLine-epo-ord-isSubmittedForOrderLine a sh:PropertyShape ;
     sh:class :OrderLine ;
@@ -449,7 +477,7 @@ ord-shape:ord-shape a owl:Ontology ;
     dcterms:abstract "This artefact provides the datashape specification. " ;
     dcterms:created ""^^xsd:date ;
     dcterms:description "This module provides the definitions for the eProcurement ontology core.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
-    dcterms:issued "2023-07-11"^^xsd:date ;
+    dcterms:issued "2023-07-18"^^xsd:date ;
     dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
     dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
     dcterms:title "eProcurement Ontology - ord"@en ;
@@ -480,5 +508,5 @@ ord-shape:ord-shape a owl:Ontology ;
     owl:versionIRI ord-shape:ord-shape-4.0.0 ;
     owl:versionInfo "4.0.0" ;
     skos:changeNote """This version is automatically generated from eOrdering_CM.xml on 
-                2023-07-11""" .
+                2023-07-18""" .
 

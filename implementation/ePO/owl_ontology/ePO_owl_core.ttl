@@ -162,7 +162,7 @@ WG Approval 24/05/2022"""@en ;
 
 :ContractLotCompletionInformation a owl:Class ;
     rdfs:isDefinedBy :core ;
-    rdfs:subClassOf :ContextualProjection ;
+    rdfs:subClassOf :ContextSpecificDescription ;
     skos:definition "Information related to a given Lot at the end of the procurement."@en ;
     skos:prefLabel "Contract lot completion information"@en .
 
@@ -242,12 +242,6 @@ WG approval 20/07/2018"""@en ;
 :ElectronicSignature a owl:Class ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Electronic signature"@en .
-
-:ElementChangeDescription a owl:Class ;
-    rdfs:isDefinedBy :core ;
-    rdfs:subClassOf :ElementDescription ;
-    skos:definition "Information about a specific field to be changed with regard to a previous Notice."@en ;
-    skos:prefLabel "Element change description"@en .
 
 :EmploymentInformationProvider a owl:Class ;
     rdfs:isDefinedBy :core ;
@@ -413,7 +407,7 @@ Member States may provide that, where more than one lot may be awarded to the sa
 
 :LotGroupAwardInformation a owl:Class ;
     rdfs:isDefinedBy :core ;
-    rdfs:subClassOf :ContextualProjection ;
+    rdfs:subClassOf :ContextSpecificDescription ;
     skos:definition "Award information related to a given Group of Lots."@en ;
     skos:prefLabel "Lot group award information"@en .
 
@@ -462,6 +456,7 @@ WG Approval 15/04/2021"""@en ;
 
 :NonPublishedInformation a owl:Class ;
     rdfs:isDefinedBy :core ;
+    rdfs:subClassOf :ContextSpecificDescription ;
     skos:definition """Information about fields not published in this Notice. 
 
 Additional Information:
@@ -488,6 +483,7 @@ WG Approval 23/05/2019
 
 :NoticeChangeInformation a owl:Class ;
     rdfs:isDefinedBy :core ;
+    rdfs:subClassOf :ContextSpecificDescription ;
     skos:definition "Information about a corrigendum in a Notice."@en ;
     skos:prefLabel "Notice change information"@en .
 
@@ -789,6 +785,14 @@ This class corresponds  in eForms to BG-612     Buyer Review Summary."""@en ;
 WG Approval 23/10/2021"""@en ;
     skos:prefLabel "Review requester"@en .
 
+:ReviewTerm a owl:Class ;
+    rdfs:isDefinedBy :core ;
+    rdfs:subClassOf :LotSpecificTerm ;
+    skos:definition """Conditions and stipulations defining particularities of the review.
+
+WG approval 23/11/2018"""@en ;
+    skos:prefLabel "Review term"@en .
+
 :Reviewer a owl:Class ;
     rdfs:isDefinedBy :core ;
     rdfs:subClassOf :AcquiringParty ;
@@ -1008,10 +1012,6 @@ WG approval 05/08/2021 (revised 26/10/2021)"""@en ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Announces contract"@en .
 
-:announcesExclusionGround a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Announces exclusion ground"@en .
-
 :announcesLot a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Announces lot"@en .
@@ -1043,22 +1043,6 @@ WG approval 05/08/2021 (revised 26/10/2021)"""@en ;
 :announcesRole a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Announces role"@en .
-
-:announcesSelectionCriteria a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Announces selection criteria"@en .
-
-:answersAwardCriteria a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Answers award criteria"@en .
-
-:answersExclusionGround a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Answers exclusion ground"@en .
-
-:answersSelectionCriteria a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Answers selection criteria"@en .
 
 :associatedWith a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -1105,6 +1089,10 @@ WGM 01/03/2022
     rdfs:isDefinedBy :core ;
     skos:definition "Relates to Lot. (epo:LotAwardOutcome -> epo:Lot (+epo:concernsLot)) Relates to Lot. (epo:ProcurementProcessInformation -> epo:Lot (+epo:concernsLot)) "@en ;
     skos:prefLabel "Concerns lot"@en .
+
+:concernsNotice a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:prefLabel "Concerns notice"@en .
 
 :concernsOriginatorRequest a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -1225,6 +1213,16 @@ WG Approval 10-10-2019 (epo:OpeningTerm -> locn:Address (+epo:definesOpeningPlac
     rdfs:isDefinedBy :core ;
     skos:definition "Relation indicating an AccessTerm has a ProcurementProcedureInformationProvider. (epo:AccessTerm -> epo:ProcurementProcedureInformationProvider (+epo:definesProcurementProcedureInformationProvider)) "@en ;
     skos:prefLabel "Defines procurement procedure information provider"@en .
+
+:definesReviewProcedureInformationProvider a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:definition "Relation indicating a ReviewTerm has a ReviewProcedureInformationProvider. (epo:ReviewTerm -> epo:ReviewProcedureInformationProvider (+epo:definesReviewProcedureInformationProvider)) "@en ;
+    skos:prefLabel "Defines review procedure information provider"@en .
+
+:definesReviewer a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:definition "Relation indicating a ReviewTerm has a Reviewer. (epo:ReviewTerm -> epo:Reviewer (+epo:definesReviewer)) "@en ;
+    skos:prefLabel "Defines reviewer"@en .
 
 :definesSpecificPlaceOfPerformance a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -1417,12 +1415,12 @@ WG Approval 11/06/2020
     rdfs:isDefinedBy :core ;
     skos:definition """Supplementary data about the instance of the concept.
 
-WG Approval 15/10/2019 (epo:ProcurementObject) Supplementary data about the instance of the concept.
-
 WG Approval 15/10/2019 (epo:Notice) Supplementary data about the instance of the concept.
 
 WG Approval 15/10/2019
- (epo:NoticeChangeInformation) """@en ;
+ (epo:NoticeChangeInformation) Supplementary data about the instance of the concept.
+
+WG Approval 15/10/2019 (epo:ProcurementObject) """@en ;
     skos:prefLabel "Has additional information"@en .
 
 :hasAdditionalInformationDeadline a owl:DatatypeProperty ;
@@ -1489,10 +1487,6 @@ WG approval 26/07/2022
 :hasApproximateFrameworkAgreementValue a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Has approximate framework agreement value"@en .
-
-:hasAssociatedDocument a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Has associated document"@en .
 
 :hasAwardCriteriaEvaluationFormula a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
@@ -1963,18 +1957,6 @@ WG Approval 09/03/2021
  (epo:AccessTerm -> at-voc:communication-justification (+epo:hasDocumentRestrictionJustification)) """@en ;
     skos:prefLabel "Has document restriction justification"@en .
 
-:hasDocumentStatus a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:definition "https://test-docs.peppol.eu/logistics/transport-execution/codelist/DocumentStatusCode/ (epo:Document -> at-voc-new:document-status (+epo:hasDocumentStatus)) "@en ;
-    skos:prefLabel "Has document status"@en .
-
-:hasDocumentType a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:definition """
-
-https://docs.peppol.eu/poacc/upgrade-3/2022-Q4/codelist/UNCL1001_T01/ (epo:Document -> at-voc-new:document-type (+epo:hasDocumentType)) """@en ;
-    skos:prefLabel "Has document type"@en .
-
 :hasDurationExtensionJustification a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
     skos:definition """The explanation of the reason why the framework agreement has an extended duration.
@@ -2092,19 +2074,12 @@ WG Approval 28/07/2020
  (epo:SubmissionStatisticalInformation) """@en ;
     skos:prefLabel "Has electronic tenders"@en .
 
-:hasElementChange a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Has element change"@en .
-
 :hasElementReference a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
     skos:definition """Reference to the class instance in the current notice.
 
 Additional information: 
-This corresponds in eForms to BT-13716 Change Previous Notice Section Identifier, BT-786     Review Notice Section Identifier and BT-1501     Modification Previous Notice Section Identifier. (epo:ReviewObject) Reference to the class instance in the current notice.
-
-Additional information: 
-This corresponds in eForms to BT-13716 Change Previous Notice Section Identifier, BT-786     Review Notice Section Identifier and BT-1501     Modification Previous Notice Section Identifier. (epo:ElementChangeDescription) """@en ;
+This corresponds in eForms to BT-13716 Change Previous Notice Section Identifier, BT-786     Review Notice Section Identifier and BT-1501     Modification Previous Notice Section Identifier. (epo:ReviewObject) """@en ;
     skos:prefLabel "Has element reference"@en .
 
 :hasEnd a owl:DatatypeProperty ;
@@ -2230,10 +2205,6 @@ This property corresponds to BT-27 in eForms (for Lot and Procedure) and can be 
 
  (epo:ProcurementElement -> epo:MonetaryValue (+epo:hasEstimatedValue)) """@en ;
     skos:prefLabel "Has estimated value"@en .
-
-:hasEvaluationMember a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Has evaluation member"@en .
 
 :hasExpectedDeliveryTime a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -2427,11 +2398,11 @@ WG Approval 12/12/2019 (epo:SubmissionStatisticalInformation) """@en ;
     skos:definition """The main web page used by the instance of the concept.
 
 WG Approval 01/06/2023
- (org:Organization) The main web page used by the instance of the concept.
+
+ (cpov:ContactPoint) The main web page used by the instance of the concept.
 
 WG Approval 01/06/2023
-
- (cpov:ContactPoint) """@en ;
+ (org:Organization) """@en ;
     skos:prefLabel "Has internet address"@en .
 
 :hasIrregularityType a owl:ObjectProperty ;
@@ -2928,18 +2899,6 @@ WG Approval 11/06/2020
  (epo:NonPublishedInformation -> at-voc:non-publication-justification (+epo:hasNonPublicationJustification)) """@en ;
     skos:prefLabel "Has non publication justification"@en .
 
-:hasNonPublishedInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Has non published information"@en .
-
-:hasNonPublishedInformationIdentifier a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Has non published information identifier"@en .
-
-:hasNoticeChangeInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Has notice change information"@en .
-
 :hasNoticePublicationNumber a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Has notice publication number"@en .
@@ -3010,10 +2969,6 @@ WG Approval 12/03/2019 (epo:OpeningTerm) """@en ;
     skos:definition """The identifier of the address of the Opening of Tenders.
 WG Approval 09/11/2021 (epo:OpeningTerm) """@en ;
     skos:prefLabel "Has opening u r l"@en .
-
-:hasOperatorLicenceID a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Has operator licence i d"@en .
 
 :hasOptions a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
@@ -3131,15 +3086,6 @@ WG Approval 30/07/2019 (epo:ContractTerm) """@en ;
 :hasPrepaidAmount a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Has prepaid amount"@en .
-
-:hasPreviousVersionOfElementReference a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:definition """Reference to the class instance in the previous version of the notice, which was changed.
-
-Additional information: 
-This corresponds in eForms to BT-13716 Change Previous Notice Section Identifier.
- (epo:ElementChangeDescription) """@en ;
-    skos:prefLabel "Has previous version of element reference"@en .
 
 :hasPriceValidity a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -3419,6 +3365,20 @@ This corresponds in eForms to BT-615  Documents Restricted URL.
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Has review body type"@en .
 
+:hasReviewDeadline a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:definition """The time limit for review procedures.
+
+WG Approval 09/11/2021 (epo:ReviewTerm) """@en ;
+    skos:prefLabel "Has review deadline"@en .
+
+:hasReviewDeadlineInformation a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:definition """The description of the time limits for review procedures.
+
+WG Approval 01/10/2019 (epo:ReviewTerm) """@en ;
+    skos:prefLabel "Has review deadline information"@en .
+
 :hasReviewDecisionType a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:definition """Additional information:
@@ -3438,6 +3398,13 @@ This attribute corresponds in eForms to BT-635 Buyer Review Requests Count. (epo
     skos:definition """Additional information:
 This relation corresponds in eForms to   BG-613     Buyer Review Requests (epo:ReviewRequestSummary -> epo:ReviewIrregularitySummary (+epo:hasReviewIrregularitySummary)) """@en ;
     skos:prefLabel "Has review irregularity summary"@en .
+
+:hasReviewProcedure a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:definition """The description of the method used to request the verification that the procedure has been carried out correctly.
+
+WG Approval 09/11/2021 (epo:ReviewTerm) """@en ;
+    skos:prefLabel "Has review procedure"@en .
 
 :hasReviewRequestFee a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -3946,14 +3913,6 @@ WG Approval 21/07/2020
  (epo:SubmissionTerm) """@en ;
     skos:prefLabel "Is advanced electronic signature required"@en .
 
-:isAppointedBy a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Is appointed by"@en .
-
-:isAssignedForEvaluationOf a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Is assigned for evaluation of"@en .
-
 :isAwardedByCPB a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
     skos:definition """Procedure is awarded by a Central Purchasing Body.
@@ -4060,13 +4019,13 @@ Additional information:
 This corresponds in eForms to BG - 61 EU Funds (specified per Lot) and to BG - 611 Contract EU Funds (applied per Contract lot)
 Funds may change between the lot and the contract, for example in the case of an emergency crisis, a contract may be financed by a budget that was not foreseen in the call.
 
- (epo:ProcurementObject -> epo:Fund (+epo:isFundedBy)) Funding is provided either completely or partially by a Fund.
+ (epo:Contract -> epo:Fund (+epo:isFundedBy)) Funding is provided either completely or partially by a Fund.
 
 Additional information:
 This corresponds in eForms to BG - 61 EU Funds (specified per Lot) and to BG - 611 Contract EU Funds (applied per Contract lot)
 Funds may change between the lot and the contract, for example in the case of an emergency crisis, a contract may be financed by a budget that was not foreseen in the call.
 
- (epo:Contract -> epo:Fund (+epo:isFundedBy)) """@en ;
+ (epo:ProcurementObject -> epo:Fund (+epo:isFundedBy)) """@en ;
     skos:prefLabel "Is funded by"@en .
 
 :isGuaranteeRequired a owl:DatatypeProperty ;
@@ -4251,10 +4210,6 @@ WG approval 18/05/2021 (epo:Tender -> epo:Tenderer (+epo:isSubmitedBy)) """@en ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Is subordinated to contract"@en .
 
-:isSupportedBy a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Is supported by"@en .
-
 :isToBeRelaunched a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
     skos:definition """Indicator of whether the procurement object is to be relaunched.
@@ -4365,10 +4320,6 @@ This corresponds to BT-782 in eForms.
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Refers to contract to be modified"@en .
 
-:refersToEFormSectionIdentifier a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Refers to e form section identifier"@en .
-
 :refersToLot a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Refers to lot"@en .
@@ -4443,6 +4394,10 @@ This relation corresponds in eForms to BT-785 "Review Previous Identifier". (epo
 :refersToRole a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Refers to role"@en .
+
+:relatesToEFormSectionIdentifier a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:prefLabel "Relates to e form section identifier"@en .
 
 :requestsRemedyType a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -4607,11 +4562,11 @@ cccev:address a owl:ObjectProperty ;
     skos:definition """Associates any Resource with the corresponding Address.
 
 Additional Information:
-Asserting the address relationship implies that the Resource has an Address. (org:Organization -> locn:Address (+cv:address)) Associates any Resource with the corresponding Address.
+Asserting the address relationship implies that the Resource has an Address.
+ (cpov:ContactPoint -> locn:Address (+cv:address)) Associates any Resource with the corresponding Address.
 
 Additional Information:
-Asserting the address relationship implies that the Resource has an Address.
- (cpov:ContactPoint -> locn:Address (+cv:address)) """@en ;
+Asserting the address relationship implies that the Resource has an Address. (org:Organization -> locn:Address (+cv:address)) """@en ;
     skos:prefLabel "Address"@en .
 
 cccev:bias a owl:DatatypeProperty ;
@@ -4973,17 +4928,12 @@ dcterms:description a owl:DatatypeProperty ;
 Additional Information:
 Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
 
-WG Approval 30/05/2023 (epo:ProcurementElement) An account of the resource.
+WG Approval 30/05/2023 (cccev:InformationConcept) An account of the resource.
 
 Additional Information:
 Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
 
-WG Approval 30/05/2023 (epo:System) An account of the resource.
-
-Additional Information:
-Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
-
-WG Approval 30/05/2023 (epo:AgentInRole) An account of the resource.
+WG Approval 30/05/2023 (cccev:Requirement) An account of the resource.
 
 Additional Information:
 Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
@@ -4998,38 +4948,7 @@ WG Approval 30/05/2023 (cv:Channel) An account of the resource.
 Additional Information:
 Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
 
-WG Approval 30/05/2023
- (epo:NonDisclosureAgreementTerm) An account of the resource.
-
-Additional Information:
-Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
-
-WG Approval 30/05/2023 (epo:SecurityClearanceTerm) An account of the resource.
-
-Additional Information:
-Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
-
-WG Approval 30/05/2023 (epo:SubcontractTerm) An account of the resource.
-
-Additional Information:
-Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
-
-WG Approval 30/05/2023 (cccev:InformationConcept) An account of the resource.
-
-Additional Information:
-Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
-
-WG Approval 30/05/2023 (cccev:Requirement) An account of the resource.
-
-Additional Information:
-Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
-
-WG Approval 30/05/2023 (epo:Technique) An account of the resource.
-
-Additional Information:
-Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
-
-WG Approval 30/05/2023 (epo:SubcontractingEstimate) An account of the resource.
+WG Approval 30/05/2023 (epo:AgentInRole) An account of the resource.
 
 Additional Information:
 Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
@@ -5045,7 +4964,43 @@ WG Approval 30/05/2023 (epo:ElectronicSignature) An account of the resource.
 Additional Information:
 Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
 
-WG Approval 30/05/2023 (epo:Fund) """@en ;
+WG Approval 30/05/2023 (epo:Fund) An account of the resource.
+
+Additional Information:
+Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
+
+WG Approval 30/05/2023
+ (epo:NonDisclosureAgreementTerm) An account of the resource.
+
+Additional Information:
+Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
+
+WG Approval 30/05/2023 (epo:SecurityClearanceTerm) An account of the resource.
+
+Additional Information:
+Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
+
+WG Approval 30/05/2023 (epo:SubcontractingEstimate) An account of the resource.
+
+Additional Information:
+Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
+
+WG Approval 30/05/2023 (epo:SubcontractTerm) An account of the resource.
+
+Additional Information:
+Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
+
+WG Approval 30/05/2023 (epo:System) An account of the resource.
+
+Additional Information:
+Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
+
+WG Approval 30/05/2023 (epo:Technique) An account of the resource.
+
+Additional Information:
+Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
+
+WG Approval 30/05/2023 (epo:ProcurementElement) """@en ;
     skos:prefLabel "Description"@en .
 
 dcterms:issued a owl:DatatypeProperty ;
@@ -5062,10 +5017,6 @@ WG approval 26/01/2023 (epo:Document) """@en ;
 dcterms:title a owl:DatatypeProperty ;
     skos:definition """A name given to the resource.
 
-WG approval 30/05/2023 (epo:ProcurementElement) A name given to the resource.
-
-WG approval 30/05/2023 (foaf:Agent) A name given to the resource.
-
 WG approval 30/05/2023
  (epo:AgentInRole) A name given to the resource.
 
@@ -5074,7 +5025,11 @@ WG approval 30/05/2023
  (epo:Document) A name given to the resource.
 
 WG approval 30/05/2023
- (epo:Fund) """@en ;
+ (epo:Fund) A name given to the resource.
+
+WG approval 30/05/2023 (foaf:Agent) A name given to the resource.
+
+WG approval 30/05/2023 (epo:ProcurementElement) """@en ;
     skos:prefLabel "Title"@en .
 
 dcterms:type a owl:ObjectProperty ;
@@ -5133,7 +5088,7 @@ adms:Identifier a owl:Class ;
     skos:prefLabel "Identifier"@en .
 
 adms:identifier a owl:ObjectProperty ;
-    skos:definition """A unique identifier of the instance of the concept.
+    skos:definition """Links a resource to an adms:Identifier class. (cccev:InformationConcept -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (dct:Location -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo:Document -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo:Fund -> adms:Identifier (+adms:identifier)) A unique identifier of the instance of the concept.
 
 Additional Information
 
@@ -5141,7 +5096,7 @@ For example, in the case of the Procurement Identifier, this could be the Europe
 
 WG Approval 12/11/2019
 
- (epo:Project -> adms:Identifier (+adms:identifier)) A unique identifier of the instance of the concept.
+ (epo:Project -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (foaf:Agent -> adms:Identifier (+adms:identifier)) A unique identifier of the instance of the concept.
 
 Additional Information
 
@@ -5154,7 +5109,7 @@ Additional Information
 For example, in the case of the Procurement Identifier, this could be the European Public Procurement Identifier, and/or any other identifier provided by the buyer, the service provider or any other stakeholder.
 
 WG Approval 12/11/2019
- (epo:ProcurementElement -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (foaf:Agent -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (dct:Location -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (cccev:InformationConcept -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo:Document -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo:Fund -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:Consignment -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:ShipmentInformation -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-cat:Line -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:AbstractContainer -> adms:Identifier (+adms:identifier)) """@en ;
+ (epo:ProcurementElement -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:Consignment -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:ShipmentInformation -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-cat:Line -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:AbstractContainer -> adms:Identifier (+adms:identifier)) """@en ;
     skos:prefLabel "Identifier"@en .
 
 adms:schemaAgency a owl:DatatypeProperty ;
@@ -5345,11 +5300,6 @@ foaf:name a owl:DatatypeProperty ;
     skos:definition "The complete name of the Person as one string. (cpv:Person) "@en ;
     skos:prefLabel "Name"@en .
 
-:ElementDescription a owl:Class ;
-    rdfs:isDefinedBy :core ;
-    skos:definition "Description about a specific resource."@en ;
-    skos:prefLabel "Element description"@en .
-
 :involvesBuyer a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Involves buyer"@en .
@@ -5387,6 +5337,7 @@ foaf:Person a owl:Class ;
 
 :AwardOutcome a owl:Class ;
     rdfs:isDefinedBy :core ;
+    rdfs:subClassOf :ContextualProjection ;
     skos:prefLabel "Award outcome"@en .
 
 :Buyer a owl:Class ;
@@ -5412,6 +5363,19 @@ Contracting Authority procuring activities conducted on a permanent basis, in on
 WG approval 05/08/2021"""@en ;
     skos:prefLabel "Central purchasing body"@en .
 
+:ContextualProjection a owl:Class ;
+    rdfs:isDefinedBy :core ;
+    skos:definition """Projection of an Entity and all of its properties that hold in a given Situation Context. 
+
+Additional Information:
+The contextual projection does not have its own identity (-I), is dependent  (+D) on the described Entity, and is anti-rigid (~R)
+
+We say that ContextualProjection *describes* an Entity.
+
+Adaptation of ContextSlices pattern encoding a 4D view.
+http://ontologydesignpatterns.org/wiki/Submissions:Context_Slices"""@en ;
+    skos:prefLabel "Contextual projection"@en .
+
 :Duration a owl:Class ;
     rdfs:isDefinedBy :core ;
     skos:definition "The length of time in which a concept occurs."@en ;
@@ -5419,6 +5383,7 @@ WG approval 05/08/2021"""@en ;
 
 :Estimate a owl:Class ;
     rdfs:isDefinedBy :core ;
+    rdfs:subClassOf :ContextSpecificDescription ;
     skos:definition "An approximate calculation or a judgement of the value, number, Quantity or extent of something."@en ;
     skos:prefLabel "Estimate"@en .
 
@@ -5500,30 +5465,6 @@ The classification of roles is based is based on the degree of involvement into 
     rdfs:subClassOf :AgentInRole ;
     skos:definition "Role of an Agent who may be mentioned in the information exchanged during the Procurement Process but who does not play an active part in it."@en ;
     skos:prefLabel "Auxiliary party"@en .
-
-:ContextSpecificDescription a owl:Class ;
-    rdfs:isDefinedBy :core ;
-    skos:definition """A description concerning a Procurement Object or a Notice in a specific Situation Context. 
-
-Additional Information:
-The description has its own identity (+I) but is dependent (+D) on the concerned Entity. 
-
-We say that ContextSpecificDescription *concerns* an Entity.
-"""@en ;
-    skos:prefLabel "Context specific description"@en .
-
-:ContextualProjection a owl:Class ;
-    rdfs:isDefinedBy :core ;
-    skos:definition """Projection of an Entity and all of its properties that hold in a given Situation Context. 
-
-Additional Information:
-The contextual projection does not have its own identity (-I), is dependent  (+D) on the described Entity, and is anti-rigid (~R)
-
-We say that ContextualProjection *describes* an Entity.
-
-Adaptation of ContextSlices pattern encoding a 4D view.
-http://ontologydesignpatterns.org/wiki/Submissions:Context_Slices"""@en ;
-    skos:prefLabel "Contextual projection"@en .
 
 :ContractSpecificTerm a owl:Class ;
     rdfs:isDefinedBy :core ;
@@ -5629,7 +5570,7 @@ WG Approval 28/04/2020"""@en ;
 Additional information:
 This includes Concession Contracts.
 
-(WG approval 01/06/2018)"""@en ;
+WG approval 01/06/2018"""@en ;
     skos:prefLabel "Contract"@en .
 
 :Term a owl:Class ;
@@ -5643,6 +5584,17 @@ This includes Concession Contracts.
     skos:definition "Gathering class for conditions and stipulations related to a Procedure."@en ;
     skos:prefLabel "Procedure specific term"@en .
 
+:ContextSpecificDescription a owl:Class ;
+    rdfs:isDefinedBy :core ;
+    skos:definition """A description concerning a Procurement Object or a Notice in a specific Situation Context. 
+
+Additional Information:
+The description has its own identity (+I) but is dependent (+D) on the concerned Entity. 
+
+We say that ContextSpecificDescription *concerns* an Entity.
+"""@en ;
+    skos:prefLabel "Context specific description"@en .
+
 :OfferingParty a owl:Class ;
     rdfs:isDefinedBy :core ;
     rdfs:subClassOf :AgentInRole ;
@@ -5652,12 +5604,6 @@ Additional information:
 As per the European Procurement Directives the notion of ‘Economic Operators’ should be interpreted in a broad manner so as to include any Persons and/or Entities which offer the execution of works, the supply of products or the provision of services on the market, irrespective of the legal form under which they have chosen to operate. Thus, firms, branches, subsidiaries, partnerships, cooperative societies, limited companies, universities, public or private, and other forms of entities than natural Persons should all fall within the notion of Economic Operator, whether or not they are ‘Legal Persons’ in all circumstances."""@en ;
     skos:prefLabel "Offering party"@en .
 
-:LotSpecificTerm a owl:Class ;
-    rdfs:isDefinedBy :core ;
-    rdfs:subClassOf :Term ;
-    skos:definition "Gathering class for conditions and stipulations related to a Lot."@en ;
-    skos:prefLabel "Lot specific term"@en .
-
 :Document a owl:Class ;
     rdfs:isDefinedBy :core ;
     skos:definition """A set of interrelated Business Information representing the Business facts and associated metadata.
@@ -5666,6 +5612,12 @@ The information may be conveyed in any language, medium or form, including textu
 WG Approval 23/05/2019
 """@en ;
     skos:prefLabel "Document"@en .
+
+:LotSpecificTerm a owl:Class ;
+    rdfs:isDefinedBy :core ;
+    rdfs:subClassOf :Term ;
+    skos:definition "Gathering class for conditions and stipulations related to a Lot."@en ;
+    skos:prefLabel "Lot specific term"@en .
 
 :AcquiringParty a owl:Class ;
     rdfs:isDefinedBy :core ;
@@ -5680,7 +5632,7 @@ WG Approval 23/05/2019
     dcterms:abstract "This artefact provides the ontology core specification." ;
     dcterms:created ""^^xsd:date ;
     dcterms:description "This module provides the definitions for the eProcurement ontology core.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
-    dcterms:issued "2023-07-11"^^xsd:date ;
+    dcterms:issued "2023-07-18"^^xsd:date ;
     dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
     dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
     dcterms:title "eProcurement Ontology - core"@en ;
@@ -5708,5 +5660,5 @@ WG Approval 23/05/2019
     owl:priorVersion "3.1.0" ;
     owl:versionIRI :core-4.0.0 ;
     owl:versionInfo "4.0.0" ;
-    skos:changeNote "This version is automatically generated from ePO_CM.xml on 2023-07-11" .
+    skos:changeNote "This version is automatically generated from ePO_CM.xml on 2023-07-18" .
 
