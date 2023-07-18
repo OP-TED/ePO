@@ -84,11 +84,11 @@
     <!--    This section contains the variables used to build the ontology metadata-->
     <xsl:variable name="moduleReference" select="'cat'"/>
     <!--    dct:title -->
-    <xsl:variable name="ontologyTitle" select="'eProcurement Ontology - cat'"/>
+    <xsl:variable name="ontologyTitle" select="'eProcurement Ontology - eCatalogue'"/>
     <!--    dct:description-->
     <xsl:variable name="ontologyDescription"
         select="
-            'This module provides the definitions for the eProcurement ontology core.
+            'This module provides the definitions for the eCatalogue of eProcurement ontology.
         Procurement data has been identified as data with a high-reuse potential.
         Given the increasing importance of data standards for eProcurement, a number of initiatives
         driven by the public sector, the industry and academia have been kick-started in recent years.
@@ -99,9 +99,9 @@
         from different sources to be easily accessed and linked, and consequently reused.'"/>
     <!--    dct:abstract-->
     <xsl:variable name="abstractCore"
-        select="'This artefact provides the ontology core specification.'"/>
+        select="'This artefact provides the ontology eCatalogue specification.'"/>
     <xsl:variable name="abstractResctrictions"
-        select="'This artefact provides the ontology extention with restrictions and inference-relaated specification.'"/>
+        select="'This artefact provides the ontology extension with restrictions and inference-related specification.'"/>
     <xsl:variable name="abstractShapes"
         select="'This artefact provides the datashape specification. '"/>
     <!--    rdfs:seeAlso -->

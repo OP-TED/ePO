@@ -102,7 +102,7 @@
     <xsl:variable name="abstractCore"
         select="'This artefact provides the ontology core specification.'"/>
     <xsl:variable name="abstractResctrictions"
-        select="'This artefact provides the ontology extention with restrictions and inference-relaated specification.'"/>
+        select="'This artefact provides the ontology extension with restrictions and inference-related specification.'"/>
     <xsl:variable name="abstractShapes"
         select="'This artefact provides the datashape specification. '"/>
     <!--    rdfs:seeAlso -->
