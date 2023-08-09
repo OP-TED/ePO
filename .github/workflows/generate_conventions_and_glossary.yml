@@ -1,4 +1,4 @@
-name: transform ePO and ePO modules XMIs
+name: generate conventions and glossary
 on:
   push:
     branches:
@@ -11,9 +11,13 @@ on:
       - "implementation/eOrdering/xmi_conceptual_model/eOrdering_CM.xml"
       - "implementation/eFulfilment/xmi_conceptual_model/eFulfilment_CM.xml"
       - "implementation/eFulfilment/xmi_conceptual_model/eContract_CM.xml"
+
+
 jobs:
-  transform:
+  report_and_glossary:
     runs-on: ubuntu-latest
+    env:
+      OUTPUT_GLOSSARY_PATH: glossary/
     steps:
       - uses: actions/checkout@master
         with:
@@ -27,48 +31,66 @@ jobs:
       - name: get-saxon
         run: pwd && cd model2owl && make get-saxon
 
-      - name: get-rdflib
-        run: cd model2owl && make create-virtual-env && make get-rdflib
 
-      - name: transform step
+      - name: generate convention report and glossary
         run: |
           AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice eContract ePO)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
-            echo "-------------------${implementation} transform---------------------------------"
+            echo "-------------------${implementation}---------------------------------"
             sed -i "s/test\/ePO-default-config/..\/implementation\/${implementation}\/model2owl-config/g" model2owl/config-proxy.xsl
             cat model2owl/config-proxy.xsl
 
 
             CM_FILE_NAME=$(echo "${implementation}_CM.xml")
             CM_FILE_PATH=$(echo "implementation/$implementation/xmi_conceptual_model/${CM_FILE_NAME}")
-            OUTPUT_PATH_OWL=$(echo "implementation/$implementation/owl_ontology/")
-            OUTPUT_PATH_SHACL=$(echo "implementation/$implementation/shacl_shapes/")
 
+            OUTPUT_CONVENTION_REPORT_PATH=$(echo "implementation/$implementation/conventions_report/")
+            OUTPUT_GLOSSARY_FILE_NAME=$(echo "${implementation}_glossary.html")
             ls -la implementation/$implementation/xmi_conceptual_model/
             echo "CM_FILE_PATH is $CM_FILE_PATH"
-            echo "OUTPUT_PATH_OWL is $OUTPUT_PATH_OWL"
-            echo "OUTPUT_PATH_SHACL is $OUTPUT_PATH_SHACL"
+            echo "OUTPUT_REPORT_PATH is $OUTPUT_CONVENTION_REPORT_PATH"
+            echo "OUTPUT_GLOSSARY_FILE_NAME is $OUTPUT_GLOSSARY_FILE_NAME"
 
-
+            mkdir -p $OUTPUT_CONVENTION_REPORT_PATH
+            rm -f $OUTPUT_CONVENTION_REPORT_PATH*.html || true
+            ls -la
             cd model2owl
             ls -la
-            echo "+++++++++++++++++transform to rdf++++++++++++++++++++++++++++"
-            make owl-core XMI_INPUT_FILE_PATH=../$CM_FILE_PATH OUTPUT_FOLDER_PATH=../$OUTPUT_PATH_OWL
-            make owl-restrictions XMI_INPUT_FILE_PATH=../$CM_FILE_PATH OUTPUT_FOLDER_PATH=../$OUTPUT_PATH_OWL
-            make shacl XMI_INPUT_FILE_PATH=../$CM_FILE_PATH OUTPUT_FOLDER_PATH=../$OUTPUT_PATH_SHACL
-
-            echo "+++++++++++++++++transform to turtle++++++++++++++++++++++++++++"
-            echo $(ls ${OUTPUT_PATH_OWL}/*.rdf)
-            make convert-to-turtle ONTOLOGY_FOLDER_PATH=../$OUTPUT_PATH_OWL
-            echo $(ls ${OUTPUT_PATH_SHACL}/*.rdf)
-            make convert-to-turtle ONTOLOGY_FOLDER_PATH=../$OUTPUT_PATH_SHACL
-            echo "-------------------end transform---------------------------------"
+            make generate-convention-report XMI_INPUT_FILE_PATH=../$CM_FILE_PATH OUTPUT_CONVENTION_REPORT_PATH=../$OUTPUT_CONVENTION_REPORT_PATH
+            make generate-glossary XMI_INPUT_FILE_PATH=../$CM_FILE_PATH OUTPUT_GLOSSARY_PATH=../$OUTPUT_GLOSSARY_PATH
 
             sed -i "s/..\/implementation\/${implementation}\/model2owl-config/test\/ePO-default-config/g" config-proxy.xsl
             cd ..
           done
         shell: bash
+
+      - name: merge implementations xmi files into one
+        run: |
+          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice eContract ePO)
+          cd model2owl
+          mkdir -p merge-xmis
+          for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
+          do
+            cp ../implementation/$implementation/xmi_conceptual_model/*_CM.xml merge-xmis
+          done
+          ls merge-xmis
+
+          make merge-xmi FIRST_XMI_TO_BE_MERGED_FILE_PATH=merge-xmis/demo_ontology_CM.xml
+
+          echo "merged XMI file"
+          ls output/combined-xmi
+        shell: bash
+
+      - name: change config to core
+        run: |
+          sed -i "s/test\/ePO-default-config/..\/..\/implementation\/ePO\/model2owl-config/g" transform/model2owl/config-proxy.xsl
+          cat transform/model2owl/config-proxy.xsl
+
+      - name: generate combined glossary from the merged xmi
+        run: |
+          cd model2owl
+          make generate-glossary XMI_INPUT_FILE_PATH=output/combined-xmi/ontologies-combined.xmi OUTPUT_GLOSSARY_PATH=../$OUTPUT_GLOSSARY_PATH
 
       - name: remove unnecessary files
         run: |
@@ -80,13 +102,14 @@ jobs:
         run: |
                git config --local user.email "action@github.com"
                git config --local user.name "github-actions"
+               git pull
                git status
 
                git add .
                if [ -z "$(git status --porcelain)" ]; then
                echo "::set-output name=push::false"
                else
-               git commit -m "Adding transformation files"
+               git commit -m "Adding convention report and glossary files"
                echo "::set-output name=push::true"
                fi
         shell: bash
