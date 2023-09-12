@@ -271,30 +271,33 @@ dcterms:description rdfs:domain [ a owl:Class ;
 :AllowanceChargeInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasPercentage ],
+            owl:onProperty :hasTaxInformation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasTaxInformation ] .
+            owl:onProperty :hasPercentage ] .
 
 :OrderResponse rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty :isSubmittedForOrder ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :specifiesSeller ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasResponseDescription ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :isSubmittedForOrder ] .
+            owl:onProperty :hasResponseDescription ] .
 
 :TaxInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasPercentage ],
+            owl:onProperty dcterms:description ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty dcterms:description ] .
+            owl:onProperty :hasPercentage ] .
 
 :DeliveryInformation rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :concernsConsignee ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasDeliveryDeadline ],
         [ a owl:Restriction ;
@@ -302,12 +305,18 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:onProperty :specifiesSpecificDeliveryAgreement ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :concernsConsignee ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty :specifiesGeneralDeliveryAgreement ] .
 
 :Order rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty :specifiesDeliveryInformation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty :comprisesOrderLine ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasCustomerReference ],
+        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty :specifiesSeller ],
         [ a owl:Restriction ;
@@ -318,14 +327,5 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:onProperty :hasPaymentTerm ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasCustomerReference ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :specifiesOriginatorInformation ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :specifiesDeliveryInformation ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :comprisesOrderLine ] .
+            owl:onProperty :specifiesOriginatorInformation ] .
 
