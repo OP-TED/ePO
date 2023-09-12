@@ -88,14 +88,15 @@ The Order Response is used to inform on the acceptance or rejection of an Order 
 WG approval 20/04/2023
 """@en ;
     skos:editorialNote """If contractually agreed, the Seller also may respond to the order, changing details that are acceptable by the Buyer.
--- If an order is accepted with change, the buyer and seller need to have an agreement between them regarding the processing of the changed order, i.e when is a contract concluded and when can the items be shipped.
+-- If an order is accepted with change, the buyer and seller need to have an agreement between them regarding the processing of the changed order, i.e. when is a contract concluded and when can the items be shipped.
 
 Proposal: 
-If the order  response is "Change" then the Buyer will create (instanciate) a new order implementing the changes and superseding the previously sent order. """@en,
-        """Should we conceive that an order line is included in the Order Reponse? 
-
-https://docs.peppol.eu/poacc/upgrade-3/codelist/UNCL1229/"""@en ;
+If the order  response is "Change" then the Buyer will create (instantiate) a new order implementing the changes and superseding the previously sent order. """@en ;
     skos:prefLabel "Order response"@en .
+
+:OrderResponseInformation a owl:Class ;
+    rdfs:isDefinedBy :ord ;
+    skos:prefLabel "Order response information"@en .
 
 :OrderResponseLine a owl:Class ;
     rdfs:isDefinedBy :ord ;
@@ -188,6 +189,10 @@ WG approval 25/04/2023
     rdfs:isDefinedBy :ord ;
     skos:prefLabel "Concerns originator request"@en .
 
+:hasAcceptanceStatus a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ord ;
+    skos:prefLabel "Has acceptance status"@en .
+
 :hasAccountingCost a owl:DatatypeProperty ;
     rdfs:isDefinedBy :ord ;
     skos:definition """The accounting reference used by the Buyer to specify the account to which the order and the corresponding invoice are booked. 
@@ -239,13 +244,6 @@ WG approval 2023-01-26 (epo-ord:Order) """@en ;
 :hasDeliveryPeriod a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
     skos:prefLabel "Has delivery period"@en .
-
-:hasDocumentType a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition """
-
-https://docs.peppol.eu/poacc/upgrade-3/2022-Q4/codelist/UNCL1001_T01/ (epo:Document -> at-voc-new:document-type (+epo:hasDocumentType)) """@en ;
-    skos:prefLabel "Has document type"@en .
 
 :hasPaymentTerm a owl:DatatypeProperty ;
     rdfs:isDefinedBy :ord ;
@@ -326,12 +324,6 @@ WG approval 26/07/2022 (epo-ord:AllowanceChargeInformation) """@en ;
     rdfs:isDefinedBy :ord ;
     skos:prefLabel "Has tracking i d"@en .
 
-:hasVATCategory a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition """Value-added tax category of the item.
- (epo-ord:TaxInformation -> at-voc-new:vat-category (+epo-cat:hasVATCategory)) """@en ;
-    skos:prefLabel "Has v a t category"@en .
-
 :implementsContract a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
     skos:prefLabel "Implements contract"@en .
@@ -350,6 +342,10 @@ WG approval 26/07/2022 (epo-ord:AllowanceChargeInformation) """@en ;
  (epo-ord:AllowanceInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine)) Information that is particular to one or multiple Order Lines.
  (epo-cat:ChargeInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine)) """@en ;
     skos:prefLabel "Is specific to order line"@en .
+
+:isSpecificToOrderResponseLine a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ord ;
+    skos:prefLabel "Is specific to order response line"@en .
 
 :isSubmittedForOrder a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
@@ -428,6 +424,10 @@ The reference to the catalogue line is for information only, to trace the source
     rdfs:isDefinedBy :ord ;
     skos:prefLabel "Specifies general delivery agreement"@en .
 
+:specifiesOrderResponseInformation a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ord ;
+    skos:prefLabel "Specifies order response information"@en .
+
 :specifiesOriginator a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
     skos:prefLabel "Specifies originator"@en .
@@ -449,17 +449,9 @@ The reference to the catalogue line is for information only, to trace the source
     skos:prefLabel "Specifies specific delivery agreement"@en .
 
 at-voc-new:ResponseStatus a skos:ConceptScheme ;
-    skos:editorialNote """Should we conceive that an order line is included in the Order Reponse? 
-
-https://docs.peppol.eu/poacc/upgrade-3/codelist/UNCL1229/"""@en ;
+    skos:definition """https://docs.peppol.eu/poacc/upgrade-3/codelist/UNCL1229/
+"""@en ;
     skos:prefLabel "Response status"@en .
-
-at-voc-new:document-type a skos:ConceptScheme ;
-    skos:definition "https://test-docs.peppol.eu/logistics/transport-execution/codelist/UNCL1001/"@en ;
-    skos:editorialNote """We need codes for: https://docs.peppol.eu/poacc/upgrade-3/2022-Q4/codelist/UNCL1001_T01/
-
-220 code is plain Order."""@en ;
-    skos:prefLabel "Document-type"@en .
 
 dcterms:description a owl:DatatypeProperty ;
     skos:definition """An account of the resource.
@@ -518,13 +510,13 @@ WG approval 20/04/2023"""@en ;
 :ord a owl:Ontology ;
     cc:attributionName "European Union" ;
     cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/EURUN> ;
-    dcterms:abstract "This artefact provides the ontology core specification." ;
+    dcterms:abstract "This artefact provides the ontology eOrdering specification." ;
     dcterms:created ""^^xsd:date ;
-    dcterms:description "This module provides the definitions for the eProcurement ontology core.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
-    dcterms:issued "2023-08-09"^^xsd:date ;
+    dcterms:description "This module provides the definitions for the eOrdering of eProcurement ontology.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
+    dcterms:issued "2023-09-12"^^xsd:date ;
     dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
     dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
-    dcterms:title "eProcurement Ontology - ord"@en ;
+    dcterms:title "eProcurement Ontology - eOrdering"@en ;
     bibo:status "Semantic Specification Realease" ;
     vann:preferredNamespacePrefix "epo-ord" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
@@ -549,5 +541,5 @@ WG approval 20/04/2023"""@en ;
     owl:priorVersion "3.1.0" ;
     owl:versionIRI :ord-4.0.0 ;
     owl:versionInfo "4.0.0" ;
-    skos:changeNote "This version is automatically generated from eOrdering_CM.xml on 2023-08-09" .
+    skos:changeNote "This version is automatically generated from eOrdering_CM.xml on 2023-09-12" .
 

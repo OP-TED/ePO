@@ -57,19 +57,9 @@ cat-shape:epo-cat-Catalogue a sh:NodeShape ;
 """ ;
     rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:property cat-shape:epo-cat-Catalogue-epo-cat-comprisesCatalogueLine,
+        cat-shape:epo-cat-Catalogue-epo-cat-hasActivityCode,
         cat-shape:epo-cat-Catalogue-epo-cat-hasSpecificPaymentArrangement ;
     sh:targetClass :Catalogue .
-
-cat-shape:epo-cat-CatalogueFragment a sh:NodeShape ;
-    rdfs:label "Catalogue fragment" ;
-    rdfs:comment """A part of the Catalogue.
-
-Additional Information:
-The Catalogue fragment generally represents a difference between two Catalogue versions, but there may be other use cases.""" ;
-    rdfs:isDefinedBy cat-shape:cat-shape ;
-    sh:property cat-shape:epo-cat-CatalogueFragment-epo-cat-hasActivityCode,
-        cat-shape:epo-cat-CatalogueFragment-epo-cat-updatesCatalogue ;
-    sh:targetClass :CatalogueFragment .
 
 cat-shape:epo-cat-CatalogueLine a sh:NodeShape ;
     rdfs:label "Catalogue line" ;
@@ -91,7 +81,8 @@ Composition: e.g. information referring to its description, how to order it, wha
 
 """ ;
     rdfs:isDefinedBy cat-shape:cat-shape ;
-    sh:property cat-shape:epo-cat-CatalogueLine-epo-cat-hasChargeInformation,
+    sh:property cat-shape:epo-cat-CatalogueLine-epo-cat-hasActivityCode,
+        cat-shape:epo-cat-CatalogueLine-epo-cat-hasChargeInformation,
         cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableQuantityIncrement,
         cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableUnit,
         cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableUnitFactorRate,
@@ -103,47 +94,6 @@ Composition: e.g. information referring to its description, how to order it, wha
         cat-shape:epo-cat-CatalogueLine-epo-cat-isContractedItem,
         cat-shape:epo-cat-CatalogueLine-epo-cat-isOrderable ;
     sh:targetClass :CatalogueLine .
-
-cat-shape:epo-cat-Certificate a sh:NodeShape ;
-    rdfs:label "Certificate" ;
-    rdfs:comment """Proof of conformance of the instance of the concept to a defined set of criteria. 
-
-Additional Information:
-Certificates provide assurance of credibility, trust, and transparency in the procurement process. 
-
-WG approval 16/05/2023
-""" ;
-    rdfs:isDefinedBy cat-shape:cat-shape ;
-    sh:property cat-shape:epo-cat-Certificate-epo-cat-attestedByLabel,
-        cat-shape:epo-cat-Certificate-epo-cat-hasCertificationNumber,
-        cat-shape:epo-cat-Certificate-epo-cat-issuedByCertifier,
-        cat-shape:epo-cat-Certificate-epo-hasURL ;
-    sh:targetClass :Certificate .
-
-cat-shape:epo-cat-CertificationLabel a sh:NodeShape ;
-    rdfs:label "Certification label" ;
-    rdfs:comment """Concept that stands for a set of norms, expectations, standards and policies.
-
-Additional Information:
-Such standards may relate to social, ethical and quality etc.
-
-WG approval 26/07/2022
-""" ;
-    rdfs:isDefinedBy cat-shape:cat-shape ;
-    sh:property cat-shape:epo-cat-CertificationLabel-epo-cat-hasLabelType,
-        cat-shape:epo-cat-CertificationLabel-epo-cat-hasReferenceURI ;
-    sh:targetClass :CertificationLabel .
-
-cat-shape:epo-cat-Certifier a sh:NodeShape ;
-    rdfs:label "Certifier" ;
-    rdfs:comment """The role of an agent who issues a certificate. 
-
-Additional Information:
-The certifier is responsible for verifying and confirming the conformance of the instance of the concept to a defined set of criteria.
-
-WG approval 16/05/2023""" ;
-    rdfs:isDefinedBy cat-shape:cat-shape ;
-    sh:targetClass :Certifier .
 
 cat-shape:epo-cat-ChargeInformation a sh:NodeShape ;
     rdfs:label "Charge information" ;
@@ -200,8 +150,7 @@ WG approval 30/06/2022""" ;
         cat-shape:epo-cat-Item-epo-cat-hasModel,
         cat-shape:epo-cat-Item-epo-cat-hasQualifiedItemRelation,
         cat-shape:epo-cat-Item-epo-cat-hasSpecification,
-        cat-shape:epo-cat-Item-epo-cat-isInStock,
-        cat-shape:epo-cat-Item-epo-hasCertification ;
+        cat-shape:epo-cat-Item-epo-cat-isInStock ;
     sh:targetClass :Item .
 
 cat-shape:epo-cat-ItemAccessoryRelation a sh:NodeShape ;
@@ -326,6 +275,12 @@ Examples of supplier roles: seller, despatch party, creditor, economic operator.
     rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:targetClass :Manufacturer .
 
+cat-shape:epo-cat-PostAwardDocument a sh:NodeShape ;
+    rdfs:label "Post award document" ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-PostAwardDocument-epo-cat-hasDocumentType ;
+    sh:targetClass :PostAwardDocument .
+
 cat-shape:epo-cat-Price a sh:NodeShape ;
     rdfs:label "Price" ;
     rdfs:comment """Amount of money required or given in exchange for Items.
@@ -347,11 +302,7 @@ WG approval 07/04/2022
 
 """ ;
     rdfs:isDefinedBy cat-shape:cat-shape ;
-    sh:property cat-shape:epo-cat-ProductSpecification-epo-cat-hasDocumentType ;
     sh:targetClass :ProductSpecification .
-
-cat-shape:epo-ord-TaxInformation-epo-cat-hasVATCategory sh:description """To be checked in eInvoicing the relation to VAT code.
-Awaiting a new change request on other types of TAX. """ .
 
 cat-shape:epo-cat-Batch-epo-cat-hasBestBeforeDate a sh:PropertyShape ;
     rdfs:isDefinedBy cat-shape:cat-shape ;
@@ -410,6 +361,12 @@ cat-shape:epo-cat-Catalogue-epo-cat-comprisesCatalogueLine a sh:PropertyShape ;
     sh:path :comprisesCatalogueLine ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesCatalogueLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesCatalogueLine> ?this .} " ] .
 
+cat-shape:epo-cat-Catalogue-epo-cat-hasActivityCode a sh:PropertyShape ;
+    sh:class at-voc-new:activity-code ;
+    sh:maxCount 1 ;
+    sh:name "Has activity code" ;
+    sh:path :hasActivityCode .
+
 cat-shape:epo-cat-Catalogue-epo-cat-hasSpecificPaymentArrangement a sh:PropertyShape ;
     rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
@@ -425,22 +382,11 @@ WG approval 30/06/2022
     sh:name "Has specific payment arrangement" ;
     sh:path :hasSpecificPaymentArrangement .
 
-cat-shape:epo-cat-CatalogueFragment-epo-cat-hasActivityCode a sh:PropertyShape ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasActivityCode a sh:PropertyShape ;
     sh:class at-voc-new:activity-code ;
-    sh:description """Code that defines how the line should be applied to an existing eCatalogue.
-""" ;
     sh:maxCount 1 ;
     sh:name "Has activity code" ;
     sh:path :hasActivityCode .
-
-cat-shape:epo-cat-CatalogueFragment-epo-cat-updatesCatalogue a sh:PropertyShape ;
-    sh:class :Catalogue ;
-    sh:description "Relation indicating" ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Updates catalogue" ;
-    sh:path :updatesCatalogue ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#updatesCatalogue> ?that . ?that <http://data.europa.eu/a4g/ontology#updatesCatalogue> ?this .} " ] .
 
 cat-shape:epo-cat-CatalogueLine-epo-cat-hasChargeInformation a sh:PropertyShape ;
     sh:class :ChargeInformation ;
@@ -527,79 +473,6 @@ cat-shape:epo-cat-CatalogueLine-epo-cat-isOrderable a sh:PropertyShape ;
     sh:maxCount 1 ;
     sh:name "Is orderable" ;
     sh:path :isOrderable .
-
-cat-shape:epo-cat-Certificate-epo-cat-attestedByLabel a sh:PropertyShape ;
-    sh:class :CertificationLabel ;
-    sh:description """Relation indicating which label the certificate is about. 
-
-WG approval 28/07/2022""" ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Attested by label" ;
-    sh:path :attestedByLabel ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#attestedByLabel> ?that . ?that <http://data.europa.eu/a4g/ontology#attestedByLabel> ?this .} " ] .
-
-cat-shape:epo-cat-Certificate-epo-cat-hasCertificationNumber a sh:PropertyShape ;
-    rdfs:isDefinedBy cat-shape:cat-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:description """The unique identifier of the certificate.
-
-WG approval 26/07/2022""" ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Has certification number" ;
-    sh:path :hasCertificationNumber .
-
-cat-shape:epo-cat-Certificate-epo-cat-issuedByCertifier a sh:PropertyShape ;
-    sh:class :Certifier ;
-    sh:description """Relation indicating the Certifier responsible for providing the ItemCertificate.
-
-Additional Information:
-Certifier is a role played by an organisation.
-
-WG approval 26/07/2022""" ;
-    sh:maxCount 1 ;
-    sh:name "Issued by certifier" ;
-    sh:path :issuedByCertifier ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#issuedByCertifier> ?that . ?that <http://data.europa.eu/a4g/ontology#issuedByCertifier> ?this .} " ] .
-
-cat-shape:epo-cat-Certificate-epo-hasURL a sh:PropertyShape ;
-    rdfs:isDefinedBy cat-shape:cat-shape ;
-    sh:datatype xsd:anyURI ;
-    sh:description """The identifier of a resource.
-
-Additional Information
-
-For example:
-
-1. The URL of the system from where to access the procurement documents;
-2. The URL of the system for the submission of tender documents;
-3. The URL of the system from where to download a tool to communicate with the Buyer;
-4. The URL of the system used by a Technique to allow Economic Operators to exchange information with the Buyer (e.g. eAuction and DPS Systems)
-5. The URL of the system used to exchange information between Buyer and EO for questions and clarifications;
-
-WG Approval 30/09/2019
-""" ;
-    sh:maxCount 1 ;
-    sh:name "Has u r l" ;
-    sh:path :hasURL .
-
-cat-shape:epo-cat-CertificationLabel-epo-cat-hasLabelType a sh:PropertyShape ;
-    sh:class at-voc-new:certification-label-type ;
-    sh:description "The label type such environmental, quality, social etc." ;
-    sh:maxCount 1 ;
-    sh:name "Has label type" ;
-    sh:path :hasLabelType .
-
-cat-shape:epo-cat-CertificationLabel-epo-cat-hasReferenceURI a sh:PropertyShape ;
-    rdfs:isDefinedBy cat-shape:cat-shape ;
-    sh:datatype xsd:anyURI ;
-    sh:description """A reference to where the label specification (norms, expectations, standards and policies) can be found.
-
-WG approval 26/07/2022""" ;
-    sh:maxCount 1 ;
-    sh:name "Has reference u r i" ;
-    sh:path :hasReferenceURI .
 
 cat-shape:epo-cat-InformationHub-epo-cat-isSpecificToLine a sh:PropertyShape ;
     sh:class :Line ;
@@ -726,7 +599,6 @@ cat-shape:epo-cat-Item-epo-cat-hasHazardousClass a sh:PropertyShape ;
     rdfs:isDefinedBy cat-shape:cat-shape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description "Specification of the hazardous nature of an item according to a classification schema. Provides detail of the classification and nature of a hazardous item." ;
-    sh:maxCount 1 ;
     sh:name "Has hazardous class" ;
     sh:path :hasHazardousClass .
 
@@ -734,7 +606,6 @@ cat-shape:epo-cat-Item-epo-cat-hasHazardousItemUNDGCode a sh:PropertyShape ;
     sh:class at-voc-new:dangerous-goods-list ;
     sh:description """Specification of the hazardous nature of an item according to the UNDG classification schema. Provides detail of the classification and nature of a hazardous item.
 """ ;
-    sh:maxCount 1 ;
     sh:name "Has hazardous item u n d g code" ;
     sh:path :hasHazardousItemUNDGCode .
 
@@ -793,15 +664,6 @@ cat-shape:epo-cat-Item-epo-cat-isInStock a sh:PropertyShape ;
     sh:maxCount 1 ;
     sh:name "Is in stock" ;
     sh:path :isInStock .
-
-cat-shape:epo-cat-Item-epo-hasCertification a sh:PropertyShape ;
-    sh:class :Certificate ;
-    sh:description """Relation to the proof of conformance.
-
-WG approval 30/05/2023""" ;
-    sh:name "Has certification" ;
-    sh:path :hasCertification ;
-    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasCertification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasCertification> ?this .} " ] .
 
 cat-shape:epo-cat-ItemModel-dct-title a sh:PropertyShape ;
     rdfs:isDefinedBy cat-shape:cat-shape ;
@@ -907,6 +769,12 @@ cat-shape:epo-cat-Line-epo-cat-specifiesItem a sh:PropertyShape ;
     sh:path :specifiesItem ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesItem> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesItem> ?this .} " ] .
 
+cat-shape:epo-cat-PostAwardDocument-epo-cat-hasDocumentType a sh:PropertyShape ;
+    sh:class at-voc-new:document-type ;
+    sh:maxCount 1 ;
+    sh:name "Has document type" ;
+    sh:path :hasDocumentType .
+
 cat-shape:epo-cat-Price-epo-cat-hasPriceType a sh:PropertyShape ;
     sh:class at-voc-new:price-type ;
     sh:maxCount 1 ;
@@ -920,22 +788,16 @@ cat-shape:epo-cat-Price-epo-hasPriceSurchargeInformation a sh:PropertyShape ;
     sh:path :hasPriceSurchargeInformation ;
     sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPriceSurchargeInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPriceSurchargeInformation> ?this .} " ] .
 
-cat-shape:epo-cat-ProductSpecification-epo-cat-hasDocumentType a sh:PropertyShape ;
-    sh:class at-voc-new:document-type ;
-    sh:maxCount 1 ;
-    sh:name "Has document type" ;
-    sh:path :hasDocumentType .
-
 cat-shape:cat-shape a owl:Ontology ;
     cc:attributionName "European Union" ;
     cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/EURUN> ;
     dcterms:abstract "This artefact provides the datashape specification. " ;
     dcterms:created ""^^xsd:date ;
-    dcterms:description "This module provides the definitions for the eProcurement ontology core.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
-    dcterms:issued "2023-08-09"^^xsd:date ;
+    dcterms:description "This module provides the definitions for the eCatalogue of eProcurement ontology.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
+    dcterms:issued "2023-09-12"^^xsd:date ;
     dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
     dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
-    dcterms:title "eProcurement Ontology - cat"@en ;
+    dcterms:title "eProcurement Ontology - eCatalogue"@en ;
     bibo:status "Semantic Specification Realease" ;
     vann:preferredNamespacePrefix "epo-cat" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
@@ -963,5 +825,5 @@ cat-shape:cat-shape a owl:Ontology ;
     owl:versionIRI cat-shape:cat-shape-4.0.0 ;
     owl:versionInfo "4.0.0" ;
     skos:changeNote """This version is automatically generated from eCatalogue_CM.xml on 
-                2023-08-09""" .
+                2023-09-12""" .
 

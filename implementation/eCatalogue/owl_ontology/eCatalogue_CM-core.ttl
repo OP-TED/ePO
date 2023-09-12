@@ -34,14 +34,12 @@ WG acceptance 10/03/2022
 """@en ;
     skos:prefLabel "Brand"@en .
 
-:CatalogueFragment a owl:Class ;
+:Catalogue a owl:Class ;
     rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :Catalogue ;
-    skos:definition """A part of the Catalogue.
-
-Additional Information:
-The Catalogue fragment generally represents a difference between two Catalogue versions, but there may be other use cases."""@en ;
-    skos:prefLabel "Catalogue fragment"@en .
+    rdfs:subClassOf :PostAwardDocument ;
+    skos:definition """A Document describing a set of Items offered for purchase that can be processed in an electronic way.
+"""@en ;
+    skos:prefLabel "Catalogue"@en .
 
 :CatalogueLine a owl:Class ;
     rdfs:isDefinedBy :cat ;
@@ -64,38 +62,6 @@ Composition: e.g. information referring to its description, how to order it, wha
 
 """@en ;
     skos:prefLabel "Catalogue line"@en .
-
-:Certificate a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition """Proof of conformance of the instance of the concept to a defined set of criteria. 
-
-Additional Information:
-Certificates provide assurance of credibility, trust, and transparency in the procurement process. 
-
-WG approval 16/05/2023
-"""@en ;
-    skos:prefLabel "Certificate"@en .
-
-:CertificationLabel a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition """Concept that stands for a set of norms, expectations, standards and policies.
-
-Additional Information:
-Such standards may relate to social, ethical and quality etc.
-
-WG approval 26/07/2022
-"""@en ;
-    skos:prefLabel "Certification label"@en .
-
-:Certifier a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition """The role of an agent who issues a certificate. 
-
-Additional Information:
-The certifier is responsible for verifying and confirming the conformance of the instance of the concept to a defined set of criteria.
-
-WG approval 16/05/2023"""@en ;
-    skos:prefLabel "Certifier"@en .
 
 :ChargeInformation a owl:Class ;
     rdfs:isDefinedBy :cat ;
@@ -239,19 +205,13 @@ WG approval 26/07/2022"""@en ;
 
 :ProductSpecification a owl:Class ;
     rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :PostAwardDocument ;
     skos:definition """Document providing information about an Item. 
 
 WG approval 07/04/2022
 
 """@en ;
     skos:prefLabel "Product specification"@en .
-
-:attestedByLabel a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition """Relation indicating which label the certificate is about. 
-
-WG approval 28/07/2022 (epo-cat:Certificate -> epo-cat:CertificationLabel (+epo-cat:attestedByLabel)) """@en ;
-    skos:prefLabel "Attested by label"@en .
 
 :comprisesCatalogueLine a owl:ObjectProperty ;
     rdfs:isDefinedBy :cat ;
@@ -270,9 +230,11 @@ WG Approval: 30/06/2022 (epo-cat:Item -> epo-cat:Item (+epo-cat:hasAccessoryItem
 
 :hasActivityCode a owl:ObjectProperty ;
     rdfs:isDefinedBy :cat ;
-    skos:definition """Code that defines how the line should be applied to an existing eCatalogue.
- (epo-cat:CatalogueFragment -> at-voc-new:activity-code (+epo-cat:hasActivityCode)) """@en ;
     skos:prefLabel "Has activity code"@en .
+
+:hasAssociatedDocument a owl:ObjectProperty ;
+    rdfs:isDefinedBy :cat ;
+    skos:prefLabel "Has associated document"@en .
 
 :hasAttributeType a owl:DatatypeProperty ;
     rdfs:isDefinedBy :cat ;
@@ -323,19 +285,8 @@ WG Approval 16/05/2023
     rdfs:isDefinedBy :cat ;
     skos:definition """Relation to the proof of conformance.
 
-WG approval 30/05/2023 (foaf:Person -> epo-cat:Certificate (+epo:hasCertification)) Relation to the proof of conformance.
-
-WG approval 30/05/2023 (epo-cat:Item -> epo-cat:Certificate (+epo:hasCertification)) Relation to the proof of conformance.
-
-WG approval 30/05/2023 (org:Organization -> epo-cat:Certificate (+epo:hasCertification)) """@en ;
+WG approval 30/05/2023 (epo-cat:Item -> epo:Certificate (+epo:hasCertification)) """@en ;
     skos:prefLabel "Has certification"@en .
-
-:hasCertificationNumber a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition """The unique identifier of the certificate.
-
-WG approval 26/07/2022 (epo-cat:Certificate) """@en ;
-    skos:prefLabel "Has certification number"@en .
 
 :hasChargeInformation a owl:ObjectProperty ;
     rdfs:isDefinedBy :cat ;
@@ -383,6 +334,11 @@ WG Approval: 19/05/2022
     skos:definition "Textual description of the item's dimensions. (epo-cat:Item) "@en ;
     skos:prefLabel "Has dimension description"@en .
 
+:hasDocumentStatus a owl:ObjectProperty ;
+    rdfs:isDefinedBy :cat ;
+    skos:definition "https://test-docs.peppol.eu/logistics/transport-execution/codelist/DocumentStatusCode/ (epo-cat:PostAwardDocument -> at-voc-new:document-status (+epo:hasDocumentStatus)) "@en ;
+    skos:prefLabel "Has document status"@en .
+
 :hasDocumentType a owl:ObjectProperty ;
     rdfs:isDefinedBy :cat ;
     skos:prefLabel "Has document type"@en .
@@ -424,6 +380,8 @@ WG approval 10/03/2021
 
 :hasHazardousItemUNDGCode a owl:ObjectProperty ;
     rdfs:isDefinedBy :cat ;
+    skos:definition """Specification of the hazardous nature of an item according to the UNDG classification schema. Provides detail of the classification and nature of a hazardous item.
+ (epo-cat:Item -> at-voc-new:dangerous-goods-list (+epo-cat:hasHazardousItemUNDGCode)) """@en ;
     skos:prefLabel "Has hazardous item u n d g code"@en .
 
 :hasItemClassification a owl:ObjectProperty ;
@@ -454,10 +412,6 @@ WG Approval 24/02/2022
 WG Approval 7/04/2022
  (epo-cat:Item) """@en ;
     skos:prefLabel "Has keyword"@en .
-
-:hasLabelType a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has label type"@en .
 
 :hasLiteralValue a owl:DatatypeProperty ;
     rdfs:isDefinedBy :cat ;
@@ -584,13 +538,6 @@ WG approval 28/07/2022 (epo-cat:ItemProperty -> epo:Quantity (+epo-cat:hasQualif
     rdfs:isDefinedBy :cat ;
     skos:prefLabel "Has quantity threshold"@en .
 
-:hasReferenceURI a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition """A reference to where the label specification (norms, expectations, standards and policies) can be found.
-
-WG approval 26/07/2022 (epo-cat:CertificationLabel) """@en ;
-    skos:prefLabel "Has reference u r i"@en .
-
 :hasSellerItemID a owl:ObjectProperty ;
     rdfs:isDefinedBy :cat ;
     skos:definition """ The general identifier for the concept as defined by the seller.
@@ -653,39 +600,6 @@ The unit must be indicated in the Quantity, with a quantity value of 1. (epo-cat
  (epo-cat:CatalogueLine -> at-voc-new:transaction-conditions (+epo-cat:hasTransactionConditionsCode)) """@en ;
     skos:prefLabel "Has transaction conditions code"@en .
 
-:hasURL a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition """The identifier of a resource.
-
-Additional Information
-
-For example:
-
-1. The URL of the system from where to access the procurement documents;
-2. The URL of the system for the submission of tender documents;
-3. The URL of the system from where to download a tool to communicate with the Buyer;
-4. The URL of the system used by a Technique to allow Economic Operators to exchange information with the Buyer (e.g. eAuction and DPS Systems)
-5. The URL of the system used to exchange information between Buyer and EO for questions and clarifications;
-
-WG Approval 30/09/2019
- (epo-cat:Certificate) """@en ;
-    skos:prefLabel "Has u r l"@en .
-
-:hasVATCategory a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition """Value-added tax category of the item.
- (epo-ord:TaxInformation -> at-voc-new:vat-category (+epo-cat:hasVATCategory)) """@en ;
-    skos:editorialNote """To be checked in eInvoicing the relation to VAT code.
-Awaiting a new change request on other types of TAX. """@en ;
-    skos:prefLabel "Has v a t category"@en .
-
-:hasValidityPeriod a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition """The relation indicating until when a given instance of a concept is applicable.
-
-WG approval 30/05/2023 (epo-cat:Certificate -> epo:Period (+epo:hasValidityPeriod)) """@en ;
-    skos:prefLabel "Has validity period"@en .
-
 :hasWarrantyInformation a owl:DatatypeProperty ;
     rdfs:isDefinedBy :cat ;
     skos:definition "Warranty information that applies to the catalogue line item. (epo-cat:CatalogueLine) "@en ;
@@ -728,16 +642,6 @@ WG approval 30/05/2023 (epo-cat:Certificate -> epo:Period (+epo:hasValidityPerio
     rdfs:isDefinedBy :cat ;
     skos:prefLabel "Is subordinated to contract"@en .
 
-:issuedByCertifier a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition """Relation indicating the Certifier responsible for providing the ItemCertificate.
-
-Additional Information:
-Certifier is a role played by an organisation.
-
-WG approval 26/07/2022 (epo-cat:Certificate -> epo-cat:Certifier (+epo-cat:issuedByCertifier)) """@en ;
-    skos:prefLabel "Issued by certifier"@en .
-
 :refersToCatalogue a owl:ObjectProperty ;
     rdfs:isDefinedBy :cat ;
     skos:definition """
@@ -777,21 +681,28 @@ The reference to the catalogue line is for information only, to trace the source
     rdfs:isDefinedBy :cat ;
     skos:prefLabel "Specifies seller"@en .
 
-:updatesCatalogue a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Relation indicating (epo-cat:CatalogueFragment -> epo-cat:Catalogue (+epo-cat:updatesCatalogue)) "@en ;
-    skos:prefLabel "Updates catalogue"@en .
-
 at-voc-new:activity-code a skos:ConceptScheme ;
     skos:definition """Waiting for code list.
+
+Code that defines how the line should be applied to an existing eCatalogue.
+
+Additional information:
+
+Catalogue:
+Legal codes on Catalogue header level:
+
+Add – Used when a catalogue is sent for the first time to the Catalogue Receiver referring to the contract in the header of the catalogue.
+Replace – Replaces the entire catalogue referring to the contract. This is the default action.
+Update – Updates a current catalogue.
+Delete – deletes the entire catalogue
+
+Catalogue lines:
+
+Add – Used to add items to the catalogue.
+Update – Used to update an item. The entire Catalogue Line is updated. Only used if Action code on header level is Update
+Delete – Used to delete an entire Catalogue line. Only used if Action code on header level is Update.
 """@en ;
     skos:prefLabel "Activity-code"@en .
-
-at-voc-new:certification-label-type a skos:ConceptScheme ;
-    skos:definition """* environmental/ecological/green, 
-* quality, 
-* social, etc."""@en ;
-    skos:prefLabel "Certification-label-type"@en .
 
 at-voc-new:dangerous-goods-list a skos:ConceptScheme ;
     skos:editorialNote """Will this ever be a controlled vocabulary? 
@@ -818,6 +729,8 @@ For example the list of possible Item types is available here: https://www.gs1.o
 at-voc-new:document-type a skos:ConceptScheme ;
     skos:definition """Peppol uses a Document Type code including the code list UNCL1001:
 
+https://docs.peppol.eu/poacc/upgrade-3/2022-Q4/codelist/UNCL1001_T01/
+
 https://docs.peppol.eu/poacc/upgrade-3/syntax/Catalogue/cac-CatalogueLine/cac-Item/cac-ItemSpecificationDocumentReference/cbc-DocumentTypeCode/
 https://docs.peppol.eu/poacc/upgrade-3/codelist/UNCL1001/
 https://docs.peppol.eu/poacc/upgrade-3/codelist/Image/"""@en ;
@@ -825,7 +738,9 @@ https://docs.peppol.eu/poacc/upgrade-3/codelist/Image/"""@en ;
 
 at-voc-new:item-classification a skos:ConceptScheme ;
     skos:definition """This reference stands for a context dependent controlled list:
-CPV, UNSPC, UNCL7143 (for ordering)"""@en ;
+CPV, UNSPC, UNCL7143 (for ordering)
+
+Needs to be aligned with eCatalogue in order to chose a codelist to be used."""@en ;
     skos:prefLabel "Item-classification"@en .
 
 at-voc-new:orderable-unit a skos:ConceptScheme ;
@@ -858,9 +773,6 @@ at-voc-new:transaction-conditions a skos:ConceptScheme ;
 """@en ;
     skos:editorialNote "Waiting for code list."@en ;
     skos:prefLabel "Transaction-conditions"@en .
-
-at-voc-new:vat-category a skos:ConceptScheme ;
-    skos:prefLabel "Vat-category"@en .
 
 dcterms:description a owl:DatatypeProperty ;
     skos:definition """An account of the resource.
@@ -952,15 +864,13 @@ adms:identifier a owl:ObjectProperty ;
     skos:definition "Links a resource to an adms:Identifier class. (epo-cat:Line -> adms:Identifier (+adms:identifier)) "@en ;
     skos:prefLabel "Identifier"@en .
 
-:Catalogue a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition """A Document describing a set of Items offered for purchase that can be processed in an electronic way.
-"""@en ;
-    skos:prefLabel "Catalogue"@en .
-
 :Line a owl:Class ;
     rdfs:isDefinedBy :cat ;
     skos:prefLabel "Line"@en .
+
+:PostAwardDocument a owl:Class ;
+    rdfs:isDefinedBy :cat ;
+    skos:prefLabel "Post award document"@en .
 
 :ItemRelation a owl:Class ;
     rdfs:isDefinedBy :cat ;
@@ -973,13 +883,13 @@ WG Approval: 30/06/2022
 :cat a owl:Ontology ;
     cc:attributionName "European Union" ;
     cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/EURUN> ;
-    dcterms:abstract "This artefact provides the ontology core specification." ;
+    dcterms:abstract "This artefact provides the ontology eCatalogue specification." ;
     dcterms:created ""^^xsd:date ;
-    dcterms:description "This module provides the definitions for the eProcurement ontology core.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
-    dcterms:issued "2023-08-09"^^xsd:date ;
+    dcterms:description "This module provides the definitions for the eCatalogue of eProcurement ontology.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
+    dcterms:issued "2023-09-12"^^xsd:date ;
     dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
     dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
-    dcterms:title "eProcurement Ontology - cat"@en ;
+    dcterms:title "eProcurement Ontology - eCatalogue"@en ;
     bibo:status "Semantic Specification Realease" ;
     vann:preferredNamespacePrefix "epo-cat" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
@@ -1004,5 +914,5 @@ WG Approval: 30/06/2022
     owl:priorVersion "3.1.0" ;
     owl:versionIRI :cat-4.0.0 ;
     owl:versionInfo "4.0.0" ;
-    skos:changeNote "This version is automatically generated from eCatalogue_CM.xml on 2023-08-09" .
+    skos:changeNote "This version is automatically generated from eCatalogue_CM.xml on 2023-09-12" .
 

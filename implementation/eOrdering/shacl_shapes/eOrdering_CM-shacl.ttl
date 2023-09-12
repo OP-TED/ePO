@@ -1,5 +1,6 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix at-voc: <http://publications.europa.eu/resource/authority/> .
+@prefix at-voc-new: <http://publications.europa.eu/resource/authority/new/> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
@@ -14,14 +15,6 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-ord-shape:at-voc-new-ResponseStatus rdfs:comment """Should we conceive that an order line is included in the Order Reponse? 
-
-https://docs.peppol.eu/poacc/upgrade-3/codelist/UNCL1229/""" .
-
-ord-shape:at-voc-new-document-type rdfs:comment """We need codes for: https://docs.peppol.eu/poacc/upgrade-3/2022-Q4/codelist/UNCL1001_T01/
-
-220 code is plain Order.""" .
 
 ord-shape:epo-ord-AllowanceChargeInformation a sh:NodeShape ;
     rdfs:label "Allowance charge information" ;
@@ -143,19 +136,24 @@ The Order Response is used to inform on the acceptance or rejection of an Order 
 WG approval 20/04/2023
 """,
         """If contractually agreed, the Seller also may respond to the order, changing details that are acceptable by the Buyer.
--- If an order is accepted with change, the buyer and seller need to have an agreement between them regarding the processing of the changed order, i.e when is a contract concluded and when can the items be shipped.
+-- If an order is accepted with change, the buyer and seller need to have an agreement between them regarding the processing of the changed order, i.e. when is a contract concluded and when can the items be shipped.
 
 Proposal: 
-If the order  response is "Change" then the Buyer will create (instanciate) a new order implementing the changes and superseding the previously sent order. """,
-        """Should we conceive that an order line is included in the Order Reponse? 
-
-https://docs.peppol.eu/poacc/upgrade-3/codelist/UNCL1229/""" ;
+If the order  response is "Change" then the Buyer will create (instantiate) a new order implementing the changes and superseding the previously sent order. """ ;
     rdfs:isDefinedBy ord-shape:ord-shape ;
     sh:property ord-shape:epo-ord-OrderResponse-epo-ord-comprisesOrderResponseLine,
         ord-shape:epo-ord-OrderResponse-epo-ord-hasResponseDescription,
         ord-shape:epo-ord-OrderResponse-epo-ord-isSubmittedForOrder,
+        ord-shape:epo-ord-OrderResponse-epo-ord-specifiesOrderResponseInformation,
         ord-shape:epo-ord-OrderResponse-epo-ord-specifiesSeller ;
     sh:targetClass :OrderResponse .
+
+ord-shape:epo-ord-OrderResponseInformation a sh:NodeShape ;
+    rdfs:label "Order response information" ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:property ord-shape:epo-ord-OrderResponseInformation-epo-ord-hasAcceptanceStatus,
+        ord-shape:epo-ord-OrderResponseInformation-epo-ord-isSpecificToOrderResponseLine ;
+    sh:targetClass :OrderResponseInformation .
 
 ord-shape:epo-ord-OrderResponseLine a sh:NodeShape ;
     rdfs:label "Order response line" ;
@@ -228,4 +226,304 @@ WG approval 25/04/2023
     sh:property ord-shape:epo-ord-TaxInformation-dct-description,
         ord-shape:epo-ord-TaxInformation-epo-cat-hasPercentage ;
     sh:targetClass :TaxInformation .
+
+ord-shape:epo-ord-AllowanceChargeInformation-epo-cat-hasPercentage a sh:PropertyShape ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:datatype xsd:decimal ;
+    sh:description """The factor relative to the price charged in addition.
+
+WG approval 26/07/2022""" ;
+    sh:maxCount 1 ;
+    sh:name "Has percentage" ;
+    sh:path :hasPercentage .
+
+ord-shape:epo-ord-AllowanceChargeInformation-epo-ful-hasAllowanceChargeReasonDescription a sh:PropertyShape ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:datatype rdf:PlainLiteral ;
+    sh:name "Has allowance charge reason description" ;
+    sh:path :hasAllowanceChargeReasonDescription .
+
+ord-shape:epo-ord-AllowanceChargeInformation-epo-ord-hasTaxInformation a sh:PropertyShape ;
+    sh:class :TaxInformation ;
+    sh:maxCount 1 ;
+    sh:name "Has tax information" ;
+    sh:path :hasTaxInformation ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTaxInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTaxInformation> ?this .} " ] .
+
+ord-shape:epo-ord-AllowanceInformation-epo-ord-isSpecificToOrderLine a sh:PropertyShape ;
+    sh:class :OrderLine ;
+    sh:description """Information that is particular to one or multiple Order Lines.
+""" ;
+    sh:name "Is specific to order line" ;
+    sh:path :isSpecificToOrderLine ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ] .
+
+ord-shape:epo-ord-ContractInformation-epo-ord-isSpecificToOrderLine a sh:PropertyShape ;
+    sh:class :OrderLine ;
+    sh:description "Information that is particular to one or multiple Order Lines." ;
+    sh:name "Is specific to order line" ;
+    sh:path :isSpecificToOrderLine ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ] .
+
+ord-shape:epo-ord-DeliveryAgreement-dct-description a sh:PropertyShape ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:datatype rdf:PlainLiteral ;
+    sh:description """An account of the resource.
+
+Additional Information:
+Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
+
+WG Approval 30/05/2023""" ;
+    sh:name "Description" ;
+    sh:path dcterms:description .
+
+ord-shape:epo-ord-DeliveryInformation-epo-ord-concernsConsignee a sh:PropertyShape ;
+    sh:class :Consignee ;
+    sh:maxCount 1 ;
+    sh:name "Concerns consignee" ;
+    sh:path :concernsConsignee ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsConsignee> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsConsignee> ?this .} " ] .
+
+ord-shape:epo-ord-DeliveryInformation-epo-ord-hasDeliveryDeadline a sh:PropertyShape ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:datatype xsd:dateTime ;
+    sh:maxCount 1 ;
+    sh:name "Has delivery deadline" ;
+    sh:path :hasDeliveryDeadline .
+
+ord-shape:epo-ord-DeliveryInformation-epo-ord-hasShippingMark a sh:PropertyShape ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:datatype rdf:PlainLiteral ;
+    sh:name "Has shipping mark" ;
+    sh:path :hasShippingMark .
+
+ord-shape:epo-ord-DeliveryInformation-epo-ord-isSpecificToOrderLine a sh:PropertyShape ;
+    sh:class :OrderLine ;
+    sh:description "Information that is particular to one or multiple Order Lines." ;
+    sh:name "Is specific to order line" ;
+    sh:path :isSpecificToOrderLine ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ] .
+
+ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesGeneralDeliveryAgreement a sh:PropertyShape ;
+    sh:class :DeliveryAgreement ;
+    sh:maxCount 1 ;
+    sh:name "Specifies general delivery agreement" ;
+    sh:path :specifiesGeneralDeliveryAgreement ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesGeneralDeliveryAgreement> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesGeneralDeliveryAgreement> ?this .} " ] .
+
+ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesSpecificDeliveryAgreement a sh:PropertyShape ;
+    sh:class :DeliveryAgreement ;
+    sh:maxCount 1 ;
+    sh:name "Specifies specific delivery agreement" ;
+    sh:path :specifiesSpecificDeliveryAgreement ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSpecificDeliveryAgreement> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSpecificDeliveryAgreement> ?this .} " ] .
+
+ord-shape:epo-ord-Order-epo-ord-comprisesOrderLine a sh:PropertyShape ;
+    sh:class :OrderLine ;
+    sh:minCount 1 ;
+    sh:name "Comprises order line" ;
+    sh:path :comprisesOrderLine ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?this .} " ] .
+
+ord-shape:epo-ord-Order-epo-ord-hasAccountingCost a sh:PropertyShape ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:datatype rdf:PlainLiteral ;
+    sh:description """The accounting reference used by the Buyer to specify the account to which the order and the corresponding invoice are booked. 
+
+WG approval 2023-01-26""" ;
+    sh:maxCount 1 ;
+    sh:name "Has accounting cost" ;
+    sh:path :hasAccountingCost .
+
+ord-shape:epo-ord-Order-epo-ord-hasCustomerReference a sh:PropertyShape ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:datatype xsd:boolean ;
+    sh:description """A supplementary reference for the order.
+
+Additional information:
+This information can be used for the buyer's internal processes.
+This reference can also be used in the invoice. 
+
+WG approval 2023-01-26""" ;
+    sh:maxCount 1 ;
+    sh:name "Has customer reference" ;
+    sh:path :hasCustomerReference .
+
+ord-shape:epo-ord-Order-epo-ord-hasPaymentTerm a sh:PropertyShape ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:datatype rdf:PlainLiteral ;
+    sh:maxCount 1 ;
+    sh:name "Has payment term" ;
+    sh:path :hasPaymentTerm .
+
+ord-shape:epo-ord-Order-epo-ord-specifiesAllowanceInformation a sh:PropertyShape ;
+    sh:class :AllowanceInformation ;
+    sh:name "Specifies allowance information" ;
+    sh:path :specifiesAllowanceInformation ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesAllowanceInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesAllowanceInformation> ?this .} " ] .
+
+ord-shape:epo-ord-Order-epo-ord-specifiesContractInformation a sh:PropertyShape ;
+    sh:class :ContractInformation ;
+    sh:description """
+""" ;
+    sh:name "Specifies contract information" ;
+    sh:path :specifiesContractInformation ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?this .} " ] .
+
+ord-shape:epo-ord-Order-epo-ord-specifiesDeliveryInformation a sh:PropertyShape ;
+    sh:class :DeliveryInformation ;
+    sh:minCount 1 ;
+    sh:name "Specifies delivery information" ;
+    sh:path :specifiesDeliveryInformation ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?this .} " ] .
+
+ord-shape:epo-ord-Order-epo-ord-specifiesOriginatorInformation a sh:PropertyShape ;
+    sh:class :OriginatorInformation ;
+    sh:maxCount 1 ;
+    sh:name "Specifies originator information" ;
+    sh:path :specifiesOriginatorInformation ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesOriginatorInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesOriginatorInformation> ?this .} " ] .
+
+ord-shape:epo-ord-Order-epo-specifiesSeller a sh:PropertyShape ;
+    sh:class :Seller ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Specifies seller" ;
+    sh:path :specifiesSeller ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .} " ] .
+
+ord-shape:epo-ord-OrderResponse-epo-ord-comprisesOrderResponseLine a sh:PropertyShape ;
+    sh:class :OrderResponseLine ;
+    sh:name "Comprises order response line" ;
+    sh:path :comprisesOrderResponseLine ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesOrderResponseLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesOrderResponseLine> ?this .} " ] .
+
+ord-shape:epo-ord-OrderResponse-epo-ord-hasResponseDescription a sh:PropertyShape ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:datatype rdf:PlainLiteral ;
+    sh:description "Response clarification of the Supplier decision. " ;
+    sh:maxCount 1 ;
+    sh:name "Has response description" ;
+    sh:path :hasResponseDescription .
+
+ord-shape:epo-ord-OrderResponse-epo-ord-isSubmittedForOrder a sh:PropertyShape ;
+    sh:class :Order ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Is submitted for order" ;
+    sh:path :isSubmittedForOrder ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForOrder> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForOrder> ?this .} " ] .
+
+ord-shape:epo-ord-OrderResponse-epo-ord-specifiesOrderResponseInformation a sh:PropertyShape ;
+    sh:class :OrderResponseInformation ;
+    sh:name "Specifies order response information" ;
+    sh:path :specifiesOrderResponseInformation ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesOrderResponseInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesOrderResponseInformation> ?this .} " ] .
+
+ord-shape:epo-ord-OrderResponse-epo-ord-specifiesSeller a sh:PropertyShape ;
+    sh:class :Seller ;
+    sh:maxCount 1 ;
+    sh:name "Specifies seller" ;
+    sh:path :specifiesSeller ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .} " ] .
+
+ord-shape:epo-ord-OrderResponseInformation-epo-ord-hasAcceptanceStatus a sh:PropertyShape ;
+    sh:class at-voc-new:ResponseStatus ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Has acceptance status" ;
+    sh:path :hasAcceptanceStatus .
+
+ord-shape:epo-ord-OrderResponseInformation-epo-ord-isSpecificToOrderResponseLine a sh:PropertyShape ;
+    sh:class :OrderResponseLine ;
+    sh:name "Is specific to order response line" ;
+    sh:path :isSpecificToOrderResponseLine ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderResponseLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderResponseLine> ?this .} " ] .
+
+ord-shape:epo-ord-OrderResponseLine-epo-ord-isSubmittedForOrderLine a sh:PropertyShape ;
+    sh:class :OrderLine ;
+    sh:minCount 1 ;
+    sh:name "Is submitted for order line" ;
+    sh:path :isSubmittedForOrderLine ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForOrderLine> ?this .} " ] .
+
+ord-shape:epo-ord-OriginatorInformation-epo-ord-concernsOriginator a sh:PropertyShape ;
+    sh:class :Originator ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Concerns originator" ;
+    sh:path :concernsOriginator ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsOriginator> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsOriginator> ?this .} " ] .
+
+ord-shape:epo-ord-OriginatorInformation-epo-ord-isSpecificToOrderLine a sh:PropertyShape ;
+    sh:class :OrderLine ;
+    sh:description """Information that is particular to one or multiple Order Lines.
+""" ;
+    sh:name "Is specific to order line" ;
+    sh:path :isSpecificToOrderLine ;
+    sh:sparql [ sh:select " SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .} " ] .
+
+ord-shape:epo-ord-TaxInformation-dct-description a sh:PropertyShape ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:datatype rdf:PlainLiteral ;
+    sh:description """An account of the resource.
+
+Additional Information:
+Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource.
+
+WG Approval 30/05/2023
+""" ;
+    sh:maxCount 1 ;
+    sh:name "Description" ;
+    sh:path dcterms:description .
+
+ord-shape:epo-ord-TaxInformation-epo-cat-hasPercentage a sh:PropertyShape ;
+    rdfs:isDefinedBy ord-shape:ord-shape ;
+    sh:datatype xsd:decimal ;
+    sh:description """The factor relative to the price charged in addition.
+
+WG approval 26/07/2022
+""" ;
+    sh:maxCount 1 ;
+    sh:name "Has percentage" ;
+    sh:path :hasPercentage .
+
+ord-shape:ord-shape a owl:Ontology ;
+    cc:attributionName "European Union" ;
+    cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/EURUN> ;
+    dcterms:abstract "This artefact provides the datashape specification. " ;
+    dcterms:created ""^^xsd:date ;
+    dcterms:description "This module provides the definitions for the eOrdering of eProcurement ontology.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
+    dcterms:issued "2023-09-12"^^xsd:date ;
+    dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
+    dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
+    dcterms:title "eProcurement Ontology - eOrdering"@en ;
+    bibo:status "Semantic Specification Realease" ;
+    vann:preferredNamespacePrefix "epo-ord" ;
+    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
+    rdfs:seeAlso <https://docs.ted.europa.eu/EPO/latest/index.html>,
+        <https://github.com/eprocurementontology/eprocurementontology>,
+        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
+        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
+    owl:imports :ord,
+        :ord-restriction,
+        cccev:,
+        <http://data.europa.eu/nuts>,
+        at-voc:,
+        dcterms:,
+        <http://www.opengis.net/ont/geosparql>,
+        <http://www.w3.org/2004/02/skos/core>,
+        <http://www.w3.org/2006/time>,
+        <http://www.w3.org/ns/adms>,
+        <http://www.w3.org/ns/locn>,
+        org:,
+        <http://www.w3.org/ns/person>,
+        foaf:,
+        <https://data.europa.eu/m8g/> ;
+    owl:incompatibleWith "3.1.0" ;
+    owl:priorVersion "3.1.0" ;
+    owl:versionIRI ord-shape:ord-shape-4.0.0 ;
+    owl:versionInfo "4.0.0" ;
+    skos:changeNote """This version is automatically generated from eOrdering_CM.xml on 
+                2023-09-12""" .
 

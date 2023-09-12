@@ -27,6 +27,9 @@
 :concernsOriginatorRequest rdfs:domain :OriginatorInformation ;
     rdfs:range :OriginatorRequest .
 
+:hasAcceptanceStatus rdfs:domain :OrderResponseInformation ;
+    rdfs:range skos:Concept .
+
 :hasAllowanceChargeReason rdfs:domain :AllowanceChargeInformation ;
     rdfs:range skos:Concept .
 
@@ -40,11 +43,9 @@
 :hasAmountDueForPayment rdfs:domain :Order ;
     rdfs:range :MonetaryValue .
 
-:hasDeliveryPeriod rdfs:domain :DeliveryInformation ;
+:hasDeliveryPeriod rdfs:domain [ a owl:Class ;
+            owl:unionOf ( :DeliveryInformation :OrderResponseInformation ) ] ;
     rdfs:range :Period .
-
-:hasDocumentType rdfs:domain :Document ;
-    rdfs:range skos:Concept .
 
 :hasPrepaidAmount rdfs:domain :Order ;
     rdfs:range :MonetaryValue .
@@ -88,9 +89,6 @@
 :hasTrackingID rdfs:domain :DeliveryInformation ;
     rdfs:range adms:Identifier .
 
-:hasVATCategory rdfs:domain :TaxInformation ;
-    rdfs:range skos:Concept .
-
 :implementsContract rdfs:domain :OrderResponse ;
     rdfs:range :Contract .
 
@@ -102,16 +100,19 @@
             owl:unionOf ( :OriginatorInformation :ContractInformation :DeliveryInformation :AllowanceInformation :ChargeInformation ) ] ;
     rdfs:range :OrderLine .
 
+:isSpecificToOrderResponseLine rdfs:domain :OrderResponseInformation ;
+    rdfs:range :OrderResponseLine .
+
 :ord-restriction a owl:Ontology ;
     cc:attributionName "European Union" ;
     cc:attributionURL <http://publications.europa.eu/resource/authority/corporate-body/EURUN> ;
-    dcterms:abstract "This artefact provides the ontology extention with restrictions and inference-relaated specification." ;
+    dcterms:abstract "This artefact provides the ontology extension with restrictions and inference-related specification." ;
     dcterms:created ""^^xsd:date ;
-    dcterms:description "This module provides the definitions for the eProcurement ontology core.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
-    dcterms:issued "2023-08-09"^^xsd:date ;
+    dcterms:description "This module provides the definitions for the eOrdering of eProcurement ontology.         Procurement data has been identified as data with a high-reuse potential.         Given the increasing importance of data standards for eProcurement, a number of initiatives         driven by the public sector, the industry and academia have been kick-started in recent years.         Some have grown organically, while others are the result of standardisation work.         The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,         and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.         This creates the need for a common data standard for publishing procurement data, hence allowing data         from different sources to be easily accessed and linked, and consequently reused."@en ;
+    dcterms:issued "2023-09-12"^^xsd:date ;
     dcterms:license <http://creativecommons.org/licenses/by-sa/4.0> ;
     dcterms:rights "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents         (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the         CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided         that appropriate credit is given and any changes are indicated." ;
-    dcterms:title "eProcurement Ontology - ord"@en ;
+    dcterms:title "eProcurement Ontology - eOrdering"@en ;
     bibo:status "Semantic Specification Realease" ;
     vann:preferredNamespacePrefix "epo-ord" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
@@ -138,7 +139,7 @@
     owl:versionIRI :ord-restriction-4.0.0 ;
     owl:versionInfo "4.0.0" ;
     skos:changeNote """This version is automatically generated from eOrdering_CM.xml on 
-                2023-08-09""" .
+                2023-09-12""" .
 
 :refersToCatalogue rdfs:domain :Order ;
     rdfs:range :Catalogue .
@@ -180,6 +181,9 @@
 :specifiesDespatcher rdfs:domain :Order ;
     rdfs:range :Despatcher .
 
+:specifiesOrderResponseInformation rdfs:domain :OrderResponse ;
+    rdfs:range :OrderResponseInformation .
+
 :specifiesOriginator rdfs:domain :DespatchAdvice ;
     rdfs:range :Originator .
 
@@ -212,7 +216,7 @@
     rdfs:range rdf:PlainLiteral .
 
 :hasTaxInformation rdfs:domain [ a owl:Class ;
-            owl:unionOf ( :Tender :AllowanceChargeInformation :Item :Contract ) ] ;
+            owl:unionOf ( :AllowanceChargeInformation :Item :Contract ) ] ;
     rdfs:range :TaxInformation .
 
 :isSubmittedForOrder a owl:FunctionalProperty ;
@@ -240,19 +244,9 @@ at-voc-new:ResponseStatus a owl:Class ;
             owl:hasValue at-voc-new:ResponseStatus ;
             owl:onProperty skos:inScheme ] .
 
-at-voc-new:document-type a owl:Class ;
-    rdfs:subClassOf skos:Concept ;
-    owl:equivalentClass [ a owl:Restriction ;
-            owl:hasValue at-voc-new:document-type ;
-            owl:onProperty skos:inScheme ] .
-
 dcterms:description rdfs:domain [ a owl:Class ;
             owl:unionOf ( :TaxInformation :DeliveryAgreement ) ] ;
     rdfs:range rdf:PlainLiteral .
-
-:OrderResponseLine rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :isSubmittedForOrderLine ] .
 
 :hasPercentage rdfs:domain [ a owl:Class ;
             owl:unionOf ( :TaxInformation :AllowanceChargeInformation ) ] ;
@@ -263,6 +257,10 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:unionOf ( :Catalogue :Order ) ],
         :OrderResponse ;
     rdfs:range :Seller .
+
+:OrderResponseLine rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty :isSubmittedForOrderLine ] .
 
 :DeliveryAgreement a owl:Class .
 
@@ -279,26 +277,26 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:onProperty :hasTaxInformation ] .
 
 :OrderResponse rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :specifiesSeller ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty :isSubmittedForOrder ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasResponseDescription ] .
+            owl:onProperty :hasResponseDescription ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :specifiesSeller ] .
 
 :TaxInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty dcterms:description ],
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasPercentage ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasPercentage ] .
+            owl:onProperty dcterms:description ] .
 
 :DeliveryInformation rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :specifiesGeneralDeliveryAgreement ],
+            owl:onProperty :concernsConsignee ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :specifiesSpecificDeliveryAgreement ],
@@ -307,27 +305,27 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:onProperty :hasDeliveryDeadline ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :concernsConsignee ] .
+            owl:onProperty :specifiesGeneralDeliveryAgreement ] .
 
 :Order rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasPaymentTerm ],
+            owl:onProperty :hasAccountingCost ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :specifiesOriginatorInformation ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :comprisesOrderLine ],
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasPaymentTerm ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty :specifiesSeller ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasCustomerReference ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasAccountingCost ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty :specifiesDeliveryInformation ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :specifiesSeller ] .
+            owl:minCardinality 1 ;
+            owl:onProperty :comprisesOrderLine ] .
 
