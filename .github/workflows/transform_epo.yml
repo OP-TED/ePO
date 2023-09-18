@@ -5,12 +5,12 @@ on:
       - "**"
       - "!demo"
     paths:
-      - "implementation/Core/xmi_conceptual_model/ePO_Core.xml"
-      - "implementation/Catalogue/xmi_conceptual_model/ePO_Catalogue.xml"
-      - "implementation/Notice/xmi_conceptual_model/ePO_Notice.xml"
-      - "implementation/Ordering/xmi_conceptual_model/ePO_Ordering.xml"
-      - "implementation/Fulfilment/xmi_conceptual_model/ePO_Fulfilment.xml"
-      - "implementation/Contract/xmi_conceptual_model/ePO_Contract.xml"
+      - "implementation/ePO_core/xmi_conceptual_model/ePO_core.xml"
+      - "implementation/eCatalogue/xmi_conceptual_model/eCatalogue.xml"
+      - "implementation/eNotice/xmi_conceptual_model/eNotice.xml"
+      - "implementation/eOrdering/xmi_conceptual_model/eOrdering.xml"
+      - "implementation/eFulfilment/xmi_conceptual_model/eFulfilment.xml"
+      - "implementation/eContract/xmi_conceptual_model/eContract.xml"
 jobs:
   report_and_glossary:
     runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ jobs:
 
       - name: get model2owl
         run: |
-          git clone --branch 2.1.4 https://github.com/OP-TED/model2owl.git
+          git clone --branch master https://github.com/OP-TED/model2owl.git
           pwd
 
       - name: get-saxon
@@ -32,7 +32,7 @@ jobs:
 
       - name: generate convention report and glossary
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(Ordering Fulfilment Catalogue Notice Contract Core)
+          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice eContract ePO_core)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             echo "-------------------${implementation}---------------------------------"
@@ -40,7 +40,7 @@ jobs:
             cat model2owl/config-proxy.xsl
 
 
-            CM_FILE_NAME=$(echo "ePO_${implementation}.xml")
+            CM_FILE_NAME=$(echo "${implementation}.xml")
             CM_FILE_PATH=$(echo "implementation/$implementation/xmi_conceptual_model/${CM_FILE_NAME}")
 
             OUTPUT_CONVENTION_REPORT_PATH=$(echo "implementation/$implementation/conventions_report/")
@@ -65,16 +65,16 @@ jobs:
 
       - name: merge implementations xmi files into one
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(Ordering Fulfilment Catalogue Notice Contract Core)
+          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice eContract ePO_core)
           cd model2owl
           mkdir -p merge-xmis
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
-            cp ../implementation/$implementation/xmi_conceptual_model/ePO_*.xml merge-xmis
+            cp ../implementation/$implementation/xmi_conceptual_model/e*.xml merge-xmis
           done
           ls merge-xmis
 
-          make merge-xmi FIRST_XMI_TO_BE_MERGED_FILE_PATH=merge-xmis/ePO_Core.xml MERGED_XMIS_FILE_NAME=ePO_combined.xmi
+          make merge-xmi FIRST_XMI_TO_BE_MERGED_FILE_PATH=merge-xmis/ePO_core.xml MERGED_XMIS_FILE_NAME=ePO_combined.xmi
 
           echo "merged XMI file"
           ls output/combined-xmi
@@ -82,7 +82,7 @@ jobs:
 
       - name: change config to core
         run: |
-          sed -i "s/test\/ePO-default-config/..\/implementation\/Core\/model2owl-config/g" model2owl/config-proxy.xsl
+          sed -i "s/test\/ePO-default-config/..\/implementation\/ePO_core\/model2owl-config/g" model2owl/config-proxy.xsl
           cat model2owl/config-proxy.xsl
 
       - name: generate combined glossary from the merged xmi
@@ -134,7 +134,7 @@ jobs:
 
       - name: get model2owl
         run: |
-          git clone --branch 2.1.4 https://github.com/OP-TED/model2owl.git
+          git clone --branch master https://github.com/OP-TED/model2owl.git
           pwd
 
       - name: get-saxon
@@ -145,7 +145,7 @@ jobs:
 
       - name: transform step
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(Ordering Fulfilment Catalogue Notice Contract Core)
+          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice eContract ePO_core)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             echo "-------------------${implementation} transform---------------------------------"
@@ -153,7 +153,7 @@ jobs:
             cat model2owl/config-proxy.xsl
 
 
-            CM_FILE_NAME=$(echo "ePO_${implementation}.xml")
+            CM_FILE_NAME=$(echo "${implementation}.xml")
             CM_FILE_PATH=$(echo "implementation/$implementation/xmi_conceptual_model/${CM_FILE_NAME}")
             OUTPUT_PATH_OWL=$(echo "implementation/$implementation/owl_ontology/")
             OUTPUT_PATH_SHACL=$(echo "implementation/$implementation/shacl_shapes/")
@@ -172,9 +172,9 @@ jobs:
             make shacl XMI_INPUT_FILE_PATH=../$CM_FILE_PATH OUTPUT_FOLDER_PATH=../$OUTPUT_PATH_SHACL
 
             echo "+++++++++++++++++transform to turtle++++++++++++++++++++++++++++"
-            echo $(ls ${OUTPUT_PATH_OWL}/*.rdf)
+            echo $(ls ${OUTPUT_PATH_OWL}*.rdf)
             make convert-rdf-to-turtle ONTOLOGY_FOLDER_PATH=../$OUTPUT_PATH_OWL
-            echo $(ls ${OUTPUT_PATH_SHACL}/*.rdf)
+            echo $(ls ${OUTPUT_PATH_SHACL}*.rdf)
             make convert-rdf-to-turtle ONTOLOGY_FOLDER_PATH=../$OUTPUT_PATH_SHACL
             echo "-------------------end transform---------------------------------"
 
