@@ -96,34 +96,34 @@
     <!--    This section contains the variables used to build the ontology metadata-->
     <xsl:variable name="moduleReference" select="'core'"/>
     <!--    dct:title -->
-    <xsl:variable name="ontologyTitle" select="'eProcurement Ontology - core'"/>
+    <xsl:variable name="ontologyTitleCore" select="'ePO Core core'"/>
+    <xsl:variable name="ontologyTitleRestrictions" select="'ePO Core restrictions'"/>
+    <xsl:variable name="ontologyTitleShapes" select="'ePO Core shapes'"/>
     <!--    dct:description-->
-    <xsl:variable name="ontologyDescription"
+    <xsl:variable name="ontologyDescriptionCore"
         select="
-            'This module provides the definitions for the eProcurement ontology core.
-        Procurement data has been identified as data with a high-reuse potential.
-        Given the increasing importance of data standards for eProcurement, a number of initiatives
-        driven by the public sector, the industry and academia have been kick-started in recent years.
-        Some have grown organically, while others are the result of standardisation work.
-        The vocabularies and the semantics that they are introducing, the phases of public procurement that they are covering,
-        and the technologies that they are using all differ. These differences hamper data interoperability and thus its reuse by them or by the wider public.
-        This creates the need for a common data standard for publishing procurement data, hence allowing data
-        from different sources to be easily accessed and linked, and consequently reused.'"/>
-    <!--    dct:abstract-->
-    <xsl:variable name="abstractCore"
-        select="'This artefact provides the ontology core specification.'"/>
-    <xsl:variable name="abstractResctrictions"
-        select="'This artefact provides the ontology extension with restrictions and inference-related specification.'"/>
-    <xsl:variable name="abstractShapes"
-        select="'This artefact provides the datashape specification. '"/>
+            'This artefact provides the definitions for the eProcurement Ontology Core.
+            This artefact excludes the restrictions.
+            The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+            The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency.'"/>
+    <xsl:variable name="ontologyDescriptionRestrictions"
+        select="
+            'This artefact provides the restrictions and inference-related specifications for the eProcurement Ontology Core.
+            This artefact excludes the definitions of concepts.
+            The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+            The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency.'"/>
+    <xsl:variable name="ontologyDescriptionShapes"
+        select="
+            'This artefact provides the generic datashape specifications for the eProcurement Ontology Core.
+            The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+            The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency.'"/>
     <!--    rdfs:seeAlso -->
     <xsl:variable name="seeAlsoResources"
         select="
-            ('https://github.com/eprocurementontology/eprocurementontology',
-            'https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about', 'https://op.europa.eu/en/web/eu-vocabularies/e-procurement',
-            'https://docs.ted.europa.eu/EPO/latest/index.html')"/>
-    <!--    dct:created-->
-    <xsl:variable name="createdDate" select="''"/>
+            ('https://github.com/OP-TED/ePO/releases',
+            'https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about',
+            'https://op.europa.eu/en/web/eu-vocabularies/e-procurement',
+            'https://docs.ted.europa.eu/home/index.html')"/>
     <!--    dct:issued-->
     <xsl:variable name="issuedDate" select="format-date(current-date(), '[Y0001]-[M01]-[D01]')"/>
     <!--    owl:incompatibleWith -->
@@ -131,20 +131,21 @@
     <!--    owl:versionInfo -->
     <xsl:variable name="versionInfo" select="'4.0.0'"/>
     <!--    bibo:status-->
-    <xsl:variable name="ontologyStatus" select="'Semantic Specification Realease'"/>
+    <xsl:variable name="ontologyStatus" select="'Semantic Specification Release'"/>
     <!--    owl:priorVersion -->
     <xsl:variable name="priorVersion" select="'3.1.0'"/>
     <!--    vann:preferredNamespaceUri -->
     <xsl:variable name="preferredNamespaceUri" select="'http://data.europa.eu/a4g/ontology#'"/>
     <!--    vann:preferredNamespacePrefix -->
     <xsl:variable name="preferredNamespacePrefix" select="'epo'"/>
-
-        <xsl:variable name="rightsLiteral" select="'The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents
-        (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the
-        CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided
-        that appropriate credit is given and any changes are indicated.'"/>
-    <xsl:variable name="licenseURI" select="'http://creativecommons.org/licenses/by-sa/4.0'"/>
+    <!--    dct:rights-->
+    <xsl:variable name="rightsLiteral" select="'© European Union, 2014
+            Unless otherwise noted, the reuse of the Ontology is authorised under the Licence ISA Open Metadata Licence v1.111.'"/>
+    <!--    dct:license-->
+    <xsl:variable name="licenseURI" select="'ISA Open Metadata Licence v1.1 | Joinup (europa.eu)'"/>
+    <!--    cc:attributionName-->
     <xsl:variable name="attributionNameLiteral" select="'European Union'"/>
+    <!--    cc:attributionURL-->
     <xsl:variable name="attributionURL" select="'http://publications.europa.eu/resource/authority/corporate-body/EURUN'"/>
     <!--    dct:publisher-->
     <xsl:variable name="publisher" select="'http://publications.europa.eu/resource/authority/corporate-body/PUBL'"/>
