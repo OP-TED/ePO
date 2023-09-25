@@ -142,7 +142,7 @@
     <xsl:variable name="rightsLiteral" select="'© European Union, 2014
             Unless otherwise noted, the reuse of the Ontology is authorised under the Licence ISA Open Metadata Licence v1.111.'"/>
     <!--    dct:license-->
-    <xsl:variable name="licenseURI" select="'ISA Open Metadata Licence v1.1 | Joinup (europa.eu)'"/>
+    <xsl:variable name="licenseURI" select="'https://joinup.ec.europa.eu/licence/isa-open-metadata-licence-v11'"/>
     <!--    cc:attributionName-->
     <xsl:variable name="attributionNameLiteral" select="'European Union'"/>
     <!--    cc:attributionURL-->
