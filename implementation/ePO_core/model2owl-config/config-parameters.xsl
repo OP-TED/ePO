@@ -80,7 +80,7 @@
     <xsl:variable name="generateReusedConcepts" select="fn:true()"/>
 
 
-    <xsl:variable name="reference-to-external-classes-in-glossary" select="fn:true()"/>
+    <xsl:variable name="reference-to-external-classes-in-glossary" select="fn:false()"/>
 
     <xsl:variable name="generateObjectsAndRealisations" select="fn:false()"/>
 
