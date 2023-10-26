@@ -138,15 +138,11 @@
     <xsl:variable name="preferredNamespaceUri" select="'http://data.europa.eu/a4g/ontology#'"/>
     <!--    vann:preferredNamespacePrefix -->
     <xsl:variable name="preferredNamespacePrefix" select="'epo'"/>
-    <!--    dct:rights-->
-    <xsl:variable name="rightsLiteral" select="'© European Union, 2014
-            Unless otherwise noted, the reuse of the Ontology is authorised under the Licence ISA Open Metadata Licence v1.111.'"/>
     <!--    dct:license-->
-    <xsl:variable name="licenseURI" select="'https://joinup.ec.europa.eu/licence/isa-open-metadata-licence-v11'"/>
-    <!--    cc:attributionName-->
-    <xsl:variable name="attributionNameLiteral" select="'European Union'"/>
-    <!--    cc:attributionURL-->
-    <xsl:variable name="attributionURL" select="'http://publications.europa.eu/resource/authority/corporate-body/EURUN'"/>
+    <xsl:variable name="licenseLiteral" select="'© European Union, 2014
+    Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/).'"/>
+    <!--    dct:created-->
+    <xsl:variable name="createdDate" select="'2021-06-01'"/>
     <!--    dct:publisher-->
     <xsl:variable name="publisher" select="'http://publications.europa.eu/resource/authority/corporate-body/PUBL'"/>
 </xsl:stylesheet>
