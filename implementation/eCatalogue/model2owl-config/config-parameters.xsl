@@ -96,27 +96,16 @@
     <!--    This section contains the variables used to build the ontology metadata-->
     <xsl:variable name="moduleReference" select="'cat'"/>
     <!--    dct:title -->
-    <xsl:variable name="ontologyTitleCore" select="'ePO Catalogue core'"/>
-    <xsl:variable name="ontologyTitleRestrictions" select="'ePO Catalogue restrictions'"/>
-    <xsl:variable name="ontologyTitleShapes" select="'ePO Catalogue shapes'"/>
+    <xsl:variable name="ontologyTitleCore" select="'eProcurement Ontology Catalogue - core'"/>
+    <xsl:variable name="ontologyTitleRestrictions" select="'eProcurement Ontology Catalogue - core restrictions'"/>
+    <xsl:variable name="ontologyTitleShapes" select="'eProcurement Ontology Catalogue - core shapes'"/>
     <!--    dct:description-->
     <xsl:variable name="ontologyDescriptionCore"
-        select="
-            'This artefact provides the definitions for the eProcurement Ontology Catalogue module.
-            This artefact excludes the restrictions.
-            The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
-            The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency.'"/>
+        select="'The eProcurement Ontology Catalogue core describes the concepts and properties representing the European Public Procurement Catalogue domain. The provision of these semantics offers the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency. The ontology restrictions are published in a separate artefact.'"/>
     <xsl:variable name="ontologyDescriptionRestrictions"
-        select="
-            'This artefact provides the restrictions and inference-related specifications for the eProcurement Ontology Catalogue module.
-            This artefact excludes the definitions of concepts.
-            The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
-            The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency.'"/>
+        select="'The eProcurement Ontology Catalogue core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Catalogue core.'"/>
     <xsl:variable name="ontologyDescriptionShapes"
-        select="
-            'This artefact provides the generic datashape specifications for the eProcurement Ontology Catalogue module.
-            The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
-            The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency.'"/>
+        select="'The eProcurement Ontology Catalogue core shapes provides the generic datashape specifications for the eProcurement Ontology Catalogue core.''"/>
     <!--    rdfs:seeAlso -->
     <xsl:variable name="seeAlsoResources"
         select="
@@ -139,8 +128,7 @@
     <!--    vann:preferredNamespacePrefix -->
     <xsl:variable name="preferredNamespacePrefix" select="'epo'"/>
     <!--    dct:license-->
-    <xsl:variable name="licenseLiteral" select="'© European Union, 2014
-    Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/).'"/>
+    <xsl:variable name="licenseLiteral" select="'© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/).'"/>
     <!--    dct:created-->
     <xsl:variable name="createdDate" select="'2021-06-01'"/>
     <!--    dct:publisher-->
