@@ -102,15 +102,15 @@
 
 :ord-restriction a owl:Ontology ;
     dcterms:created "2021-06-01"^^xsd:date ;
-    dcterms:description "This artefact provides the restrictions and inference-related specifications for the eProcurement Ontology Ordering module.             This artefact excludes the definitions of concepts.             The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.             The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."@en ;
-    dcterms:issued "2023-10-26"^^xsd:date ;
-    dcterms:license "© European Union, 2014     Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+    dcterms:description "The eProcurement Ontology Ordering core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Ordering core."@en ;
+    dcterms:issued "2023-10-27"^^xsd:date ;
+    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
-    dcterms:title "ePO Ordering restrictions"@en ;
+    dcterms:title "eProcurement Ontology Ordering - core restrictions"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment """This version is automatically generated from eOrdering.xml on 
-                2023-10-26""" ;
+                2023-10-27""" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
@@ -118,6 +118,7 @@
     owl:imports :ord,
         cccev:,
         dcterms:,
+        vann:,
         <http://www.w3.org/2004/02/skos/core>,
         <http://www.w3.org/2006/time>,
         <http://www.w3.org/ns/adms>,
@@ -266,14 +267,14 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:onProperty :hasPercentage ] .
 
 :OrderResponse rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :isSubmittedForOrder ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :specifiesSeller ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasResponseDescription ] .
+            owl:onProperty :hasResponseDescription ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty :isSubmittedForOrder ] .
 
 :TaxInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -285,26 +286,26 @@ dcterms:description rdfs:domain [ a owl:Class ;
 
 :DeliveryInformation rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :specifiesSpecificDeliveryAgreement ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasDeliveryDeadline ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty :specifiesGeneralDeliveryAgreement ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :concernsConsignee ] .
+            owl:onProperty :concernsConsignee ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :specifiesSpecificDeliveryAgreement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasDeliveryDeadline ] .
 
 :Order rdfs:subClassOf [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty :specifiesDeliveryInformation ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :specifiesSeller ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasAccountingCost ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :specifiesOriginatorInformation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasCustomerReference ],
@@ -312,8 +313,8 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasPaymentTerm ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :specifiesOriginatorInformation ],
+            owl:cardinality 1 ;
+            owl:onProperty :specifiesSeller ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty :comprisesOrderLine ] .
