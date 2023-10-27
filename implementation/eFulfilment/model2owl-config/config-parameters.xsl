@@ -105,7 +105,7 @@
     <xsl:variable name="ontologyDescriptionRestrictions"
         select="'The eProcurement Ontology Fulfilment core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Fulfilment core.'"/>
     <xsl:variable name="ontologyDescriptionShapes"
-        select="'The eProcurement Ontology Fulfilment core shapes provides the generic datashape specifications for the eProcurement Ontology Fulfilment core.''"/>
+        select="'The eProcurement Ontology Fulfilment core shapes provides the generic datashape specifications for the eProcurement Ontology Fulfilment core.'"/>
     <!--    rdfs:seeAlso -->
     <xsl:variable name="seeAlsoResources"
         select="
