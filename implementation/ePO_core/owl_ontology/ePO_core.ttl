@@ -82,8 +82,10 @@ WG approval 14/11/2018"""@en ;
 :Awarder a owl:Class ;
     rdfs:isDefinedBy :core ;
     rdfs:subClassOf :AcquiringParty ;
-    skos:definition "A Role of an Agent that signs the Award Decision."@en ;
-    skos:editorialNote "BT-08 can be Awarding CBP; BG-03 is the Buyer. But Awarding CPB is not the same as the Buyer; the organisations may differ for these roles. Having the Awarder Role allows us to specify which Organisation is involved in the Award Decision."@en ;
+    skos:definition """A Role of an Agent that signs the Award Decision.
+
+Additional Information:
+BT-08 can be Awarding CBP; BG-03 is the Buyer. But Awarding CPB is not the same as the Buyer; the organisations may differ for these roles. Having the Awarder Role allows us to specify which Organisation is involved in the Award Decision."""@en ;
     skos:prefLabel "Awarder"@en .
 
 :AwardingCentralPurchasingBody a owl:Class ;
@@ -1638,7 +1640,7 @@ WG Approval 16/05/2023
     skos:definition """A role of any natural person(s) who ultimately owns or controls the organisation or on whose behalf a transaction or activity is being conducted.
 Additional Information:
 This role is defined in the directive EU 2015/849 and it's beyond the scope for public eProcurement domain.
-WG approval 14/09/2021 (epo:Business <-> cpv:Person (+epo:hasBeneficialOwner +epo:isBeneficialOwnerOf)) """@en ;
+WG approval 14/09/2021 (epo:Business <-> person:Person (+epo:hasBeneficialOwner +epo:isBeneficialOwnerOf)) """@en ;
     skos:prefLabel "Has beneficial owner"@en .
 
 :hasBroadPlaceOfPerformance a owl:ObjectProperty ;
@@ -1888,7 +1890,7 @@ WG Approval 11/06/2020
 :hasCountryOfBirth a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:definition """The country in which the Person was born.
- (cpv:Person -> at-voc:country (+epo:hasCountryOfBirth)) """@en ;
+ (person:Person -> at-voc:country (+epo:hasCountryOfBirth)) """@en ;
     skos:prefLabel "Has country of birth"@en .
 
 :hasCountryOfOrigin a owl:ObjectProperty ;
@@ -2842,7 +2844,7 @@ This corresponds in eForms to BT-200.
 :hasNationality a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:definition """
- (cpv:Person -> at-voc:country (+epo:hasNationality)) """@en ;
+ (person:Person -> at-voc:country (+epo:hasNationality)) """@en ;
     skos:prefLabel "Has nationality"@en .
 
 :hasNetMonetaryValue a owl:ObjectProperty ;
@@ -3994,7 +3996,7 @@ WG Acceptance 06/09/2022 (epo:Notice -> at-voc:legal-basis (+epo:isBasedOnImplem
     skos:definition """A role of any natural person(s) who ultimately owns or controls the organisation or on whose behalf a transaction or activity is being conducted.
 Additional Information:
 This role is defined in the directive EU 2015/849 and it's beyond the scope for public eProcurement domain.
-WG approval 14/09/2021 (epo:Business <-> cpv:Person (+epo:hasBeneficialOwner +epo:isBeneficialOwnerOf)) """@en ;
+WG approval 14/09/2021 (epo:Business <-> person:Person (+epo:hasBeneficialOwner +epo:isBeneficialOwnerOf)) """@en ;
     skos:prefLabel "Is beneficial owner of"@en .
 
 :isCalculatedOn a owl:ObjectProperty ;
@@ -4598,12 +4600,6 @@ The Contact Point could be a role, email address, telephone number, etc.
 WG approval 5/11/2019"""@en ;
     skos:prefLabel "Contact point"@en .
 
-cccev:Person a owl:Class ;
-    rdfs:subClassOf foaf:Person ;
-    skos:definition """A individual human being who may be dead or alive, but not imaginary.
-"""@en ;
-    skos:prefLabel "Person"@en .
-
 cccev:PublicOrganisation a owl:Class ;
     rdfs:subClassOf org:Organization ;
     skos:definition """An Organisation that is defined as being part of the public sector by a legal framework at any level.
@@ -4627,7 +4623,7 @@ The bias parameter tries to correct a systematic error. For example in procureme
     skos:prefLabel "Bias"@en .
 
 cccev:birthDate a owl:DatatypeProperty ;
-    skos:definition "The point in time on which the Person was born. (cpv:Person) "@en ;
+    skos:definition "The point in time on which the Person was born. (person:Person) "@en ;
     skos:prefLabel "Birth date"@en .
 
 cccev:confidentialityLevelType a owl:ObjectProperty ;
@@ -4668,7 +4664,7 @@ cccev:registeredAddress a owl:ObjectProperty ;
     skos:definition """The registered address relationship links a Resource with the legally registered Address.
 
 Additional Information:
-It is the address to which formal communications can be sent, such as the postal address. (cpv:Person -> locn:Address (+cv:registeredAddress)) The registered address relationship links a Resource with the legally registered Address.
+It is the address to which formal communications can be sent, such as the postal address. (person:Person -> locn:Address (+cv:registeredAddress)) The registered address relationship links a Resource with the legally registered Address.
 
 Additional Information:
 It is the address to which formal communications can be sent, such as the postal address.
@@ -4975,7 +4971,7 @@ dcterms:Location a owl:Class ;
 
 dcterms:alternative a owl:DatatypeProperty ;
     skos:definition """Any name by which an individual is known other than their full name.
-WG 09/11/2021 (cpv:Person) """@en ;
+WG 09/11/2021 (person:Person) """@en ;
     skos:prefLabel "Alternative"@en .
 
 dcterms:description a owl:DatatypeProperty ;
@@ -5146,7 +5142,7 @@ WG approval 30/05/2023 (cccev:Requirement) """@en ;
     skos:prefLabel "Pref label"@en .
 
 time:TemporalUnit a skos:ConceptScheme ;
-    skos:definition """standard duration, which provides the scale factor for a time extent, or the granularity or precision for a time position.
+    skos:definition """Standard duration, which provides the scale factor for a time extent, or the granularity or precision for a time position.
 """@en ;
     skos:prefLabel "Temporal unit"@en .
 
@@ -5363,36 +5359,34 @@ org:subOrganizationOf a owl:ObjectProperty ;
 WG 31/08/2023 (org:Organization -> org:Organization (+org:subOrganizationOf)) """@en ;
     skos:prefLabel "Sub organization of"@en .
 
+person:Person a owl:Class ;
+    rdfs:subClassOf foaf:Person ;
+    skos:definition """A individual human being who may be dead or alive, but not imaginary.
+"""@en ;
+    skos:prefLabel "Person"@en .
+
 person:birthName a owl:DatatypeProperty ;
     skos:definition """Family name of the Person given upon their birth.
-WG Approval 09/11/2021 (cpv:Person) """@en ;
+WG Approval 09/11/2021 (person:Person) """@en ;
     skos:prefLabel "Birth name"@en .
 
 person:patronymicName a owl:DatatypeProperty ;
     skos:definition """Name based on the given name of the Person's father.
-WG Approval 09/11/2021 (cpv:Person) """@en ;
+WG Approval 09/11/2021 (person:Person) """@en ;
     skos:prefLabel "Patronymic name"@en .
-
-person:placeOfBirth a owl:ObjectProperty ;
-    skos:definition "The Location where the Person was born. (cpv:Person -> dct:Location (+person:placeOfBirth)) "@en ;
-    skos:prefLabel "Place of birth"@en .
-
-person:placeOfDeath a owl:ObjectProperty ;
-    skos:definition "The Location where the Person died. (cpv:Person -> dct:Location (+person:placeOfDeath)) "@en ;
-    skos:prefLabel "Place of death"@en .
 
 foaf:familyName a owl:DatatypeProperty ;
     skos:definition """The hereditary surname of a family.
- (cpv:Person) """@en ;
+ (person:Person) """@en ;
     skos:prefLabel "Family name"@en .
 
 foaf:givenName a owl:DatatypeProperty ;
     skos:definition """The name(s) that identify the Person within a family with a common surname.
- (cpv:Person) """@en ;
+ (person:Person) """@en ;
     skos:prefLabel "Given name"@en .
 
 foaf:name a owl:DatatypeProperty ;
-    skos:definition "The complete name of the Person as one string. (cpv:Person) "@en ;
+    skos:definition "The complete name of the Person as one string. (person:Person) "@en ;
     skos:prefLabel "Name"@en .
 
 :involvesBuyer a owl:ObjectProperty ;
@@ -5411,8 +5405,6 @@ Lots may use ad-hoc electronic means of communication that are not generally ava
 See also Directive recitals 53 to 56.
 
 WG approval 2023-02-14"""@en ;
-    skos:editorialNote """based on eForms (BT-124) a Channel may differ per Lot
-based on standard forms, a channel may differ per procedure"""@en ;
     skos:prefLabel "Channel"@en .
 
 cccev:Criterion a owl:Class ;
@@ -5436,6 +5428,10 @@ cccev:InformationConcept a owl:Class ;
 cccev:hasRequirement a owl:ObjectProperty ;
     skos:definition "A more specific Requirement that is part of the Requirement. (cccev:Requirement -> cccev:Requirement (+cccev:hasRequirement)) "@en ;
     skos:prefLabel "Has requirement"@en .
+
+time:Duration a owl:Class ;
+    skos:definition "Duration of a temporal extent expressed as a number scaled by a temporal unit."@en ;
+    skos:prefLabel "Duration"@en .
 
 foaf:Person a owl:Class ;
     rdfs:subClassOf foaf:Agent ;
@@ -5485,6 +5481,7 @@ http://ontologydesignpatterns.org/wiki/Submissions:Context_Slices"""@en ;
 
 :Duration a owl:Class ;
     rdfs:isDefinedBy :core ;
+    rdfs:subClassOf time:Duration ;
     skos:definition "The length of time in which a concept occurs."@en ;
     skos:prefLabel "Duration"@en .
 
@@ -5550,7 +5547,6 @@ Additional information:
 This class corresponds to the BG-714 Review in eForms.
 
 """@en ;
-    skos:editorialNote "What are the entities that can be reviewed?"@en ;
     skos:prefLabel "Review object"@en .
 
 :isSubjectToTerm a owl:ObjectProperty ;
@@ -5566,9 +5562,6 @@ The classification of roles is based is based on the degree of involvement into 
 - Primary (Procurement) Pole is directly involved in the Procurement Process;
 - Secondary (Procurement sub-) Role is secondary to the Procurement Process
 - Tertiary (Related) Role is not involved in the Procurement Process."""@en ;
-    skos:editorialNote """Here we have roles that belong to other modules (check all).
-Discuss whether we need to move them.
-"""@en ;
     skos:prefLabel "Agent in role"@en .
 
 :ContractSpecificTerm a owl:Class ;
@@ -5704,9 +5697,6 @@ We say that ContextSpecificDescription *concerns* an Entity.
     rdfs:isDefinedBy :core ;
     rdfs:subClassOf :Term ;
     skos:definition "Gathering class for conditions and stipulations related to a Procedure."@en ;
-    skos:editorialNote """Revise the Term hierarchy.
-
-e.g. ReviewTerm is per Procedure in SF (to be investigated how it is in eForms). """@en ;
     skos:prefLabel "Procedure specific term"@en .
 
 :OfferingParty a owl:Class ;
@@ -5743,13 +5733,13 @@ WG Approval 23/05/2019
 :core a owl:Ontology ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology core describes the concepts and properties representing the European Public Procurement domain. The provision of these semantics offers the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency. The ontology restrictions are published in a separate artefact."@en ;
-    dcterms:issued "2023-10-27"^^xsd:date ;
+    dcterms:issued "2023-10-30"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology - core"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from ePO_core.xml on 2023-10-27" ;
+    rdfs:comment "This version is automatically generated from ePO_core.xml on 2023-10-30" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
