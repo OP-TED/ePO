@@ -15,14 +15,14 @@
 :cat-restriction a owl:Ontology ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Catalogue core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Catalogue core."@en ;
-    dcterms:issued "2023-10-31"^^xsd:date ;
+    dcterms:issued "2023-11-01"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology Catalogue - core restrictions"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment """This version is automatically generated from eCatalogue.xml on 
-                2023-10-31""" ;
+                2023-11-01""" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
@@ -391,11 +391,11 @@ dcterms:description rdfs:domain [ a owl:Class ;
     rdfs:range rdf:PlainLiteral .
 
 :ItemRelation rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasFactor ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty :isRelatedToItem ] .
+            owl:onProperty :isRelatedToItem ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasFactor ] .
 
 dcterms:title a owl:FunctionalProperty ;
     rdfs:domain [ a owl:Class ;
@@ -404,44 +404,44 @@ dcterms:title a owl:FunctionalProperty ;
 
 :Line a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty dcterms:description ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty :specifiesItem ] .
+            owl:onProperty :specifiesItem ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty dcterms:description ] .
 
 :Batch rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasBestBeforeDate ],
+            owl:onProperty :hasManufactureDate ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty :isProductionOf ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasManufactureDate ],
+            owl:onProperty :hasBestBeforeDate ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasExpiryDate ] .
 
 :ItemProperty rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasLiteralValue ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty :describesItem ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty :hasClassificationScheme ],
+            owl:onProperty :hasAttributeType ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty :hasAttributeType ] .
-
-:Catalogue rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :comprisesCatalogueLine ],
+            owl:onProperty :hasClassificationScheme ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasSpecificPaymentArrangement ] .
+            owl:onProperty :hasLiteralValue ] .
+
+:Catalogue rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasSpecificPaymentArrangement ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty :comprisesCatalogueLine ] .
 
 :Price rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
@@ -449,16 +449,16 @@ dcterms:title a owl:FunctionalProperty ;
 
 :CatalogueLine rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :isContractedItem ],
+            owl:onProperty :isOrderable ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasWarrantyInformation ],
+            owl:onProperty :isContractedItem ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty :hasPrice ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasOrderableQuantityIncrement ],
+            owl:onProperty :hasWarrantyInformation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasTransactionConditions ],
@@ -467,10 +467,13 @@ dcterms:title a owl:FunctionalProperty ;
             owl:onProperty :hasOrderableUnitFactorRate ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :isOrderable ] .
+            owl:onProperty :hasOrderableQuantityIncrement ] .
 
 :Item a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasModel ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasBrand ],
         [ a owl:Restriction ;
@@ -478,19 +481,13 @@ dcterms:title a owl:FunctionalProperty ;
             owl:onProperty :isInStock ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty dcterms:description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasModel ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty :hasManufacturer ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty dcterms:title ] .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :ItemAccessoryRelation :ItemComplementaryRelation :ItemComposition :ItemReplacement :ItemRequirement ) .
+            owl:onProperty dcterms:title ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty dcterms:description ] .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :ItemAccessoryRelation :ItemComplementaryRelation :ItemComposition :ItemReplacement :ItemRequirement ) .
@@ -506,6 +503,9 @@ dcterms:title a owl:FunctionalProperty ;
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :Catalogue :ProductSpecification ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :ItemAccessoryRelation :ItemComplementaryRelation :ItemComposition :ItemReplacement :ItemRequirement ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :ItemAccessoryRelation :ItemComplementaryRelation :ItemComposition :ItemReplacement :ItemRequirement ) .
