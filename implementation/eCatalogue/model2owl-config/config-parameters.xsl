@@ -95,6 +95,10 @@
     <!-- _______________________________________________________________________   -->
     <!--    This section contains the variables used to build the ontology metadata-->
     <xsl:variable name="moduleReference" select="'cat'"/>
+    <!--    rdfs:label -->
+    <xsl:variable name="ontologyLabelCore" select="'eProcurement Ontology Catalogue - core'"/>
+    <xsl:variable name="ontologyLabelRestrictions" select="'eProcurement Ontology Catalogue - core restrictions'"/>
+    <xsl:variable name="ontologyLabelShapes" select="'eProcurement Ontology Catalogue - core shapes'"/>
     <!--    dct:title -->
     <xsl:variable name="ontologyTitleCore" select="'eProcurement Ontology Catalogue - core'"/>
     <xsl:variable name="ontologyTitleRestrictions" select="'eProcurement Ontology Catalogue - core restrictions'"/>

@@ -95,6 +95,10 @@
     <!-- _______________________________________________________________________   -->
     <!--    This section contains the variables used to build the ontology metadata-->
     <xsl:variable name="moduleReference" select="'ord'"/>
+    <!--    rdfs:label -->
+    <xsl:variable name="ontologyLabelCore" select="'eProcurement Ontology Ordering - core'"/>
+    <xsl:variable name="ontologyLabelRestrictions" select="'eProcurement Ontology Ordering - core restrictions'"/>
+    <xsl:variable name="ontologyLabelShapes" select="'eProcurement Ontology Ordering - core shapes'"/>
     <!--    dct:title -->
     <xsl:variable name="ontologyTitleCore" select="'eProcurement Ontology Ordering - core'"/>
     <xsl:variable name="ontologyTitleRestrictions" select="'eProcurement Ontology Ordering - core restrictions'"/>
