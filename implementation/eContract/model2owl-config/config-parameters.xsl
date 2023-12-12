@@ -95,28 +95,21 @@
     <!-- _______________________________________________________________________   -->
     <!--    This section contains the variables used to build the ontology metadata-->
     <xsl:variable name="moduleReference" select="'con'"/>
+    <!--    rdfs:label -->
+    <xsl:variable name="ontologyLabelCore" select="'eProcurement Ontology Contract - core'"/>
+    <xsl:variable name="ontologyLabelRestrictions" select="'eProcurement Ontology Contract - core restrictions'"/>
+    <xsl:variable name="ontologyLabelShapes" select="'eProcurement Ontology Contract - core shapes'"/>
     <!--    dct:title -->
-    <xsl:variable name="ontologyTitleCore" select="'ePO Contract core'"/>
-    <xsl:variable name="ontologyTitleRestrictions" select="'ePO Contract restrictions'"/>
-    <xsl:variable name="ontologyTitleShapes" select="'ePO Contract shapes'"/>
+    <xsl:variable name="ontologyTitleCore" select="'eProcurement Ontology Contract - core'"/>
+    <xsl:variable name="ontologyTitleRestrictions" select="'eProcurement Ontology Contract - core restrictions'"/>
+    <xsl:variable name="ontologyTitleShapes" select="'eProcurement Ontology Contract - core shapes'"/>
     <!--    dct:description-->
     <xsl:variable name="ontologyDescriptionCore"
-        select="
-            'This artefact provides the definitions for the eProcurement Ontology Contract module.
-            This artefact excludes the restrictions.
-            The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
-            The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency.'"/>
+        select="'The eProcurement Ontology Contract core describes the concepts and properties representing the European Public Procurement Contract domain. The provision of these semantics offers the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency. The ontology restrictions are published in a separate artefact.'"/>
     <xsl:variable name="ontologyDescriptionRestrictions"
-        select="
-            'This artefact provides the restrictions and inference-related specifications for the eProcurement Ontology Contract module.
-            This artefact excludes the definitions of concepts.
-            The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
-            The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency.'"/>
+        select="'The eProcurement Ontology Contract core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Contract core.'"/>
     <xsl:variable name="ontologyDescriptionShapes"
-        select="
-            'This artefact provides the generic datashape specifications for the eProcurement Ontology Contract module.
-            The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
-            The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency.'"/>
+        select="'The eProcurement Ontology Contract core shapes provides the generic datashape specifications for the eProcurement Ontology Contract core.'"/>
     <!--    rdfs:seeAlso -->
     <xsl:variable name="seeAlsoResources"
         select="
@@ -138,15 +131,10 @@
     <xsl:variable name="preferredNamespaceUri" select="'http://data.europa.eu/a4g/ontology#'"/>
     <!--    vann:preferredNamespacePrefix -->
     <xsl:variable name="preferredNamespacePrefix" select="'epo'"/>
-    <!--    dct:rights-->
-    <xsl:variable name="rightsLiteral" select="'© European Union, 2014
-            Unless otherwise noted, the reuse of the Ontology is authorised under the Licence ISA Open Metadata Licence v1.111.'"/>
     <!--    dct:license-->
-    <xsl:variable name="licenseURI" select="'ISA Open Metadata Licence v1.1 | Joinup (europa.eu)'"/>
-    <!--    cc:attributionName-->
-    <xsl:variable name="attributionNameLiteral" select="'European Union'"/>
-    <!--    cc:attributionURL-->
-    <xsl:variable name="attributionURL" select="'http://publications.europa.eu/resource/authority/corporate-body/EURUN'"/>
+    <xsl:variable name="licenseLiteral" select="'© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/).'"/>
+    <!--    dct:created-->
+    <xsl:variable name="createdDate" select="'2021-06-01'"/>
     <!--    dct:publisher-->
     <xsl:variable name="publisher" select="'http://publications.europa.eu/resource/authority/corporate-body/PUBL'"/>
 </xsl:stylesheet>
