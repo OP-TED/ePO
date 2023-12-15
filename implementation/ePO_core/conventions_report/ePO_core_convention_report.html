@@ -19,7 +19,7 @@
    <body>
       <header class="counter-skip">
          <h1 class="title">UML Conventions Comformance Report</h1>
-         <h2>[ 25/09/2023 ]</h2>
+         <h2>[ 15/12/2023 ]</h2>
          <div class="authors col-span">
             <div class="author">
                <div>Publications Office of the European Union</div>
@@ -56,7 +56,7 @@
                   Generalisations</em>. Each major section lists model items that need correction of errors
                or consideration of warnings.</p>
             <p>The UML model in file <em>ePO_core.xml</em> 
-               was tested at 08:15 on September 25, 2023.</p>
+               was tested at 11:19 on December 15, 2023.</p>
          </div>
          <h1 xmlns:f="http://https://github.com/costezki/model2owl#" id="nomenclature">Nomenclature</h1>
          <h2 xmlns:f="http://https://github.com/costezki/model2owl#" id="classNames">Class names</h2>
@@ -66,10 +66,10 @@
             <li><a href="#cccev:Criterion">cccev:Criterion</a></li>
             <li><a href="#cccev:Evidence">cccev:Evidence</a></li>
             <li><a href="#cccev:InformationConcept">cccev:InformationConcept</a></li>
+            <li><a href="#cccev:InformationRequirement">cccev:InformationRequirement</a></li>
             <li><a href="#cccev:Requirement">cccev:Requirement</a></li>
             <li><a href="#cpov:ContactPoint">cpov:ContactPoint</a></li>
             <li><a href="#cpov:PublicOrganisation">cpov:PublicOrganisation</a></li>
-            <li><a href="#cpv:Person">cpv:Person</a></li>
             <li><a href="#cv:Channel">cv:Channel</a></li>
             <li><a href="#dct:Location">dct:Location</a></li>
             <li><a href="#epo:AccessTerm">epo:AccessTerm</a></li>
@@ -222,6 +222,8 @@
             <li><a href="#locn:Address">locn:Address</a></li>
             <li><a href="#locn:Geometry">locn:Geometry</a></li>
             <li><a href="#org:Organization">org:Organization</a></li>
+            <li><a href="#person:Person">person:Person</a></li>
+            <li><a href="#time:Duration">time:Duration</a></li>
          </ul>
          <h2 xmlns:f="http://https://github.com/costezki/model2owl#" id="classAttributesNames">Class attribute names</h2>
          <ul xmlns:f="http://https://github.com/costezki/model2owl#">
@@ -275,8 +277,9 @@
             <li><a href="#attribute-epo:hasAccessibilityDate">epo:hasAccessibilityDate</a></li>
             <li><a href="#attribute-epo:hasAccessURL">epo:hasAccessURL</a></li>
             <li><a href="#attribute-epo:hasActivityDescription">epo:hasActivityDescription</a></li>
-            <li><a href="#attribute-epo:hasAdditionalInformation-usage">epo:hasAdditionalInformation (3)</a><ul><em>
+            <li><a href="#attribute-epo:hasAdditionalInformation-usage">epo:hasAdditionalInformation (4)</a><ul><em>
                      <li>epo:ProcurementObject (rdf:PlainLiteral) [0..*]</li>
+                     <li>epo:ProcurementCriterion (rdf:PlainLiteral) [0..1]</li>
                      <li>epo:Notice (rdf:PlainLiteral) [0..1]</li>
                      <li>epo:ChangeInformation (rdf:PlainLiteral) [0..1]</li></em></ul>
             </li>
@@ -517,18 +520,21 @@
             </li>
             <li>cccev:confidentialityLevelType</li>
             <li>cccev:constrains</li>
+            <li>cccev:hasConcept</li>
             <li>cccev:hasRequirement</li>
+            <li>cccev:isDerivedFrom</li>
             <li>cccev:supportsConcept</li>
             <li>cccev:supportsRequirement</li>
-            <li><a href="#connector-cv:address">cv:address (2)</a><ul><em>
-                     <li>org:Organization -&gt; locn:Address [0..*]</li>
-                     <li>cpov:ContactPoint -&gt; locn:Address [0..1]</li></em></ul>
-            </li>
             <li><a href="#connector-cv:registeredAddress">cv:registeredAddress (2)</a><ul><em>
-                     <li>cpv:Person -&gt; locn:Address [0..1]</li>
-                     <li>org:Organization -&gt; locn:Address [0..1]</li></em></ul>
+                     <li>org:Organization -&gt; locn:Address [0..1]</li>
+                     <li>person:Person -&gt; locn:Address [0..1]</li></em></ul>
             </li>
+            <li>dct:language</li>
             <li>dct:type</li>
+            <li><a href="#connector-eli:uri_schema">eli:uri_schema (2)</a><ul><em>
+                     <li> -&gt; adms:Identifier [0..*]</li>
+                     <li> -&gt; adms:Identifier [0..*]</li></em></ul>
+            </li>
             <li>epo:actsOnBehalfOf</li>
             <li>epo:amendsContract</li>
             <li><a href="#connector-epo:announcesAwardDecision">epo:announcesAwardDecision (2)</a><ul><em>
@@ -540,7 +546,6 @@
                      <li> -&gt; epo:Contract [0..*]</li>
                      <li> -&gt; epo:Contract [0..*]</li></em></ul>
             </li>
-            <li>epo:announcesExclusionGround</li>
             <li><a href="#connector-epo:announcesLot">epo:announcesLot (2)</a><ul><em>
                      <li> -&gt; epo:Lot [1..*]</li>
                      <li> -&gt; epo:Lot [1..*]</li></em></ul>
@@ -570,13 +575,6 @@
                      <li> -&gt; epo:AgentInRole [1..*]</li>
                      <li> -&gt; epo:AgentInRole [0..*]</li></em></ul>
             </li>
-            <li>epo:announcesSelectionCriteria</li>
-            <li><a href="#connector-epo:answersAwardCriteria">epo:answersAwardCriteria (2)</a><ul><em>
-                     <li> -&gt; epo:AwardCriterion [1]</li>
-                     <li> -&gt; epo:AwardCriterion [1]</li></em></ul>
-            </li>
-            <li>epo:answersExclusionGround</li>
-            <li>epo:answersSelectionCriteria</li>
             <li>epo:associatedWith</li>
             <li>epo:attestedByLabel</li>
             <li>epo:bindsBuyer</li>
@@ -669,7 +667,10 @@
             <li>epo:hasChangeJustification</li>
             <li>epo:hasConcessionEstimatedValue</li>
             <li>epo:hasConfirmedIrregularityType</li>
-            <li>epo:hasConstraint</li>
+            <li><a href="#connector-epo:hasConstraint">epo:hasConstraint (2)</a><ul><em>
+                     <li>cccev:InformationRequirement -&gt; cccev:Constraint [0..*]</li>
+                     <li>epo:ProcurementCriterion -&gt; cccev:Constraint [0..*]</li></em></ul>
+            </li>
             <li>epo:hasContactPointInRole</li>
             <li>epo:hasContractNatureType</li>
             <li>epo:hasContractValue</li>
@@ -695,7 +696,6 @@
                      <li>epo:ProcurementElement -&gt; epo:MonetaryValue [0..1]</li></em></ul>
             </li>
             <li>epo:hasESubmissionPermission</li>
-            <li>epo:hasEvaluationMember</li>
             <li>epo:hasFinancialOfferValue</li>
             <li>epo:hasFixedValueType</li>
             <li>epo:hasFormType</li>
@@ -738,10 +738,7 @@
                      <li>dct:Location -&gt; at-voc:nuts [0..1]</li>
                      <li>locn:Address -&gt; at-voc:nuts [0..1]</li></em></ul>
             </li>
-            <li><a href="#connector-epo:hasOfficialLanguage">epo:hasOfficialLanguage (2)</a><ul><em>
-                     <li>epo:Document -&gt; at-voc:language [1..*]</li>
-                     <li> -&gt; at-voc:language []</li></em></ul>
-            </li>
+            <li>epo:hasOfficialLanguage</li>
             <li>epo:hasPerformingStaffQualificationInformation</li>
             <li>epo:hasPlannedDuration</li>
             <li>epo:hasPlannedPeriod</li>
@@ -758,6 +755,7 @@
             <li>epo:hasQualificationSystemDuration</li>
             <li>epo:hasReceivedSubmissionType</li>
             <li>epo:hasRegistrationCountry</li>
+            <li>epo:hasRejectedQuantity</li>
             <li>epo:hasRemedyValue</li>
             <li>epo:hasReservedExecution</li>
             <li><a href="#connector-epo:hasReservedProcurement">epo:hasReservedProcurement (2)</a><ul><em>
@@ -791,21 +789,24 @@
             <li>epo:hasUnitCode</li>
             <li>epo:hasUnofficialLanguage</li>
             <li>epo:hasUsage</li>
-            <li>epo:hasUUID</li>
-            <li><a href="#connector-epo:hasValidityPeriod">epo:hasValidityPeriod (2)</a><ul><em>
+            <li><a href="#connector-epo:hasUUID">epo:hasUUID (2)</a><ul><em>
+                     <li>epo:Document -&gt; adms:Identifier [0..1]</li>
+                     <li> -&gt; adms:Identifier [1]</li></em></ul>
+            </li>
+            <li><a href="#connector-epo:hasValidityPeriod">epo:hasValidityPeriod (3)</a><ul><em>
                      <li>cccev:Evidence -&gt; epo:Period [0..1]</li>
-                     <li>epo:Technique -&gt; epo:Period [0..1]</li></em></ul>
+                     <li>epo:Technique -&gt; epo:Period [0..1]</li>
+                     <li> -&gt; epo:Period [0..1]</li></em></ul>
             </li>
             <li>epo:hasVariantPermission</li>
             <li>epo:hasWeightValueType</li>
             <li>epo:includesAccessibilityCriterion</li>
+            <li>epo:includesNationalCriterion</li>
             <li>epo:includesTender</li>
             <li>epo:indicatesAwardToWinner</li>
             <li>epo:indicatesInvoiceeContactPoint</li>
             <li>epo:involvesBuyer</li>
             <li>epo:involvesProcurementDocument</li>
-            <li>epo:isAppointedBy</li>
-            <li>epo:isAssignedForEvaluationOf</li>
             <li>epo:isBasedOnImplementingRegulation</li>
             <li>epo:isBeneficialOwnerOf</li>
             <li><a href="#connector-epo:isCalculatedOn">epo:isCalculatedOn (2)</a><ul><em>
@@ -828,19 +829,14 @@
             <li>epo:isSubmittedForLot</li>
             <li>epo:isSubmittedForLotGroup</li>
             <li>epo:issuedByCertifier</li>
-            <li><a href="#connector-epo:isSupportedBy">epo:isSupportedBy (3)</a><ul><em>
-                     <li>epo:Tender -&gt;  [1]</li>
-                     <li>epo:Tender -&gt;  [1]</li>
-                     <li>epo:Tender -&gt;  [1]</li></em></ul>
-            </li>
             <li>epo:leadBy</li>
             <li>epo:needsToBeATenderer</li>
             <li>epo:needsToBeAWinner</li>
             <li>epo:ownsSystem</li>
             <li><a href="#connector-epo:playedBy">epo:playedBy (3)</a><ul><em>
-                     <li>epo:JuryMember -&gt; cpv:Person [0..1]</li>
                      <li>epo:AgentInRole -&gt; foaf:Agent [1]</li>
-                     <li> -&gt; foaf:Person [0..1]</li></em></ul>
+                     <li> -&gt; foaf:Person [0..1]</li>
+                     <li>epo:JuryMember -&gt; person:Person [0..1]</li></em></ul>
             </li>
             <li>epo:providesContractTotalPaymentValue</li>
             <li>epo:providesContractTotalPenaltyValue</li>
@@ -885,7 +881,6 @@
             </li>
             <li>epo:refersToProject</li>
             <li>epo:refersToRole</li>
-            <li>epo:reinforcesResponse</li>
             <li><a href="#connector-epo:relatesToEFormSectionIdentifier">epo:relatesToEFormSectionIdentifier (3)</a><ul><em>
                      <li>epo:ChangeInformation -&gt; adms:Identifier [1..*]</li>
                      <li>epo:NonPublishedInformation -&gt; adms:Identifier [1..*]</li>
@@ -907,11 +902,18 @@
                      <li> -&gt; epo:Buyer [0..*]</li>
                      <li> -&gt; epo:Buyer [1]</li></em></ul>
             </li>
-            <li>epo:specifiesCatalogueProvider</li>
-            <li>epo:specifiesCatalogueReceiver</li>
+            <li><a href="#connector-epo:specifiesCatalogueProvider">epo:specifiesCatalogueProvider (2)</a><ul><em>
+                     <li> -&gt; epo:CatalogueProvider [0..1]</li>
+                     <li> -&gt; epo:CatalogueProvider [1]</li></em></ul>
+            </li>
+            <li><a href="#connector-epo:specifiesCatalogueReceiver">epo:specifiesCatalogueReceiver (2)</a><ul><em>
+                     <li> -&gt; epo:CatalogueReceiver [0..1]</li>
+                     <li> -&gt; epo:CatalogueReceiver [1]</li></em></ul>
+            </li>
             <li>epo:specifiesCleanVehicleDirectiveContractType</li>
             <li>epo:specifiesCleanVehicleDirectiveVehicleCategory</li>
             <li>epo:specifiesDeliverable</li>
+            <li>epo:specifiesExclusionGround</li>
             <li>epo:specifiesProcurementCriteriaSummary</li>
             <li><a href="#connector-epo:specifiesProcurementCriterion">epo:specifiesProcurementCriterion (2)</a><ul><em>
                      <li>epo:Lot -&gt; epo:ProcurementCriterion [0..*]</li>
@@ -923,11 +925,14 @@
             <li>epo:updatesContractValue</li>
             <li>epo:usesChannel</li>
             <li>epo:usesTechnique</li>
-            <li>epo-acc:announcesProcurementCriterion</li>
-            <li>epo-acc:comprisesQuestion</li>
             <li>epo-acc:concernsProcedure</li>
-            <li>epo-acc:implementsArticle</li>
-            <li>epo-acc:implementsLegislation</li>
+            <li><a href="#connector-epo-acc:containsQuestionGroup">epo-acc:containsQuestionGroup (2)</a><ul><em>
+                     <li>epo:ProcurementCriterion -&gt;  [0..*]</li>
+                     <li>epo:ProcurementCriterion -&gt;  [0..*]</li></em></ul>
+            </li>
+            <li>epo-acc:containsRequirementGroup</li>
+            <li>epo-acc:refersToNotice</li>
+            <li>epo-acc:specifiesProcurementCriterion</li>
             <li><a href="#connector-epo-cat:hasAmount">epo-cat:hasAmount (2)</a><ul><em>
                      <li> -&gt; epo:MonetaryValue [1]</li>
                      <li> -&gt; epo:MonetaryValue [0..1]</li></em></ul>
@@ -952,6 +957,11 @@
             <li>epo-cat:hasQuantityThreshold</li>
             <li>epo-cat:isSubordinatedToContract</li>
             <li>epo-ful:agreedByBuyer</li>
+            <li><a href="#connector-epo-ful:hasAssociatedDocument">epo-ful:hasAssociatedDocument (3)</a><ul><em>
+                     <li> -&gt; epo:Document [0..1]</li>
+                     <li> -&gt; epo:Document [0..1]</li>
+                     <li> -&gt; epo:Document [0..1]</li></em></ul>
+            </li>
             <li>epo-ful:hasCarrierConsignmentID</li>
             <li>epo-ful:hasChargeableWeight</li>
             <li>epo-ful:hasConsigneeConsignmentID</li>
@@ -981,6 +991,9 @@
                      <li> -&gt; epo:Quantity [0..1]</li></em></ul>
             </li>
             <li>epo-ful:hasOutstandingQuantity</li>
+            <li>epo-ful:hasOversupplyQuantity</li>
+            <li>epo-ful:hasReceivedQuantity</li>
+            <li>epo-ful:hasShortQuantity</li>
             <li><a href="#connector-epo-ful:hasTotalGoodsItemQuantity">epo-ful:hasTotalGoodsItemQuantity (2)</a><ul><em>
                      <li> -&gt; epo:Quantity [0..1]</li>
                      <li> -&gt; epo:Quantity [0..1]</li></em></ul>
@@ -991,6 +1004,7 @@
             <li>epo-ful:hasVehicleID</li>
             <li>epo-ful:hasVehicleSegmentID</li>
             <li>epo-ful:hasWidth</li>
+            <li>epo-ful:specifiesBuyer</li>
             <li>epo-ful:specifiesPlaceOfDespatch</li>
             <li>epo-not:announcesRole</li>
             <li>epo-not:refersToRole</li>
@@ -1003,6 +1017,7 @@
             </li>
             <li>epo-ord:hasPrepaidAmount</li>
             <li>epo-ord:hasRoundingAmount</li>
+            <li>epo-ord:hasSellerOrderID</li>
             <li>epo-ord:hasTaxInformation</li>
             <li>epo-ord:hasTotalAllowanceAmount</li>
             <li>epo-ord:hasTotalChargeAmount</li>
@@ -1013,13 +1028,15 @@
             <li>epo-ord:specifiesBuyer</li>
             <li>epo-ord:specifiesDeliveryAgreementLocation</li>
             <li>epo-ord:specifiesPlaceOfDelivery</li>
-            <li>locn:address</li>
+            <li><a href="#connector-locn:address">locn:address (3)</a><ul><em>
+                     <li>org:Organization -&gt; locn:Address [0..*]</li>
+                     <li>cpov:ContactPoint -&gt; locn:Address [0..1]</li>
+                     <li>dct:Location -&gt; locn:Address [0..1]</li></em></ul>
+            </li>
             <li>locn:addressID</li>
             <li>locn:geographicIdentifier</li>
             <li>locn:geometry</li>
             <li>org:subOrganizationOf</li>
-            <li>person:placeOfBirth</li>
-            <li>person:placeOfDeath</li>
             <li>time:unitType</li>
          </ul>
          <h1 class="selector-heading" id="classes">Classes</h1>
@@ -1036,6 +1053,14 @@
             <dl>
                <dt>Unmet class conventions</dt>
                <dd class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>The class cccev:Evidence has no attributes provided. A class should define some attributes.</dd>
+            </dl>
+         </section>
+         <h2 xmlns:f="http://https://github.com/costezki/model2owl#" id="cccev:InformationRequirement">cccev:InformationRequirement</h2>
+         <section xmlns:f="http://https://github.com/costezki/model2owl#">
+            <dl>
+               <dt>Unmet class conventions</dt>
+               <dd class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>The class cccev:InformationRequirement has no attributes provided. A class should
+                  define some attributes.</dd>
             </dl>
          </section>
          <h2 xmlns:f="http://https://github.com/costezki/model2owl#" id="cpov:ContactPoint">cpov:ContactPoint</h2>
@@ -2131,6 +2156,13 @@
                   in singular number.</dd>
             </dl>
          </section>
+         <h2 xmlns:f="http://https://github.com/costezki/model2owl#" id="time:Duration">time:Duration</h2>
+         <section xmlns:f="http://https://github.com/costezki/model2owl#">
+            <dl>
+               <dt>Unmet class conventions</dt>
+               <dd class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>The class time:Duration has no attributes provided. A class should define some attributes.</dd>
+            </dl>
+         </section>
          <h1 class="selector-heading" id="enumerations">Enumerations</h1>
          <h2 xmlns:f="http://https://github.com/costezki/model2owl#">at-voc:cvd-contract-type</h2>
          <section xmlns:f="http://https://github.com/costezki/model2owl#">
@@ -2249,12 +2281,6 @@
          </dl>
          <h1 class="selector-heading" id="object">Object</h1>
          <h1 class="selector-heading" id="generalizations">Generalizations</h1>
-         <h2 xmlns:f="http://https://github.com/costezki/model2owl#">cpv:Person -&gt; foaf:Person (+)</h2>
-         <dl xmlns:f="http://https://github.com/costezki/model2owl#">
-            <dt> Unmet generalisation conventions </dt>
-            <dd class="filter infos"><i class="fa fa-info-circle info"></i>The class foaf:Person has only one sub-class cpv:Person. Class inheritance should
-               be built employing at least two subclasses for each class or not at all.</dd>
-         </dl>
          <h2 xmlns:f="http://https://github.com/costezki/model2owl#">epo:AcquiringCentralPurchasingBody -&gt; epo:CentralPurchasingBody (+)</h2>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#">
             <dt> Unmet generalisation conventions </dt>
@@ -2313,6 +2339,12 @@
             <dt> Unmet generalisation conventions </dt>
             <dd class="filter infos"><i class="fa fa-info-circle info"></i>The class epo:Estimate has only one sub-class epo:ConcessionEstimate. Class inheritance
                should be built employing at least two subclasses for each class or not at all.</dd>
+         </dl>
+         <h2 xmlns:f="http://https://github.com/costezki/model2owl#">epo:Duration -&gt; time:Duration (+)</h2>
+         <dl xmlns:f="http://https://github.com/costezki/model2owl#">
+            <dt> Unmet generalisation conventions </dt>
+            <dd class="filter infos"><i class="fa fa-info-circle info"></i>The class time:Duration has only one sub-class epo:Duration. Class inheritance should
+               be built employing at least two subclasses for each class or not at all.</dd>
          </dl>
          <h2 xmlns:f="http://https://github.com/costezki/model2owl#">epo:ExclusionGround -&gt; epo:QualificationCriterion (+)</h2>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#">
@@ -2437,6 +2469,12 @@
                Class inheritance should be built employing at least two subclasses for each class
                or not at all.</dd>
          </dl>
+         <h2 xmlns:f="http://https://github.com/costezki/model2owl#">person:Person -&gt; foaf:Person (+)</h2>
+         <dl xmlns:f="http://https://github.com/costezki/model2owl#">
+            <dt> Unmet generalisation conventions </dt>
+            <dd class="filter infos"><i class="fa fa-info-circle info"></i>The class foaf:Person has only one sub-class person:Person. Class inheritance should
+               be built employing at least two subclasses for each class or not at all.</dd>
+         </dl>
          <h2 xmlns:f="http://https://github.com/costezki/model2owl#">(epo:Procedure - epo:ProcedureSpecificTerm) -&gt; (epo:ProcurementObject - epo:Term)
             (+)</h2>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#">
@@ -2450,13 +2488,6 @@
             <dd class="filter infos"><i class="fa fa-info-circle info"></i>The class ProxyConnector has only one sub-class ProxyConnector. Class inheritance
                should be built employing at least two subclasses for each class or not at all.</dd>
          </dl>
-         <h2 xmlns:f="http://https://github.com/costezki/model2owl#">(epo:ProcurementCriterion - cccev:Constraint) -&gt; (cccev:Requirement - cccev:Requirement)
-            (+)</h2>
-         <dl xmlns:f="http://https://github.com/costezki/model2owl#">
-            <dt> Unmet generalisation conventions </dt>
-            <dd class="filter infos"><i class="fa fa-info-circle info"></i>The class ProxyConnector has only one sub-class ProxyConnector. Class inheritance
-               should be built employing at least two subclasses for each class or not at all.</dd>
-         </dl>
          <h2 xmlns:f="http://https://github.com/costezki/model2owl#">(epo:Procedure - epo:Buyer) -&gt; (epo:Procedure - epo:Buyer) (+)</h2>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#">
             <dt> Unmet generalisation conventions </dt>
@@ -2464,6 +2495,22 @@
                should be built employing at least two subclasses for each class or not at all.</dd>
          </dl>
          <h1 class="selector-heading" id="associations">Associations</h1>
+         <h2 xmlns:f="http://https://github.com/costezki/model2owl#">cccev:InformationRequirement -&gt; cccev:Constraint (+epo:hasConstraint)</h2>
+         <dl xmlns:f="http://https://github.com/costezki/model2owl#">
+            <dt>
+               Unmet association conventions
+               </dt>
+            <dd class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>The connector is missing a description. It is recommended                      to
+               define and describe all the relations.</dd>
+         </dl>
+         <h2 xmlns:f="http://https://github.com/costezki/model2owl#">cccev:Requirement -&gt; cccev:InformationConcept (+cccev:hasConcept)</h2>
+         <dl xmlns:f="http://https://github.com/costezki/model2owl#">
+            <dt>
+               Unmet association conventions
+               </dt>
+            <dd class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>The connector is missing a description. It is recommended                      to
+               define and describe all the relations.</dd>
+         </dl>
          <h2 xmlns:f="http://https://github.com/costezki/model2owl#">cv:Channel -&gt; adms:Identifier (+epo:hasEndpointIdentifier)</h2>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#">
             <dt>
@@ -2682,7 +2729,7 @@
             <dd class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>The connector is missing a description. It is recommended                      to
                define and describe all the relations.</dd>
          </dl>
-         <h2 xmlns:f="http://https://github.com/costezki/model2owl#">epo:JuryMember -&gt; cpv:Person (+epo:playedBy)</h2>
+         <h2 xmlns:f="http://https://github.com/costezki/model2owl#">epo:JuryMember -&gt; person:Person (+epo:playedBy)</h2>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#">
             <dt>
                Unmet association conventions
@@ -2875,6 +2922,14 @@
                define and describe all the relations.</dd>
          </dl>
          <h2 xmlns:f="http://https://github.com/costezki/model2owl#">epo:Procedure -&gt; epo:ProcurementServiceProvider (+epo:isExecutedByProcurementServiceProvider)</h2>
+         <dl xmlns:f="http://https://github.com/costezki/model2owl#">
+            <dt>
+               Unmet association conventions
+               </dt>
+            <dd class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>The connector is missing a description. It is recommended                      to
+               define and describe all the relations.</dd>
+         </dl>
+         <h2 xmlns:f="http://https://github.com/costezki/model2owl#">epo:Procedure -&gt; epo:ExclusionGround (+epo:specifiesExclusionGround)</h2>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#">
             <dt>
                Unmet association conventions
@@ -3308,26 +3363,6 @@
                   (+adms:identifier)) </li>
             </ul>
          </dd>
-         <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="connector-cv:address">
-            <dt>cv:address</dt>
-         </dl>
-         <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter infos"><i class="fa fa-info-circle info"></i>When a property is reused in multiple contexts, the multiplicity is expected to be
-            the same. Please check the nomenclature above for a summary.</dd>
-         <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>When a property is reused in multiple contexts, the meaning given by the definition
-            is expected to be the same. In this case, multiple definitions are found: 
-            <ul>
-               <li>Associates any Resource with the corresponding Address.
-                  
-                  Additional Information:
-                  Asserting the address relationship implies that the Resource has an Address. (org:Organization
-                  -&gt; locn:Address (+cv:address)) </li>
-               <li>Associates any Resource with the corresponding Address.
-                  
-                  Additional Information:
-                  Asserting the address relationship implies that the Resource has an Address.
-                  (cpov:ContactPoint -&gt; locn:Address (+cv:address)) </li>
-            </ul>
-         </dd>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="connector-cv:registeredAddress">
             <dt>cv:registeredAddress</dt>
          </dl>
@@ -3338,12 +3373,12 @@
                   
                   Additional Information:
                   It is the address to which formal communications can be sent, such as the postal address.
-                  (cpv:Person -&gt; locn:Address (+cv:registeredAddress)) </li>
+                  (org:Organization -&gt; locn:Address (+cv:registeredAddress)) </li>
                <li>The registered address relationship links a Resource with the legally registered Address.
                   
                   Additional Information:
                   It is the address to which formal communications can be sent, such as the postal address.
-                  (org:Organization -&gt; locn:Address (+cv:registeredAddress)) </li>
+                  (person:Person -&gt; locn:Address (+cv:registeredAddress)) </li>
             </ul>
          </dd>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="connector-epo:announcesRole">
@@ -3489,23 +3524,6 @@
                   (epo:ProcurementElement -&gt; epo:MonetaryValue (+epo:hasEstimatedValue)) </li>
             </ul>
          </dd>
-         <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="connector-epo:hasOfficialLanguage">
-            <dt>epo:hasOfficialLanguage</dt>
-         </dl>
-         <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter infos"><i class="fa fa-info-circle info"></i>When a property is reused in multiple contexts, the multiplicity is expected to be
-            the same. Please check the nomenclature above for a summary.</dd>
-         <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>When a property is reused in multiple contexts, the meaning given by the definition
-            is expected to be the same. In this case, multiple definitions are found: 
-            <ul>
-               <li>The language(s) in which the instances of the given concepts are officially available.
-                  These linguistic versions are equally legally valid.
-                  
-                  WG Approval 03/10/2019
-                  
-                  (epo:Document -&gt; at-voc:language (+epo:hasOfficialLanguage)) </li>
-               <li>... (epo-acc:Legislation -&gt; at-voc:language (+epo:hasOfficialLanguage)) </li>
-            </ul>
-         </dd>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="connector-epo:hasPurpose">
             <dt>epo:hasPurpose</dt>
          </dl>
@@ -3541,6 +3559,23 @@
                   </li>
             </ul>
          </dd>
+         <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="connector-epo:hasUUID">
+            <dt>epo:hasUUID</dt>
+         </dl>
+         <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter infos"><i class="fa fa-info-circle info"></i>When a property is reused in multiple contexts, the multiplicity is expected to be
+            the same. Please check the nomenclature above for a summary.</dd>
+         <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>When a property is reused in multiple contexts, the meaning given by the definition
+            is expected to be the same. In this case, multiple definitions are found: 
+            <ul>
+               <li>A universally unique identifier for an instance of this document.
+                  
+                  WG Approval 12/05/2020 (epo:Document -&gt; adms:Identifier (+epo:hasUUID)) </li>
+               <li>A universally unique identifier for an instance of this document.
+                  
+                  WG Approval 12/05/2020
+                  (epo-cat:CatalogueResponseLine -&gt; adms:Identifier (+epo:hasUUID)) </li>
+            </ul>
+         </dd>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="connector-epo:hasValidityPeriod">
             <dt>epo:hasValidityPeriod</dt>
          </dl>
@@ -3554,6 +3589,10 @@
                   
                   WG approval 30/05/2023
                   (epo:Technique -&gt; epo:Period (+epo:hasValidityPeriod)) </li>
+               <li>The relation indicating until when a given instance of a concept is applicable.
+                  
+                  WG approval 30/05/2023 (epo-cat:Catalogue -&gt; epo:Period (+epo:hasValidityPeriod))
+                  </li>
             </ul>
          </dd>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="connector-epo:isCalculatedOn">
@@ -3612,6 +3651,16 @@
          </dl>
          <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter infos"><i class="fa fa-info-circle info"></i>When a property is reused in multiple contexts, the multiplicity is expected to be
             the same. Please check the nomenclature above for a summary.</dd>
+         <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="connector-epo:specifiesCatalogueProvider">
+            <dt>epo:specifiesCatalogueProvider</dt>
+         </dl>
+         <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter infos"><i class="fa fa-info-circle info"></i>When a property is reused in multiple contexts, the multiplicity is expected to be
+            the same. Please check the nomenclature above for a summary.</dd>
+         <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="connector-epo:specifiesCatalogueReceiver">
+            <dt>epo:specifiesCatalogueReceiver</dt>
+         </dl>
+         <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter infos"><i class="fa fa-info-circle info"></i>When a property is reused in multiple contexts, the multiplicity is expected to be
+            the same. Please check the nomenclature above for a summary.</dd>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="connector-epo-cat:hasAmount">
             <dt>epo-cat:hasAmount</dt>
          </dl>
@@ -3636,6 +3685,27 @@
          </dl>
          <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter infos"><i class="fa fa-info-circle info"></i>When a property is reused in multiple contexts, the multiplicity is expected to be
             the same. Please check the nomenclature above for a summary.</dd>
+         <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="connector-locn:address">
+            <dt>locn:address</dt>
+         </dl>
+         <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter infos"><i class="fa fa-info-circle info"></i>When a property is reused in multiple contexts, the multiplicity is expected to be
+            the same. Please check the nomenclature above for a summary.</dd>
+         <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>When a property is reused in multiple contexts, the meaning given by the definition
+            is expected to be the same. In this case, multiple definitions are found: 
+            <ul>
+               <li>Associates any Resource with the corresponding Address.
+                  
+                  Additional Information:
+                  Asserting the address relationship implies that the Resource has an Address. (org:Organization
+                  -&gt; locn:Address (+locn:address)) </li>
+               <li>Associates any Resource with the corresponding Address.
+                  
+                  Additional Information:
+                  Asserting the address relationship implies that the Resource has an Address.
+                  (cpov:ContactPoint -&gt; locn:Address (+locn:address)) </li>
+               <li>... (dct:Location -&gt; locn:Address (+locn:address)) </li>
+            </ul>
+         </dd>
          <h1 xmlns:f="http://https://github.com/costezki/model2owl#" id="classAttributesUsage">Class attributes with multiple usages</h1>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="attribute-dct:description-usage">
             <dt>dct:description</dt>
@@ -3848,6 +3918,7 @@
                the same. Please see usage below:
                <ul>
                   <li>epo:ProcurementObject (rdf:PlainLiteral) [0..*]</li>
+                  <li>epo:ProcurementCriterion (rdf:PlainLiteral) [0..1]</li>
                   <li>epo:Notice (rdf:PlainLiteral) [0..1]</li>
                   <li>epo:ChangeInformation (rdf:PlainLiteral) [0..1]</li>
                </ul>
@@ -3859,6 +3930,9 @@
                   <li>Supplementary data about the instance of the concept.
                      
                      WG Approval 15/10/2019 (epo:ProcurementObject) </li>
+                  <li>Supplementary data about the instance of the concept.
+                     
+                     WG Approval 15/10/2019 (epo:ProcurementCriterion) </li>
                   <li>Supplementary data about the instance of the concept.
                      
                      WG Approval 15/10/2019 (epo:Notice) </li>
@@ -3973,6 +4047,12 @@
                <li>uml:Text</li>
                <li>uml:Note</li>
                <li>uml:ProxyConnector</li>
+            </ul>
+         </dd>
+         <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter errors"><i class="fa fa-times-circle error"></i>Not all prefixes  are defined. All used namespaces shall be defined (prefix = base
+            URI), including the default one. Here is the list of undefined prefixes
+            <ul>
+               <li>eli</li>
             </ul>
          </dd>
       </main>
