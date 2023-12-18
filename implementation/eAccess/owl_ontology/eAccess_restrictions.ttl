@@ -50,9 +50,8 @@
 :concernsProcedure rdfs:domain :ESPDRequest ;
     rdfs:range :Procedure .
 
-:containsQuestionGroup rdf:domain :ProcurementCriterion ;
-    rdfs:range [ a owl:Class ;
-            owl:unionOf ( :QuestionGroup :Question ) ] .
+:containsQuestionGroup rdfs:domain :ProcurementCriterion ;
+    rdfs:range :QuestionGroup .
 
 :containsRequirementGroup rdfs:domain :ProcurementCriterion ;
     rdfs:range :RequirementGroup .
@@ -100,7 +99,7 @@ dcterms:language rdfs:domain eli:LegalExpression ;
 
 :containsQuestionSubgroup a owl:AsymmetricProperty ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( :QuestionGroup :RequirementGroup :QuestionSubgroup ) ] ;
+            owl:unionOf ( :QuestionGroup :QuestionSubgroup :RequirementGroup ) ] ;
     rdfs:range :QuestionSubgroup .
 
 :containsRequirement rdfs:domain :RequirementGroup ;
@@ -123,10 +122,10 @@ dcterms:title rdfs:domain eli:LegalExpression ;
 
 :RequirementGroup rdfs:subClassOf [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty :containsRequirement ],
+            owl:onProperty :containsQuestionSubgroup ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty :containsQuestionSubgroup ] .
+            owl:onProperty :containsRequirement ] .
 
 eli:LegalResource a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -142,5 +141,5 @@ eli:LegalExpression a owl:Class ;
             owl:onProperty frbroo:R3i_realises ] .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :QuestionGroup :Requirement :Question :RequirementGroup ) .
+    owl:members ( :Question :QuestionGroup :Requirement :RequirementGroup ) .
 

@@ -36,7 +36,7 @@
     rdfs:range rdf:PlainLiteral .
 
 :hasAmount rdfs:domain [ a owl:Class ;
-            owl:unionOf ( :TaxInformation :AllowanceChargeInformation ) ] ;
+            owl:unionOf ( :AllowanceChargeInformation :TaxInformation ) ] ;
     rdfs:range :MonetaryValue .
 
 :hasAmountDueForPayment rdfs:domain :Order ;
@@ -95,11 +95,11 @@
     rdfs:range :Contract .
 
 :isCalculatedOn rdfs:domain [ a owl:Class ;
-            owl:unionOf ( :TaxInformation :AllowanceChargeInformation ) ] ;
+            owl:unionOf ( :AllowanceChargeInformation :TaxInformation ) ] ;
     rdfs:range :MonetaryValue .
 
 :isSpecificToOrderLine rdfs:domain [ a owl:Class ;
-            owl:unionOf ( :OriginatorInformation :ContractInformation :DeliveryInformation :AllowanceInformation :ChargeInformation ) ] ;
+            owl:unionOf ( :AllowanceInformation :ContractInformation :DeliveryInformation :ChargeInformation :OriginatorInformation ) ] ;
     rdfs:range :OrderLine .
 
 :isSpecificToOrderResponseLine rdfs:domain :OrderResponseInformation ;
@@ -238,16 +238,16 @@
     rdfs:range :DeliveryAgreement .
 
 dcterms:description rdfs:domain [ a owl:Class ;
-            owl:unionOf ( :TaxInformation :DeliveryAgreement ) ] ;
+            owl:unionOf ( :DeliveryAgreement :TaxInformation ) ] ;
     rdfs:range rdf:PlainLiteral .
 
 :hasPercentage rdfs:domain [ a owl:Class ;
-            owl:unionOf ( :TaxInformation :AllowanceChargeInformation ) ] ;
+            owl:unionOf ( :AllowanceChargeInformation :TaxInformation ) ] ;
     rdfs:range xsd:decimal .
 
 :specifiesSeller a owl:FunctionalProperty ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( :Catalogue :Order ) ],
+            owl:unionOf ( :Order :Catalogue ) ],
         :OrderResponse,
         :ReceiptAdvice ;
     rdfs:range :Seller .
@@ -271,14 +271,14 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:onProperty :hasPercentage ] .
 
 :OrderResponse rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :specifiesSeller ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty :isSubmittedForOrder ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasResponseDescription ] .
+            owl:onProperty :hasResponseDescription ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :specifiesSeller ] .
 
 :TaxInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -290,16 +290,16 @@ dcterms:description rdfs:domain [ a owl:Class ;
 
 :DeliveryInformation rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :specifiesSpecificDeliveryAgreement ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasDeliveryDeadline ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty :concernsConsignee ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :specifiesGeneralDeliveryAgreement ] .
+            owl:onProperty :specifiesSpecificDeliveryAgreement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :specifiesGeneralDeliveryAgreement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasDeliveryDeadline ] .
 
 :Order rdfs:subClassOf [ a owl:Restriction ;
             owl:minCardinality 1 ;
@@ -311,6 +311,9 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:minCardinality 1 ;
             owl:onProperty :comprisesOrderLine ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasPaymentTerm ],
+        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty :specifiesSeller ],
         [ a owl:Restriction ;
@@ -318,17 +321,14 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:onProperty :hasCustomerReference ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasPaymentTerm ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty :specifiesOriginatorInformation ] .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Order :OrderResponse ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :Consignee :Originator ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :TaxInformation :OriginatorInformation :ContractInformation :DeliveryInformation :AllowanceChargeInformation :OrderResponseInformation ) .
+    owl:members ( :AllowanceChargeInformation :ContractInformation :DeliveryInformation :OriginatorInformation :TaxInformation :OrderResponseInformation ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Order :OrderResponse ) .
 
