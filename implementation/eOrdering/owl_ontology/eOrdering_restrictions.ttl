@@ -127,9 +127,9 @@
         <http://www.w3.org/ns/person>,
         foaf: ;
     owl:incompatibleWith "3.1.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/ontology#ord-restriction-3.1.0" ;
-    owl:versionIRI :ord-restriction-4.0.0 ;
-    owl:versionInfo "4.0.0" .
+    owl:priorVersion "http://data.europa.eu/a4g/ontology#ord-restriction-4.0.0" ;
+    owl:versionIRI :ord-restriction-4.0.1 ;
+    owl:versionInfo "4.0.1" .
 
 :refersToCatalogue rdfs:domain :Order ;
     rdfs:range :Catalogue .
@@ -255,35 +255,35 @@ dcterms:description rdfs:domain [ a owl:Class ;
 :AllowanceChargeInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasTaxInformation ],
+            owl:onProperty :hasPercentage ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasPercentage ] .
+            owl:onProperty :hasTaxInformation ] .
 
 :OrderResponse rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty :isSubmittedForOrder ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasResponseDescription ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :specifiesSeller ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :isSubmittedForOrder ] .
+            owl:onProperty :specifiesSeller ] .
 
 :TaxInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty dcterms:description ],
+            owl:onProperty :hasPercentage ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasPercentage ] .
+            owl:onProperty dcterms:description ] .
 
 :DeliveryInformation rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :specifiesSpecificDeliveryAgreement ],
+            owl:onProperty :specifiesGeneralDeliveryAgreement ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :specifiesGeneralDeliveryAgreement ],
+            owl:onProperty :specifiesSpecificDeliveryAgreement ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :concernsConsignee ],
@@ -292,17 +292,17 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:onProperty :hasDeliveryDeadline ] .
 
 :Order rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasAccountingCost ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty :comprisesOrderLine ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :specifiesSeller ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasCustomerReference ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasPaymentTerm ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty :specifiesSeller ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty :specifiesDeliveryInformation ],
@@ -311,14 +311,14 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:onProperty :specifiesOriginatorInformation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasAccountingCost ] .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Consignee :Originator ) .
+            owl:onProperty :hasCustomerReference ] .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :Order :OrderResponse ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :AllowanceChargeInformation :ContractInformation :DeliveryInformation :OriginatorInformation :TaxInformation :OrderResponseInformation ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Consignee :Originator ) .
 
