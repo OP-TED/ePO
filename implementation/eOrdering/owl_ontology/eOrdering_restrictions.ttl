@@ -1,6 +1,5 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix adms: <http://www.w3.org/ns/adms#> .
-@prefix at-voc-new: <http://publications.europa.eu/resource/authority/new/> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
@@ -104,14 +103,14 @@
     rdfs:label "eProcurement Ontology Ordering - core restrictions"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Ordering core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Ordering core."@en ;
-    dcterms:issued "2023-11-09"^^xsd:date ;
+    dcterms:issued "2024-01-24"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology Ordering - core restrictions"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment """This version is automatically generated from eOrdering.xml on 
-                2023-11-09""" ;
+                2024-01-24""" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
@@ -229,12 +228,6 @@
 :specifiesSpecificDeliveryAgreement rdfs:domain :DeliveryInformation ;
     rdfs:range :DeliveryAgreement .
 
-at-voc-new:ResponseStatus a owl:Class ;
-    rdfs:subClassOf skos:Concept ;
-    owl:equivalentClass [ a owl:Restriction ;
-            owl:hasValue at-voc-new:ResponseStatus ;
-            owl:onProperty skos:inScheme ] .
-
 dcterms:description rdfs:domain [ a owl:Class ;
             owl:unionOf ( :DeliveryAgreement :TaxInformation ) ] ;
     rdfs:range rdf:PlainLiteral .
@@ -268,63 +261,63 @@ dcterms:description rdfs:domain [ a owl:Class ;
             owl:onProperty :hasPercentage ] .
 
 :OrderResponse rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :isSubmittedForOrder ],
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasResponseDescription ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :specifiesSeller ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasResponseDescription ] .
+            owl:cardinality 1 ;
+            owl:onProperty :isSubmittedForOrder ] .
 
 :TaxInformation a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasPercentage ],
+            owl:onProperty dcterms:description ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty dcterms:description ] .
+            owl:onProperty :hasPercentage ] .
 
 :DeliveryInformation rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :concernsConsignee ],
+            owl:onProperty :specifiesSpecificDeliveryAgreement ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :specifiesGeneralDeliveryAgreement ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :specifiesSpecificDeliveryAgreement ],
+            owl:onProperty :concernsConsignee ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasDeliveryDeadline ] .
 
 :Order rdfs:subClassOf [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty :specifiesDeliveryInformation ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :specifiesOriginatorInformation ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
             owl:onProperty :comprisesOrderLine ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasAccountingCost ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasCustomerReference ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty :specifiesSeller ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasPaymentTerm ] .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Order :OrderResponse ) .
+            owl:onProperty :hasCustomerReference ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasPaymentTerm ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty :specifiesDeliveryInformation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :specifiesOriginatorInformation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :hasAccountingCost ] .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :Consignee :Originator ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Order :OrderResponse ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :AllowanceChargeInformation :ContractInformation :DeliveryInformation :OriginatorInformation :TaxInformation :OrderResponseInformation ) .
