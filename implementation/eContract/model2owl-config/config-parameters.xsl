@@ -71,7 +71,7 @@
     <xsl:variable name="enableGenerationOfSkosConcept" select="fn:false()"/>
 
     <!--    This variable controls whether the enumerations are transformed into skos schemes or ignored-->
-    <xsl:variable name="enableGenerationOfConceptSchemes" select="fn:true()"/>
+    <xsl:variable name="enableGenerationOfConceptSchemes" select="fn:false()"/>
 
     <!--Allowed characters for a normalized string-->
     <xsl:variable name="allowedStrings" select="'^[\w\d-_:]+$'"/>
