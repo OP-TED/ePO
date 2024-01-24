@@ -85,6 +85,7 @@ The issues are classified based on for classification dimensions:
     * eFulfillment
     * eAccess
     * eContract
+    * eSubmission
   * generic - no module in particular because the issue is of technical or documentation nature
 * type label
   * bug - something implemented incorrectly in a release 
