@@ -71,7 +71,7 @@
     <xsl:variable name="enableGenerationOfSkosConcept" select="fn:false()"/>
 
     <!--    This variable controls whether the enumerations are transformed into skos schemes or ignored-->
-    <xsl:variable name="enableGenerationOfConceptSchemes" select="fn:true()"/>
+    <xsl:variable name="enableGenerationOfConceptSchemes" select="fn:false()"/>
 
     <!--Allowed characters for a normalized string-->
     <xsl:variable name="allowedStrings" select="'^[\w\d-_:]+$'"/>
@@ -122,11 +122,11 @@
     <!--    owl:incompatibleWith -->
     <xsl:variable name="incompatibleWith" select="'3.1.0'"/>
     <!--    owl:versionInfo -->
-    <xsl:variable name="versionInfo" select="'4.0.0'"/>
+    <xsl:variable name="versionInfo" select="'4.0.1'"/>
     <!--    bibo:status-->
     <xsl:variable name="ontologyStatus" select="'Semantic Specification Release'"/>
     <!--    owl:priorVersion -->
-    <xsl:variable name="priorVersion" select="'3.1.0'"/>
+    <xsl:variable name="priorVersion" select="'4.0.0'"/>
     <!--    vann:preferredNamespaceUri -->
     <xsl:variable name="preferredNamespaceUri" select="'http://data.europa.eu/a4g/ontology#'"/>
     <!--    vann:preferredNamespacePrefix -->
