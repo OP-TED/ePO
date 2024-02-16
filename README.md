@@ -46,7 +46,8 @@ Ontology namespace: `http://data.europa.eu/a4g/ontology#`
 Preferred prefix: `epo`
 
 
-Note: If you discover any issues or have questions please put them on [GitHub issues](https://github.com/OP-TED/ePO/issues) and we will address them. Also, we have reorganised the GitHub repository and if you experience problems or need assistance feel free to [contact us by email](mailto:OP-EPROCUREMENT-ONTOLOGY@publications.europa.eu).
+Note: If you have any questions, or you would like to make a suggestion or share an idea, please use [Discussions](https://github.com/OP-TED/ePO/discussions). If you discover any bugs please put them on [GitHub issues](https://github.com/OP-TED/ePO/issues) and we will address them.
+Also, we have reorganised the GitHub repository and if you experience problems or need assistance feel free to [contact us by email](mailto:OP-EPROCUREMENT-ONTOLOGY@publications.europa.eu).
 
 ### References
 
@@ -85,6 +86,7 @@ The issues are classified based on for classification dimensions:
     * eFulfillment
     * eAccess
     * eContract
+    * eSubmission
   * generic - no module in particular because the issue is of technical or documentation nature
 * type label
   * bug - something implemented incorrectly in a release 
