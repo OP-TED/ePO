@@ -19,7 +19,7 @@ Each module folder is structured as follows:
 - The *model2owl-config* folder contains the configuration files necessary for the [model2owl toolchain](https://github.com/OP-TED/model2owl) to transform the .xml file of the specified module to a formal OWL ontology including SHACL shapes.
 
 
-- The *owl_ontology* folder contains the ontology files of the specified module, as well as the restriction files. The files are available in [XML/RDF](https://www.w3.org/RDF/) and [Turtle/RDF](https://www.w3.org/TR/turtle/) formats.
+- The *owl_ontology* folder contains the ontology files of the specified module, as well as the restriction files. The files are available in [XML/RDF](https://www.w3.org/TR/rdf-syntax-grammar/) and [Turtle/RDF](https://www.w3.org/TR/turtle/) formats.
 
 
 - The *shacl_shapes* folder contains the [SHACL](https://www.w3.org/TR/shacl/) shapes of the specified module in RDF and Turtle format. SHACL ( Shapes Constraint Language) is a W3C standard used for validating the contents of an RDF graph. 
