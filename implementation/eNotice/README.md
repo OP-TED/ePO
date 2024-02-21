@@ -11,7 +11,7 @@ The eNotice module contains classes related to eNotices. It is structured in thr
 - The *model2owl-config* folder contains the configuration files necessary for the [model2owl toolchain](https://github.com/OP-TED/model2owl) to transform the eNotice.xml file to a formal OWL ontology including SHACL shapes.
 
 
-- The *owl_ontology* folder contains the eNotice ontology files, as well as the restriction files. The files are available in both [RDF](https://www.w3.org/RDF/) and [Turtle](https://www.w3.org/TR/turtle/) formats. 
+- The *owl_ontology* folder contains the eNotice ontology files, as well as the restriction files. The files are available in [XML/RDF](https://www.w3.org/TR/rdf-syntax-grammar/) and [Turtle/RDF](https://www.w3.org/TR/turtle/) formats.
 
 
 - The *shacl_shapes* folder contains the [SHACL](https://www.w3.org/TR/shacl/) shapes of eNotice in RDF and Turtle format. SHACL ( Shapes Constraint Language) is a W3C standard used for validating the contents of an RDF graph. 
