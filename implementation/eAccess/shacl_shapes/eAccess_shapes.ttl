@@ -8,12 +8,27 @@
 @prefix frbroo: <http://iflastandards.info/ns/fr/frbr/frbroo/> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-acc-shape:diagrams rdfs:comment "ESPD-EDM TOV definitions: cac::TenderingCriterionProperty A class to describe the criterion properties. cac::TenderingCriterionPropertyGroup The sets of properties that can be used to fulfil the tendering criterion." .
+acc-shape:cccev-EvidenceType a sh:NodeShape ;
+    rdfs:label "Evidence type" ;
+    rdfs:comment "Information about the characteristics of an Evidence. Additional Information: The Evidence Type and the characteristics it describes are not concrete individual responses to a Requirement (i.e. Evidence), but descriptions about the desired form, content, source and/or other characteristics that an actual response should have and provide (e.g. membership of a class of Evidences)." ;
+    rdfs:isDefinedBy acc-shape:acc-shape ;
+    sh:targetClass cccev:EvidenceType .
+
+acc-shape:cccev-EvidenceTypeList a sh:NodeShape ;
+    rdfs:label "Evidence type list" ;
+    rdfs:comment "Group of Evidence Types for conforming to a Requirement. Additional Information: An Evidence Type List is satisfied, if and only if, for all included Evidence Types in this List, corresponding conformant Evidence(s) are supporting the Requirement having this List. The Evidence Type List describes thus an AND condition on the different Evidence Types within the list and an OR condition between two or more Evidence Type Lists. Combinations of alternative Lists can be provided for a respondent of a Requirement to choose amongst them." ;
+    rdfs:isDefinedBy acc-shape:acc-shape ;
+    sh:property acc-shape:cccev-EvidenceTypeList-cccev-specifiesEvidenceType,
+        acc-shape:cccev-EvidenceTypeList-dct-description,
+        acc-shape:cccev-EvidenceTypeList-skos-prefLabel ;
+    sh:targetClass cccev:EvidenceTypeList .
 
 acc-shape:eli-LegalExpression a sh:NodeShape ;
     rdfs:label "Legal expression" ;
@@ -22,9 +37,9 @@ acc-shape:eli-LegalExpression a sh:NodeShape ;
     sh:property acc-shape:eli-LegalExpression-dct-description,
         acc-shape:eli-LegalExpression-dct-identifier,
         acc-shape:eli-LegalExpression-dct-title,
+        acc-shape:eli-LegalExpression-eli-is_realized_by,
         acc-shape:eli-LegalExpression-eli-jurisdiction,
-        acc-shape:eli-LegalExpression-eli-number,
-        acc-shape:eli-LegalExpression-frbroo-R3i_realises ;
+        acc-shape:eli-LegalExpression-eli-number ;
     sh:targetClass eli:LegalExpression .
 
 acc-shape:eli-LegalResource a sh:NodeShape ;
@@ -54,48 +69,32 @@ acc-shape:eli-Work a sh:NodeShape ;
 
 acc-shape:epo-acc-ESPDRequest a sh:NodeShape ;
     rdfs:label "E s p d request" ;
+    rdfs:comment "An updated self-declaration used by the economic operator as a preliminary evidence in replacement of certificates issued by public authorities or third parties confirming that the economic operator fulfils the Exclusion Grounds and the Selection Criteria set out by the Buyer for a specific Procurement. WG Approval 05/03/2024" ;
     rdfs:isDefinedBy acc-shape:acc-shape ;
     sh:targetClass :ESPDRequest .
 
-acc-shape:epo-acc-ESPDRequest-epo-acc-concernsProcedure sh:description "The relations epo-acc:concernsProcedure and epo:refersToProcedure have to refer to the same Procedure." .
+acc-shape:epo-acc-ESPDRequest-epo-concernsProcedure sh:description "The relations epo-acc:concernsProcedure and epo:refersToProcedure have to refer to the same Procedure." .
 
-acc-shape:epo-acc-Question a sh:NodeShape ;
-    rdfs:label "Question" ;
-    rdfs:comment "ESPD-EDM BOV definition: Caption (i.e. a 'label'), specific MS or buyer requirement (e.g. 'Number of references expected: 5' or a question addressed to the economic operator (e.g. 'Your average yearly turnover for the past three years?'. UBL element: cac:TenderingCriterionProperty 15/11/2021" ;
-    rdfs:isDefinedBy acc-shape:acc-shape ;
-    sh:targetClass :Question .
+acc-shape:cccev-EvidenceTypeList-cccev-specifiesEvidenceType a sh:PropertyShape ;
+    sh:class cccev:EvidenceType ;
+    sh:description "Evidence Type included in this Evidence Type List." ;
+    sh:name "Specifies evidence type" ;
+    sh:path cccev:specifiesEvidenceType ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/m8g/specifiesEvidenceType> ?that . ?that <http://data.europa.eu/m8g/specifiesEvidenceType> ?this .}" ] .
 
-acc-shape:epo-acc-QuestionGroup a sh:NodeShape ;
-    rdfs:label "Question group" ;
-    rdfs:comment "ESPD-EDM BOV definition: The first level group of properties and subgroups of properties in the structure of a criterion. UBL element: cac:TenderingCriterionPropertyGroup 05/11/2021",
-        "In an ESPDRequest, the ProcurementCriterion must be initiated from a QuestionGroup or a RequirementGroup." ;
+acc-shape:cccev-EvidenceTypeList-dct-description a sh:PropertyShape ;
     rdfs:isDefinedBy acc-shape:acc-shape ;
-    sh:property acc-shape:epo-acc-QuestionGroup-epo-acc-containsQuestion,
-        acc-shape:epo-acc-QuestionGroup-epo-acc-containsQuestionSubgroup ;
-    sh:targetClass :QuestionGroup .
+    sh:datatype rdf:PlainLiteral ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Description" ;
+    sh:path dcterms:description .
 
-acc-shape:epo-acc-QuestionSubgroup a sh:NodeShape ;
-    rdfs:label "Question subgroup" ;
+acc-shape:cccev-EvidenceTypeList-skos-prefLabel a sh:PropertyShape ;
     rdfs:isDefinedBy acc-shape:acc-shape ;
-    sh:property acc-shape:epo-acc-QuestionSubgroup-epo-acc-containsQuestionSubgroup ;
-    sh:targetClass :QuestionSubgroup .
-
-acc-shape:epo-acc-Requirement a sh:NodeShape ;
-    rdfs:label "Requirement" ;
-    rdfs:comment "Data that a Buyer requests from a Tenderer. Additional information: The Requirement often has a Constraint. WG approval 12/12/2023",
-        "ESPD-EDM BOV definition: Caption (i.e. a 'label'), specific MS or buyer requirement (e.g. 'Number of references expected: 5' or a question addressed to the economic operator (e.g. 'Your average yearly turnover for the past three years?'. UBL element: cac:TenderingCriterionProperty 15/11/2021" ;
-    rdfs:isDefinedBy acc-shape:acc-shape ;
-    sh:targetClass :Requirement .
-
-acc-shape:epo-acc-RequirementGroup a sh:NodeShape ;
-    rdfs:label "Requirement group" ;
-    rdfs:comment "A concept that contains one or more related Requirements or Requirement Subgroup. WG approval 12/12/2023",
-        "ESPD-EDM BOV definition: The first level group of properties and sub-groups of properties in the structure of a criterion. UBL element: cac:TenderingCriterionPropertyGroup 05/11/2021",
-        "In an ESPDRequest, the ProcurementCriterion must be initiated from a QuestionGroup or a RequirementGroup." ;
-    rdfs:isDefinedBy acc-shape:acc-shape ;
-    sh:property acc-shape:epo-acc-RequirementGroup-epo-acc-containsQuestionSubgroup,
-        acc-shape:epo-acc-RequirementGroup-epo-acc-containsRequirement ;
-    sh:targetClass :RequirementGroup .
+    sh:datatype rdf:PlainLiteral ;
+    sh:name "Pref label" ;
+    sh:path skos:prefLabel .
 
 acc-shape:eli-LegalExpression-dct-description a sh:PropertyShape ;
     rdfs:isDefinedBy acc-shape:acc-shape ;
@@ -117,6 +116,15 @@ acc-shape:eli-LegalExpression-dct-title a sh:PropertyShape ;
     sh:name "Title" ;
     sh:path dcterms:title .
 
+acc-shape:eli-LegalExpression-eli-is_realized_by a sh:PropertyShape ;
+    sh:class eli:Work ;
+    sh:description "Relates a work to an expression of this work in the form of a \"sequence of signs\" (typically alpha-numeric characters in a legal context). Inverse of \"realizes\"." ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Is_realized_by" ;
+    sh:path eli:is_realized_by ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/eli/ontology#is_realized_by> ?that . ?that <http://data.europa.eu/eli/ontology#is_realized_by> ?this .}" ] .
+
 acc-shape:eli-LegalExpression-eli-jurisdiction a sh:PropertyShape ;
     sh:class at-voc:atu ;
     sh:description "The jurisdiction from which the legal resource originates. The place identifier can be taken from the Administrative Territorial Unit table published of the EU Publications Office at https://op.europa.eu/en/web/eu-vocabularies/at-dataset/-/resource/dataset/atu. Member States don't have to recreate their own list of values." ;
@@ -129,14 +137,6 @@ acc-shape:eli-LegalExpression-eli-number a sh:PropertyShape ;
     sh:description "An identifier or other disambiguating feature for a legal resource or legal expression. This can be the number of a legislation, the number of an article, or the issue number of an official journal." ;
     sh:name "Number" ;
     sh:path eli:number .
-
-acc-shape:eli-LegalExpression-frbroo-R3i_realises a sh:PropertyShape ;
-    sh:class eli:Work ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "R3i_realises" ;
-    sh:path frbroo:R3i_realises ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://iflastandards.info/ns/fr/frbr/frbroo/R3i_realises> ?that . ?that <http://iflastandards.info/ns/fr/frbr/frbroo/R3i_realises> ?this .}" ] .
 
 acc-shape:eli-LegalResource-dct-description a sh:PropertyShape ;
     rdfs:isDefinedBy acc-shape:acc-shape ;
@@ -180,54 +180,22 @@ acc-shape:eli-LegalResourceSubdivision-epo-hasSubdivision a sh:PropertyShape ;
 
 acc-shape:eli-Work-dct-isPartOf a sh:PropertyShape ;
     sh:class eli:Work ;
+    sh:description "A related resource in which the described resource is physically or logically included." ;
     sh:name "Is part of" ;
     sh:path dcterms:isPartOf ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://purl.org/dc/terms/isPartOf> ?that . ?that <http://purl.org/dc/terms/isPartOf> ?this .}" ] .
-
-acc-shape:epo-acc-QuestionGroup-epo-acc-containsQuestion a sh:PropertyShape ;
-    sh:class :Question ;
-    sh:minCount 1 ;
-    sh:name "Contains question" ;
-    sh:path :containsQuestion ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsQuestion> ?that . ?that <http://data.europa.eu/a4g/ontology#containsQuestion> ?this .}" ] .
-
-acc-shape:epo-acc-QuestionGroup-epo-acc-containsQuestionSubgroup a sh:PropertyShape ;
-    sh:class :QuestionSubgroup ;
-    sh:name "Contains question subgroup" ;
-    sh:path :containsQuestionSubgroup ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsQuestionSubgroup> ?that . ?that <http://data.europa.eu/a4g/ontology#containsQuestionSubgroup> ?this .}" ] .
-
-acc-shape:epo-acc-QuestionSubgroup-epo-acc-containsQuestionSubgroup a sh:PropertyShape ;
-    sh:class :QuestionSubgroup ;
-    sh:name "Contains question subgroup" ;
-    sh:path :containsQuestionSubgroup ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsQuestionSubgroup> ?that . ?that <http://data.europa.eu/a4g/ontology#containsQuestionSubgroup> ?this .}" ] .
-
-acc-shape:epo-acc-RequirementGroup-epo-acc-containsQuestionSubgroup a sh:PropertyShape ;
-    sh:class :QuestionSubgroup ;
-    sh:minCount 1 ;
-    sh:name "Contains question subgroup" ;
-    sh:path :containsQuestionSubgroup ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsQuestionSubgroup> ?that . ?that <http://data.europa.eu/a4g/ontology#containsQuestionSubgroup> ?this .}" ] .
-
-acc-shape:epo-acc-RequirementGroup-epo-acc-containsRequirement a sh:PropertyShape ;
-    sh:class :Requirement ;
-    sh:minCount 1 ;
-    sh:name "Contains requirement" ;
-    sh:path :containsRequirement ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsRequirement> ?that . ?that <http://data.europa.eu/a4g/ontology#containsRequirement> ?this .}" ] .
 
 acc-shape:acc-shape a owl:Ontology ;
     rdfs:label "eProcurement Ontology Access - core shapes"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Access core shapes provides the generic datashape specifications for the eProcurement Ontology Access core."@en ;
-    dcterms:issued "2023-12-19"^^xsd:date ;
+    dcterms:issued "2024-03-14"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology Access - core shapes"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eAccess.xml on 2023-12-19" ;
+    rdfs:comment "This version is automatically generated from eAccess.xml on 2024-03-14" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
