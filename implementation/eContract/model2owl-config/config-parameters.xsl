@@ -77,7 +77,7 @@
     <xsl:variable name="allowedStrings" select="'^[\w\d-_:]+$'"/>
 
     <!--    Generate reused classes, attributes and connectors-->
-    <xsl:variable name="generateReusedConcepts" select="fn:false()"/>
+    <xsl:variable name="generateReusedConcepts" select="fn:true()"/>
 
 
     <xsl:variable name="reference-to-external-classes-in-glossary" select="fn:true()"/>
