@@ -1,4 +1,5 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
+@prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix at-voc-new: <http://publications.europa.eu/resource/authority/new/> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -7,6 +8,7 @@
 @prefix frbroo: <http://iflastandards.info/ns/fr/frbr/frbroo/> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
@@ -24,6 +26,7 @@
 
 :Catalogue a owl:Class ;
     rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :PostAwardDocument ;
     skos:definition "A Document describing a set of Items offered for purchase that can be processed in an electronic way."@en ;
     skos:prefLabel "Catalogue"@en .
 
@@ -34,6 +37,7 @@
 
 :CatalogueResponse a owl:Class ;
     rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :PostAwardDocument ;
     skos:prefLabel "Catalogue response"@en .
 
 :CatalogueResponseInformation a owl:Class ;
@@ -46,11 +50,13 @@
 
 :ChargeInformation a owl:Class ;
     rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :AllowanceChargeInformation ;
     skos:definition "Information about tax, fee or duty imposed. Additional Information: Charge category indicates the nature of the tax/duty/fee, for example VAT, CAR, etc. Charge category modifier may be used in case different levels, exemptions or other modifications apply. The charge can be fixed or relative to the price. WG approval 16/05/2023"@en ;
     skos:prefLabel "Charge information"@en .
 
 :InformationHub a owl:Class ;
     rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :ContextDescription ;
     skos:definition "Grouping of data that may be associated to various concepts. Additional Information: For example, AllowanceChargeInformation may be associated to the Order or the Catalogue (either at the Line level or at the Document level), amongst others. WG approval 16/05/2023"@en ;
     skos:prefLabel "Information hub"@en .
 
@@ -61,16 +67,19 @@
 
 :ItemAccessoryRelation a owl:Class ;
     rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :ItemRelation ;
     skos:definition "Combination of two Items where the former enhances the latter. WG Approval: 30/06/2022"@en ;
     skos:prefLabel "Item accessory relation"@en .
 
 :ItemComplementaryRelation a owl:Class ;
     rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :ItemRelation ;
     skos:definition "Combination of two Items which mutually enhance one another. WG Approval: 30/06/2022"@en ;
     skos:prefLabel "Item complementary relation"@en .
 
 :ItemComposition a owl:Class ;
     rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :ItemRelation ;
     skos:definition "Inclusion of an Item into in the described Item. Additional Information: The Item is provided with its components, however, the component Items may also be provided separately. For example, a bicycle has wheels as components, but they may be provided as spare parts as well. This relation is useful to describe different package levels of an item or hierarchies of Items. WG Approval: 19/05/2022"@en ;
     skos:prefLabel "Item composition"@en .
 
@@ -84,18 +93,15 @@
     skos:definition "Construct meant to represent the association between an attribute defined in an external classification scheme and the value ascribed to it. WG approval 26/07/2022"@en ;
     skos:prefLabel "Item property"@en .
 
-:ItemRelation a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Connection between two Items. WG Approval: 30/06/2022"@en ;
-    skos:prefLabel "Item relation"@en .
-
 :ItemReplacement a owl:Class ;
     rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :ItemRelation ;
     skos:definition "Supplantment, displacement or suspension of an Item by the described Item. WG Approval: 30/06/2022"@en ;
     skos:prefLabel "Item replacement"@en .
 
 :ItemRequirement a owl:Class ;
     rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :ItemRelation ;
     skos:definition "Necessity of an Item by the described item. Additional Information: The described item is provided without other items that are required for proper functionality. For example, a printer cannot be used without ink cartridge; or a Server cannot be used without its installation. WG Approval: 19/05/2022"@en ;
     skos:prefLabel "Item requirement"@en .
 
@@ -105,12 +111,9 @@
 
 :Manufacturer a owl:Class ;
     rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :OfferingParty ;
     skos:definition "The Producer of goods or provider of services. Additional Information: Also, known as Supplier and Manufacturer. We do not care who provides these service or products we care with whom Business is done. PEPPOL - Invoice: The Supplier is the Legal Person or Organisation who provides a product and/or service. PEPPOL - Order: The supplier is the legal person or organisation who provides a product or service. Examples of supplier roles: seller, despatch party, creditor, economic operator."@en ;
     skos:prefLabel "Manufacturer"@en .
-
-:PostAwardDocument a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Post award document"@en .
 
 :Price a owl:Class ;
     rdfs:isDefinedBy :cat ;
@@ -119,6 +122,7 @@
 
 :ProductSpecification a owl:Class ;
     rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :PostAwardDocument ;
     skos:definition "Document providing information about an Item. WG approval 07/04/2022"@en ;
     skos:prefLabel "Product specification"@en .
 
@@ -523,6 +527,65 @@ at-voc-new:dangerous-goods-list skos:editorialNote "Will this ever be a controll
 at-voc-new:orderable-unit skos:editorialNote "Waiting for code list."@en .
 
 at-voc-new:transaction-conditions skos:editorialNote "Waiting for code list."@en .
+
+dcterms:description a owl:DatatypeProperty ;
+    skos:definition "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo-cat:Line) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo-cat:Item)"@en ;
+    skos:prefLabel "Description"@en .
+
+dcterms:hasPart a owl:ObjectProperty ;
+    skos:definition "A related resource that is included either physically or logically in the described resource. Additional Information: In the eCatalogue context, when this relation is used between two items, the resource in the definition refers to Items, i.e. one item is part of another item. WG Approval: 30/06/2022 (epo-cat:Item -> epo-cat:Item (+dct:hasPart))"@en ;
+    skos:prefLabel "Has part"@en .
+
+dcterms:isReplacedBy a owl:ObjectProperty ;
+    skos:definition "A related resource that is supplanted, displaced, or superseded by the described resource. Additional Information: In the eCatalogue context, when this relation is used between two items, the resource in the definition refers to Items, i.e. one item replaces another item. WG Approval: 30/06/2022 (epo-cat:Item <-> epo-cat:Item (+dct:isReplacedBy +dct:replaces))"@en ;
+    skos:prefLabel "Is replaced by"@en .
+
+dcterms:replaces a owl:ObjectProperty ;
+    skos:definition "A related resource that is supplanted, displaced, or superseded by the described resource. Additional Information: In the eCatalogue context, when this relation is used between two items, the resource in the definition refers to Items, i.e. one item replaces another item. WG Approval: 30/06/2022 (epo-cat:Item <-> epo-cat:Item (+dct:isReplacedBy +dct:replaces))"@en ;
+    skos:prefLabel "Replaces"@en .
+
+dcterms:requires a owl:ObjectProperty ;
+    skos:definition "A related resource that is required by the described resource to support its function, delivery, or coherence. Additional Information: In the eCatalogue context, when this relation is used between two items, the resource in the definition refers to Items, i.e. one Item requires another Item. WG Approval: 30/06/2022 (epo-cat:Item -> epo-cat:Item (+dct:requires))"@en ;
+    skos:prefLabel "Requires"@en .
+
+dcterms:title a owl:DatatypeProperty ;
+    skos:definition "A name given to the resource. WG approval 30/05/2023 (epo-cat:Brand) A name given to the resource. WG approval 30/05/2023 (epo-cat:ItemModel) A name given to the resource. WG approval 30/05/2023 (epo-cat:Item)"@en ;
+    skos:prefLabel "Title"@en .
+
+rdf:PlainLiteral a rdfs:Datatype ;
+    skos:prefLabel "Plain literal"@en .
+
+xsd:anyURI a rdfs:Datatype ;
+    skos:prefLabel "Any u r i"@en .
+
+xsd:boolean a rdfs:Datatype ;
+    skos:prefLabel "Boolean"@en .
+
+xsd:date a rdfs:Datatype ;
+    skos:prefLabel "Date"@en .
+
+xsd:dateTime a rdfs:Datatype ;
+    skos:prefLabel "Date time"@en .
+
+xsd:decimal a rdfs:Datatype ;
+    skos:prefLabel "Decimal"@en .
+
+xsd:integer a rdfs:Datatype ;
+    skos:prefLabel "Integer"@en .
+
+adms:identifier a owl:ObjectProperty ;
+    skos:definition "Links a resource to an adms:Identifier class. (epo-cat:Line -> adms:Identifier (+adms:identifier))"@en ;
+    skos:prefLabel "Identifier"@en .
+
+:PostAwardDocument a owl:Class ;
+    rdfs:isDefinedBy :cat ;
+    rdfs:subClassOf :Document ;
+    skos:prefLabel "Post award document"@en .
+
+:ItemRelation a owl:Class ;
+    rdfs:isDefinedBy :cat ;
+    skos:definition "Connection between two Items. WG Approval: 30/06/2022"@en ;
+    skos:prefLabel "Item relation"@en .
 
 :cat a owl:Ontology ;
     rdfs:label "eProcurement Ontology Catalogue - core"@en ;

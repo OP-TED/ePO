@@ -1,4 +1,5 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
+@prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix eli: <http://data.europa.eu/eli/ontology#> .
@@ -6,17 +7,15 @@
 @prefix frbroo: <http://iflastandards.info/ns/fr/frbr/frbroo/> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:AbstractContainer a owl:Class ;
-    rdfs:isDefinedBy :ful ;
-    skos:prefLabel "Abstract container"@en .
-
 :Carrier a owl:Class ;
     rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :AuxiliaryParty ;
     skos:definition "The Role of an Agent who handles the physical Delivery/Transportation of the (Despatched) Shipment. Additional Information: This Role is also known as Deliverer. WG approval: 11/10/2022"@en ;
     skos:prefLabel "Carrier"@en .
 
@@ -27,19 +26,23 @@
 
 :DespatchAdvice a owl:Class ;
     rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :PostAwardDocument ;
     skos:prefLabel "Despatch advice"@en .
 
 :DespatchLine a owl:Class ;
     rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :Line ;
     skos:prefLabel "Despatch line"@en .
 
 :Despatcher a owl:Class ;
     rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :OfferingParty ;
     skos:definition "Role of an Agent who sends the goods or notifies of the service or works execution. Additional Information: The Role is carried out by the Supplier or on behalf of the Supplier. Despatcher is also known as Despatch Party, Consignor, Deliverer."@en ;
     skos:prefLabel "Despatcher"@en .
 
 :FreightForwarder a owl:Class ;
     rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :AuxiliaryParty ;
     skos:prefLabel "Freight forwarder"@en .
 
 :GoodsItem a owl:Class ;
@@ -49,19 +52,18 @@
 
 :Notifier a owl:Class ;
     rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :AuxiliaryParty ;
     skos:definition "The party to be notified upon arrival of goods and when special occurrences (usually pre-defined) take place during a transportation service. (UBL)"@en ;
     skos:prefLabel "Notifier"@en .
 
-:Package a owl:Class ;
-    rdfs:isDefinedBy :ful ;
-    skos:prefLabel "Package"@en .
-
 :ReceiptAdvice a owl:Class ;
     rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :PostAwardDocument ;
     skos:prefLabel "Receipt advice"@en .
 
 :ReceiptAdviceLine a owl:Class ;
     rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :Line ;
     skos:prefLabel "Receipt advice line"@en .
 
 :RejectionAction a owl:ObjectProperty ;
@@ -75,6 +77,7 @@
 
 :ShipmentInformation a owl:Class ;
     rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :InformationHub ;
     skos:definition "The Transportation of an identifiable collection of Goods Items from one party (the Despatch Party) to another party (the Consignee) via one or more modes of transport. Addition Information This represents the \"where\" and \"when\"."@en ;
     skos:prefLabel "Shipment information"@en .
 
@@ -97,6 +100,7 @@
 
 :TransportHandlingUnit a owl:Class ;
     rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :Package ;
     skos:definition "A description of Individual Handling Units in which the Line Items are packed."@en ;
     skos:prefLabel "Transport handling unit"@en .
 
@@ -106,6 +110,7 @@
 
 :TransportMeansOperator a owl:Class ;
     rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :AuxiliaryParty ;
     skos:prefLabel "Transport means operator"@en .
 
 :agreedByBuyer a owl:ObjectProperty ;
@@ -514,6 +519,44 @@
 :usesTransportMeans a owl:ObjectProperty ;
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Uses transport means"@en .
+
+dcterms:description a owl:DatatypeProperty ;
+    skos:definition "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo-ful:TemperatureSpecification) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo-ful:TransportEquipment) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo-ful:ShipmentInformation)"@en ;
+    skos:prefLabel "Description"@en .
+
+rdf:PlainLiteral a rdfs:Datatype ;
+    skos:prefLabel "Plain literal"@en .
+
+xsd:anyURI a rdfs:Datatype ;
+    skos:prefLabel "Any u r i"@en .
+
+xsd:boolean a rdfs:Datatype ;
+    skos:prefLabel "Boolean"@en .
+
+xsd:date a rdfs:Datatype ;
+    skos:prefLabel "Date"@en .
+
+xsd:dateTime a rdfs:Datatype ;
+    skos:prefLabel "Date time"@en .
+
+xsd:decimal a rdfs:Datatype ;
+    skos:prefLabel "Decimal"@en .
+
+xsd:integer a rdfs:Datatype ;
+    skos:prefLabel "Integer"@en .
+
+adms:identifier a owl:ObjectProperty ;
+    skos:definition "Links a resource to an adms:Identifier class. (epo-ful:AbstractContainer -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:Consignment -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:ShipmentInformation -> adms:Identifier (+adms:identifier))"@en ;
+    skos:prefLabel "Identifier"@en .
+
+:AbstractContainer a owl:Class ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Abstract container"@en .
+
+:Package a owl:Class ;
+    rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :AbstractContainer ;
+    skos:prefLabel "Package"@en .
 
 :ful a owl:Ontology ;
     rdfs:label "eProcurement Ontology Fulfilment - core"@en ;
