@@ -77,7 +77,7 @@
     <xsl:variable name="allowedStrings" select="'^[\w\d-_:]+$'"/>
 
     <!--    Generate reused classes, attributes and connectors-->
-    <xsl:variable name="generateReusedConcepts" select="fn:true()"/>
+    <xsl:variable name="generateReusedConcepts" select="fn:false()"/>
 
 
     <xsl:variable name="reference-to-external-classes-in-glossary" select="fn:true()"/>
@@ -126,7 +126,7 @@
     <!--    bibo:status-->
     <xsl:variable name="ontologyStatus" select="'Semantic Specification Release'"/>
     <!--    owl:priorVersion -->
-    <xsl:variable name="priorVersion" select="'4.0.0'"/>
+    <xsl:variable name="priorVersion" select="'4.0.2'"/>
     <!--    vann:preferredNamespaceUri -->
     <xsl:variable name="preferredNamespaceUri" select="'http://data.europa.eu/a4g/ontology#'"/>
     <!--    vann:preferredNamespacePrefix -->
