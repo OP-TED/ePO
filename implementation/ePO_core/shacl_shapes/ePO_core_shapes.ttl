@@ -1,10 +1,14 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix at-voc: <http://publications.europa.eu/resource/authority/> .
+@prefix at-nuts: <http://data.europa.eu/nuts/scheme/> .
+@prefix at-cpv: <http://data.europa.eu/cpv/> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix core-shape: <http://data.europa.eu/a4g/data-shape#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix frbroo: <http://iflastandards.info/ns/fr/frbr/frbroo/> .
 @prefix locn: <http://www.w3.org/ns/locn#> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -48,28 +52,39 @@ core-shape:cccev-Criterion a sh:NodeShape ;
 
 core-shape:cccev-Evidence a sh:NodeShape ;
     rdfs:label "Evidence" ;
-    rdfs:comment "Proof that a Requirement is met." ;
+    rdfs:comment "Proof that a Requirement is met. Additional Information: The class Evidence provides the means to support responses to Criteria or to a concrete Information Requirement or to an Information Concept inside an Information Requirement. The proof described by an Evidence can [1] verify a claim (i.e. is it true that John is 25, yes/no), [2] prove a condition (i.e. is John 18+, yes/no), or [3] simply provide data (i.e. the age of a person, namely 25). The proof can be given through documents or extracts of base registries, independently from its structure, format or medium used to exchange it: a pdf document, a video, a recording, etc." ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:cccev-Evidence-cccev-confidentialityLevelType,
+    sh:property core-shape:cccev-Evidence-adms-identifier,
+        core-shape:cccev-Evidence-cccev-confidentialityLevelType,
         core-shape:cccev-Evidence-cccev-supportsConcept,
         core-shape:cccev-Evidence-cccev-supportsRequirement,
+        core-shape:cccev-Evidence-dct-description,
+        core-shape:cccev-Evidence-epo-hasURL,
         core-shape:cccev-Evidence-epo-hasValidityPeriod ;
     sh:targetClass cccev:Evidence .
 
 core-shape:cccev-InformationConcept a sh:NodeShape ;
     rdfs:label "Information concept" ;
-    rdfs:comment "Piece of information that the Evidence provides or the Requirement needs." ;
+    rdfs:comment "Piece of information that the Evidence provides or the Requirement needs. Additional Information: The Information Concept class offers the ability to describe conceptually the Requirements and provided facts in Evidences. In complementarity with the Supported Value class, this is a (first) step towards facilitating the assessment of the requirements in an automated way based on the Evidence provided." ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:cccev-InformationConcept-adms-identifier,
         core-shape:cccev-InformationConcept-dct-description,
         core-shape:cccev-InformationConcept-skos-prefLabel ;
     sh:targetClass cccev:InformationConcept .
 
+core-shape:cccev-InformationRequirement a sh:NodeShape ;
+    rdfs:label "Information requirement" ;
+    rdfs:comment "Requested data that is to be proven by Evidence. Additional Information: Information Requirements are the most neutral kind of Requirements. They aim to request information in any form, e.g. a person's date of birth or a company's turnover. They represent requests for data that prove one or more facts of the real world in a formal manner, or that leads to the source of such a proof. They can be understood as 'requests for Evidences'. The response to an Information Requirement is an Evidence when the issuer of the response is an authoritative source (e.g. a Civil Registry providing data about a natural person for the provision of public service through the Single Digital Gateway). In other cases, the responses might not be issued by an authoritative source, but the issuer supports the responses with Evidences (or commits to support them timely, e.g. a self-declaration or a declaration of oath). The Information Requirement can require structured data or documents of any form. For structured data, the Requirement can use 'Concepts' to specify the structure and type of the data expected in the response. For both structured and unstructured data, the Information Requirement can indicate the expected Type of Evidence, its format, source, and other properties related to the Evidence." ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:property core-shape:cccev-InformationRequirement-epo-hasConstraint ;
+    sh:targetClass cccev:InformationRequirement .
+
 core-shape:cccev-Requirement a sh:NodeShape ;
     rdfs:label "Requirement" ;
     rdfs:comment "Condition or prerequisite that is to be proven by Evidence. Additional Information: Requirement is a generic class representing any type of prerequisite that may be desired, needed or imposed as an obligation. CCCEV recommends to not use the Requirement class directly, but rather a more semantically-enriched subclass such as Criterion, Information Requirement or Constraint. Also note that the Requirement class is specified at a more abstract level and is not to be used as the instantiation of a Requirement for a specific Agent. To illustrate the notion: the European Directive on services in the internal market defines requirement as any obligation, prohibition, condition or limit provided for in the laws, regulations or administrative provisions of the Member States or in consequence of case-law, administrative practice, the rules of professional bodies, or the collective rules of professional associations or other professional Organisations, adopted in the exercise of their legal autonomy. To stay consistent to how identification is realised in the eProcurement ontology, we switch to using `adms:identifier` instead of `dct:identifier` as per CCCEV specification." ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:cccev-Requirement-adms-identifier,
+        core-shape:cccev-Requirement-cccev-hasConcept,
         core-shape:cccev-Requirement-cccev-hasRequirement,
         core-shape:cccev-Requirement-dct-description,
         core-shape:cccev-Requirement-skos-prefLabel ;
@@ -216,7 +231,7 @@ core-shape:epo-AwardOutcome a sh:NodeShape ;
 
 core-shape:epo-Awarder a sh:NodeShape ;
     rdfs:label "Awarder" ;
-    rdfs:comment "A Role of an Agent that signs the Award Decision. Additional Information: BT-08 can be Awarding CBP; BG-03 is the Buyer. But Awarding CPB is not the same as the Buyer; the organisations may differ for these roles. Having the Awarder Role allows us to specify which Organisation is involved in the Award Decision." ;
+    rdfs:comment "A Role of an Agent that signs the Award Decision. Additional information: BT-08 can be Awarding CBP; BG-03 is the Buyer. But Awarding CPB is not the same as the Buyer; the organisations may differ for these roles. Having the Awarder Role allows us to specify which Organisation is involved in the Award Decision." ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:targetClass :Awarder .
 
@@ -284,7 +299,6 @@ core-shape:epo-Certificate a sh:NodeShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:epo-Certificate-epo-attestedByLabel,
         core-shape:epo-Certificate-epo-hasCertificationNumber,
-        core-shape:epo-Certificate-epo-hasURL,
         core-shape:epo-Certificate-epo-issuedByCertifier ;
     sh:targetClass :Certificate .
 
@@ -335,7 +349,7 @@ core-shape:epo-ConcessionEstimate a sh:NodeShape ;
 
 core-shape:epo-ContextDescription a sh:NodeShape ;
     rdfs:label "Context description" ;
-    rdfs:comment "A description concerning a Procurement Object or a Notice in a specific Situation Context. Additional Information: The description has its own identity (+I) but is dependent (+D) on the concerned Entity. We say that ContextSpecificDescription *concerns* an Entity." ;
+    rdfs:comment "A description concerning a Procurement Object or a Notice in a specific Situation Context. Additional Information: The description has its own identity (+I) but is dependent (+D) on the concerned Entity. We say that ContextDescription *concerns* an Entity." ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:targetClass :ContextDescription .
 
@@ -837,7 +851,7 @@ core-shape:epo-PaymentExecutor a sh:NodeShape ;
 
 core-shape:epo-Period a sh:NodeShape ;
     rdfs:label "Period" ;
-    rdfs:comment "A time interval or a Duration. (WG approval 28/04/2020)" ;
+    rdfs:comment "A time interval or a Duration. WG approval 28/04/2020" ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:epo-Period-epo-hasBeginning,
         core-shape:epo-Period-epo-hasEnd,
@@ -925,7 +939,8 @@ core-shape:epo-ProcurementCriterion a sh:NodeShape ;
     rdfs:label "Procurement criterion" ;
     rdfs:comment "A criterion specific to Procurement. Additional Information: This Procurement Criterion can be only Exclusion Ground, Selection Criterion or Award Criterion. Each of these Criteria can contain subcriteria (Criterion class). WG Approval 23/04/2020" ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:epo-ProcurementCriterion-epo-hasConstraint,
+    sh:property core-shape:epo-ProcurementCriterion-epo-hasAdditionalInformation,
+        core-shape:epo-ProcurementCriterion-epo-hasConstraint,
         core-shape:epo-ProcurementCriterion-epo-hasFormula,
         core-shape:epo-ProcurementCriterion-epo-hasPerformingStaffQualificationInformation,
         core-shape:epo-ProcurementCriterion-epo-hasWeightValueType ;
@@ -1038,6 +1053,7 @@ core-shape:epo-QualificationCriterion a sh:NodeShape ;
     rdfs:label "Qualification criterion" ;
     rdfs:comment "Criterion used in the first stage of procurement. WG approval 30/05/2023" ;
     rdfs:isDefinedBy core-shape:core-shape ;
+    sh:property core-shape:epo-QualificationCriterion-epo-includesNationalCriterion ;
     sh:targetClass :QualificationCriterion .
 
 core-shape:epo-Quantity a sh:NodeShape ;
@@ -1236,7 +1252,7 @@ core-shape:epo-SubcontractingEstimate a sh:NodeShape ;
 
 core-shape:epo-Subcontractor a sh:NodeShape ;
     rdfs:label "Subcontractor" ;
-    rdfs:comment "A Role of an Agent that has an agreement to perform part or all of the obligations of another Agents's Contract. Additional information For some Procedures, the Subcontractor signs as well the Contract between the Buyer and the Contractor. At tendering time, entities relied upon by the Economic Operators can be Subcontractors or not. When modelling ESPD we well analyze whether we need or not a Role named \"relied upon\". WG approval 05/08/2021" ;
+    rdfs:comment "A Role of an Agent that has an agreement to perform part or all of the obligations of another Agents's Contract. Additional information For some Procedures, the Subcontractor signs as well the Contract between the Buyer and the Contractor. At tendering time, entities relied upon by the Economic Operators can be Subcontractors or not. When modelling ESPD we will analyze whether we need or not a Role named \"relied upon\". WG approval 05/08/2021" ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:targetClass :Subcontractor .
 
@@ -1263,6 +1279,7 @@ core-shape:epo-SubmissionStatisticalInformation a sh:NodeShape ;
         core-shape:epo-SubmissionStatisticalInformation-epo-hasReceivedSubmissionType,
         core-shape:epo-SubmissionStatisticalInformation-epo-hasReceivedTenders,
         core-shape:epo-SubmissionStatisticalInformation-epo-hasSMEReceivedTenders,
+        core-shape:epo-SubmissionStatisticalInformation-epo-hasSMEReceivedTendersExcludingSubcontractors,
         core-shape:epo-SubmissionStatisticalInformation-epo-hasUnverifiedTenders,
         core-shape:epo-SubmissionStatisticalInformation-epo-summarisesInformationForAwardOutcome ;
     sh:targetClass :SubmissionStatisticalInformation .
@@ -1315,6 +1332,12 @@ core-shape:epo-TechnicalAbilitySummary a sh:NodeShape ;
     rdfs:label "Technical ability summary" ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:targetClass :TechnicalAbilitySummary .
+
+core-shape:epo-TechnicalSpecification a sh:NodeShape ;
+    rdfs:label "Technical specification" ;
+    rdfs:comment "A set of documented Requirements applicable to the object of the Procurement. Additional Information: A specification often includes technical standards. WG approval: 20/04/2021" ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:targetClass :TechnicalSpecification .
 
 core-shape:epo-Technique a sh:NodeShape ;
     rdfs:label "Technique" ;
@@ -1455,6 +1478,8 @@ core-shape:org-Organization a sh:NodeShape ;
     rdfs:comment "A collection of people organized together into a community or other social, commercial or political structure. The group has some common purpose or reason for existence which goes beyond the set of people belonging to it and can act as an Agent. Organisations are often decomposable into hierarchical structures. (WG approval 23/11/2018)." ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:org-Organization-cv-registeredAddress,
+        core-shape:org-Organization-epo-canProvideNonDiscriminatoryEvidence,
+        core-shape:org-Organization-epo-canProvideTaxAndSocialSecuritiesEvidence,
         core-shape:org-Organization-epo-hasBuyerLegalType,
         core-shape:org-Organization-epo-hasBuyerLegalTypeDescription,
         core-shape:org-Organization-epo-hasCertification,
@@ -1487,6 +1512,8 @@ core-shape:person-Person a sh:NodeShape ;
         core-shape:person-Person-person-birthName,
         core-shape:person-Person-person-patronymicName ;
     sh:targetClass person:Person .
+
+core-shape:role rdfs:comment "Context: Issuing invoices, Credit notes Could be performed by third parties on behalf of the seller." .
 
 core-shape:time-Duration a sh:NodeShape ;
     rdfs:label "Duration" ;
@@ -1577,8 +1604,17 @@ core-shape:cccev-Criterion-dct-type a sh:PropertyShape ;
     sh:name "Type" ;
     sh:path dcterms:type .
 
+core-shape:cccev-Evidence-adms-identifier a sh:PropertyShape ;
+    sh:class adms:Identifier ;
+    sh:description "Links a resource to an adms:Identifier class." ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Identifier" ;
+    sh:path adms:identifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://www.w3.org/ns/adms#identifier> ?that . ?that <http://www.w3.org/ns/adms#identifier> ?this .}" ] .
+
 core-shape:cccev-Evidence-cccev-confidentialityLevelType a sh:PropertyShape ;
-    sh:class at-voc:confidentiality-level ;
+    sh:class at-voc:access-rights ;
     sh:description "Security classification assigned to an Evidence e.g. classified, sensitive, public. Additional Information: Classifications should be defined by an organisation/country as an outcome of a security assessment." ;
     sh:maxCount 1 ;
     sh:name "Confidentiality level type" ;
@@ -1586,7 +1622,7 @@ core-shape:cccev-Evidence-cccev-confidentialityLevelType a sh:PropertyShape ;
 
 core-shape:cccev-Evidence-cccev-supportsConcept a sh:PropertyShape ;
     sh:class cccev:InformationConcept ;
-    sh:description "Information Concept providing facts found/inferred from the Evidence. Additional Information: Examples of Information Concepts are values found explictly in the evidence such as a birth date or information derived from the Evidence such as \"I am older that 18 years\" or \"this is a FairTrade product\"." ;
+    sh:description "Information Concept providing facts found/inferred from the Evidence. Additional Information: Examples of Information Concepts are values found explicitly in the evidence such as a birth date or information derived from the Evidence such as \"I am older that 18 years\" or \"this is a Fair Trade product\"." ;
     sh:name "Supports concept" ;
     sh:path cccev:supportsConcept ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/m8g/supportsConcept> ?that . ?that <http://data.europa.eu/m8g/supportsConcept> ?this .}" ] .
@@ -1597,6 +1633,22 @@ core-shape:cccev-Evidence-cccev-supportsRequirement a sh:PropertyShape ;
     sh:name "Supports requirement" ;
     sh:path cccev:supportsRequirement ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/m8g/supportsRequirement> ?that . ?that <http://data.europa.eu/m8g/supportsRequirement> ?this .}" ] .
+
+core-shape:cccev-Evidence-dct-description a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:datatype rdf:PlainLiteral ;
+    sh:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" ;
+    sh:maxCount 1 ;
+    sh:name "Description" ;
+    sh:path dcterms:description .
+
+core-shape:cccev-Evidence-epo-hasURL a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:datatype xsd:anyURI ;
+    sh:description "The identifier of a resource. Additional Information For example: 1. The URL of the system from where to access the procurement documents; 2. The URL of the system for the submission of tender documents; 3. The URL of the system from where to download a tool to communicate with the Buyer; 4. The URL of the system used by a Technique to allow Economic Operators to exchange information with the Buyer (e.g. eAuction and DPS Systems) 5. The URL of the system used to exchange information between Buyer and EO for questions and clarifications; WG Approval 30/09/2019" ;
+    sh:maxCount 1 ;
+    sh:name "Has u r l" ;
+    sh:path :hasURL .
 
 core-shape:cccev-Evidence-epo-hasValidityPeriod a sh:PropertyShape ;
     sh:class :Period ;
@@ -1628,6 +1680,12 @@ core-shape:cccev-InformationConcept-skos-prefLabel a sh:PropertyShape ;
     sh:name "Pref label" ;
     sh:path skos:prefLabel .
 
+core-shape:cccev-InformationRequirement-epo-hasConstraint a sh:PropertyShape ;
+    sh:class cccev:Constraint ;
+    sh:name "Has constraint" ;
+    sh:path :hasConstraint ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasConstraint> ?that . ?that <http://data.europa.eu/a4g/ontology#hasConstraint> ?this .}" ] .
+
 core-shape:cccev-Requirement-adms-identifier a sh:PropertyShape ;
     sh:class adms:Identifier ;
     sh:description "Links a resource to an adms:Identifier class." ;
@@ -1635,6 +1693,13 @@ core-shape:cccev-Requirement-adms-identifier a sh:PropertyShape ;
     sh:name "Identifier" ;
     sh:path adms:identifier ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://www.w3.org/ns/adms#identifier> ?that . ?that <http://www.w3.org/ns/adms#identifier> ?this .}" ] .
+
+core-shape:cccev-Requirement-cccev-hasConcept a sh:PropertyShape ;
+    sh:class cccev:InformationConcept ;
+    sh:description "Information Concept for which a value is expected by the Requirement. Additional Information: Information Concepts defined for specific Requirements also represent the basis for specifying the Supported Value an Evidence should provide." ;
+    sh:name "Has concept" ;
+    sh:path cccev:hasConcept ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/m8g/hasConcept> ?that . ?that <http://data.europa.eu/m8g/hasConcept> ?this .}" ] .
 
 core-shape:cccev-Requirement-cccev-hasRequirement a sh:PropertyShape ;
     sh:class cccev:Requirement ;
@@ -1747,7 +1812,7 @@ core-shape:dct-Location-epo-hasCountryCode a sh:PropertyShape ;
     sh:path :hasCountryCode .
 
 core-shape:dct-Location-epo-hasNutsCode a sh:PropertyShape ;
-    sh:class at-voc:nuts ;
+    sh:class at-nuts:2021 ;
     sh:maxCount 1 ;
     sh:name "Has nuts code" ;
     sh:path :hasNutsCode .
@@ -2109,7 +2174,6 @@ core-shape:epo-Certificate-epo-attestedByLabel a sh:PropertyShape ;
     sh:class :CertificationLabel ;
     sh:description "Relation indicating which label the certificate is about. WG approval 28/07/2022" ;
     sh:maxCount 1 ;
-    sh:minCount 1 ;
     sh:name "Attested by label" ;
     sh:path :attestedByLabel ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#attestedByLabel> ?that . ?that <http://data.europa.eu/a4g/ontology#attestedByLabel> ?this .}" ] .
@@ -2119,17 +2183,8 @@ core-shape:epo-Certificate-epo-hasCertificationNumber a sh:PropertyShape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description "The unique identifier of the certificate. WG approval 26/07/2022" ;
     sh:maxCount 1 ;
-    sh:minCount 1 ;
     sh:name "Has certification number" ;
     sh:path :hasCertificationNumber .
-
-core-shape:epo-Certificate-epo-hasURL a sh:PropertyShape ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:datatype xsd:anyURI ;
-    sh:description "The identifier of a resource. Additional Information For example: 1. The URL of the system from where to access the procurement documents; 2. The URL of the system for the submission of tender documents; 3. The URL of the system from where to download a tool to communicate with the Buyer; 4. The URL of the system used by a Technique to allow Economic Operators to exchange information with the Buyer (e.g. eAuction and DPS Systems) 5. The URL of the system used to exchange information between Buyer and EO for questions and clarifications; WG Approval 30/09/2019" ;
-    sh:maxCount 1 ;
-    sh:name "Has u r l" ;
-    sh:path :hasURL .
 
 core-shape:epo-Certificate-epo-issuedByCertifier a sh:PropertyShape ;
     sh:class :Certifier ;
@@ -3210,7 +3265,7 @@ core-shape:epo-Notice-epo-hasNoticeType a sh:PropertyShape ;
 
 core-shape:epo-Notice-epo-hasOJSIssueNumber a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:datatype rdf:PlainLiteral ;
+    sh:datatype xsd:integer ;
     sh:maxCount 1 ;
     sh:name "Has o j s issue number" ;
     sh:path :hasOJSIssueNumber .
@@ -3345,6 +3400,7 @@ core-shape:epo-OrganisationGroup-epo-hasMember a sh:PropertyShape ;
 
 core-shape:epo-OrganisationGroup-epo-leadBy a sh:PropertyShape ;
     sh:class org:Organization ;
+    sh:description "The epo:OrganisationGroup epo:leadBy org:Organization was implemented to be used in case of an Economic Operator Group." ;
     sh:maxCount 1 ;
     sh:name "Lead by" ;
     sh:path :leadBy ;
@@ -3674,6 +3730,14 @@ core-shape:epo-ProcurementCriteriaSummary-epo-indicatesPerformingStaffInformatio
     sh:name "Indicates performing staff information requirement" ;
     sh:path :indicatesPerformingStaffInformationRequirement .
 
+core-shape:epo-ProcurementCriterion-epo-hasAdditionalInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:datatype rdf:PlainLiteral ;
+    sh:description "Supplementary data about the instance of the concept. WG Approval 15/10/2019" ;
+    sh:maxCount 1 ;
+    sh:name "Has additional information" ;
+    sh:path :hasAdditionalInformation .
+
 core-shape:epo-ProcurementCriterion-epo-hasConstraint a sh:PropertyShape ;
     sh:class cccev:Constraint ;
     sh:name "Has constraint" ;
@@ -3948,12 +4012,12 @@ core-shape:epo-PurchaseContract-epo-resultsFromMiniCompetitionAwardOutcome a sh:
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#resultsFromMiniCompetitionAwardOutcome> ?that . ?that <http://data.europa.eu/a4g/ontology#resultsFromMiniCompetitionAwardOutcome> ?this .}" ] .
 
 core-shape:epo-Purpose-epo-hasAdditionalClassification a sh:PropertyShape ;
-    sh:class at-voc:cpv ;
+    sh:class at-cpv:cpv ;
     sh:name "Has additional classification" ;
     sh:path :hasAdditionalClassification .
 
 core-shape:epo-Purpose-epo-hasMainClassification a sh:PropertyShape ;
-    sh:class at-voc:cpv ;
+    sh:class at-cpv:cpv ;
     sh:minCount 1 ;
     sh:name "Has main classification" ;
     sh:path :hasMainClassification .
@@ -3977,6 +4041,13 @@ core-shape:epo-QualificationCriteriaSummary-epo-hasQualificationCondition a sh:P
     sh:datatype rdf:PlainLiteral ;
     sh:name "Has qualification condition" ;
     sh:path :hasQualificationCondition .
+
+core-shape:epo-QualificationCriterion-epo-includesNationalCriterion a sh:PropertyShape ;
+    sh:class :QualificationCriterion ;
+    sh:description "Relation indicating that a Criterion contains a Criterion that is specific to a given Member State. Additional Information: In the ESPD, a Subcriterion is used to define national sub-criteria; maps to a UBL-2.3 cac:SubTenderingCriterion class. It is currently used only for purely national criteria, to be able to establish the mapping from eCertis. WG approval 07/11/2023" ;
+    sh:name "Includes national criterion" ;
+    sh:path :includesNationalCriterion ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#includesNationalCriterion> ?that . ?that <http://data.europa.eu/a4g/ontology#includesNationalCriterion> ?this .}" ] .
 
 core-shape:epo-Quantity-epo-hasQuantityValue a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
@@ -4556,6 +4627,13 @@ core-shape:epo-SubmissionStatisticalInformation-epo-hasSMEReceivedTenders a sh:P
     sh:name "Has s m e received tenders" ;
     sh:path :hasSMEReceivedTenders .
 
+core-shape:epo-SubmissionStatisticalInformation-epo-hasSMEReceivedTendersExcludingSubcontractors a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:datatype xsd:integer ;
+    sh:maxCount 1 ;
+    sh:name "Has s m e received tenders excluding subcontractors" ;
+    sh:path :hasSMEReceivedTendersExcludingSubcontractors .
+
 core-shape:epo-SubmissionStatisticalInformation-epo-hasUnverifiedTenders a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:datatype xsd:integer ;
@@ -5031,7 +5109,7 @@ core-shape:locn-Address-epo-hasCountryCode a sh:PropertyShape ;
     sh:path :hasCountryCode .
 
 core-shape:locn-Address-epo-hasNutsCode a sh:PropertyShape ;
-    sh:class at-voc:nuts ;
+    sh:class at-nuts:2021 ;
     sh:maxCount 1 ;
     sh:name "Has nuts code" ;
     sh:path :hasNutsCode .
@@ -5145,6 +5223,20 @@ core-shape:org-Organization-cv-registeredAddress a sh:PropertyShape ;
     sh:path cccev:registeredAddress ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/m8g/registeredAddress> ?that . ?that <http://data.europa.eu/m8g/registeredAddress> ?this .}" ] .
 
+core-shape:org-Organization-epo-canProvideNonDiscriminatoryEvidence a sh:PropertyShape ;
+    sh:class cccev:Evidence ;
+    sh:description "Relation showing that an Organization can supply an Evidence with regard to the fulfilment of non-discriminatory criteria or the rules applied in order to reduce the number of participants. WG approval 12/03/2024" ;
+    sh:name "Can provide non discriminatory evidence" ;
+    sh:path :canProvideNonDiscriminatoryEvidence ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#canProvideNonDiscriminatoryEvidence> ?that . ?that <http://data.europa.eu/a4g/ontology#canProvideNonDiscriminatoryEvidence> ?this .}" ] .
+
+core-shape:org-Organization-epo-canProvideTaxAndSocialSecuritiesEvidence a sh:PropertyShape ;
+    sh:class cccev:Evidence ;
+    sh:description "Relation showing that an Organization can supply an Evidence with regard to the payment of social security contributions and taxes. WG approval 12/03/2024" ;
+    sh:name "Can provide tax and social securities evidence" ;
+    sh:path :canProvideTaxAndSocialSecuritiesEvidence ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#canProvideTaxAndSocialSecuritiesEvidence> ?that . ?that <http://data.europa.eu/a4g/ontology#canProvideTaxAndSocialSecuritiesEvidence> ?this .}" ] .
+
 core-shape:org-Organization-epo-hasBuyerLegalType a sh:PropertyShape ;
     sh:class at-voc:buyer-legal-type ;
     sh:description "A category that indicates the right of an Organisation to play the role of a buyer. Additional Information: The category also effects the rules that the buyer has to abide to within the public procurement procedure. WG 07/09/2021" ;
@@ -5212,6 +5304,7 @@ core-shape:org-Organization-epo-hasMainActivityDescription a sh:PropertyShape ;
 
 core-shape:org-Organization-epo-hasPrimaryContactPoint a sh:PropertyShape ;
     sh:class cccev:ContactPoint ;
+    sh:maxCount 1 ;
     sh:name "Has primary contact point" ;
     sh:path :hasPrimaryContactPoint ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPrimaryContactPoint> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPrimaryContactPoint> ?this .}" ] .
@@ -5324,20 +5417,22 @@ core-shape:core-shape a owl:Ontology ;
     rdfs:label "eProcurement Ontology - core shapes"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology core shapes provides the generic datashape specifications for the eProcurement Ontology core."@en ;
-    dcterms:issued "2024-02-12"^^xsd:date ;
+    dcterms:issued "2024-03-15"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology - core shapes"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from ePO_core.xml on 2024-02-12" ;
+    rdfs:comment "This version is automatically generated from ePO_core.xml on 2024-03-15" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
     owl:imports :core,
         :core-restriction,
+        eli:,
         cccev:,
+        frbroo:,
         dcterms:,
         vann:,
         <http://www.w3.org/2004/02/skos/core>,
@@ -5348,7 +5443,7 @@ core-shape:core-shape a owl:Ontology ;
         <http://www.w3.org/ns/person>,
         foaf: ;
     owl:incompatibleWith "3.1.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/data-shape#core-shape-4.0.1" ;
-    owl:versionIRI core-shape:core-shape-4.0.2 ;
-    owl:versionInfo "4.0.2" .
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#core-shape-4.0.2" ;
+    owl:versionIRI core-shape:core-shape-4.1.0 ;
+    owl:versionInfo "4.1.0" .
 
