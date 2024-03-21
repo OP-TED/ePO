@@ -2,7 +2,9 @@
 @prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix frbroo: <http://iflastandards.info/ns/fr/frbr/frbroo/> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -53,6 +55,20 @@
     rdfs:subClassOf :AuxiliaryParty ;
     skos:definition "The party to be notified upon arrival of goods and when special occurrences (usually pre-defined) take place during a transportation service. (UBL)"@en ;
     skos:prefLabel "Notifier"@en .
+
+:ReceiptAdvice a owl:Class ;
+    rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :PostAwardDocument ;
+    skos:prefLabel "Receipt advice"@en .
+
+:ReceiptAdviceLine a owl:Class ;
+    rdfs:isDefinedBy :ful ;
+    rdfs:subClassOf :Line ;
+    skos:prefLabel "Receipt advice line"@en .
+
+:RejectionAction a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Rejection action"@en .
 
 :ShipmentAgreement a owl:Class ;
     rdfs:isDefinedBy :ful ;
@@ -109,6 +125,10 @@
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Comprises despatch line"@en .
 
+:comprisesReceiptAdviceLine a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Comprises receipt advice line"@en .
+
 :containsGoodsItem a owl:ObjectProperty ;
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Contains goods item"@en .
@@ -124,6 +144,10 @@
 :despatchDate a owl:DatatypeProperty ;
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Despatch date"@en .
+
+:foreseesPackage a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Foresees package"@en .
 
 :hasAllowanceChargeReason a owl:ObjectProperty ;
     rdfs:isDefinedBy :ful ;
@@ -270,6 +294,10 @@
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Has outstanding quantity reason"@en .
 
+:hasOversupplyQuantity a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Has oversupply quantity"@en .
+
 :hasPackagingType a owl:ObjectProperty ;
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Has packaging type"@en .
@@ -282,6 +310,18 @@
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Has pre carriage shipment stage"@en .
 
+:hasReceivedQuantity a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Has received quantity"@en .
+
+:hasRejectReason a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Has reject reason"@en .
+
+:hasRejectedQuantity a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Has rejected quantity"@en .
+
 :hasRequestedPickUpInformation a owl:ObjectProperty ;
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Has requested pick up information"@en .
@@ -289,6 +329,14 @@
 :hasShippingMark a owl:DatatypeProperty ;
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Has shipping mark"@en .
+
+:hasShortQuantity a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Has short quantity"@en .
+
+:hasShortageAction a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Has shortage action"@en .
 
 :hasSizeType a owl:ObjectProperty ;
     rdfs:isDefinedBy :ful ;
@@ -312,6 +360,7 @@
 
 :hasTraceID a owl:ObjectProperty ;
     rdfs:isDefinedBy :ful ;
+    skos:definition "The identifier used for tracking the goods item Additional information: An example is the EPC number used in RFID. WG approval 21/09/2023 (epo-ful:GoodsItem -> adms:Identifier (+epo-ful:hasTraceID))"@en ;
     skos:prefLabel "Has trace i d"@en .
 
 :hasTransportEquipmentSeal a owl:ObjectProperty ;
@@ -374,6 +423,19 @@
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Is specific to despatch line"@en .
 
+:isSubmittedForDespatchAdvice a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:definition "Additional information: In PEPPOL (https://test-docs.peppol.eu/logistics/qa/codelist/ReceiptAdviceTypeCode/) this predicate is used for option D - Response to the Advanced Despatch Advice document. (epo-ful:ReceiptAdvice -> epo-ful:DespatchAdvice (+epo-ful:isSubmittedForDespatchAdvice))"@en ;
+    skos:prefLabel "Is submitted for despatch advice"@en .
+
+:isSubmittedForDespatchLine a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Is submitted for despatch line"@en .
+
+:isSubmittedForShipment a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Is submitted for shipment"@en .
+
 :playedBy a owl:ObjectProperty ;
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Played by"@en .
@@ -402,6 +464,10 @@
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Refers to shipment agreement"@en .
 
+:specifiesBuyer a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Specifies buyer"@en .
+
 :specifiesCarrier a owl:ObjectProperty ;
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Specifies carrier"@en .
@@ -429,6 +495,10 @@
 :specifiesPlaceOfDespatch a owl:ObjectProperty ;
     rdfs:isDefinedBy :ful ;
     skos:prefLabel "Specifies place of despatch"@en .
+
+:specifiesSeller a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ful ;
+    skos:prefLabel "Specifies seller"@en .
 
 :specifiesShipment a owl:ObjectProperty ;
     rdfs:isDefinedBy :ful ;
@@ -492,18 +562,20 @@ adms:identifier a owl:ObjectProperty ;
     rdfs:label "eProcurement Ontology Fulfilment - core"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Fulfilment core describes the concepts and properties representing the European Public Procurement Fulfilment domain. The provision of these semantics offers the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency. The ontology restrictions are published in a separate artefact."@en ;
-    dcterms:issued "2024-02-12"^^xsd:date ;
+    dcterms:issued "2024-03-21"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology Fulfilment - core"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eFulfilment.xml on 2024-02-12" ;
+    rdfs:comment "This version is automatically generated from eFulfilment.xml on 2024-03-21" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports cccev:,
+    owl:imports eli:,
+        cccev:,
+        frbroo:,
         dcterms:,
         vann:,
         <http://www.w3.org/2004/02/skos/core>,
@@ -512,10 +584,7 @@ adms:identifier a owl:ObjectProperty ;
         <http://www.w3.org/ns/locn>,
         org:,
         <http://www.w3.org/ns/person>,
-        foaf:,
-        :core,
-        :cat,
-        :ord ;
+        foaf: ;
     owl:incompatibleWith "3.1.0" ;
     owl:priorVersion "http://data.europa.eu/a4g/ontology#ful-4.0.1" ;
     owl:versionIRI :ful-4.0.2 ;

@@ -1,8 +1,11 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
+@prefix at-voc-new: <http://publications.europa.eu/resource/authority/new/> .
 @prefix cat-shape: <http://data.europa.eu/a4g/data-shape#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix frbroo: <http://iflastandards.info/ns/fr/frbr/frbroo/> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -10,6 +13,12 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cat-shape:at-voc-new-dangerous-goods-list rdfs:comment "Will this ever be a controlled vocabulary? To be proposed to EUVocabularies for publication." .
+
+cat-shape:at-voc-new-orderable-unit rdfs:comment "Waiting for code list." .
+
+cat-shape:at-voc-new-transaction-conditions rdfs:comment "Waiting for code list." .
 
 cat-shape:epo-cat-Batch a sh:NodeShape ;
     rdfs:label "Batch" ;
@@ -54,6 +63,26 @@ cat-shape:epo-cat-CatalogueLine a sh:NodeShape ;
         cat-shape:epo-cat-CatalogueLine-epo-cat-isContractedItem,
         cat-shape:epo-cat-CatalogueLine-epo-cat-isOrderable ;
     sh:targetClass :CatalogueLine .
+
+cat-shape:epo-cat-CatalogueResponse a sh:NodeShape ;
+    rdfs:label "Catalogue response" ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-CatalogueResponse-epo-cat-comprisesCatalogueResponseLine,
+        cat-shape:epo-cat-CatalogueResponse-epo-cat-refersToCatalogue,
+        cat-shape:epo-cat-CatalogueResponse-epo-cat-specifiesCatalogueResponseInformation ;
+    sh:targetClass :CatalogueResponse .
+
+cat-shape:epo-cat-CatalogueResponseInformation a sh:NodeShape ;
+    rdfs:label "Catalogue response information" ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-CatalogueResponseInformation-epo-cat-isSpecificToCatalogueResponseLine ;
+    sh:targetClass :CatalogueResponseInformation .
+
+cat-shape:epo-cat-CatalogueResponseLine a sh:NodeShape ;
+    rdfs:label "Catalogue response line" ;
+    rdfs:isDefinedBy cat-shape:cat-shape ;
+    sh:property cat-shape:epo-cat-CatalogueResponseLine-epo-cat-refersToCatalogueLine ;
+    sh:targetClass :CatalogueResponseLine .
 
 cat-shape:epo-cat-ChargeInformation a sh:NodeShape ;
     rdfs:label "Charge information" ;
@@ -231,6 +260,7 @@ cat-shape:epo-cat-Catalogue-epo-cat-comprisesCatalogueLine a sh:PropertyShape ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesCatalogueLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesCatalogueLine> ?this .}" ] .
 
 cat-shape:epo-cat-Catalogue-epo-cat-hasActivityCode a sh:PropertyShape ;
+    sh:class at-voc-new:activity-code ;
     sh:maxCount 1 ;
     sh:name "Has activity code" ;
     sh:path :hasActivityCode .
@@ -244,6 +274,7 @@ cat-shape:epo-cat-Catalogue-epo-cat-hasSpecificPaymentArrangement a sh:PropertyS
     sh:path :hasSpecificPaymentArrangement .
 
 cat-shape:epo-cat-CatalogueLine-epo-cat-hasActivityCode a sh:PropertyShape ;
+    sh:class at-voc-new:activity-code ;
     sh:maxCount 1 ;
     sh:name "Has activity code" ;
     sh:path :hasActivityCode .
@@ -263,6 +294,7 @@ cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableQuantityIncrement a sh:Prope
     sh:path :hasOrderableQuantityIncrement .
 
 cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableUnit a sh:PropertyShape ;
+    sh:class at-voc-new:orderable-unit ;
     sh:description "The unit in which the item described in this catalogue line can be ordered." ;
     sh:maxCount 1 ;
     sh:name "Has orderable unit" ;
@@ -299,6 +331,7 @@ cat-shape:epo-cat-CatalogueLine-epo-cat-hasTransactionConditions a sh:PropertySh
     sh:path :hasTransactionConditions .
 
 cat-shape:epo-cat-CatalogueLine-epo-cat-hasTransactionConditionsCode a sh:PropertyShape ;
+    sh:class at-voc-new:transaction-conditions ;
     sh:description "Coded description of the specific transaction conditions (purchasing, sales, payment) for an item." ;
     sh:maxCount 1 ;
     sh:name "Has transaction conditions code" ;
@@ -327,6 +360,43 @@ cat-shape:epo-cat-CatalogueLine-epo-cat-isOrderable a sh:PropertyShape ;
     sh:maxCount 1 ;
     sh:name "Is orderable" ;
     sh:path :isOrderable .
+
+cat-shape:epo-cat-CatalogueResponse-epo-cat-comprisesCatalogueResponseLine a sh:PropertyShape ;
+    sh:class :CatalogueResponseLine ;
+    sh:name "Comprises catalogue response line" ;
+    sh:path :comprisesCatalogueResponseLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesCatalogueResponseLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesCatalogueResponseLine> ?this .}" ] .
+
+cat-shape:epo-cat-CatalogueResponse-epo-cat-refersToCatalogue a sh:PropertyShape ;
+    sh:class :Catalogue ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Refers to catalogue" ;
+    sh:path :refersToCatalogue ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToCatalogue> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToCatalogue> ?this .}" ] .
+
+cat-shape:epo-cat-CatalogueResponse-epo-cat-specifiesCatalogueResponseInformation a sh:PropertyShape ;
+    sh:class :CatalogueResponseInformation ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Specifies catalogue response information" ;
+    sh:path :specifiesCatalogueResponseInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesCatalogueResponseInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesCatalogueResponseInformation> ?this .}" ] .
+
+cat-shape:epo-cat-CatalogueResponseInformation-epo-cat-isSpecificToCatalogueResponseLine a sh:PropertyShape ;
+    sh:class :CatalogueResponseLine ;
+    sh:maxCount 1 ;
+    sh:name "Is specific to catalogue response line" ;
+    sh:path :isSpecificToCatalogueResponseLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToCatalogueResponseLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToCatalogueResponseLine> ?this .}" ] .
+
+cat-shape:epo-cat-CatalogueResponseLine-epo-cat-refersToCatalogueLine a sh:PropertyShape ;
+    sh:class :CatalogueLine ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Refers to catalogue line" ;
+    sh:path :refersToCatalogueLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToCatalogueLine> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToCatalogueLine> ?this .}" ] .
 
 cat-shape:epo-cat-InformationHub-epo-cat-isSpecificToLine a sh:PropertyShape ;
     sh:class :Line ;
@@ -401,6 +471,7 @@ cat-shape:epo-cat-Item-epo-cat-hasComplementaryItem a sh:PropertyShape ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasComplementaryItem> ?that . ?that <http://data.europa.eu/a4g/ontology#hasComplementaryItem> ?this .}" ] .
 
 cat-shape:epo-cat-Item-epo-cat-hasDeliveryClassification a sh:PropertyShape ;
+    sh:class at-voc-new:delivery-item-type ;
     sh:maxCount 1 ;
     sh:name "Has delivery classification" ;
     sh:path :hasDeliveryClassification .
@@ -420,11 +491,13 @@ cat-shape:epo-cat-Item-epo-cat-hasHazardousClass a sh:PropertyShape ;
     sh:path :hasHazardousClass .
 
 cat-shape:epo-cat-Item-epo-cat-hasHazardousItemUNDGCode a sh:PropertyShape ;
+    sh:class at-voc-new:dangerous-goods-list ;
     sh:description "Specification of the hazardous nature of an item according to the UNDG classification schema. Provides detail of the classification and nature of a hazardous item." ;
     sh:name "Has hazardous item u n d g code" ;
     sh:path :hasHazardousItemUNDGCode .
 
 cat-shape:epo-cat-Item-epo-cat-hasItemClassification a sh:PropertyShape ;
+    sh:class at-voc-new:item-classification ;
     sh:description "A classification of this item according to a specific system for classifying products or services. Additional information: Examples of classification schemes are: CPV, UNSPC, eCl@ss, GPC, ... WG acceptance 10/03/2022" ;
     sh:name "Has item classification" ;
     sh:path :hasItemClassification .
@@ -547,11 +620,13 @@ cat-shape:epo-cat-Line-epo-cat-specifiesItem a sh:PropertyShape ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesItem> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesItem> ?this .}" ] .
 
 cat-shape:epo-cat-PostAwardDocument-epo-cat-hasDocumentType a sh:PropertyShape ;
+    sh:class at-voc-new:document-type ;
     sh:maxCount 1 ;
     sh:name "Has document type" ;
     sh:path :hasDocumentType .
 
 cat-shape:epo-cat-Price-epo-cat-hasPriceType a sh:PropertyShape ;
+    sh:class at-voc-new:price-type ;
     sh:maxCount 1 ;
     sh:name "Has price type" ;
     sh:path :hasPriceType .
@@ -567,20 +642,22 @@ cat-shape:cat-shape a owl:Ontology ;
     rdfs:label "eProcurement Ontology Catalogue - core shapes"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Catalogue core shapes provides the generic datashape specifications for the eProcurement Ontology Catalogue core."@en ;
-    dcterms:issued "2024-02-12"^^xsd:date ;
+    dcterms:issued "2024-03-21"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology Catalogue - core shapes"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eCatalogue.xml on 2024-02-12" ;
+    rdfs:comment "This version is automatically generated from eCatalogue.xml on 2024-03-21" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
     owl:imports :cat,
         :cat-restriction,
+        eli:,
         cccev:,
+        frbroo:,
         dcterms:,
         vann:,
         <http://www.w3.org/2004/02/skos/core>,
