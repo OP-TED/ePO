@@ -51,11 +51,14 @@ core-shape:cccev-Criterion a sh:NodeShape ;
 
 core-shape:cccev-Evidence a sh:NodeShape ;
     rdfs:label "Evidence" ;
-    rdfs:comment "Proof that a Requirement is met." ;
+    rdfs:comment "Proof that a Requirement is met. Additional Information: The class Evidence provides the means to support responses to Criteria or to a concrete Information Requirement or to an Information Concept inside an Information Requirement. The proof described by an Evidence can [1] verify a claim (i.e. is it true that John is 25, yes/no), [2] prove a condition (i.e. is John 18+, yes/no), or [3] simply provide data (i.e. the age of a person, namely 25). The proof can be given through documents or extracts of base registries, independently from its structure, format or medium used to exchange it: a pdf document, a video, a recording, etc." ;
     rdfs:isDefinedBy core-shape:core-shape ;
-    sh:property core-shape:cccev-Evidence-cccev-confidentialityLevelType,
+    sh:property core-shape:cccev-Evidence-adms-identifier,
+        core-shape:cccev-Evidence-cccev-confidentialityLevelType,
         core-shape:cccev-Evidence-cccev-supportsConcept,
         core-shape:cccev-Evidence-cccev-supportsRequirement,
+        core-shape:cccev-Evidence-dct-description,
+        core-shape:cccev-Evidence-epo-hasURL,
         core-shape:cccev-Evidence-epo-hasValidityPeriod ;
     sh:targetClass cccev:Evidence .
 
@@ -295,7 +298,6 @@ core-shape:epo-Certificate a sh:NodeShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:epo-Certificate-epo-attestedByLabel,
         core-shape:epo-Certificate-epo-hasCertificationNumber,
-        core-shape:epo-Certificate-epo-hasURL,
         core-shape:epo-Certificate-epo-issuedByCertifier ;
     sh:targetClass :Certificate .
 
@@ -346,7 +348,7 @@ core-shape:epo-ConcessionEstimate a sh:NodeShape ;
 
 core-shape:epo-ContextDescription a sh:NodeShape ;
     rdfs:label "Context description" ;
-    rdfs:comment "A description concerning a Procurement Object or a Notice in a specific Situation Context. Additional Information: The description has its own identity (+I) but is dependent (+D) on the concerned Entity. We say that ContextSpecificDescription *concerns* an Entity." ;
+    rdfs:comment "A description concerning a Procurement Object or a Notice in a specific Situation Context. Additional Information: The description has its own identity (+I) but is dependent (+D) on the concerned Entity. We say that ContextDescription *concerns* an Entity." ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:targetClass :ContextDescription .
 
@@ -848,7 +850,7 @@ core-shape:epo-PaymentExecutor a sh:NodeShape ;
 
 core-shape:epo-Period a sh:NodeShape ;
     rdfs:label "Period" ;
-    rdfs:comment "A time interval or a Duration. (WG approval 28/04/2020)" ;
+    rdfs:comment "A time interval or a Duration. WG approval 28/04/2020" ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:epo-Period-epo-hasBeginning,
         core-shape:epo-Period-epo-hasEnd,
@@ -888,7 +890,6 @@ core-shape:epo-Procedure a sh:NodeShape ;
         core-shape:epo-Procedure-epo-isJointProcurement,
         core-shape:epo-Procedure-epo-isResponsibilityOfBuyer,
         core-shape:epo-Procedure-epo-isSubjectToProcedureSpecificTerm,
-        core-shape:epo-Procedure-epo-specifiesExclusionGround,
         core-shape:epo-Procedure-epo-specifiesProcurementCriteriaSummary ;
     sh:targetClass :Procedure .
 
@@ -1250,7 +1251,7 @@ core-shape:epo-SubcontractingEstimate a sh:NodeShape ;
 
 core-shape:epo-Subcontractor a sh:NodeShape ;
     rdfs:label "Subcontractor" ;
-    rdfs:comment "A Role of an Agent that has an agreement to perform part or all of the obligations of another Agents's Contract. Additional information For some Procedures, the Subcontractor signs as well the Contract between the Buyer and the Contractor. At tendering time, entities relied upon by the Economic Operators can be Subcontractors or not. When modelling ESPD we well analyze whether we need or not a Role named \"relied upon\". WG approval 05/08/2021" ;
+    rdfs:comment "A Role of an Agent that has an agreement to perform part or all of the obligations of another Agents's Contract. Additional information For some Procedures, the Subcontractor signs as well the Contract between the Buyer and the Contractor. At tendering time, entities relied upon by the Economic Operators can be Subcontractors or not. When modelling ESPD we will analyze whether we need or not a Role named \"relied upon\". WG approval 05/08/2021" ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:targetClass :Subcontractor .
 
@@ -1277,6 +1278,7 @@ core-shape:epo-SubmissionStatisticalInformation a sh:NodeShape ;
         core-shape:epo-SubmissionStatisticalInformation-epo-hasReceivedSubmissionType,
         core-shape:epo-SubmissionStatisticalInformation-epo-hasReceivedTenders,
         core-shape:epo-SubmissionStatisticalInformation-epo-hasSMEReceivedTenders,
+        core-shape:epo-SubmissionStatisticalInformation-epo-hasSMEReceivedTendersExcludingSubcontractors,
         core-shape:epo-SubmissionStatisticalInformation-epo-hasUnverifiedTenders,
         core-shape:epo-SubmissionStatisticalInformation-epo-summarisesInformationForAwardOutcome ;
     sh:targetClass :SubmissionStatisticalInformation .
@@ -1329,6 +1331,12 @@ core-shape:epo-TechnicalAbilitySummary a sh:NodeShape ;
     rdfs:label "Technical ability summary" ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:targetClass :TechnicalAbilitySummary .
+
+core-shape:epo-TechnicalSpecification a sh:NodeShape ;
+    rdfs:label "Technical specification" ;
+    rdfs:comment "A set of documented Requirements applicable to the object of the Procurement. Additional Information: A specification often includes technical standards. WG approval: 20/04/2021" ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:targetClass :TechnicalSpecification .
 
 core-shape:epo-Technique a sh:NodeShape ;
     rdfs:label "Technique" ;
@@ -1469,6 +1477,8 @@ core-shape:org-Organization a sh:NodeShape ;
     rdfs:comment "A collection of people organized together into a community or other social, commercial or political structure. The group has some common purpose or reason for existence which goes beyond the set of people belonging to it and can act as an Agent. Organisations are often decomposable into hierarchical structures. (WG approval 23/11/2018)." ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:org-Organization-cv-registeredAddress,
+        core-shape:org-Organization-epo-canProvideNonDiscriminatoryEvidence,
+        core-shape:org-Organization-epo-canProvideTaxAndSocialSecuritiesEvidence,
         core-shape:org-Organization-epo-hasBuyerLegalType,
         core-shape:org-Organization-epo-hasBuyerLegalTypeDescription,
         core-shape:org-Organization-epo-hasCertification,
@@ -1593,8 +1603,17 @@ core-shape:cccev-Criterion-dct-type a sh:PropertyShape ;
     sh:name "Type" ;
     sh:path dcterms:type .
 
+core-shape:cccev-Evidence-adms-identifier a sh:PropertyShape ;
+    sh:class adms:Identifier ;
+    sh:description "Links a resource to an adms:Identifier class." ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Identifier" ;
+    sh:path adms:identifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://www.w3.org/ns/adms#identifier> ?that . ?that <http://www.w3.org/ns/adms#identifier> ?this .}" ] .
+
 core-shape:cccev-Evidence-cccev-confidentialityLevelType a sh:PropertyShape ;
-    sh:class at-voc:confidentiality-level ;
+    sh:class at-voc:access-rights ;
     sh:description "Security classification assigned to an Evidence e.g. classified, sensitive, public. Additional Information: Classifications should be defined by an organisation/country as an outcome of a security assessment." ;
     sh:maxCount 1 ;
     sh:name "Confidentiality level type" ;
@@ -1602,7 +1621,7 @@ core-shape:cccev-Evidence-cccev-confidentialityLevelType a sh:PropertyShape ;
 
 core-shape:cccev-Evidence-cccev-supportsConcept a sh:PropertyShape ;
     sh:class cccev:InformationConcept ;
-    sh:description "Information Concept providing facts found/inferred from the Evidence. Additional Information: Examples of Information Concepts are values found explictly in the evidence such as a birth date or information derived from the Evidence such as \"I am older that 18 years\" or \"this is a FairTrade product\"." ;
+    sh:description "Information Concept providing facts found/inferred from the Evidence. Additional Information: Examples of Information Concepts are values found explicitly in the evidence such as a birth date or information derived from the Evidence such as \"I am older that 18 years\" or \"this is a Fair Trade product\"." ;
     sh:name "Supports concept" ;
     sh:path cccev:supportsConcept ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/m8g/supportsConcept> ?that . ?that <http://data.europa.eu/m8g/supportsConcept> ?this .}" ] .
@@ -1613,6 +1632,22 @@ core-shape:cccev-Evidence-cccev-supportsRequirement a sh:PropertyShape ;
     sh:name "Supports requirement" ;
     sh:path cccev:supportsRequirement ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/m8g/supportsRequirement> ?that . ?that <http://data.europa.eu/m8g/supportsRequirement> ?this .}" ] .
+
+core-shape:cccev-Evidence-dct-description a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:datatype rdf:PlainLiteral ;
+    sh:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" ;
+    sh:maxCount 1 ;
+    sh:name "Description" ;
+    sh:path dcterms:description .
+
+core-shape:cccev-Evidence-epo-hasURL a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:datatype xsd:anyURI ;
+    sh:description "The identifier of a resource. Additional Information For example: 1. The URL of the system from where to access the procurement documents; 2. The URL of the system for the submission of tender documents; 3. The URL of the system from where to download a tool to communicate with the Buyer; 4. The URL of the system used by a Technique to allow Economic Operators to exchange information with the Buyer (e.g. eAuction and DPS Systems) 5. The URL of the system used to exchange information between Buyer and EO for questions and clarifications; WG Approval 30/09/2019" ;
+    sh:maxCount 1 ;
+    sh:name "Has u r l" ;
+    sh:path :hasURL .
 
 core-shape:cccev-Evidence-epo-hasValidityPeriod a sh:PropertyShape ;
     sh:class :Period ;
@@ -1660,6 +1695,7 @@ core-shape:cccev-Requirement-adms-identifier a sh:PropertyShape ;
 
 core-shape:cccev-Requirement-cccev-hasConcept a sh:PropertyShape ;
     sh:class cccev:InformationConcept ;
+    sh:description "Information Concept for which a value is expected by the Requirement. Additional Information: Information Concepts defined for specific Requirements also represent the basis for specifying the Supported Value an Evidence should provide." ;
     sh:name "Has concept" ;
     sh:path cccev:hasConcept ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/m8g/hasConcept> ?that . ?that <http://data.europa.eu/m8g/hasConcept> ?this .}" ] .
@@ -2137,7 +2173,6 @@ core-shape:epo-Certificate-epo-attestedByLabel a sh:PropertyShape ;
     sh:class :CertificationLabel ;
     sh:description "Relation indicating which label the certificate is about. WG approval 28/07/2022" ;
     sh:maxCount 1 ;
-    sh:minCount 1 ;
     sh:name "Attested by label" ;
     sh:path :attestedByLabel ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#attestedByLabel> ?that . ?that <http://data.europa.eu/a4g/ontology#attestedByLabel> ?this .}" ] .
@@ -2147,17 +2182,8 @@ core-shape:epo-Certificate-epo-hasCertificationNumber a sh:PropertyShape ;
     sh:datatype rdf:PlainLiteral ;
     sh:description "The unique identifier of the certificate. WG approval 26/07/2022" ;
     sh:maxCount 1 ;
-    sh:minCount 1 ;
     sh:name "Has certification number" ;
     sh:path :hasCertificationNumber .
-
-core-shape:epo-Certificate-epo-hasURL a sh:PropertyShape ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:datatype xsd:anyURI ;
-    sh:description "The identifier of a resource. Additional Information For example: 1. The URL of the system from where to access the procurement documents; 2. The URL of the system for the submission of tender documents; 3. The URL of the system from where to download a tool to communicate with the Buyer; 4. The URL of the system used by a Technique to allow Economic Operators to exchange information with the Buyer (e.g. eAuction and DPS Systems) 5. The URL of the system used to exchange information between Buyer and EO for questions and clarifications; WG Approval 30/09/2019" ;
-    sh:maxCount 1 ;
-    sh:name "Has u r l" ;
-    sh:path :hasURL .
 
 core-shape:epo-Certificate-epo-issuedByCertifier a sh:PropertyShape ;
     sh:class :Certifier ;
@@ -3374,6 +3400,7 @@ core-shape:epo-OrganisationGroup-epo-hasMember a sh:PropertyShape ;
 
 core-shape:epo-OrganisationGroup-epo-leadBy a sh:PropertyShape ;
     sh:class org:Organization ;
+    sh:description "The epo:OrganisationGroup epo:leadBy org:Organization was implemented to be used in case of an Economic Operator Group." ;
     sh:maxCount 1 ;
     sh:name "Lead by" ;
     sh:path :leadBy ;
@@ -3567,12 +3594,6 @@ core-shape:epo-Procedure-epo-isSubjectToProcedureSpecificTerm a sh:PropertyShape
     sh:name "Is subject to procedure specific term" ;
     sh:path :isSubjectToProcedureSpecificTerm ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubjectToProcedureSpecificTerm> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubjectToProcedureSpecificTerm> ?this .}" ] .
-
-core-shape:epo-Procedure-epo-specifiesExclusionGround a sh:PropertyShape ;
-    sh:class :ExclusionGround ;
-    sh:name "Specifies exclusion ground" ;
-    sh:path :specifiesExclusionGround ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesExclusionGround> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesExclusionGround> ?this .}" ] .
 
 core-shape:epo-Procedure-epo-specifiesProcurementCriteriaSummary a sh:PropertyShape ;
     sh:class :ProcurementCriteriaSummary ;
@@ -4606,6 +4627,13 @@ core-shape:epo-SubmissionStatisticalInformation-epo-hasSMEReceivedTenders a sh:P
     sh:name "Has s m e received tenders" ;
     sh:path :hasSMEReceivedTenders .
 
+core-shape:epo-SubmissionStatisticalInformation-epo-hasSMEReceivedTendersExcludingSubcontractors a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:datatype xsd:integer ;
+    sh:maxCount 1 ;
+    sh:name "Has s m e received tenders excluding subcontractors" ;
+    sh:path :hasSMEReceivedTendersExcludingSubcontractors .
+
 core-shape:epo-SubmissionStatisticalInformation-epo-hasUnverifiedTenders a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:datatype xsd:integer ;
@@ -5195,6 +5223,20 @@ core-shape:org-Organization-cv-registeredAddress a sh:PropertyShape ;
     sh:path cccev:registeredAddress ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/m8g/registeredAddress> ?that . ?that <http://data.europa.eu/m8g/registeredAddress> ?this .}" ] .
 
+core-shape:org-Organization-epo-canProvideNonDiscriminatoryEvidence a sh:PropertyShape ;
+    sh:class cccev:Evidence ;
+    sh:description "Relation showing that an Organization can supply an Evidence with regard to the fulfilment of non-discriminatory criteria or the rules applied in order to reduce the number of participants. WG approval 12/03/2024" ;
+    sh:name "Can provide non discriminatory evidence" ;
+    sh:path :canProvideNonDiscriminatoryEvidence ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#canProvideNonDiscriminatoryEvidence> ?that . ?that <http://data.europa.eu/a4g/ontology#canProvideNonDiscriminatoryEvidence> ?this .}" ] .
+
+core-shape:org-Organization-epo-canProvideTaxAndSocialSecuritiesEvidence a sh:PropertyShape ;
+    sh:class cccev:Evidence ;
+    sh:description "Relation showing that an Organization can supply an Evidence with regard to the payment of social security contributions and taxes. WG approval 12/03/2024" ;
+    sh:name "Can provide tax and social securities evidence" ;
+    sh:path :canProvideTaxAndSocialSecuritiesEvidence ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#canProvideTaxAndSocialSecuritiesEvidence> ?that . ?that <http://data.europa.eu/a4g/ontology#canProvideTaxAndSocialSecuritiesEvidence> ?this .}" ] .
+
 core-shape:org-Organization-epo-hasBuyerLegalType a sh:PropertyShape ;
     sh:class at-voc:buyer-legal-type ;
     sh:description "A category that indicates the right of an Organisation to play the role of a buyer. Additional Information: The category also effects the rules that the buyer has to abide to within the public procurement procedure. WG 07/09/2021" ;
@@ -5262,6 +5304,7 @@ core-shape:org-Organization-epo-hasMainActivityDescription a sh:PropertyShape ;
 
 core-shape:org-Organization-epo-hasPrimaryContactPoint a sh:PropertyShape ;
     sh:class cccev:ContactPoint ;
+    sh:maxCount 1 ;
     sh:name "Has primary contact point" ;
     sh:path :hasPrimaryContactPoint ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPrimaryContactPoint> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPrimaryContactPoint> ?this .}" ] .
@@ -5374,13 +5417,13 @@ core-shape:core-shape a owl:Ontology ;
     rdfs:label "eProcurement Ontology - core shapes"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology core shapes provides the generic datashape specifications for the eProcurement Ontology core."@en ;
-    dcterms:issued "2023-12-19"^^xsd:date ;
+    dcterms:issued "2024-03-20"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology - core shapes"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from ePO_core.xml on 2023-12-19" ;
+    rdfs:comment "This version is automatically generated from ePO_core.xml on 2024-03-20" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
@@ -5400,7 +5443,7 @@ core-shape:core-shape a owl:Ontology ;
         <http://www.w3.org/ns/person>,
         foaf: ;
     owl:incompatibleWith "3.1.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/data-shape#core-shape-4.0.0" ;
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#core-shape-4.0.2" ;
     owl:versionIRI core-shape:core-shape-4.1.0 ;
     owl:versionInfo "4.1.0" .
 

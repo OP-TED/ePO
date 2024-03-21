@@ -425,7 +425,7 @@
 
 :Period a owl:Class ;
     rdfs:isDefinedBy :core ;
-    skos:definition "A time interval or a Duration. (WG approval 28/04/2020)"@en ;
+    skos:definition "A time interval or a Duration. WG approval 28/04/2020"@en ;
     skos:prefLabel "Period"@en .
 
 :PlannedProcurementPart a owl:Class ;
@@ -456,12 +456,6 @@
     rdfs:subClassOf :Term ;
     skos:definition "Conditions and stipulations defining particularities of the unfolding of the Procurement Process."@en ;
     skos:prefLabel "Process planning term"@en .
-
-:ProcurementDocument a owl:Class ;
-    rdfs:isDefinedBy :core ;
-    rdfs:subClassOf :Document ;
-    skos:definition "Document produced or referred to by the Buyer to describe or determine elements of the Procurement. Additional information: Procurement Documents are to be accessible since the date of publication of the Contract Notice or the prior information Notice when used as a call for competition. Examples of Procurement Documents are Technical Specifications, the Descriptive Document, proposed conditions of Contract, formats for the presentation of Documents by Candidates and Tenderers, information on generally applicable obligations. Other Documents related to the Procedure such as Notices are not considered to be Procurement Documents. WG Approval 23/05/2019 17:08:30"@en ;
-    skos:prefLabel "Procurement document"@en .
 
 :ProcurementProcedureInformationProvider a owl:Class ;
     rdfs:isDefinedBy :core ;
@@ -617,7 +611,7 @@
 :Subcontractor a owl:Class ;
     rdfs:isDefinedBy :core ;
     rdfs:subClassOf :OfferingParty ;
-    skos:definition "A Role of an Agent that has an agreement to perform part or all of the obligations of another Agents's Contract. Additional information For some Procedures, the Subcontractor signs as well the Contract between the Buyer and the Contractor. At tendering time, entities relied upon by the Economic Operators can be Subcontractors or not. When modelling ESPD we well analyze whether we need or not a Role named \"relied upon\". WG approval 05/08/2021"@en ;
+    skos:definition "A Role of an Agent that has an agreement to perform part or all of the obligations of another Agents's Contract. Additional information For some Procedures, the Subcontractor signs as well the Contract between the Buyer and the Contractor. At tendering time, entities relied upon by the Economic Operators can be Subcontractors or not. When modelling ESPD we will analyze whether we need or not a Role named \"relied upon\". WG approval 05/08/2021"@en ;
     skos:prefLabel "Subcontractor"@en .
 
 :SubmissionStatisticalInformation a owl:Class ;
@@ -649,6 +643,12 @@
     rdfs:isDefinedBy :core ;
     rdfs:subClassOf :SelectionCriteriaSummary ;
     skos:prefLabel "Technical ability summary"@en .
+
+:TechnicalSpecification a owl:Class ;
+    rdfs:isDefinedBy :core ;
+    rdfs:subClassOf :ProcurementDocument ;
+    skos:definition "A set of documented Requirements applicable to the object of the Procurement. Additional Information: A specification often includes technical standards. WG approval: 20/04/2021"@en ;
+    skos:prefLabel "Technical specification"@en .
 
 :Tender a owl:Class ;
     rdfs:isDefinedBy :core ;
@@ -772,6 +772,16 @@
     skos:definition "Provides legal constraint on the Contractor. (epo:Contract -> epo:Contractor (+epo:bindsContractor))"@en ;
     skos:prefLabel "Binds contractor"@en .
 
+:canProvideNonDiscriminatoryEvidence a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:definition "Relation showing that an Organization can supply an Evidence with regard to the fulfilment of non-discriminatory criteria or the rules applied in order to reduce the number of participants. WG approval 12/03/2024 (org:Organization -> cccev:Evidence (+epo:canProvideNonDiscriminatoryEvidence))"@en ;
+    skos:prefLabel "Can provide non discriminatory evidence"@en .
+
+:canProvideTaxAndSocialSecuritiesEvidence a owl:ObjectProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:definition "Relation showing that an Organization can supply an Evidence with regard to the payment of social security contributions and taxes. WG approval 12/03/2024 (org:Organization -> cccev:Evidence (+epo:canProvideTaxAndSocialSecuritiesEvidence))"@en ;
+    skos:prefLabel "Can provide tax and social securities evidence"@en .
+
 :comprisesAwardOutcome a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:definition "Incorporates AwardOutcome. (epo:AwardDecision -> epo:AwardOutcome (+epo:comprisesAwardOutcome))"@en ;
@@ -810,7 +820,7 @@
 
 :concernsProcedure a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
-    skos:definition "Relates to Procedure. (epo:ProcurementProcessInformation -> epo:Procedure (+epo:concernsProcedure))"@en ;
+    skos:definition "Relates to Procedure. (epo:ProcurementProcessInformation -> epo:Procedure (+epo:concernsProcedure)) Relates to Procedure. WG approval 05/03/2024 (epo-acc:ESPDRequest -> epo:Procedure (+epo:concernsProcedure))"@en ;
     skos:prefLabel "Concerns procedure"@en .
 
 :concernsReviewSummaryForLot a owl:ObjectProperty ;
@@ -830,14 +840,6 @@
 :containsCandidate a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Contains candidate"@en .
-
-:containsQuestionGroup a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Contains question group"@en .
-
-:containsRequirementGroup a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Contains requirement group"@en .
 
 :contextualisedBy a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
@@ -2354,6 +2356,10 @@
     skos:definition "The amount of tenders received from micro, small and medium-sized enterprises. <u>Additional Information:</u> See Commission Recommendation 2003/361/EC. The ReceivedSMETenderLots is used when the size of the company is not exactly knokn. WG Approval 05/03/2020 (epo:SubmissionStatisticalInformation)"@en ;
     skos:prefLabel "Has s m e received tenders"@en .
 
+:hasSMEReceivedTendersExcludingSubcontractors a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :core ;
+    skos:prefLabel "Has s m e received tenders excluding subcontractors"@en .
+
 :hasScheme a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
     skos:definition "The name of the identification scheme. (adms:Identifier)"@en ;
@@ -2548,7 +2554,7 @@
 
 :hasURL a owl:DatatypeProperty ;
     rdfs:isDefinedBy :core ;
-    skos:definition "The identifier of a resource. Additional Information For example: 1. The URL of the system from where to access the procurement documents; 2. The URL of the system for the submission of tender documents; 3. The URL of the system from where to download a tool to communicate with the Buyer; 4. The URL of the system used by a Technique to allow Economic Operators to exchange information with the Buyer (e.g. eAuction and DPS Systems) 5. The URL of the system used to exchange information between Buyer and EO for questions and clarifications; WG Approval 30/09/2019 (epo:Fund) The identifier of a resource. Additional Information For example: 1. The URL of the system from where to access the procurement documents; 2. The URL of the system for the submission of tender documents; 3. The URL of the system from where to download a tool to communicate with the Buyer; 4. The URL of the system used by a Technique to allow Economic Operators to exchange information with the Buyer (e.g. eAuction and DPS Systems) 5. The URL of the system used to exchange information between Buyer and EO for questions and clarifications; WG Approval 30/09/2019 (epo:Certificate)"@en ;
+    skos:definition "The identifier of a resource. Additional Information For example: 1. The URL of the system from where to access the procurement documents; 2. The URL of the system for the submission of tender documents; 3. The URL of the system from where to download a tool to communicate with the Buyer; 4. The URL of the system used by a Technique to allow Economic Operators to exchange information with the Buyer (e.g. eAuction and DPS Systems) 5. The URL of the system used to exchange information between Buyer and EO for questions and clarifications; WG Approval 30/09/2019 (cccev:Evidence) The identifier of a resource. Additional Information For example: 1. The URL of the system from where to access the procurement documents; 2. The URL of the system for the submission of tender documents; 3. The URL of the system from where to download a tool to communicate with the Buyer; 4. The URL of the system used by a Technique to allow Economic Operators to exchange information with the Buyer (e.g. eAuction and DPS Systems) 5. The URL of the system used to exchange information between Buyer and EO for questions and clarifications; WG Approval 30/09/2019 (epo:Fund)"@en ;
     skos:prefLabel "Has u r l"@en .
 
 :hasUUID a owl:ObjectProperty ;
@@ -2875,6 +2881,7 @@
 
 :leadBy a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
+    skos:definition "The epo:OrganisationGroup epo:leadBy org:Organization was implemented to be used in case of an Economic Operator Group. (epo:OrganisationGroup -> org:Organization (+epo:leadBy))"@en ;
     skos:prefLabel "Lead by"@en .
 
 :needsToBeATenderer a owl:ObjectProperty ;
@@ -2936,6 +2943,7 @@
 
 :refersToNotice a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
+    skos:definition "Reference to a Notice. WG approval 12/03/2024 (epo-acc:ESPDRequest -> epo:Notice (+epo-acc:refersToNotice))"@en ;
     skos:prefLabel "Refers to notice"@en .
 
 :refersToNoticeAwardInformation a owl:ObjectProperty ;
@@ -3051,10 +3059,6 @@
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Specifies delivery agreement location"@en .
 
-:specifiesExclusionGround a owl:ObjectProperty ;
-    rdfs:isDefinedBy :core ;
-    skos:prefLabel "Specifies exclusion ground"@en .
-
 :specifiesPlaceOfDelivery a owl:ObjectProperty ;
     rdfs:isDefinedBy :core ;
     skos:prefLabel "Specifies place of delivery"@en .
@@ -3102,6 +3106,7 @@
     skos:prefLabel "Uses technique"@en .
 
 eli:uri_schema a owl:ObjectProperty ;
+    skos:definition "Schema describing the URI of an ELI instance. ELI uses URI template specifications (IETF RFC 6570). Schemes should be associated with member states and will be published in a registry. (eli:LegalResourceSubdivision -> adms:Identifier (+eli:uri_schema)) Schema describing the URI of an ELI instance. ELI uses URI template specifications (IETF RFC 6570). Schemes should be associated with member states and will be published in a registry. (eli:LegalExpression -> adms:Identifier (+eli:uri_schema))"@en ;
     skos:prefLabel "Uri_schema"@en .
 
 cccev:Constraint a owl:Class ;
@@ -3132,7 +3137,7 @@ cccev:birthDate a owl:DatatypeProperty ;
     skos:prefLabel "Birth date"@en .
 
 cccev:confidentialityLevelType a owl:ObjectProperty ;
-    skos:definition "Security classification assigned to an Evidence e.g. classified, sensitive, public. Additional Information: Classifications should be defined by an organisation/country as an outcome of a security assessment. (cccev:Evidence -> at-voc:confidentiality-level (+cccev:confidentialityLevelType))"@en ;
+    skos:definition "Security classification assigned to an Evidence e.g. classified, sensitive, public. Additional Information: Classifications should be defined by an organisation/country as an outcome of a security assessment. (cccev:Evidence -> at-voc:access-rights (+cccev:confidentialityLevelType))"@en ;
     skos:prefLabel "Confidentiality level type"@en .
 
 cccev:constrains a owl:ObjectProperty ;
@@ -3148,13 +3153,19 @@ cccev:email a owl:DatatypeProperty ;
     skos:prefLabel "Email"@en .
 
 cccev:hasConcept a owl:ObjectProperty ;
+    skos:definition "Information Concept for which a value is expected by the Requirement. Additional Information: Information Concepts defined for specific Requirements also represent the basis for specifying the Supported Value an Evidence should provide. (cccev:Requirement -> cccev:InformationConcept (+cccev:hasConcept))"@en ;
     skos:prefLabel "Has concept"@en .
+
+cccev:hasEvidenceTypeList a owl:ObjectProperty ;
+    skos:definition "Evidence Type List that specifies the Evidence Types that are needed to meet the Requirement. Additional Information: One or several Lists of Evidence Types can support a Requirement. At least one of them must be satisfied by the response to the Requirement. (cccev:InformationRequirement -> cccev:EvidenceTypeList (+cccev:hasEvidenceTypeList))"@en ;
+    skos:prefLabel "Has evidence type list"@en .
 
 cccev:hasRequirement a owl:ObjectProperty ;
     skos:definition "A more specific Requirement that is part of the Requirement. (cccev:Requirement -> cccev:Requirement (+cccev:hasRequirement))"@en ;
     skos:prefLabel "Has requirement"@en .
 
 cccev:isDerivedFrom a owl:ObjectProperty ;
+    skos:definition "Reference Framework on which the Requirement is based, such as a law or regulation. Additional Information: The relation between a parent Requirement and a sub-Requirement can be complex. Therefore, qualified relations (see hasQualifiedRelation) can be used to represent this relationship on its own and qualify it with additional information such as a date, a place. This is left to implementers. In the case where the purpose is to link the two Requirements without additional information, the simple relationship as proposed here can be directly used. (cccev:Requirement -> eli:LegalResource (+cccev:isDerivedFrom))"@en ;
     skos:prefLabel "Is derived from"@en .
 
 cccev:latitude a owl:DatatypeProperty ;
@@ -3170,7 +3181,7 @@ cccev:registeredAddress a owl:ObjectProperty ;
     skos:prefLabel "Registered address"@en .
 
 cccev:supportsConcept a owl:ObjectProperty ;
-    skos:definition "Information Concept providing facts found/inferred from the Evidence. Additional Information: Examples of Information Concepts are values found explictly in the evidence such as a birth date or information derived from the Evidence such as \"I am older that 18 years\" or \"this is a FairTrade product\". (cccev:Evidence -> cccev:InformationConcept (+cccev:supportsConcept))"@en ;
+    skos:definition "Information Concept providing facts found/inferred from the Evidence. Additional Information: Examples of Information Concepts are values found explicitly in the evidence such as a birth date or information derived from the Evidence such as \"I am older that 18 years\" or \"this is a Fair Trade product\". (cccev:Evidence -> cccev:InformationConcept (+cccev:supportsConcept))"@en ;
     skos:prefLabel "Supports concept"@en .
 
 cccev:supportsRequirement a owl:ObjectProperty ;
@@ -3180,6 +3191,10 @@ cccev:supportsRequirement a owl:ObjectProperty ;
 cccev:telephone a owl:DatatypeProperty ;
     skos:definition "A telephone number through which the Contact Point can be contacted. (cpov:ContactPoint)"@en ;
     skos:prefLabel "Telephone"@en .
+
+cccev:validityPeriodConstraint a owl:ObjectProperty ;
+    skos:definition "Temporal condition on the validity period of the Evidence Type. Additional Information: E.g. A Belgian birth evidence is valid for X months after emission. To express constraints on the validity period that must hold when assessing the evidence (e.g. the certificate of good conduct cannot be issued more than 3 months ago), we refer to the Constraint class. (cccev:EvidenceType -> epo:Period (+cccev:validityPeriodConstraint))"@en ;
+    skos:prefLabel "Validity period constraint"@en .
 
 cccev:weight a owl:DatatypeProperty ;
     skos:definition "Relative importance of the Criterion. Additional Information: The weight must be between 0 and 1. Usually, all Criteria can be integrated within a weighted sum equal to 1. (cccev:Criterion)"@en ;
@@ -3197,8 +3212,12 @@ dcterms:alternative a owl:DatatypeProperty ;
     skos:definition "Any name by which an individual is known other than their full name. WG 09/11/2021 (person:Person)"@en ;
     skos:prefLabel "Alternative"@en .
 
+dcterms:conformsTo a owl:ObjectProperty ;
+    skos:definition "An established standard to which the described resource conforms. Additional Information: Examples of characteristics could be the layout or the configuration of the Evidence. (cccev:Evidence -> cccev:EvidenceType (+dct:conformsTo))"@en ;
+    skos:prefLabel "Conforms to"@en .
+
 dcterms:description a owl:DatatypeProperty ;
-    skos:definition "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (cccev:InformationConcept) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (cccev:Requirement) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (cpov:ContactPoint) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (cv:Channel) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:AgentInRole) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:Document) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:ElectronicSignature) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:Fund) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:NonDisclosureAgreementTerm) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:SecurityClearanceTerm) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:SubcontractingEstimate) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:SubcontractTerm) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:System) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:Technique) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:LotGroup) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:ProcurementElement) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:TenderGroup)"@en ;
+    skos:definition "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (cccev:Evidence) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (cccev:InformationConcept) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (cccev:Requirement) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (cpov:ContactPoint) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (cv:Channel) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:AgentInRole) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:Document) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:ElectronicSignature) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:Fund) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:NonDisclosureAgreementTerm) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:SecurityClearanceTerm) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:SubcontractingEstimate) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:SubcontractTerm) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:System) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:Technique) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:LotGroup) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:ProcurementElement) An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 (epo:TenderGroup)"@en ;
     skos:prefLabel "Description"@en .
 
 dcterms:issued a owl:DatatypeProperty ;
@@ -3206,6 +3225,7 @@ dcterms:issued a owl:DatatypeProperty ;
     skos:prefLabel "Issued"@en .
 
 dcterms:language a owl:ObjectProperty ;
+    skos:definition "A language of the resource. (eli:LegalExpression -> at-voc:language (+dct:language))"@en ;
     skos:prefLabel "Language"@en .
 
 dcterms:title a owl:DatatypeProperty ;
@@ -3257,7 +3277,7 @@ adms:Identifier a owl:Class ;
     skos:prefLabel "Identifier"@en .
 
 adms:identifier a owl:ObjectProperty ;
-    skos:definition "Links a resource to an adms:Identifier class. (epo-ful:Consignment -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (foaf:Agent -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo:Document -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (dct:Location -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (cccev:Requirement -> adms:Identifier (+adms:identifier)) A unique identifier of the instance of the concept. Additional Information For example, in the case of the Procurement Identifier, this could be the European Public Procurement Identifier, and/or any other identifier provided by the buyer, the service provider or any other stakeholder. WG Approval 12/11/2019 (epo:LotGroup -> adms:Identifier (+adms:identifier)) A unique identifier of the instance of the concept. Additional Information For example, in the case of the Procurement Identifier, this could be the European Public Procurement Identifier, and/or any other identifier provided by the buyer, the service provider or any other stakeholder. WG Approval 12/11/2019 (epo:TenderGroup -> adms:Identifier (+adms:identifier)) A unique identifier of the instance of the concept. Additional Information For example, in the case of the Procurement Identifier, this could be the European Public Procurement Identifier, and/or any other identifier provided by the buyer, the service provider or any other stakeholder. WG Approval 12/11/2019 (epo:ProcurementElement -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:ShipmentInformation -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-cat:Line -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (cccev:InformationConcept -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:AbstractContainer -> adms:Identifier (+adms:identifier)) A unique identifier of the instance of the concept. Additional Information For example, in the case of the Procurement Identifier, this could be the European Public Procurement Identifier, and/or any other identifier provided by the buyer, the service provider or any other stakeholder. WG Approval 12/11/2019 (epo:Project -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo:Fund -> adms:Identifier (+adms:identifier))"@en ;
+    skos:definition "Links a resource to an adms:Identifier class. (cccev:EvidenceType -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:Consignment -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (foaf:Agent -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo:Document -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (dct:Location -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (cccev:Requirement -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (cccev:EvidenceTypeList -> adms:Identifier (+adms:identifier)) A unique identifier of the instance of the concept. Additional Information For example, in the case of the Procurement Identifier, this could be the European Public Procurement Identifier, and/or any other identifier provided by the buyer, the service provider or any other stakeholder. WG Approval 12/11/2019 (epo:LotGroup -> adms:Identifier (+adms:identifier)) A unique identifier of the instance of the concept. Additional Information For example, in the case of the Procurement Identifier, this could be the European Public Procurement Identifier, and/or any other identifier provided by the buyer, the service provider or any other stakeholder. WG Approval 12/11/2019 (epo:TenderGroup -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (cccev:Evidence -> adms:Identifier (+adms:identifier)) A unique identifier of the instance of the concept. Additional Information For example, in the case of the Procurement Identifier, this could be the European Public Procurement Identifier, and/or any other identifier provided by the buyer, the service provider or any other stakeholder. WG Approval 12/11/2019 (epo:ProcurementElement -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:ShipmentInformation -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-cat:Line -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (cccev:InformationConcept -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo-ful:AbstractContainer -> adms:Identifier (+adms:identifier)) A unique identifier of the instance of the concept. Additional Information For example, in the case of the Procurement Identifier, this could be the European Public Procurement Identifier, and/or any other identifier provided by the buyer, the service provider or any other stakeholder. WG Approval 12/11/2019 (epo:Project -> adms:Identifier (+adms:identifier)) Links a resource to an adms:Identifier class. (epo:Fund -> adms:Identifier (+adms:identifier))"@en ;
     skos:prefLabel "Identifier"@en .
 
 adms:schemaAgency a owl:DatatypeProperty ;
@@ -3356,6 +3376,12 @@ foaf:name a owl:DatatypeProperty ;
     skos:definition "The complete name of the Person as one string. (person:Person)"@en ;
     skos:prefLabel "Name"@en .
 
+:ProcurementDocument a owl:Class ;
+    rdfs:isDefinedBy :core ;
+    rdfs:subClassOf :Document ;
+    skos:definition "Document produced or referred to by the Buyer to describe or determine elements of the Procurement. Additional information: Procurement Documents are to be accessible since the date of publication of the Contract Notice or the prior information Notice when used as a call for competition. Examples of Procurement Documents are Technical Specifications, the Descriptive Document, proposed conditions of Contract, formats for the presentation of Documents by Candidates and Tenderers, information on generally applicable obligations. Other Documents related to the Procedure such as Notices are not considered to be Procurement Documents. WG Approval 23/05/2019 17:08:30"@en ;
+    skos:prefLabel "Procurement document"@en .
+
 cccev:Channel a owl:Class ;
     skos:definition "A medium through which Agents interact. Additional Information Typical examples include online services, email, endpoint on eDelivery infrastructure, phone, etc. Software solutions and electronic devices for communication and exchange of information between Buyers and economic Operators. Lots may use ad-hoc electronic means of communication that are not generally available such as specific solutions for secure and dedicated communication or non-standard eCatalogues. See also Directive recitals 53 to 56. WG approval 2023-02-14"@en ;
     skos:prefLabel "Channel"@en .
@@ -3366,7 +3392,7 @@ cccev:Criterion a owl:Class ;
     skos:prefLabel "Criterion"@en .
 
 cccev:Evidence a owl:Class ;
-    skos:definition "Proof that a Requirement is met."@en ;
+    skos:definition "Proof that a Requirement is met. Additional Information: The class Evidence provides the means to support responses to Criteria or to a concrete Information Requirement or to an Information Concept inside an Information Requirement. The proof described by an Evidence can [1] verify a claim (i.e. is it true that John is 25, yes/no), [2] prove a condition (i.e. is John 18+, yes/no), or [3] simply provide data (i.e. the age of a person, namely 25). The proof can be given through documents or extracts of base registries, independently from its structure, format or medium used to exchange it: a pdf document, a video, a recording, etc."@en ;
     skos:prefLabel "Evidence"@en .
 
 cccev:InformationConcept a owl:Class ;
@@ -3530,7 +3556,7 @@ cccev:Requirement a owl:Class ;
 
 :ContextDescription a owl:Class ;
     rdfs:isDefinedBy :core ;
-    skos:definition "A description concerning a Procurement Object or a Notice in a specific Situation Context. Additional Information: The description has its own identity (+I) but is dependent (+D) on the concerned Entity. We say that ContextSpecificDescription *concerns* an Entity."@en ;
+    skos:definition "A description concerning a Procurement Object or a Notice in a specific Situation Context. Additional Information: The description has its own identity (+I) but is dependent (+D) on the concerned Entity. We say that ContextDescription *concerns* an Entity."@en ;
     skos:prefLabel "Context description"@en .
 
 :ProcedureSpecificTerm a owl:Class ;
@@ -3566,13 +3592,13 @@ cccev:Requirement a owl:Class ;
     rdfs:label "eProcurement Ontology - core"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology core describes the concepts and properties representing the European Public Procurement domain. The provision of these semantics offers the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency. The ontology restrictions are published in a separate artefact."@en ;
-    dcterms:issued "2023-12-19"^^xsd:date ;
+    dcterms:issued "2024-03-20"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology - core"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from ePO_core.xml on 2023-12-19" ;
+    rdfs:comment "This version is automatically generated from ePO_core.xml on 2024-03-20" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
@@ -3590,7 +3616,7 @@ cccev:Requirement a owl:Class ;
         <http://www.w3.org/ns/person>,
         foaf: ;
     owl:incompatibleWith "3.1.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/ontology#core-4.0.0" ;
+    owl:priorVersion "http://data.europa.eu/a4g/ontology#core-4.0.2" ;
     owl:versionIRI :core-4.1.0 ;
     owl:versionInfo "4.1.0" .
 
