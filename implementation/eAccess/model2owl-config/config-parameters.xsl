@@ -126,7 +126,7 @@
     <!--    bibo:status-->
     <xsl:variable name="ontologyStatus" select="'Semantic Specification Release'"/>
     <!--    owl:priorVersion -->
-    <xsl:variable name="priorVersion" select="'4.0.1'"/>
+    <xsl:variable name="priorVersion" select="'4.0.0'"/>
     <!--    vann:preferredNamespaceUri -->
     <xsl:variable name="preferredNamespaceUri" select="'http://data.europa.eu/a4g/ontology#'"/>
     <!--    vann:preferredNamespacePrefix -->
