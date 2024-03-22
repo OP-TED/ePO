@@ -122,7 +122,7 @@
     <!--    owl:incompatibleWith -->
     <xsl:variable name="incompatibleWith" select="'3.1.0'"/>
     <!--    owl:versionInfo -->
-    <xsl:variable name="versionInfo" select="'4.2.0'"/>
+    <xsl:variable name="versionInfo" select="'4.1.0'"/>
     <!--    bibo:status-->
     <xsl:variable name="ontologyStatus" select="'Semantic Specification Release'"/>
     <!--    owl:priorVersion -->
