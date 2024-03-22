@@ -122,11 +122,11 @@
     <!--    owl:incompatibleWith -->
     <xsl:variable name="incompatibleWith" select="'3.1.0'"/>
     <!--    owl:versionInfo -->
-    <xsl:variable name="versionInfo" select="'4.0.2'"/>
+    <xsl:variable name="versionInfo" select="'4.2.0'"/>
     <!--    bibo:status-->
     <xsl:variable name="ontologyStatus" select="'Semantic Specification Release'"/>
     <!--    owl:priorVersion -->
-    <xsl:variable name="priorVersion" select="'4.0.1'"/>
+    <xsl:variable name="versionInfo" select="'4.0.2'"/>
     <!--    vann:preferredNamespaceUri -->
     <xsl:variable name="preferredNamespaceUri" select="'http://data.europa.eu/a4g/ontology#'"/>
     <!--    vann:preferredNamespacePrefix -->
