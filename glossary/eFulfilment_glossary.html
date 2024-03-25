@@ -110,6 +110,14 @@
                      <td></td>
                   </tr>
                   <tr>
+                     <td>epo-ful:ReceiptAdvice</td>
+                     <td></td>
+                  </tr>
+                  <tr>
+                     <td>epo-ful:ReceiptAdviceLine</td>
+                     <td></td>
+                  </tr>
+                  <tr>
                      <td>epo-ful:ShipmentAgreement</td>
                      <td>The Commercial Agreement between the Commercial Parties.
                         
@@ -313,6 +321,11 @@
                      <td>epo-ful:TransportMeans -&gt; epo-ful:TransportMeansOperator [1..*]</td>
                   </tr>
                   <tr>
+                     <td>epo:hasRejectedQuantity</td>
+                     <td></td>
+                     <td>epo-ful:ReceiptAdviceLine -&gt; epo:Quantity (external) [0..1]</td>
+                  </tr>
+                  <tr>
                      <td>epo:playedBy</td>
                      <td></td>
                      <td>epo-ful:TransportMeansOperator -&gt; foaf:Person (external) [0..1]</td>
@@ -338,6 +351,11 @@
                      <td>epo-ful:Consignment -&gt; epo-ful:Notifier [0..*]</td>
                   </tr>
                   <tr>
+                     <td>epo-cat:foreseesPackage</td>
+                     <td></td>
+                     <td>epo-cat:CatalogueLine (external) -&gt; epo-ful:Package [0..1]</td>
+                  </tr>
+                  <tr>
                      <td>epo-ful:agreedByBuyer</td>
                      <td></td>
                      <td>epo-ful:ShipmentAgreement -&gt; epo:Buyer (external) [1..*]</td>
@@ -351,6 +369,11 @@
                      <td>epo-ful:comprisesDespatchLine</td>
                      <td></td>
                      <td>epo-ful:DespatchAdvice -&gt; epo-ful:DespatchLine [1..*]</td>
+                  </tr>
+                  <tr>
+                     <td>epo-ful:comprisesReceiptAdviceLine</td>
+                     <td></td>
+                     <td>epo-ful:ReceiptAdvice -&gt; epo-ful:ReceiptAdviceLine [0..*]</td>
                   </tr>
                   <tr>
                      <td>epo-ful:containsGoodsItem</td>
@@ -376,8 +399,8 @@
                   </tr>
                   <tr>
                      <td>epo-ful:hasAssociatedDocument</td>
-                     <td> </td>
-                     <td>epo-ful:DespatchLine -&gt; epo-cat:PostAwardDocument (external) [0..1]<br>epo-ful:DespatchAdvice -&gt; epo-cat:PostAwardDocument (external) [0..1]<br></td>
+                     <td>  </td>
+                     <td>epo-ful:DespatchLine -&gt; epo:Document (external) [0..1]<br>epo-ful:DespatchAdvice -&gt; epo:Document (external) [0..1]<br>epo-ful:ReceiptAdvice -&gt; epo:Document (external) [0..1]<br></td>
                   </tr>
                   <tr>
                      <td>epo-ful:hasCarrierConsignmentID</td>
@@ -516,6 +539,11 @@
                      <td>epo-ful:DespatchLine -&gt; epo:Quantity (external) [0..1]</td>
                   </tr>
                   <tr>
+                     <td>epo-ful:hasOversupplyQuantity</td>
+                     <td></td>
+                     <td>epo-ful:ReceiptAdviceLine -&gt; epo:Quantity (external) [0..1]</td>
+                  </tr>
+                  <tr>
                      <td>epo-ful:hasPackagingType</td>
                      <td></td>
                      <td>epo-ful:Package -&gt; at-voc-new:packaging-type [0..1]</td>
@@ -526,9 +554,29 @@
                      <td>epo-ful:Consignment -&gt; epo-ful:ShipmentStage [0..*]</td>
                   </tr>
                   <tr>
+                     <td>epo-ful:hasReceivedQuantity</td>
+                     <td></td>
+                     <td>epo-ful:ReceiptAdviceLine -&gt; epo:Quantity (external) [0..1]</td>
+                  </tr>
+                  <tr>
+                     <td>epo-ful:hasRejectReason</td>
+                     <td></td>
+                     <td>epo-ful:ReceiptAdviceLine -&gt; at-voc-new:reject-reason [0..1]</td>
+                  </tr>
+                  <tr>
                      <td>epo-ful:hasRequestedPickUpInformation</td>
                      <td></td>
                      <td>epo-ful:Consignment -&gt; epo-ful:ShipmentInformation [1]</td>
+                  </tr>
+                  <tr>
+                     <td>epo-ful:hasShortageAction</td>
+                     <td></td>
+                     <td>epo-ful:ReceiptAdviceLine -&gt; at-voc-new:action-code [0..1]</td>
+                  </tr>
+                  <tr>
+                     <td>epo-ful:hasShortQuantity</td>
+                     <td></td>
+                     <td>epo-ful:ReceiptAdviceLine -&gt; epo:Quantity (external) [0..1]</td>
                   </tr>
                   <tr>
                      <td>epo-ful:hasSizeType</td>
@@ -547,7 +595,13 @@
                   </tr>
                   <tr>
                      <td>epo-ful:hasTraceID</td>
-                     <td></td>
+                     <td>The identifier used for tracking the goods item
+                        
+                        Additional information:
+                        An example is the EPC number used in RFID.
+                        
+                        WG approval 21/09/2023
+                        </td>
                      <td>epo-ful:GoodsItem -&gt; adms:Identifier (external) [0..1]</td>
                   </tr>
                   <tr>
@@ -596,6 +650,23 @@
                      <td>epo-ful:ShipmentInformation -&gt; epo-ful:DespatchLine [0..1]</td>
                   </tr>
                   <tr>
+                     <td>epo-ful:isSubmittedForDespatchAdvice</td>
+                     <td>Additional information:
+                        In PEPPOL (https://test-docs.peppol.eu/logistics/qa/codelist/ReceiptAdviceTypeCode/)
+                        this predicate is used for option D - Response to the Advanced Despatch Advice document.</td>
+                     <td>epo-ful:ReceiptAdvice -&gt; epo-ful:DespatchAdvice [0..1]</td>
+                  </tr>
+                  <tr>
+                     <td>epo-ful:isSubmittedForDespatchLine</td>
+                     <td></td>
+                     <td>epo-ful:ReceiptAdviceLine -&gt; epo-ful:DespatchLine [1]</td>
+                  </tr>
+                  <tr>
+                     <td>epo-ful:isSubmittedForShipment</td>
+                     <td></td>
+                     <td>epo-ful:ReceiptAdvice -&gt; epo-ful:ShipmentInformation [0..1]</td>
+                  </tr>
+                  <tr>
                      <td>epo-ful:refersToConsignment</td>
                      <td></td>
                      <td>epo-ful:DespatchAdvice -&gt; epo-ful:Consignment [1]</td>
@@ -626,14 +697,24 @@
                      <td>epo-ful:DespatchAdvice -&gt; epo-ful:ShipmentAgreement [0..1]</td>
                   </tr>
                   <tr>
-                     <td>epo-ful:specifiesConsignee</td>
+                     <td>epo-ful:RejectionAction</td>
                      <td></td>
-                     <td>epo-ful:DespatchAdvice -&gt; epo-ord:Consignee (external) [1..*]</td>
+                     <td>epo-ful:ReceiptAdviceLine -&gt; at-voc-new:action-code [0..1]</td>
+                  </tr>
+                  <tr>
+                     <td>epo-ful:specifiesBuyer</td>
+                     <td></td>
+                     <td>epo-ful:ReceiptAdvice -&gt; epo:Buyer (external) [0..1]</td>
+                  </tr>
+                  <tr>
+                     <td>epo-ful:specifiesConsignee</td>
+                     <td> </td>
+                     <td>epo-ful:DespatchAdvice -&gt; epo-ord:Consignee (external) [1..*]<br>epo-ful:ReceiptAdvice -&gt; epo-ord:Consignee (external) [1..*]<br></td>
                   </tr>
                   <tr>
                      <td>epo-ful:specifiesDespatcher</td>
-                     <td></td>
-                     <td>epo-ful:DespatchAdvice -&gt; epo-ful:Despatcher [1..*]</td>
+                     <td> </td>
+                     <td>epo-ful:ReceiptAdvice -&gt; epo-ful:Despatcher [1]<br>epo-ful:DespatchAdvice -&gt; epo-ful:Despatcher [1..*]<br></td>
                   </tr>
                   <tr>
                      <td>epo-ful:specifiesOriginator</td>
@@ -644,6 +725,11 @@
                      <td>epo-ful:specifiesPlaceOfDespatch</td>
                      <td></td>
                      <td>epo-ful:ShipmentInformation -&gt; dct:Location (external) [0..1]</td>
+                  </tr>
+                  <tr>
+                     <td>epo-ful:specifiesSeller</td>
+                     <td></td>
+                     <td>epo-ful:ReceiptAdvice -&gt; epo-ord:Seller (external) [0..1]</td>
                   </tr>
                   <tr>
                      <td>epo-ful:specifiesShipment</td>

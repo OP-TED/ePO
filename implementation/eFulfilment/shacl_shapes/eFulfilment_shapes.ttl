@@ -1,7 +1,9 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix frbroo: <http://iflastandards.info/ns/fr/frbr/frbroo/> .
 @prefix ful-shape: <http://data.europa.eu/a4g/data-shape#> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -96,6 +98,24 @@ ful-shape:epo-ful-Package a sh:NodeShape ;
         ful-shape:epo-ful-Package-epo-ful-hasPackagingType,
         ful-shape:epo-ful-Package-epo-ful-hasPackagingTypeDescription ;
     sh:targetClass :Package .
+
+ful-shape:epo-ful-ReceiptAdvice a sh:NodeShape ;
+    rdfs:label "Receipt advice" ;
+    rdfs:isDefinedBy ful-shape:ful-shape ;
+    sh:property ful-shape:epo-ful-ReceiptAdvice-epo-ful-comprisesReceiptAdviceLine,
+        ful-shape:epo-ful-ReceiptAdvice-epo-ful-isSubmittedForDespatchAdvice,
+        ful-shape:epo-ful-ReceiptAdvice-epo-ful-isSubmittedForShipment,
+        ful-shape:epo-ful-ReceiptAdvice-epo-ful-specifiesDespatcher ;
+    sh:targetClass :ReceiptAdvice .
+
+ful-shape:epo-ful-ReceiptAdviceLine a sh:NodeShape ;
+    rdfs:label "Receipt advice line" ;
+    rdfs:isDefinedBy ful-shape:ful-shape ;
+    sh:property ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-RejectionAction,
+        ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-hasRejectReason,
+        ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-hasShortageAction,
+        ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-isSubmittedForDespatchLine ;
+    sh:targetClass :ReceiptAdviceLine .
 
 ful-shape:epo-ful-ShipmentAgreement a sh:NodeShape ;
     rdfs:label "Shipment agreement" ;
@@ -374,6 +394,58 @@ ful-shape:epo-ful-Package-epo-ful-hasPackagingTypeDescription a sh:PropertyShape
     sh:name "Has packaging type description" ;
     sh:path :hasPackagingTypeDescription .
 
+ful-shape:epo-ful-ReceiptAdvice-epo-ful-comprisesReceiptAdviceLine a sh:PropertyShape ;
+    sh:class :ReceiptAdviceLine ;
+    sh:name "Comprises receipt advice line" ;
+    sh:path :comprisesReceiptAdviceLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesReceiptAdviceLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesReceiptAdviceLine> ?this .}" ] .
+
+ful-shape:epo-ful-ReceiptAdvice-epo-ful-isSubmittedForDespatchAdvice a sh:PropertyShape ;
+    sh:class :DespatchAdvice ;
+    sh:description "Additional information: In PEPPOL (https://test-docs.peppol.eu/logistics/qa/codelist/ReceiptAdviceTypeCode/) this predicate is used for option D - Response to the Advanced Despatch Advice document." ;
+    sh:maxCount 1 ;
+    sh:name "Is submitted for despatch advice" ;
+    sh:path :isSubmittedForDespatchAdvice ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForDespatchAdvice> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForDespatchAdvice> ?this .}" ] .
+
+ful-shape:epo-ful-ReceiptAdvice-epo-ful-isSubmittedForShipment a sh:PropertyShape ;
+    sh:class :ShipmentInformation ;
+    sh:maxCount 1 ;
+    sh:name "Is submitted for shipment" ;
+    sh:path :isSubmittedForShipment ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForShipment> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForShipment> ?this .}" ] .
+
+ful-shape:epo-ful-ReceiptAdvice-epo-ful-specifiesDespatcher a sh:PropertyShape ;
+    sh:class :Despatcher ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Specifies despatcher" ;
+    sh:path :specifiesDespatcher ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDespatcher> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDespatcher> ?this .}" ] .
+
+ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-RejectionAction a sh:PropertyShape ;
+    sh:maxCount 1 ;
+    sh:name "Rejection action" ;
+    sh:path :RejectionAction .
+
+ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-hasRejectReason a sh:PropertyShape ;
+    sh:maxCount 1 ;
+    sh:name "Has reject reason" ;
+    sh:path :hasRejectReason .
+
+ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-hasShortageAction a sh:PropertyShape ;
+    sh:maxCount 1 ;
+    sh:name "Has shortage action" ;
+    sh:path :hasShortageAction .
+
+ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-isSubmittedForDespatchLine a sh:PropertyShape ;
+    sh:class :DespatchLine ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Is submitted for despatch line" ;
+    sh:path :isSubmittedForDespatchLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForDespatchLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForDespatchLine> ?this .}" ] .
+
 ful-shape:epo-ful-ShipmentInformation-dct-description a sh:PropertyShape ;
     rdfs:isDefinedBy ful-shape:ful-shape ;
     sh:datatype rdf:PlainLiteral ;
@@ -530,20 +602,22 @@ ful-shape:ful-shape a owl:Ontology ;
     rdfs:label "eProcurement Ontology Fulfilment - core shapes"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Fulfilment core shapes provides the generic datashape specifications for the eProcurement Ontology Fulfilment core."@en ;
-    dcterms:issued "2024-02-12"^^xsd:date ;
+    dcterms:issued "2024-03-21"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology Fulfilment - core shapes"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eFulfilment.xml on 2024-02-12" ;
+    rdfs:comment "This version is automatically generated from eFulfilment.xml on 2024-03-21" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
     owl:imports :ful,
         :ful-restriction,
+        eli:,
         cccev:,
+        frbroo:,
         dcterms:,
         vann:,
         <http://www.w3.org/2004/02/skos/core>,
@@ -554,7 +628,7 @@ ful-shape:ful-shape a owl:Ontology ;
         <http://www.w3.org/ns/person>,
         foaf: ;
     owl:incompatibleWith "3.1.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/data-shape#ful-shape-4.0.1" ;
-    owl:versionIRI ful-shape:ful-shape-4.0.2 ;
-    owl:versionInfo "4.0.2" .
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#ful-shape-4.0.2" ;
+    owl:versionIRI ful-shape:ful-shape-4.1.0 ;
+    owl:versionInfo "4.1.0" .
 
