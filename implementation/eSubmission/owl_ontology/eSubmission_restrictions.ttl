@@ -16,14 +16,8 @@
 :actsOnBehalfOf rdfs:domain :LegalRepresentative ;
     rdfs:range :OfferingParty .
 
-:answersExclusionGround rdfs:domain :ESPDResponse ;
-    rdfs:range :ExclusionGround .
-
 :answersQuestion rdfs:domain :Response ;
     rdfs:range cccev:InformationRequirement .
-
-:answersSelectionCriteria rdfs:domain :ESPDResponse ;
-    rdfs:range :SelectionCriterion .
 
 :concernsOrganisation rdfs:domain :NationalPreQualificationData ;
     rdfs:range org:Organization .
@@ -35,9 +29,9 @@
     rdfs:range cccev:Evidence .
 
 :isSupportedBy rdfs:domain :Tender ;
-    rdfs:range :ESPDResponse .
+    rdfs:range :ESPD .
 
-:providesInformationOn rdfs:domain :ESPDResponse ;
+:providesInformationOn rdfs:domain :ESPD ;
     rdfs:range org:Organization .
 
 :providesOrganisationEmployeeQuantity rdfs:domain :NationalPreQualificationData ;
@@ -52,30 +46,28 @@
 :refersToApplicablePeriod rdfs:domain :Response ;
     rdfs:range :Period .
 
-:refersToOtherESPDResponse a owl:AsymmetricProperty ;
-    rdfs:domain :ESPDResponse ;
-    rdfs:range :ESPDResponse .
-
-:relatesToESPDRequest rdfs:domain :ESPDResponse ;
+:relatesToESPDRequest rdfs:domain :ESPD ;
     rdfs:range :ESPDRequest .
 
 :sub-restriction a owl:Ontology ;
     rdfs:label "eProcurement Ontology Submission - core restrictions"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Submission core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Submission core."@en ;
-    dcterms:issued "2024-03-21"^^xsd:date ;
+    dcterms:issued "2024-07-10"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology Submission - core restrictions"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment """This version is automatically generated from eSubmission.xml on 
-                2024-03-21""" ;
+                2024-07-10""" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :sub,
+    owl:imports :acc,
+        :core,
+        :sub,
         eli:,
         cccev:,
         frbroo:,
@@ -118,7 +110,7 @@ cccev:value rdfs:domain cccev:SupportedValue ;
 :providesOrganisationCompletedTaskDescription rdfs:domain :NationalPreQualificationData ;
     rdfs:range rdf:PlainLiteral .
 
-:specifiesResponse rdfs:domain :ESPDResponse ;
+:specifiesResponse rdfs:domain :ESPD ;
     rdfs:range :Response .
 
 dcterms:description rdfs:domain :CertificateInformation ;
@@ -126,23 +118,23 @@ dcterms:description rdfs:domain :CertificateInformation ;
 
 :CertificateInformation rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :coversAllSelectionCriteria ],
+            owl:onProperty dcterms:description ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty dcterms:description ] .
+            owl:onProperty :coversAllSelectionCriteria ] .
 
 :LegalRepresentative rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasPowerOfAttorney ] .
 
+:ESPD rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty :specifiesResponse ] .
+
 :NationalPreQualificationData rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :providesOrganisationCompletedTaskDescription ] .
 
-:ESPDResponse rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :specifiesResponse ] .
-
 [] a owl:AllDisjointClasses ;
-    owl:members ( :ESPDResponse :Mandate :PowerOfAttorney ) .
+    owl:members ( :ESPD :Mandate :PowerOfAttorney ) .
 
