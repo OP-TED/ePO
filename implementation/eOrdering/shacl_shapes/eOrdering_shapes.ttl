@@ -1,413 +1,756 @@
-@prefix : <http://data.europa.eu/a4g/ontology#> .
-@prefix at-voc-new: <http://publications.europa.eu/resource/authority/new/> .
-@prefix cccev: <http://data.europa.eu/m8g/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix eli: <http://data.europa.eu/eli/ontology#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix frbroo: <http://iflastandards.info/ns/fr/frbr/frbroo/> .
-@prefix ord-shape: <http://data.europa.eu/a4g/data-shape#> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix schema: <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix cpov: <http://data.europa.eu/m8g/> .
+@prefix a4g: <http://data.europa.eu/a4g/ontology#> .
+@prefix sfrml: <http://data.europa.eu/a4g/mapping/sf-rml/> .
+@prefix a4g_shape: <http://data.europa.eu/a4g/data-shape#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix person: <http://www.w3.org/ns/person#> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix shacl: <http://www.w3.org/ns/shacl#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix r2rml: <http://www.w3.org/ns/r2rml#> .
+@prefix at: <http://publications.europa.eu/ontology/authority/> .
+@prefix atold: <http://publications.europa.eu/resource/authority/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
 
-ord-shape:epo-ord-AllowanceChargeInformation a sh:NodeShape ;
-    rdfs:label "Allowance charge information" ;
-    rdfs:comment "Information about discounts, taxes, duties and fees imposed. WG approval 16/05/2023" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:property ord-shape:epo-ord-AllowanceChargeInformation-epo-cat-hasPercentage,
-        ord-shape:epo-ord-AllowanceChargeInformation-epo-ful-hasAllowanceChargeReasonDescription,
-        ord-shape:epo-ord-AllowanceChargeInformation-epo-ord-hasTaxInformation ;
-    sh:targetClass :AllowanceChargeInformation .
+a4g_shape:PlainLiteral a shacl:NodeShape ;
+	shacl:or (
+		[
+			shacl:datatype xsd:string ;
+		]
+		[
+			shacl:datatype rdf:langString ;
+		]
+	) .
 
-ord-shape:epo-ord-AllowanceInformation a sh:NodeShape ;
-    rdfs:label "Allowance information" ;
-    rdfs:comment "Information about the discounts imposed. WG approval 16/05/2023" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:property ord-shape:epo-ord-AllowanceInformation-epo-ord-isSpecificToOrderLine ;
-    sh:targetClass :AllowanceInformation .
+a4g_shape:TaxInformationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:TaxInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "Information about the imposition of mandatory levies required by law. WG approval 25/04/2023 " ;
+	shacl:property a4g_shape:TaxInformation-description-PlainLiteral, a4g_shape:TaxInformation-hasPercentage-decimal, a4g_shape:TaxInformation-hasTaxCategory-tax-category, a4g_shape:TaxInformation-inScheme-tax-category, a4g_shape:TaxInformation-hasTaxScheme-tax-scheme, a4g_shape:TaxInformation-inScheme-tax-scheme, a4g_shape:TaxInformation-hasAmount-MonetaryValue, a4g_shape:TaxInformation-isCalculatedOn-MonetaryValue .
 
-ord-shape:epo-ord-Consignee a sh:NodeShape ;
-    rdfs:label "Consignee" ;
-    rdfs:comment "A Role of an Agent that receives the Shipment of the Procurement (service, goods or works) and who is taking possession. Additional information: The Role is carried out by the Customer or on behalf of the Customer. The possession of the goods does not necessary imply ownership. The Consignee may be the end-user or the beneficiary. (Consignee) Definition from PEPPOL Despatch: The Consignee is the person or Organisation to which the products will be shipped and who is taking possession. The Role is carried out by the Customer or on behalf of the Customer. WG approval: 21/02/2023",
-        "Context: Ordering, Despatch" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:targetClass :Consignee .
+a4g_shape:ord-shape a owl:Ontology ;
+	dcterms:description "The eProcurement Ontology ord SHACL shapes provides the datashape specifications for the eProcurement Ontology ord module."@en ;
+	rdfs:label "eProcurement Ontology ord - SHACL shapes"@en ;
+	dcterms:created "2021-06-01"^^xsd:date ;
+	dcterms:issued "2024-03-21"^^xsd:date ;
+	dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+	dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
+	dcterms:title "eProcurement Ontology ord - SHACL shapes"@en ;
+	vann:preferredNamespacePrefix "epo" ;
+	vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
+	rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>, <https://github.com/OP-TED/ePO/releases>, <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>, <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
+	owl:imports <http://data.europa.eu/eli/ontology#>, <http://data.europa.eu/m8g/>, <http://purl.org/dc/terms/>, <http://purl.org/vocab/vann/>, <http://www.w3.org/2004/02/skos/core>, <http://www.w3.org/2006/time>, <http://www.w3.org/ns/adms>, <http://www.w3.org/ns/locn>, <http://www.w3.org/ns/org#>, <http://www.w3.org/ns/person>, <http://xmlns.com/foaf/0.1/> ;
+	owl:incompatibleWith "3.1.0" ;
+	owl:priorVersion "http://data.europa.eu/a4g/data-shape#ord-shape-4.0.2" ;
+	owl:versionIRI a4g_shape:ord-shape-4.1.0 ;
+	owl:versionInfo "4.1.0" .
 
-ord-shape:epo-ord-ContractInformation a sh:NodeShape ;
-    rdfs:label "Contract information" ;
-    rdfs:comment "Information about the Contract. WG approval 20/04/2023" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:property ord-shape:epo-ord-ContractInformation-epo-ord-isSpecificToOrderLine ;
-    sh:targetClass :ContractInformation .
+a4g_shape:TaxInformation-description-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path dcterms:description ;
+	shacl:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 " ;
+	shacl:name "description"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:PlainLiteral .
 
-ord-shape:epo-ord-DeliveryAgreement a sh:NodeShape ;
-    rdfs:label "Delivery agreement" ;
-    rdfs:comment "Term applying to the delivery of goods, services and works. Additional Information: Delivery terms identifier can normally be Incoterms accompanied by the description of specific conditions related to the delivery. WG approval 16/05/2023" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:property ord-shape:epo-ord-DeliveryAgreement-dct-description ;
-    sh:targetClass :DeliveryAgreement .
+a4g_shape:AllowanceChargeInformationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:AllowanceChargeInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "Information about discounts, taxes, duties and fees imposed. WG approval 16/05/2023" ;
+	shacl:property a4g_shape:AllowanceChargeInformation-hasPercentage-decimal, a4g_shape:AllowanceChargeInformation-hasAllowanceChargeReasonDescription-PlainLiteral, a4g_shape:AllowanceChargeInformation-hasAmount-MonetaryValue, a4g_shape:AllowanceChargeInformation-hasAllowanceChargeReason-allowance-charge-reason, a4g_shape:AllowanceChargeInformation-inScheme-allowance-charge-reason, a4g_shape:AllowanceChargeInformation-isCalculatedOn-MonetaryValue, a4g_shape:AllowanceChargeInformation-hasTaxInformation-TaxInformation .
 
-ord-shape:epo-ord-DeliveryInformation a sh:NodeShape ;
-    rdfs:label "Delivery information" ;
-    rdfs:comment "Information about the timing, the delivery destination, the delivery agreement and the involved parties. WG approval 16/05/2023" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:property ord-shape:epo-ord-DeliveryInformation-epo-ord-concernsConsignee,
-        ord-shape:epo-ord-DeliveryInformation-epo-ord-hasDeliveryDeadline,
-        ord-shape:epo-ord-DeliveryInformation-epo-ord-hasShippingMark,
-        ord-shape:epo-ord-DeliveryInformation-epo-ord-isSpecificToOrderLine,
-        ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesGeneralDeliveryAgreement,
-        ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesSpecificDeliveryAgreement ;
-    sh:targetClass :DeliveryInformation .
+a4g_shape:AllowanceChargeInformation-hasPercentage-decimal a shacl:PropertyShape ;
+	shacl:datatype xsd:decimal ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasPercentage ;
+	shacl:description "The factor relative to the price charged in addition. WG approval 26/07/2022" ;
+	shacl:name "has percentage"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 .
 
-ord-shape:epo-ord-Order a sh:NodeShape ;
-    rdfs:label "Order" ;
-    rdfs:comment "A formal request of the Buyer to the Seller specifying the goods, services or works to be delivered. Additional Information: A Buyer submits an Order for delivery of goods, services or works to a Seller. WG approval 23/04/2023" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:property ord-shape:epo-ord-Order-epo-ord-comprisesOrderLine,
-        ord-shape:epo-ord-Order-epo-ord-hasAccountingCost,
-        ord-shape:epo-ord-Order-epo-ord-hasCustomerReference,
-        ord-shape:epo-ord-Order-epo-ord-hasPaymentTerm,
-        ord-shape:epo-ord-Order-epo-ord-specifiesAllowanceInformation,
-        ord-shape:epo-ord-Order-epo-ord-specifiesContractInformation,
-        ord-shape:epo-ord-Order-epo-ord-specifiesDeliveryInformation,
-        ord-shape:epo-ord-Order-epo-ord-specifiesOriginatorInformation,
-        ord-shape:epo-ord-Order-epo-specifiesSeller ;
-    sh:targetClass :Order .
+a4g_shape:DeliveryInformationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:DeliveryInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "Information about the timing, the delivery destination, the delivery agreement and the involved parties. WG approval 16/05/2023 " ;
+	shacl:property a4g_shape:DeliveryInformation-hasShippingMark-PlainLiteral, a4g_shape:DeliveryInformation-hasDeliveryDeadline-dateTime, a4g_shape:DeliveryInformation-concernsConsignee-Consignee, a4g_shape:DeliveryInformation-specifiesPlaceOfDelivery-Location, a4g_shape:DeliveryInformation-hasDeliveryPeriod-Period, a4g_shape:DeliveryInformation-isSpecificToOrderLine-OrderLine, a4g_shape:DeliveryInformation-specifiesGeneralDeliveryAgreement-DeliveryAgreement, a4g_shape:DeliveryInformation-specifiesSpecificDeliveryAgreement-DeliveryAgreement, a4g_shape:DeliveryInformation-hasTrackingID-Identifier .
 
-ord-shape:epo-ord-OrderLine a sh:NodeShape ;
-    rdfs:label "Order line" ;
-    rdfs:comment "Details concerning a given unit of goods, services or works requested in the Order. Additional information: In general, an Order Line contains the Quantity and Price of the goods, services and goods requested in the Order. However, in certain cases, the Price may not be known, as the Price may fluctuate from one day to the other. WG approval 20/04/2023" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:targetClass :OrderLine .
+a4g_shape:DeliveryInformation-hasShippingMark-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasShippingMark ;
+	shacl:name "has shipping mark"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral .
 
-ord-shape:epo-ord-OrderResponse a sh:NodeShape ;
-    rdfs:label "Order response" ;
-    rdfs:comment "A formal reply from the Seller to the Buyer stating the Seller's ability to fulfil the order. Additional Information: The Order Response is used to inform on the acceptance or rejection of an Order or to make a counter-offer. WG approval 20/04/2023",
-        "If contractually agreed, the Seller also may respond to the order, changing details that are acceptable by the Buyer. -- If an order is accepted with change, the buyer and seller need to have an agreement between them regarding the processing of the changed order, i.e. when is a contract concluded and when can the items be shipped. Proposal: If the order response is \"Change\" then the Buyer will create (instantiate) a new order implementing the changes and superseding the previously sent order." ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:property ord-shape:epo-ord-OrderResponse-epo-ord-comprisesOrderResponseLine,
-        ord-shape:epo-ord-OrderResponse-epo-ord-hasResponseDescription,
-        ord-shape:epo-ord-OrderResponse-epo-ord-isSubmittedForOrder,
-        ord-shape:epo-ord-OrderResponse-epo-ord-specifiesOrderResponseInformation,
-        ord-shape:epo-ord-OrderResponse-epo-ord-specifiesSeller ;
-    sh:targetClass :OrderResponse .
+a4g_shape:OrderResponseShape a shacl:NodeShape ;
+	shacl:targetClass a4g:OrderResponse ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "A formal reply from the Seller to the Buyer stating the Seller's ability to fulfil the order. Additional Information: The Order Response is used to inform on the acceptance or rejection of an Order or to make a counter-offer. WG approval 20/04/2023 " ;
+	shacl:property a4g_shape:OrderResponse-hasResponseDescription-PlainLiteral, a4g_shape:OrderResponse-specifiesBuyer-Buyer, a4g_shape:OrderResponse-specifiesOrderResponseInformation-OrderResponseInformation, a4g_shape:OrderResponse-implementsContract-Contract, a4g_shape:OrderResponse-specifiesSeller-Seller, a4g_shape:OrderResponse-comprisesOrderResponseLine-OrderResponseLine, a4g_shape:OrderResponse-isSubmittedForOrder-Order .
 
-ord-shape:epo-ord-OrderResponseInformation a sh:NodeShape ;
-    rdfs:label "Order response information" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:property ord-shape:epo-ord-OrderResponseInformation-epo-ord-hasAcceptanceStatus,
-        ord-shape:epo-ord-OrderResponseInformation-epo-ord-isSpecificToOrderResponseLine ;
-    sh:targetClass :OrderResponseInformation .
+a4g_shape:OrderResponse-hasResponseDescription-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasResponseDescription ;
+	shacl:description "Response clarification of the Supplier decision. " ;
+	shacl:name "has response description"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:PlainLiteral .
 
-ord-shape:epo-ord-OrderResponseLine a sh:NodeShape ;
-    rdfs:label "Order response line" ;
-    rdfs:comment "Details concerning the Seller's ability to fulfil a given Order Line. Additional Information: The Order Response Line is used to inform on the acceptance or rejection of an Order Line or to make a counter-offer. WG approval 20/04/2023" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:property ord-shape:epo-ord-OrderResponseLine-epo-ord-isSubmittedForOrderLine ;
-    sh:targetClass :OrderResponseLine .
+a4g_shape:OrderShape a shacl:NodeShape ;
+	shacl:targetClass a4g:Order ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "A formal request of the Buyer to the Seller specifying the goods, services or works to be delivered. Additional Information: A Buyer submits an Order for delivery of goods, services or works to a Seller. WG approval 23/04/2023 " ;
+	shacl:property a4g_shape:Order-hasPaymentTerm-PlainLiteral, a4g_shape:Order-hasCustomerReference-boolean, a4g_shape:Order-hasAccountingCost-PlainLiteral, a4g_shape:Order-specifiesSeller-Seller, a4g_shape:Order-refersToCatalogue-Catalogue, a4g_shape:Order-specifiesDeliveryInformation-DeliveryInformation, a4g_shape:Order-comprisesOrderLine-OrderLine, a4g_shape:Order-specifiesContractInformation-ContractInformation, a4g_shape:Order-specifiesChargeInformation-ChargeInformation, a4g_shape:Order-specifiesBuyer-Buyer, a4g_shape:Order-specifiesDespatcher-Despatcher, a4g_shape:Order-hasSellerOrderID-Identifier, a4g_shape:Order-specifiesAllowanceInformation-AllowanceInformation, a4g_shape:Order-specifiesOriginatorInformation-OriginatorInformation, a4g_shape:Order-refersToProject-Project, a4g_shape:Order-hasTotalLineAmount-MonetaryValue, a4g_shape:Order-hasTotalTaxExclusiveAmount-MonetaryValue, a4g_shape:Order-hasTotalTaxInclusiveAmount-MonetaryValue, a4g_shape:Order-hasTotalAllowanceAmount-MonetaryValue, a4g_shape:Order-hasTotalChargeAmount-MonetaryValue, a4g_shape:Order-hasPrepaidAmount-MonetaryValue, a4g_shape:Order-hasRoundingAmount-MonetaryValue, a4g_shape:Order-hasAmountDueForPayment-MonetaryValue .
 
-ord-shape:epo-ord-Originator a sh:NodeShape ;
-    rdfs:label "Originator" ;
-    rdfs:comment "A Role of an Agent that expresses the needs to trigger the Procurement. Additional Information: The Originator is often the end-user or the Beneficiary. WG approval: 20/10/2022",
-        "Context: Expressing Needs" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:targetClass :Originator .
+a4g_shape:Order-hasPaymentTerm-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasPaymentTerm ;
+	shacl:name "has payment term"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:PlainLiteral .
 
-ord-shape:epo-ord-OriginatorInformation a sh:NodeShape ;
-    rdfs:label "Originator information" ;
-    rdfs:comment "Information about the Originator of the Order. WG approval 20/03/2023" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:property ord-shape:epo-ord-OriginatorInformation-epo-ord-concernsOriginator,
-        ord-shape:epo-ord-OriginatorInformation-epo-ord-isSpecificToOrderLine ;
-    sh:targetClass :OriginatorInformation .
+a4g_shape:Order-hasCustomerReference-boolean a shacl:PropertyShape ;
+	shacl:datatype xsd:boolean ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasCustomerReference ;
+	shacl:description "A supplementary reference for the order. Additional information: This information can be used for the buyer's internal processes. This reference can also be used in the invoice. WG approval 2023-01-26" ;
+	shacl:name "has customer reference"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 .
 
-ord-shape:epo-ord-Seller a sh:NodeShape ;
-    rdfs:label "Seller" ;
-    rdfs:comment "A Role of an Agent who transfers the ownership of the Procurement results (goods, services or works) to the Buyer. Additional information: A Role of an Agent that sells a Procurement Result (goods, services or work) to a Buyer. The Seller is bound by a Contract i.e. it has legal responsibility. The Seller may or may not be the same as the Supplier. The Seller may or may not issue the Invoice. The Seller may or may not be the owner of the credit owed by the Buyer. WG acceptance 08/09/2022",
-        "Note: Supplier is out of discussion. It is a third party. We do not care who provides these service or products we care with whom business is done. PEPPOL - Invoice: The supplier is the legal person or organization who provides a product and/or service. PEPPOL - Order: The supplier is the legal person or organisation who provides a product or service. Examples of supplier roles: seller, despatch party, creditor, economic operator." ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:targetClass :Seller .
+a4g_shape:Order-hasAccountingCost-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasAccountingCost ;
+	shacl:description "The accounting reference used by the Buyer to specify the account to which the order and the corresponding invoice are booked. WG approval 2023-01-26" ;
+	shacl:name "has accounting cost"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:PlainLiteral .
 
-ord-shape:epo-ord-TaxInformation a sh:NodeShape ;
-    rdfs:label "Tax information" ;
-    rdfs:comment "Information about the imposition of mandatory levies required by law. WG approval 25/04/2023" ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:property ord-shape:epo-ord-TaxInformation-dct-description,
-        ord-shape:epo-ord-TaxInformation-epo-cat-hasPercentage ;
-    sh:targetClass :TaxInformation .
+a4g_shape:TaxInformation-hasPercentage-decimal a shacl:PropertyShape ;
+	shacl:datatype xsd:decimal ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasPercentage ;
+	shacl:description "The factor relative to the price charged in addition. WG approval 26/07/2022 " ;
+	shacl:name "has percentage"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 .
 
-ord-shape:epo-ord-AllowanceChargeInformation-epo-cat-hasPercentage a sh:PropertyShape ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:datatype xsd:decimal ;
-    sh:description "The factor relative to the price charged in addition. WG approval 26/07/2022" ;
-    sh:maxCount 1 ;
-    sh:name "Has percentage" ;
-    sh:path :hasPercentage .
+a4g_shape:AllowanceChargeInformation-hasAllowanceChargeReasonDescription-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasAllowanceChargeReasonDescription ;
+	shacl:name "has allowance charge reason description"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral .
 
-ord-shape:epo-ord-AllowanceChargeInformation-epo-ful-hasAllowanceChargeReasonDescription a sh:PropertyShape ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:name "Has allowance charge reason description" ;
-    sh:path :hasAllowanceChargeReasonDescription .
+a4g_shape:DeliveryInformation-hasDeliveryDeadline-dateTime a shacl:PropertyShape ;
+	shacl:datatype xsd:dateTime ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasDeliveryDeadline ;
+	shacl:name "has delivery deadline"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 .
 
-ord-shape:epo-ord-AllowanceChargeInformation-epo-ord-hasTaxInformation a sh:PropertyShape ;
-    sh:class :TaxInformation ;
-    sh:maxCount 1 ;
-    sh:name "Has tax information" ;
-    sh:path :hasTaxInformation ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTaxInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTaxInformation> ?this .}" ] .
+a4g_shape:DeliveryAgreementShape a shacl:NodeShape ;
+	shacl:targetClass a4g:DeliveryAgreement ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "Term applying to the delivery of goods, services and works. Additional Information: Delivery terms identifier can normally be Incoterms accompanied by the description of specific conditions related to the delivery. WG approval 16/05/2023" ;
+	shacl:property a4g_shape:DeliveryAgreement-description-PlainLiteral, a4g_shape:DeliveryAgreement-specifiesDeliveryAgreementLocation-Location .
 
-ord-shape:epo-ord-AllowanceInformation-epo-ord-isSpecificToOrderLine a sh:PropertyShape ;
-    sh:class :OrderLine ;
-    sh:description "Information that is particular to one or multiple Order Lines." ;
-    sh:name "Is specific to order line" ;
-    sh:path :isSpecificToOrderLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .}" ] .
+a4g_shape:DeliveryAgreement-description-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path dcterms:description ;
+	shacl:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" ;
+	shacl:name "description"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral .
 
-ord-shape:epo-ord-ContractInformation-epo-ord-isSpecificToOrderLine a sh:PropertyShape ;
-    sh:class :OrderLine ;
-    sh:description "Information that is particular to one or multiple Order Lines." ;
-    sh:name "Is specific to order line" ;
-    sh:path :isSpecificToOrderLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .}" ] .
+a4g_shape:Order-specifiesSeller-Seller a shacl:PropertyShape ;
+	shacl:targetClass a4g:Seller ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesSeller ;
+	shacl:name "specifies seller"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-DeliveryAgreement-dct-description a sh:PropertyShape ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" ;
-    sh:name "Description" ;
-    sh:path dcterms:description .
+a4g_shape:DeliveryInformation-concernsConsignee-Consignee a shacl:PropertyShape ;
+	shacl:targetClass a4g:Consignee ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:concernsConsignee ;
+	shacl:name "concerns consignee"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-DeliveryInformation-epo-ord-concernsConsignee a sh:PropertyShape ;
-    sh:class :Consignee ;
-    sh:maxCount 1 ;
-    sh:name "Concerns consignee" ;
-    sh:path :concernsConsignee ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsConsignee> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsConsignee> ?this .}" ] .
+a4g_shape:ChargeInformationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:ChargeInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "Information about tax, fee or duty imposed. Additional Information: Charge category indicates the nature of the tax/duty/fee, for example VAT, CAR, etc. Charge category modifier may be used in case different levels, exemptions or other modifications apply. The charge can be fixed or relative to the price. WG approval 16/05/2023" ;
+	shacl:property a4g_shape:ChargeInformation-isSpecificToOrderLine-OrderLine .
 
-ord-shape:epo-ord-DeliveryInformation-epo-ord-hasDeliveryDeadline a sh:PropertyShape ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:datatype xsd:dateTime ;
-    sh:maxCount 1 ;
-    sh:name "Has delivery deadline" ;
-    sh:path :hasDeliveryDeadline .
+a4g_shape:ChargeInformation-isSpecificToOrderLine-OrderLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:OrderLine ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:isSpecificToOrderLine ;
+	shacl:description "Information that is particular to one or multiple Order Lines. " ;
+	shacl:name "is specific to order line"@en ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-DeliveryInformation-epo-ord-hasShippingMark a sh:PropertyShape ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:name "Has shipping mark" ;
-    sh:path :hasShippingMark .
+a4g_shape:OrderResponse-specifiesBuyer-Buyer a shacl:PropertyShape ;
+	shacl:targetClass a4g:Buyer ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesBuyer ;
+	shacl:name "specifies buyer"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-DeliveryInformation-epo-ord-isSpecificToOrderLine a sh:PropertyShape ;
-    sh:class :OrderLine ;
-    sh:description "Information that is particular to one or multiple Order Lines." ;
-    sh:name "Is specific to order line" ;
-    sh:path :isSpecificToOrderLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .}" ] .
+a4g_shape:DeliveryAgreement-specifiesDeliveryAgreementLocation-Location a shacl:PropertyShape ;
+	shacl:targetClass dcterms:Location ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesDeliveryAgreementLocation ;
+	shacl:name "specifies delivery agreement location"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesGeneralDeliveryAgreement a sh:PropertyShape ;
-    sh:class :DeliveryAgreement ;
-    sh:maxCount 1 ;
-    sh:name "Specifies general delivery agreement" ;
-    sh:path :specifiesGeneralDeliveryAgreement ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesGeneralDeliveryAgreement> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesGeneralDeliveryAgreement> ?this .}" ] .
+a4g_shape:DeliveryInformation-specifiesPlaceOfDelivery-Location a shacl:PropertyShape ;
+	shacl:targetClass dcterms:Location ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesPlaceOfDelivery ;
+	shacl:name "specifies place of delivery"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesSpecificDeliveryAgreement a sh:PropertyShape ;
-    sh:class :DeliveryAgreement ;
-    sh:maxCount 1 ;
-    sh:name "Specifies specific delivery agreement" ;
-    sh:path :specifiesSpecificDeliveryAgreement ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSpecificDeliveryAgreement> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSpecificDeliveryAgreement> ?this .}" ] .
+a4g_shape:OrderResponse-specifiesOrderResponseInformation-OrderResponseInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:OrderResponseInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesOrderResponseInformation ;
+	shacl:name "specifies order response information"@en ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-Order-epo-ord-comprisesOrderLine a sh:PropertyShape ;
-    sh:class :OrderLine ;
-    sh:minCount 1 ;
-    sh:name "Comprises order line" ;
-    sh:path :comprisesOrderLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesOrderLine> ?this .}" ] .
+a4g_shape:OrderResponseInformationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:OrderResponseInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:property a4g_shape:OrderResponseInformation-isSpecificToOrderResponseLine-OrderResponseLine, a4g_shape:OrderResponseInformation-hasDeliveryPeriod-Period, a4g_shape:OrderResponseInformation-hasAcceptanceStatus-ResponseStatus, a4g_shape:OrderResponseInformation-inScheme-ResponseStatus .
 
-ord-shape:epo-ord-Order-epo-ord-hasAccountingCost a sh:PropertyShape ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:description "The accounting reference used by the Buyer to specify the account to which the order and the corresponding invoice are booked. WG approval 2023-01-26" ;
-    sh:maxCount 1 ;
-    sh:name "Has accounting cost" ;
-    sh:path :hasAccountingCost .
+a4g_shape:OrderResponseInformation-isSpecificToOrderResponseLine-OrderResponseLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:OrderResponseLine ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:isSpecificToOrderResponseLine ;
+	shacl:name "is specific to order response line"@en ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-Order-epo-ord-hasCustomerReference a sh:PropertyShape ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:datatype xsd:boolean ;
-    sh:description "A supplementary reference for the order. Additional information: This information can be used for the buyer's internal processes. This reference can also be used in the invoice. WG approval 2023-01-26" ;
-    sh:maxCount 1 ;
-    sh:name "Has customer reference" ;
-    sh:path :hasCustomerReference .
+a4g_shape:OrderResponseInformation-hasDeliveryPeriod-Period a shacl:PropertyShape ;
+	shacl:targetClass a4g:Period ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasDeliveryPeriod ;
+	shacl:name "has delivery period"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-Order-epo-ord-hasPaymentTerm a sh:PropertyShape ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:maxCount 1 ;
-    sh:name "Has payment term" ;
-    sh:path :hasPaymentTerm .
+a4g_shape:OrderResponseInformation-hasAcceptanceStatus-ResponseStatus a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasAcceptanceStatus ;
+	shacl:name "has acceptance status"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:OrderResponseInformationShape ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-Order-epo-ord-specifiesAllowanceInformation a sh:PropertyShape ;
-    sh:class :AllowanceInformation ;
-    sh:name "Specifies allowance information" ;
-    sh:path :specifiesAllowanceInformation ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesAllowanceInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesAllowanceInformation> ?this .}" ] .
+a4g_shape:OrderResponseInformation-inScheme-ResponseStatus a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/ResponseStatus> .
 
-ord-shape:epo-ord-Order-epo-ord-specifiesContractInformation a sh:PropertyShape ;
-    sh:class :ContractInformation ;
-    sh:description "" ;
-    sh:name "Specifies contract information" ;
-    sh:path :specifiesContractInformation ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesContractInformation> ?this .}" ] .
+a4g_shape:OrderLineShape a shacl:NodeShape ;
+	shacl:targetClass a4g:OrderLine ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "Details concerning a given unit of goods, services or works requested in the Order. Additional information: In general, an Order Line contains the Quantity and Price of the goods, services and goods requested in the Order. However, in certain cases, the Price may not be known, as the Price may fluctuate from one day to the other. WG approval 20/04/2023" ;
+	shacl:property a4g_shape:OrderLine-refersToCatalogueLine-CatalogueLine, a4g_shape:OrderLine-hasQuantity-Quantity, a4g_shape:OrderLine-hasPrice-Price .
 
-ord-shape:epo-ord-Order-epo-ord-specifiesDeliveryInformation a sh:PropertyShape ;
-    sh:class :DeliveryInformation ;
-    sh:minCount 1 ;
-    sh:name "Specifies delivery information" ;
-    sh:path :specifiesDeliveryInformation ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?this .}" ] .
+a4g_shape:OrderLine-refersToCatalogueLine-CatalogueLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:CatalogueLine ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:refersToCatalogueLine ;
+	shacl:description " Additional Information: The reference to the catalogue line is for information only, to trace the source of the information provided in the order line. " ;
+	shacl:name "refers to catalogue line"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-Order-epo-ord-specifiesOriginatorInformation a sh:PropertyShape ;
-    sh:class :OriginatorInformation ;
-    sh:maxCount 1 ;
-    sh:name "Specifies originator information" ;
-    sh:path :specifiesOriginatorInformation ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesOriginatorInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesOriginatorInformation> ?this .}" ] .
+a4g_shape:Order-refersToCatalogue-Catalogue a shacl:PropertyShape ;
+	shacl:targetClass a4g:Catalogue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:refersToCatalogue ;
+	shacl:description " Additional information: If an order refers to multiple catalogues then all these catalogues ideally are subordinated to the same contract. Some countries however may allow multiple contracts per order (i.e Italy). " ;
+	shacl:name "refers to catalogue"@en ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-Order-epo-specifiesSeller a sh:PropertyShape ;
-    sh:class :Seller ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Specifies seller" ;
-    sh:path :specifiesSeller ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .}" ] .
+a4g_shape:Order-specifiesDeliveryInformation-DeliveryInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:DeliveryInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesDeliveryInformation ;
+	shacl:name "specifies delivery information"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-OrderResponse-epo-ord-comprisesOrderResponseLine a sh:PropertyShape ;
-    sh:class :OrderResponseLine ;
-    sh:name "Comprises order response line" ;
-    sh:path :comprisesOrderResponseLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesOrderResponseLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesOrderResponseLine> ?this .}" ] .
+a4g_shape:Order-comprisesOrderLine-OrderLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:OrderLine ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:comprisesOrderLine ;
+	shacl:name "comprises order line"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-OrderResponse-epo-ord-hasResponseDescription a sh:PropertyShape ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:description "Response clarification of the Supplier decision." ;
-    sh:maxCount 1 ;
-    sh:name "Has response description" ;
-    sh:path :hasResponseDescription .
+a4g_shape:OrderResponse-implementsContract-Contract a shacl:PropertyShape ;
+	shacl:targetClass a4g:Contract ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:implementsContract ;
+	shacl:name "implements contract"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-OrderResponse-epo-ord-isSubmittedForOrder a sh:PropertyShape ;
-    sh:class :Order ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Is submitted for order" ;
-    sh:path :isSubmittedForOrder ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForOrder> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForOrder> ?this .}" ] .
+a4g_shape:OrderLine-hasQuantity-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasQuantity ;
+	shacl:name "has quantity"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-OrderResponse-epo-ord-specifiesOrderResponseInformation a sh:PropertyShape ;
-    sh:class :OrderResponseInformation ;
-    sh:name "Specifies order response information" ;
-    sh:path :specifiesOrderResponseInformation ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesOrderResponseInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesOrderResponseInformation> ?this .}" ] .
+a4g_shape:OrderResponseLineShape a shacl:NodeShape ;
+	shacl:targetClass a4g:OrderResponseLine ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "Details concerning the Seller's ability to fulfil a given Order Line. Additional Information: The Order Response Line is used to inform on the acceptance or rejection of an Order Line or to make a counter-offer. WG approval 20/04/2023" ;
+	shacl:property a4g_shape:OrderResponseLine-isSubmittedForOrderLine-OrderLine .
 
-ord-shape:epo-ord-OrderResponse-epo-ord-specifiesSeller a sh:PropertyShape ;
-    sh:class :Seller ;
-    sh:maxCount 1 ;
-    sh:name "Specifies seller" ;
-    sh:path :specifiesSeller ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .}" ] .
+a4g_shape:OrderResponseLine-isSubmittedForOrderLine-OrderLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:OrderLine ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:isSubmittedForOrderLine ;
+	shacl:name "is submitted for order line"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-OrderResponseInformation-epo-ord-hasAcceptanceStatus a sh:PropertyShape ;
-    sh:class at-voc-new:ResponseStatus ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Has acceptance status" ;
-    sh:path :hasAcceptanceStatus .
+a4g_shape:OrderResponse-specifiesSeller-Seller a shacl:PropertyShape ;
+	shacl:targetClass a4g:Seller ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesSeller ;
+	shacl:name "specifies seller"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-OrderResponseInformation-epo-ord-isSpecificToOrderResponseLine a sh:PropertyShape ;
-    sh:class :OrderResponseLine ;
-    sh:name "Is specific to order response line" ;
-    sh:path :isSpecificToOrderResponseLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderResponseLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderResponseLine> ?this .}" ] .
+a4g_shape:DeliveryInformation-hasDeliveryPeriod-Period a shacl:PropertyShape ;
+	shacl:targetClass a4g:Period ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasDeliveryPeriod ;
+	shacl:name "has delivery period"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-OrderResponseLine-epo-ord-isSubmittedForOrderLine a sh:PropertyShape ;
-    sh:class :OrderLine ;
-    sh:minCount 1 ;
-    sh:name "Is submitted for order line" ;
-    sh:path :isSubmittedForOrderLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForOrderLine> ?this .}" ] .
+a4g_shape:Order-specifiesContractInformation-ContractInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:ContractInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesContractInformation ;
+	shacl:description " " ;
+	shacl:name "specifies contract information"@en ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-OriginatorInformation-epo-ord-concernsOriginator a sh:PropertyShape ;
-    sh:class :Originator ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Concerns originator" ;
-    sh:path :concernsOriginator ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsOriginator> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsOriginator> ?this .}" ] .
+a4g_shape:Order-specifiesChargeInformation-ChargeInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:ChargeInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesChargeInformation ;
+	shacl:name "specifies charge information"@en ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-OriginatorInformation-epo-ord-isSpecificToOrderLine a sh:PropertyShape ;
-    sh:class :OrderLine ;
-    sh:description "Information that is particular to one or multiple Order Lines." ;
-    sh:name "Is specific to order line" ;
-    sh:path :isSpecificToOrderLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToOrderLine> ?this .}" ] .
+a4g_shape:DeliveryInformation-isSpecificToOrderLine-OrderLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:OrderLine ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:isSpecificToOrderLine ;
+	shacl:description "Information that is particular to one or multiple Order Lines." ;
+	shacl:name "is specific to order line"@en ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:epo-ord-TaxInformation-dct-description a sh:PropertyShape ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" ;
-    sh:maxCount 1 ;
-    sh:name "Description" ;
-    sh:path dcterms:description .
+a4g_shape:AllowanceInformationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:AllowanceInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "Information about the discounts imposed. WG approval 16/05/2023 " ;
+	shacl:property a4g_shape:AllowanceInformation-isSpecificToOrderLine-OrderLine .
 
-ord-shape:epo-ord-TaxInformation-epo-cat-hasPercentage a sh:PropertyShape ;
-    rdfs:isDefinedBy ord-shape:ord-shape ;
-    sh:datatype xsd:decimal ;
-    sh:description "The factor relative to the price charged in addition. WG approval 26/07/2022" ;
-    sh:maxCount 1 ;
-    sh:name "Has percentage" ;
-    sh:path :hasPercentage .
+a4g_shape:AllowanceInformation-isSpecificToOrderLine-OrderLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:OrderLine ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:isSpecificToOrderLine ;
+	shacl:description "Information that is particular to one or multiple Order Lines. " ;
+	shacl:name "is specific to order line"@en ;
+	shacl:nodeKind shacl:IRI .
 
-ord-shape:ord-shape a owl:Ontology ;
-    rdfs:label "eProcurement Ontology Ordering - core shapes"@en ;
-    dcterms:created "2021-06-01"^^xsd:date ;
-    dcterms:description "The eProcurement Ontology Ordering core shapes provides the generic datashape specifications for the eProcurement Ontology Ordering core."@en ;
-    dcterms:issued "2024-07-10"^^xsd:date ;
-    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
-    dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
-    dcterms:title "eProcurement Ontology Ordering - core shapes"@en ;
-    vann:preferredNamespacePrefix "epo" ;
-    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eOrdering.xml on 2024-07-10" ;
-    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
-        <https://github.com/OP-TED/ePO/releases>,
-        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
-        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :cat,
-        :core,
-        :ful,
-        :ord,
-        :ord-restriction,
-        eli:,
-        cccev:,
-        frbroo:,
-        dcterms:,
-        vann:,
-        <http://www.w3.org/2004/02/skos/core>,
-        <http://www.w3.org/2006/time>,
-        <http://www.w3.org/ns/adms>,
-        <http://www.w3.org/ns/locn>,
-        org:,
-        <http://www.w3.org/ns/person>,
-        foaf: ;
-    owl:incompatibleWith "3.1.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/data-shape#ord-shape-4.0.2" ;
-    owl:versionIRI ord-shape:ord-shape-4.1.0 ;
-    owl:versionInfo "4.1.0" .
+a4g_shape:AllowanceChargeInformation-hasAmount-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasAmount ;
+	shacl:description "The predetermined monetary value charged in addition to the price. WG approval 26/07/2022" ;
+	shacl:name "has amount"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TaxInformation-hasTaxCategory-tax-category a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasTaxCategory ;
+	shacl:name "has tax category"@en ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:TaxInformationShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TaxInformation-inScheme-tax-category a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/tax-category> .
+
+a4g_shape:TaxInformation-hasTaxScheme-tax-scheme a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasTaxScheme ;
+	shacl:name "has tax scheme"@en ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:TaxInformationShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TaxInformation-inScheme-tax-scheme a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/tax-scheme> .
+
+a4g_shape:OrderLine-hasPrice-Price a shacl:PropertyShape ;
+	shacl:targetClass a4g:Price ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasPrice ;
+	shacl:name "has price"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-specifiesBuyer-Buyer a shacl:PropertyShape ;
+	shacl:targetClass a4g:Buyer ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesBuyer ;
+	shacl:name "specifies buyer"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:OriginatorInformationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:OriginatorInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "Information about the Originator of the Order. WG approval 20/03/2023" ;
+	shacl:property a4g_shape:OriginatorInformation-isSpecificToOrderLine-OrderLine, a4g_shape:OriginatorInformation-concernsOriginator-Originator, a4g_shape:OriginatorInformation-concernsOriginatorRequest-OriginatorRequest .
+
+a4g_shape:OriginatorInformation-isSpecificToOrderLine-OrderLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:OrderLine ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:isSpecificToOrderLine ;
+	shacl:description "Information that is particular to one or multiple Order Lines. " ;
+	shacl:name "is specific to order line"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:OrderResponse-comprisesOrderResponseLine-OrderResponseLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:OrderResponseLine ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:comprisesOrderResponseLine ;
+	shacl:name "comprises order response line"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:OrderResponse-isSubmittedForOrder-Order a shacl:PropertyShape ;
+	shacl:targetClass a4g:Order ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:isSubmittedForOrder ;
+	shacl:name "is submitted for order"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:CatalogueResponseInformationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:CatalogueResponseInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:property a4g_shape:CatalogueResponseInformation-hasAcceptanceStatus-ResponseStatus, a4g_shape:CatalogueResponseInformation-inScheme-ResponseStatus .
+
+a4g_shape:CatalogueResponseInformation-hasAcceptanceStatus-ResponseStatus a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasAcceptanceStatus ;
+	shacl:name "has acceptance status"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:CatalogueResponseInformationShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:CatalogueResponseInformation-inScheme-ResponseStatus a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/ResponseStatus> .
+
+a4g_shape:Order-specifiesDespatcher-Despatcher a shacl:PropertyShape ;
+	shacl:targetClass a4g:Despatcher ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesDespatcher ;
+	shacl:name "specifies despatcher"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ContractShape a shacl:NodeShape ;
+	shacl:targetClass a4g:Contract ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "A voluntary, deliberate, and legally binding agreement between two or more competent parties. Additional information: This includes Concession Contracts. WG approval 01/06/2018" ;
+	shacl:property a4g_shape:Contract-hasTaxInformation-TaxInformation .
+
+a4g_shape:Contract-hasTaxInformation-TaxInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:TaxInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasTaxInformation ;
+	shacl:name "has tax information"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-hasSellerOrderID-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasSellerOrderID ;
+	shacl:name "has seller order id"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ContractInformationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:ContractInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "Information about the Contract. WG approval 20/04/2023" ;
+	shacl:property a4g_shape:ContractInformation-concernsContract-Contract, a4g_shape:ContractInformation-isSpecificToOrderLine-OrderLine .
+
+a4g_shape:ContractInformation-concernsContract-Contract a shacl:PropertyShape ;
+	shacl:targetClass a4g:Contract ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:concernsContract ;
+	shacl:name "concerns contract"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ContractInformation-isSpecificToOrderLine-OrderLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:OrderLine ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:isSpecificToOrderLine ;
+	shacl:description "Information that is particular to one or multiple Order Lines." ;
+	shacl:name "is specific to order line"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-specifiesAllowanceInformation-AllowanceInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:AllowanceInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesAllowanceInformation ;
+	shacl:name "specifies allowance information"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:OriginatorInformation-concernsOriginator-Originator a shacl:PropertyShape ;
+	shacl:targetClass a4g:Originator ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:concernsOriginator ;
+	shacl:name "concerns originator"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-specifiesOriginatorInformation-OriginatorInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:OriginatorInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesOriginatorInformation ;
+	shacl:name "specifies originator information"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AllowanceChargeInformation-hasAllowanceChargeReason-allowance-charge-reason a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasAllowanceChargeReason ;
+	shacl:description "https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5189/ https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7161/" ;
+	shacl:name "has allowance charge reason"@en ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:AllowanceChargeInformationShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AllowanceChargeInformation-inScheme-allowance-charge-reason a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/allowance-charge-reason> .
+
+a4g_shape:AllowanceChargeInformation-isCalculatedOn-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:isCalculatedOn ;
+	shacl:description "The monetary amount to which the multiplier factor is applied in calculating the amount of this allowance or charge. " ;
+	shacl:name "is calculated on"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DeliveryInformation-specifiesGeneralDeliveryAgreement-DeliveryAgreement a shacl:PropertyShape ;
+	shacl:targetClass a4g:DeliveryAgreement ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesGeneralDeliveryAgreement ;
+	shacl:name "specifies general delivery agreement"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DeliveryInformation-specifiesSpecificDeliveryAgreement-DeliveryAgreement a shacl:PropertyShape ;
+	shacl:targetClass a4g:DeliveryAgreement ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:specifiesSpecificDeliveryAgreement ;
+	shacl:name "specifies specific delivery agreement"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DeliveryInformation-hasTrackingID-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasTrackingID ;
+	shacl:name "has tracking id"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:OriginatorInformation-concernsOriginatorRequest-OriginatorRequest a shacl:PropertyShape ;
+	shacl:targetClass a4g:OriginatorRequest ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:concernsOriginatorRequest ;
+	shacl:name "concerns originator request"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-refersToProject-Project a shacl:PropertyShape ;
+	shacl:targetClass a4g:Project ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:refersToProject ;
+	shacl:name "refers to project"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-hasTotalLineAmount-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasTotalLineAmount ;
+	shacl:name "has total line amount"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-hasTotalTaxExclusiveAmount-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasTotalTaxExclusiveAmount ;
+	shacl:name "has total tax exclusive amount"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-hasTotalTaxInclusiveAmount-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasTotalTaxInclusiveAmount ;
+	shacl:name "has total tax inclusive amount"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-hasTotalAllowanceAmount-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasTotalAllowanceAmount ;
+	shacl:name "has total allowance amount"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-hasTotalChargeAmount-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasTotalChargeAmount ;
+	shacl:name "has total charge amount"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-hasPrepaidAmount-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasPrepaidAmount ;
+	shacl:name "has prepaid amount"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-hasRoundingAmount-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasRoundingAmount ;
+	shacl:name "has rounding amount"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Order-hasAmountDueForPayment-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasAmountDueForPayment ;
+	shacl:name "has amount due for payment"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TaxInformation-hasAmount-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasAmount ;
+	shacl:description "The predetermined monetary value charged in addition to the price. WG approval 26/07/2022 " ;
+	shacl:name "has amount"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TaxInformation-isCalculatedOn-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:isCalculatedOn ;
+	shacl:description "The monetary amount to which the multiplier factor is applied in calculating the amount of this allowance or charge." ;
+	shacl:name "is calculated on"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AllowanceChargeInformation-hasTaxInformation-TaxInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:TaxInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasTaxInformation ;
+	shacl:name "has tax information"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:PriceShape a shacl:NodeShape ;
+	shacl:targetClass a4g:Price ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "Amount of money required or given in exchange for Items. Additional information: The Price excludes any charges (such as taxes, duties and fees) and discounts. WG approval 26/07/2022" ;
+	shacl:property a4g_shape:Price-hasPriceDiscountInformation-AllowanceInformation .
+
+a4g_shape:Price-hasPriceDiscountInformation-AllowanceInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:AllowanceInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasPriceDiscountInformation ;
+	shacl:name "has price discount information"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ItemShape a shacl:NodeShape ;
+	shacl:targetClass a4g:Item ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	rdfs:comment "A product, work, service or any combination of them. Additional Information: An Item can be an atomic Thing or a composition of things that together are seen as a unit, e.g. a tetrabrik of milk or an indivisible package of six tetrabriks. No distinction is provided between services, goods and works to leave room for innovation. WG approval 30/06/2022" ;
+	shacl:property a4g_shape:Item-hasTaxInformation-TaxInformation .
+
+a4g_shape:Item-hasTaxInformation-TaxInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:TaxInformation ;
+	rdfs:isDefinedBy a4g_shape:ord-shape ;
+	shacl:path a4g:hasTaxInformation ;
+	shacl:name "has tax information"@en ;
+	shacl:nodeKind shacl:IRI .
 

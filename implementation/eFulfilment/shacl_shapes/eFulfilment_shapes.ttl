@@ -1,649 +1,1170 @@
-@prefix : <http://data.europa.eu/a4g/ontology#> .
-@prefix at-voc-new: <http://publications.europa.eu/resource/authority/new/> .
-@prefix cccev: <http://data.europa.eu/m8g/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix eli: <http://data.europa.eu/eli/ontology#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix frbroo: <http://iflastandards.info/ns/fr/frbr/frbroo/> .
-@prefix ful-shape: <http://data.europa.eu/a4g/data-shape#> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix schema: <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-ful-shape:epo-ful-AbstractContainer a sh:NodeShape ;
-    rdfs:label "Abstract container" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-AbstractContainer-epo-ful-hasTemperatureSpecification,
-        ful-shape:epo-ful-AbstractContainer-epo-ful-isHazardousRisk,
-        ful-shape:epo-ful-AbstractContainer-epo-ful-isReturnableMaterial ;
-    sh:targetClass :AbstractContainer .
-
-ful-shape:epo-ful-Carrier a sh:NodeShape ;
-    rdfs:label "Carrier" ;
-    rdfs:comment "The Role of an Agent who handles the physical Delivery/Transportation of the (Despatched) Shipment. Additional Information: This Role is also known as Deliverer. WG approval: 11/10/2022" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:targetClass :Carrier .
-
-ful-shape:epo-ful-Consignment a sh:NodeShape ;
-    rdfs:label "Consignment" ;
-    rdfs:comment "A batch of goods destined for or delivered to someone. Additional information: Consignment it is a Transport Agreement. They do not care about the content of what is being shipped. (only if there are dangerous goods, and temperature requirements). How to move from place a to place B." ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-Consignment-epo-ful-containsTransportHandlingUnit,
-        ful-shape:epo-ful-Consignment-epo-ful-hasCarrierServiceInstruction,
-        ful-shape:epo-ful-Consignment-epo-ful-hasDeliveryInstruction,
-        ful-shape:epo-ful-Consignment-epo-ful-hasHandlingInstruction,
-        ful-shape:epo-ful-Consignment-epo-ful-hasHandlingInstructionCode,
-        ful-shape:epo-ful-Consignment-epo-ful-hasMainCarriageShipmentStage,
-        ful-shape:epo-ful-Consignment-epo-ful-hasOnCarriageShipmentStage,
-        ful-shape:epo-ful-Consignment-epo-ful-hasPreCarriageShipmentStage,
-        ful-shape:epo-ful-Consignment-epo-ful-hasRequestedPickUpInformation,
-        ful-shape:epo-ful-Consignment-epo-ful-hasSpecialInstruction,
-        ful-shape:epo-ful-Consignment-epo-ful-hasSpecialServiceInstruction,
-        ful-shape:epo-ful-Consignment-epo-ful-hasVehicleDescription,
-        ful-shape:epo-ful-Consignment-epo-ful-isHazardousRisk,
-        ful-shape:epo-ful-Consignment-epo-specifiesFreightForwarder,
-        ful-shape:epo-ful-Consignment-epo-specifiesNotifier ;
-    sh:targetClass :Consignment .
-
-ful-shape:epo-ful-DespatchAdvice a sh:NodeShape ;
-    rdfs:label "Despatch advice" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-DespatchAdvice-epo-ful-comprisesDespatchLine,
-        ful-shape:epo-ful-DespatchAdvice-epo-ful-hasDespatchAdviceType,
-        ful-shape:epo-ful-DespatchAdvice-epo-ful-refersToConsignment,
-        ful-shape:epo-ful-DespatchAdvice-epo-ful-refersToShipmentAgreement,
-        ful-shape:epo-ful-DespatchAdvice-epo-ful-specifiesDespatcher,
-        ful-shape:epo-ful-DespatchAdvice-epo-ful-specifiesShipment,
-        ful-shape:epo-ful-DespatchAdvice-epo-ful-specifiesTransportHandlingUnits ;
-    sh:targetClass :DespatchAdvice .
-
-ful-shape:epo-ful-DespatchLine a sh:NodeShape ;
-    rdfs:label "Despatch line" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-DespatchLine-epo-ful-hasOutstandingQuantityReason ;
-    sh:targetClass :DespatchLine .
-
-ful-shape:epo-ful-Despatcher a sh:NodeShape ;
-    rdfs:label "Despatcher" ;
-    rdfs:comment "Role of an Agent who sends the goods or notifies of the service or works execution. Additional Information: The Role is carried out by the Supplier or on behalf of the Supplier. Despatcher is also known as Despatch Party, Consignor, Deliverer." ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:targetClass :Despatcher .
-
-ful-shape:epo-ful-FreightForwarder a sh:NodeShape ;
-    rdfs:label "Freight forwarder" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:targetClass :FreightForwarder .
-
-ful-shape:epo-ful-GoodsItem a sh:NodeShape ;
-    rdfs:label "Goods item" ;
-    rdfs:comment "An Item including its initial packaging during transportation. Additional information: For example, the Item being bought is the computer. The weight of the computer is X. The weight of the Goods Item is the weight of the computer plus the weight of the initial packaging. During transportation you have for example trace ID which is applied to the GoodsItem, rather than on the Item itself. The declared statistical value can only apply once you have a GoodsItem. WG approval 30/03/2023" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-GoodsItem-epo-ful-refersToDespatchLine ;
-    sh:targetClass :GoodsItem .
-
-ful-shape:epo-ful-Notifier a sh:NodeShape ;
-    rdfs:label "Notifier" ;
-    rdfs:comment "The party to be notified upon arrival of goods and when special occurrences (usually pre-defined) take place during a transportation service. (UBL)" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:targetClass :Notifier .
-
-ful-shape:epo-ful-Package a sh:NodeShape ;
-    rdfs:label "Package" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-Package-epo-ful-containsGoodsItem,
-        ful-shape:epo-ful-Package-epo-ful-containsPackage,
-        ful-shape:epo-ful-Package-epo-ful-hasPackagingType,
-        ful-shape:epo-ful-Package-epo-ful-hasPackagingTypeDescription ;
-    sh:targetClass :Package .
-
-ful-shape:epo-ful-ReceiptAdvice a sh:NodeShape ;
-    rdfs:label "Receipt advice" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-ReceiptAdvice-epo-ful-comprisesReceiptAdviceLine,
-        ful-shape:epo-ful-ReceiptAdvice-epo-ful-isSubmittedForDespatchAdvice,
-        ful-shape:epo-ful-ReceiptAdvice-epo-ful-isSubmittedForShipment,
-        ful-shape:epo-ful-ReceiptAdvice-epo-ful-specifiesDespatcher ;
-    sh:targetClass :ReceiptAdvice .
-
-ful-shape:epo-ful-ReceiptAdviceLine a sh:NodeShape ;
-    rdfs:label "Receipt advice line" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-RejectionAction,
-        ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-hasRejectReason,
-        ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-hasShortageAction,
-        ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-isSubmittedForDespatchLine ;
-    sh:targetClass :ReceiptAdviceLine .
-
-ful-shape:epo-ful-ShipmentAgreement a sh:NodeShape ;
-    rdfs:label "Shipment agreement" ;
-    rdfs:comment "The Commercial Agreement between the Commercial Parties. Additional Information: It describes items being shipped. What is being moved." ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:targetClass :ShipmentAgreement .
-
-ful-shape:epo-ful-ShipmentInformation a sh:NodeShape ;
-    rdfs:label "Shipment information" ;
-    rdfs:comment "The Transportation of an identifiable collection of Goods Items from one party (the Despatch Party) to another party (the Consignee) via one or more modes of transport. Addition Information This represents the \"where\" and \"when\"." ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-ShipmentInformation-dct-description,
-        ful-shape:epo-ful-ShipmentInformation-epo-ful-despatchDate,
-        ful-shape:epo-ful-ShipmentInformation-epo-ful-isSpecificToDespatchLine ;
-    sh:targetClass :ShipmentInformation .
-
-ful-shape:epo-ful-ShipmentStage a sh:NodeShape ;
-    rdfs:label "Shipment stage" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-ShipmentStage-epo-ful-hasDepartureShipmentInformation,
-        ful-shape:epo-ful-ShipmentStage-epo-ful-isHazardousRisk,
-        ful-shape:epo-ful-ShipmentStage-epo-ful-usesTransportMeans,
-        ful-shape:epo-ful-ShipmentStage-epo-hasArrivalShipmentInformation,
-        ful-shape:epo-ful-ShipmentStage-epo-specifiesCarrier ;
-    sh:targetClass :ShipmentStage .
-
-ful-shape:epo-ful-TemperatureSpecification a sh:NodeShape ;
-    rdfs:label "Temperature specification" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-TemperatureSpecification-dct-description ;
-    sh:targetClass :TemperatureSpecification .
-
-ful-shape:epo-ful-TransportEquipment a sh:NodeShape ;
-    rdfs:label "Transport equipment" ;
-    rdfs:comment "isReturnable attribute needs to be checked on whether it is useful or not." ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-TransportEquipment-dct-description,
-        ful-shape:epo-ful-TransportEquipment-epo-ful-hasSizeType,
-        ful-shape:epo-ful-TransportEquipment-epo-ful-hasTransportEquipmentSeal,
-        ful-shape:epo-ful-TransportEquipment-epo-ful-hasTransportEquipmentType,
-        ful-shape:epo-ful-TransportEquipment-epo-ful-isPowerIndicated,
-        ful-shape:epo-ful-TransportEquipment-epo-ful-isRefrigerated,
-        ful-shape:epo-ful-TransportEquipment-epo-ful-isReturnable ;
-    sh:targetClass :TransportEquipment .
-
-ful-shape:epo-ful-TransportEquipmentSeal a sh:NodeShape ;
-    rdfs:label "Transport equipment seal" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:targetClass :TransportEquipmentSeal .
-
-ful-shape:epo-ful-TransportHandlingUnit a sh:NodeShape ;
-    rdfs:label "Transport handling unit" ;
-    rdfs:comment "A description of Individual Handling Units in which the Line Items are packed." ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-TransportHandlingUnit-epo-ful-hasHandlingInstruction,
-        ful-shape:epo-ful-TransportHandlingUnit-epo-ful-hasHandlingInstructionCode,
-        ful-shape:epo-ful-TransportHandlingUnit-epo-ful-hasShippingMark,
-        ful-shape:epo-ful-TransportHandlingUnit-epo-ful-transportsItemFrom,
-        ful-shape:epo-ful-TransportHandlingUnit-epo-ful-usesTransportEquipment ;
-    sh:targetClass :TransportHandlingUnit .
-
-ful-shape:epo-ful-TransportMeans a sh:NodeShape ;
-    rdfs:label "Transport means" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:property ful-shape:epo-ful-TransportMeans-epo-ful-hasTransportMeansType,
-        ful-shape:epo-ful-TransportMeans-epo-ful-hasTransportMode,
-        ful-shape:epo-ful-TransportMeans-epo-hasDriverPerson ;
-    sh:targetClass :TransportMeans .
-
-ful-shape:epo-ful-TransportMeansOperator a sh:NodeShape ;
-    rdfs:label "Transport means operator" ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:targetClass :TransportMeansOperator .
-
-ful-shape:epo-ful-AbstractContainer-epo-ful-hasTemperatureSpecification a sh:PropertyShape ;
-    sh:class :TemperatureSpecification ;
-    sh:maxCount 1 ;
-    sh:name "Has temperature specification" ;
-    sh:path :hasTemperatureSpecification ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTemperatureSpecification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTemperatureSpecification> ?this .}" ] .
-
-ful-shape:epo-ful-AbstractContainer-epo-ful-isHazardousRisk a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype xsd:boolean ;
-    sh:maxCount 1 ;
-    sh:name "Is hazardous risk" ;
-    sh:path :isHazardousRisk .
-
-ful-shape:epo-ful-AbstractContainer-epo-ful-isReturnableMaterial a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype xsd:boolean ;
-    sh:maxCount 1 ;
-    sh:name "Is returnable material" ;
-    sh:path :isReturnableMaterial .
-
-ful-shape:epo-ful-Consignment-epo-ful-containsTransportHandlingUnit a sh:PropertyShape ;
-    sh:class :TransportHandlingUnit ;
-    sh:minCount 1 ;
-    sh:name "Contains transport handling unit" ;
-    sh:path :containsTransportHandlingUnit ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsTransportHandlingUnit> ?that . ?that <http://data.europa.eu/a4g/ontology#containsTransportHandlingUnit> ?this .}" ] .
-
-ful-shape:epo-ful-Consignment-epo-ful-hasCarrierServiceInstruction a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:name "Has carrier service instruction" ;
-    sh:path :hasCarrierServiceInstruction .
-
-ful-shape:epo-ful-Consignment-epo-ful-hasDeliveryInstruction a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:name "Has delivery instruction" ;
-    sh:path :hasDeliveryInstruction .
-
-ful-shape:epo-ful-Consignment-epo-ful-hasHandlingInstruction a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:name "Has handling instruction" ;
-    sh:path :hasHandlingInstruction .
-
-ful-shape:epo-ful-Consignment-epo-ful-hasHandlingInstructionCode a sh:PropertyShape ;
-    sh:class at-voc-new:handling-instruction ;
-    sh:maxCount 1 ;
-    sh:name "Has handling instruction code" ;
-    sh:path :hasHandlingInstructionCode .
-
-ful-shape:epo-ful-Consignment-epo-ful-hasMainCarriageShipmentStage a sh:PropertyShape ;
-    sh:class :ShipmentStage ;
-    sh:maxCount 1 ;
-    sh:name "Has main carriage shipment stage" ;
-    sh:path :hasMainCarriageShipmentStage ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasMainCarriageShipmentStage> ?that . ?that <http://data.europa.eu/a4g/ontology#hasMainCarriageShipmentStage> ?this .}" ] .
-
-ful-shape:epo-ful-Consignment-epo-ful-hasOnCarriageShipmentStage a sh:PropertyShape ;
-    sh:class :ShipmentStage ;
-    sh:name "Has on carriage shipment stage" ;
-    sh:path :hasOnCarriageShipmentStage ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasOnCarriageShipmentStage> ?that . ?that <http://data.europa.eu/a4g/ontology#hasOnCarriageShipmentStage> ?this .}" ] .
-
-ful-shape:epo-ful-Consignment-epo-ful-hasPreCarriageShipmentStage a sh:PropertyShape ;
-    sh:class :ShipmentStage ;
-    sh:name "Has pre carriage shipment stage" ;
-    sh:path :hasPreCarriageShipmentStage ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPreCarriageShipmentStage> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPreCarriageShipmentStage> ?this .}" ] .
-
-ful-shape:epo-ful-Consignment-epo-ful-hasRequestedPickUpInformation a sh:PropertyShape ;
-    sh:class :ShipmentInformation ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Has requested pick up information" ;
-    sh:path :hasRequestedPickUpInformation ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasRequestedPickUpInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasRequestedPickUpInformation> ?this .}" ] .
-
-ful-shape:epo-ful-Consignment-epo-ful-hasSpecialInstruction a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:name "Has special instruction" ;
-    sh:path :hasSpecialInstruction .
-
-ful-shape:epo-ful-Consignment-epo-ful-hasSpecialServiceInstruction a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:name "Has special service instruction" ;
-    sh:path :hasSpecialServiceInstruction .
-
-ful-shape:epo-ful-Consignment-epo-ful-hasVehicleDescription a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:maxCount 1 ;
-    sh:name "Has vehicle description" ;
-    sh:path :hasVehicleDescription .
-
-ful-shape:epo-ful-Consignment-epo-ful-isHazardousRisk a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype xsd:boolean ;
-    sh:maxCount 1 ;
-    sh:name "Is hazardous risk" ;
-    sh:path :isHazardousRisk .
-
-ful-shape:epo-ful-Consignment-epo-specifiesFreightForwarder a sh:PropertyShape ;
-    sh:class :FreightForwarder ;
-    sh:name "Specifies freight forwarder" ;
-    sh:path :specifiesFreightForwarder ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesFreightForwarder> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesFreightForwarder> ?this .}" ] .
-
-ful-shape:epo-ful-Consignment-epo-specifiesNotifier a sh:PropertyShape ;
-    sh:class :Notifier ;
-    sh:name "Specifies notifier" ;
-    sh:path :specifiesNotifier ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesNotifier> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesNotifier> ?this .}" ] .
-
-ful-shape:epo-ful-DespatchAdvice-epo-ful-comprisesDespatchLine a sh:PropertyShape ;
-    sh:class :DespatchLine ;
-    sh:minCount 1 ;
-    sh:name "Comprises despatch line" ;
-    sh:path :comprisesDespatchLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesDespatchLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesDespatchLine> ?this .}" ] .
-
-ful-shape:epo-ful-DespatchAdvice-epo-ful-hasDespatchAdviceType a sh:PropertyShape ;
-    sh:class at-voc-new:despatch-advice-type ;
-    sh:description "https://test-docs.peppol.eu/logistics/transport-execution/codelist/DespatchAdviceTypeCode/" ;
-    sh:maxCount 1 ;
-    sh:name "Has despatch advice type" ;
-    sh:path :hasDespatchAdviceType .
-
-ful-shape:epo-ful-DespatchAdvice-epo-ful-refersToConsignment a sh:PropertyShape ;
-    sh:class :Consignment ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Refers to consignment" ;
-    sh:path :refersToConsignment ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToConsignment> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToConsignment> ?this .}" ] .
-
-ful-shape:epo-ful-DespatchAdvice-epo-ful-refersToShipmentAgreement a sh:PropertyShape ;
-    sh:class :ShipmentAgreement ;
-    sh:maxCount 1 ;
-    sh:name "Refers to shipment agreement" ;
-    sh:path :refersToShipmentAgreement ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToShipmentAgreement> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToShipmentAgreement> ?this .}" ] .
-
-ful-shape:epo-ful-DespatchAdvice-epo-ful-specifiesDespatcher a sh:PropertyShape ;
-    sh:class :Despatcher ;
-    sh:minCount 1 ;
-    sh:name "Specifies despatcher" ;
-    sh:path :specifiesDespatcher ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDespatcher> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDespatcher> ?this .}" ] .
-
-ful-shape:epo-ful-DespatchAdvice-epo-ful-specifiesShipment a sh:PropertyShape ;
-    sh:class :ShipmentInformation ;
-    sh:maxCount 1 ;
-    sh:name "Specifies shipment" ;
-    sh:path :specifiesShipment ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesShipment> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesShipment> ?this .}" ] .
-
-ful-shape:epo-ful-DespatchAdvice-epo-ful-specifiesTransportHandlingUnits a sh:PropertyShape ;
-    sh:class :TransportHandlingUnit ;
-    sh:name "Specifies transport handling units" ;
-    sh:path :specifiesTransportHandlingUnits ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesTransportHandlingUnits> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesTransportHandlingUnits> ?this .}" ] .
-
-ful-shape:epo-ful-DespatchLine-epo-ful-hasOutstandingQuantityReason a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:maxCount 1 ;
-    sh:name "Has outstanding quantity reason" ;
-    sh:path :hasOutstandingQuantityReason .
-
-ful-shape:epo-ful-GoodsItem-epo-ful-refersToDespatchLine a sh:PropertyShape ;
-    sh:class :DespatchLine ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Refers to despatch line" ;
-    sh:path :refersToDespatchLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToDespatchLine> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToDespatchLine> ?this .}" ] .
-
-ful-shape:epo-ful-Package-epo-ful-containsGoodsItem a sh:PropertyShape ;
-    sh:class :GoodsItem ;
-    sh:minCount 1 ;
-    sh:name "Contains goods item" ;
-    sh:path :containsGoodsItem ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsGoodsItem> ?that . ?that <http://data.europa.eu/a4g/ontology#containsGoodsItem> ?this .}" ] .
-
-ful-shape:epo-ful-Package-epo-ful-containsPackage a sh:PropertyShape ;
-    sh:class :Package ;
-    sh:name "Contains package" ;
-    sh:path :containsPackage ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsPackage> ?that . ?that <http://data.europa.eu/a4g/ontology#containsPackage> ?this .}" ] .
-
-ful-shape:epo-ful-Package-epo-ful-hasPackagingType a sh:PropertyShape ;
-    sh:class at-voc-new:packaging-type ;
-    sh:maxCount 1 ;
-    sh:name "Has packaging type" ;
-    sh:path :hasPackagingType .
-
-ful-shape:epo-ful-Package-epo-ful-hasPackagingTypeDescription a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:maxCount 1 ;
-    sh:name "Has packaging type description" ;
-    sh:path :hasPackagingTypeDescription .
-
-ful-shape:epo-ful-ReceiptAdvice-epo-ful-comprisesReceiptAdviceLine a sh:PropertyShape ;
-    sh:class :ReceiptAdviceLine ;
-    sh:name "Comprises receipt advice line" ;
-    sh:path :comprisesReceiptAdviceLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesReceiptAdviceLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesReceiptAdviceLine> ?this .}" ] .
-
-ful-shape:epo-ful-ReceiptAdvice-epo-ful-isSubmittedForDespatchAdvice a sh:PropertyShape ;
-    sh:class :DespatchAdvice ;
-    sh:description "Additional information: In PEPPOL (https://test-docs.peppol.eu/logistics/qa/codelist/ReceiptAdviceTypeCode/) this predicate is used for option D - Response to the Advanced Despatch Advice document." ;
-    sh:maxCount 1 ;
-    sh:name "Is submitted for despatch advice" ;
-    sh:path :isSubmittedForDespatchAdvice ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForDespatchAdvice> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForDespatchAdvice> ?this .}" ] .
-
-ful-shape:epo-ful-ReceiptAdvice-epo-ful-isSubmittedForShipment a sh:PropertyShape ;
-    sh:class :ShipmentInformation ;
-    sh:maxCount 1 ;
-    sh:name "Is submitted for shipment" ;
-    sh:path :isSubmittedForShipment ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForShipment> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForShipment> ?this .}" ] .
-
-ful-shape:epo-ful-ReceiptAdvice-epo-ful-specifiesDespatcher a sh:PropertyShape ;
-    sh:class :Despatcher ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Specifies despatcher" ;
-    sh:path :specifiesDespatcher ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDespatcher> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDespatcher> ?this .}" ] .
-
-ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-RejectionAction a sh:PropertyShape ;
-    sh:class at-voc-new:action-code ;
-    sh:maxCount 1 ;
-    sh:name "Rejection action" ;
-    sh:path :RejectionAction .
-
-ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-hasRejectReason a sh:PropertyShape ;
-    sh:class at-voc-new:reject-reason ;
-    sh:maxCount 1 ;
-    sh:name "Has reject reason" ;
-    sh:path :hasRejectReason .
-
-ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-hasShortageAction a sh:PropertyShape ;
-    sh:class at-voc-new:action-code ;
-    sh:maxCount 1 ;
-    sh:name "Has shortage action" ;
-    sh:path :hasShortageAction .
-
-ful-shape:epo-ful-ReceiptAdviceLine-epo-ful-isSubmittedForDespatchLine a sh:PropertyShape ;
-    sh:class :DespatchLine ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Is submitted for despatch line" ;
-    sh:path :isSubmittedForDespatchLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForDespatchLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForDespatchLine> ?this .}" ] .
-
-ful-shape:epo-ful-ShipmentInformation-dct-description a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" ;
-    sh:name "Description" ;
-    sh:path dcterms:description .
-
-ful-shape:epo-ful-ShipmentInformation-epo-ful-despatchDate a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype xsd:dateTime ;
-    sh:maxCount 1 ;
-    sh:name "Despatch date" ;
-    sh:path :despatchDate .
-
-ful-shape:epo-ful-ShipmentInformation-epo-ful-isSpecificToDespatchLine a sh:PropertyShape ;
-    sh:class :DespatchLine ;
-    sh:maxCount 1 ;
-    sh:name "Is specific to despatch line" ;
-    sh:path :isSpecificToDespatchLine ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToDespatchLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToDespatchLine> ?this .}" ] .
-
-ful-shape:epo-ful-ShipmentStage-epo-ful-hasDepartureShipmentInformation a sh:PropertyShape ;
-    sh:class :ShipmentInformation ;
-    sh:name "Has departure shipment information" ;
-    sh:path :hasDepartureShipmentInformation ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasDepartureShipmentInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasDepartureShipmentInformation> ?this .}" ] .
-
-ful-shape:epo-ful-ShipmentStage-epo-ful-isHazardousRisk a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype xsd:boolean ;
-    sh:maxCount 1 ;
-    sh:name "Is hazardous risk" ;
-    sh:path :isHazardousRisk .
-
-ful-shape:epo-ful-ShipmentStage-epo-ful-usesTransportMeans a sh:PropertyShape ;
-    sh:class :TransportMeans ;
-    sh:minCount 1 ;
-    sh:name "Uses transport means" ;
-    sh:path :usesTransportMeans ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#usesTransportMeans> ?that . ?that <http://data.europa.eu/a4g/ontology#usesTransportMeans> ?this .}" ] .
-
-ful-shape:epo-ful-ShipmentStage-epo-hasArrivalShipmentInformation a sh:PropertyShape ;
-    sh:class :ShipmentInformation ;
-    sh:name "Has arrival shipment information" ;
-    sh:path :hasArrivalShipmentInformation ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasArrivalShipmentInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasArrivalShipmentInformation> ?this .}" ] .
-
-ful-shape:epo-ful-ShipmentStage-epo-specifiesCarrier a sh:PropertyShape ;
-    sh:class :Carrier ;
-    sh:maxCount 1 ;
-    sh:name "Specifies carrier" ;
-    sh:path :specifiesCarrier ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesCarrier> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesCarrier> ?this .}" ] .
-
-ful-shape:epo-ful-TemperatureSpecification-dct-description a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" ;
-    sh:maxCount 1 ;
-    sh:name "Description" ;
-    sh:path dcterms:description .
-
-ful-shape:epo-ful-TransportEquipment-dct-description a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" ;
-    sh:name "Description" ;
-    sh:path dcterms:description .
-
-ful-shape:epo-ful-TransportEquipment-epo-ful-hasSizeType a sh:PropertyShape ;
-    sh:class at-voc-new:size-type ;
-    sh:name "Has size type" ;
-    sh:path :hasSizeType .
-
-ful-shape:epo-ful-TransportEquipment-epo-ful-hasTransportEquipmentSeal a sh:PropertyShape ;
-    sh:class :TransportEquipmentSeal ;
-    sh:name "Has transport equipment seal" ;
-    sh:path :hasTransportEquipmentSeal ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTransportEquipmentSeal> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTransportEquipmentSeal> ?this .}" ] .
-
-ful-shape:epo-ful-TransportEquipment-epo-ful-hasTransportEquipmentType a sh:PropertyShape ;
-    sh:class at-voc-new:transport-equipment-type ;
-    sh:name "Has transport equipment type" ;
-    sh:path :hasTransportEquipmentType .
-
-ful-shape:epo-ful-TransportEquipment-epo-ful-isPowerIndicated a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype xsd:boolean ;
-    sh:maxCount 1 ;
-    sh:name "Is power indicated" ;
-    sh:path :isPowerIndicated .
-
-ful-shape:epo-ful-TransportEquipment-epo-ful-isRefrigerated a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype xsd:boolean ;
-    sh:maxCount 1 ;
-    sh:name "Is refrigerated" ;
-    sh:path :isRefrigerated .
-
-ful-shape:epo-ful-TransportEquipment-epo-ful-isReturnable a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype xsd:boolean ;
-    sh:maxCount 1 ;
-    sh:name "Is returnable" ;
-    sh:path :isReturnable .
-
-ful-shape:epo-ful-TransportHandlingUnit-epo-ful-hasHandlingInstruction a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:name "Has handling instruction" ;
-    sh:path :hasHandlingInstruction .
-
-ful-shape:epo-ful-TransportHandlingUnit-epo-ful-hasHandlingInstructionCode a sh:PropertyShape ;
-    sh:class at-voc-new:handling-instruction ;
-    sh:maxCount 1 ;
-    sh:name "Has handling instruction code" ;
-    sh:path :hasHandlingInstructionCode .
-
-ful-shape:epo-ful-TransportHandlingUnit-epo-ful-hasShippingMark a sh:PropertyShape ;
-    rdfs:isDefinedBy ful-shape:ful-shape ;
-    sh:datatype rdf:PlainLiteral ;
-    sh:name "Has shipping mark" ;
-    sh:path :hasShippingMark .
-
-ful-shape:epo-ful-TransportHandlingUnit-epo-ful-transportsItemFrom a sh:PropertyShape ;
-    sh:class :DespatchLine ;
-    sh:minCount 1 ;
-    sh:name "Transports item from" ;
-    sh:path :transportsItemFrom ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#transportsItemFrom> ?that . ?that <http://data.europa.eu/a4g/ontology#transportsItemFrom> ?this .}" ] .
-
-ful-shape:epo-ful-TransportHandlingUnit-epo-ful-usesTransportEquipment a sh:PropertyShape ;
-    sh:class :TransportEquipment ;
-    sh:name "Uses transport equipment" ;
-    sh:path :usesTransportEquipment ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#usesTransportEquipment> ?that . ?that <http://data.europa.eu/a4g/ontology#usesTransportEquipment> ?this .}" ] .
-
-ful-shape:epo-ful-TransportMeans-epo-ful-hasTransportMeansType a sh:PropertyShape ;
-    sh:class at-voc-new:transport-means-type ;
-    sh:maxCount 1 ;
-    sh:name "Has transport means type" ;
-    sh:path :hasTransportMeansType .
-
-ful-shape:epo-ful-TransportMeans-epo-ful-hasTransportMode a sh:PropertyShape ;
-    sh:class at-voc-new:transport-mode ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "Has transport mode" ;
-    sh:path :hasTransportMode .
-
-ful-shape:epo-ful-TransportMeans-epo-hasDriverPerson a sh:PropertyShape ;
-    sh:class :TransportMeansOperator ;
-    sh:minCount 1 ;
-    sh:name "Has driver person" ;
-    sh:path :hasDriverPerson ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasDriverPerson> ?that . ?that <http://data.europa.eu/a4g/ontology#hasDriverPerson> ?this .}" ] .
-
-ful-shape:ful-shape a owl:Ontology ;
-    rdfs:label "eProcurement Ontology Fulfilment - core shapes"@en ;
-    dcterms:created "2021-06-01"^^xsd:date ;
-    dcterms:description "The eProcurement Ontology Fulfilment core shapes provides the generic datashape specifications for the eProcurement Ontology Fulfilment core."@en ;
-    dcterms:issued "2024-07-10"^^xsd:date ;
-    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
-    dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
-    dcterms:title "eProcurement Ontology Fulfilment - core shapes"@en ;
-    vann:preferredNamespacePrefix "epo" ;
-    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eFulfilment.xml on 2024-07-10" ;
-    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
-        <https://github.com/OP-TED/ePO/releases>,
-        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
-        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :cat,
-        :core,
-        :ful,
-        :ful-restriction,
-        :ord,
-        eli:,
-        cccev:,
-        frbroo:,
-        dcterms:,
-        vann:,
-        <http://www.w3.org/2004/02/skos/core>,
-        <http://www.w3.org/2006/time>,
-        <http://www.w3.org/ns/adms>,
-        <http://www.w3.org/ns/locn>,
-        org:,
-        <http://www.w3.org/ns/person>,
-        foaf: ;
-    owl:incompatibleWith "3.1.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/data-shape#ful-shape-4.0.2" ;
-    owl:versionIRI ful-shape:ful-shape-4.1.0 ;
-    owl:versionInfo "4.1.0" .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix cpov: <http://data.europa.eu/m8g/> .
+@prefix a4g: <http://data.europa.eu/a4g/ontology#> .
+@prefix sfrml: <http://data.europa.eu/a4g/mapping/sf-rml/> .
+@prefix a4g_shape: <http://data.europa.eu/a4g/data-shape#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix person: <http://www.w3.org/ns/person#> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix shacl: <http://www.w3.org/ns/shacl#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix r2rml: <http://www.w3.org/ns/r2rml#> .
+@prefix at: <http://publications.europa.eu/ontology/authority/> .
+@prefix atold: <http://publications.europa.eu/resource/authority/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+a4g_shape:PlainLiteral a shacl:NodeShape ;
+	shacl:or (
+		[
+			shacl:datatype xsd:string ;
+		]
+		[
+			shacl:datatype rdf:langString ;
+		]
+	) .
+
+a4g_shape:ShipmentInformationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:ShipmentInformation ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	rdfs:comment "The Transportation of an identifiable collection of Goods Items from one party (the Despatch Party) to another party (the Consignee) via one or more modes of transport. Addition Information This represents the where and when." ;
+	shacl:property a4g_shape:ShipmentInformation-despatchDate-dateTime, a4g_shape:ShipmentInformation-description-PlainLiteral, a4g_shape:ShipmentInformation-specifiesPlaceOfDespatch-Location, a4g_shape:ShipmentInformation-isSpecificToDespatchLine-DespatchLine, a4g_shape:ShipmentInformation-identifier-Identifier, a4g_shape:ShipmentInformation-hasEstimatedDeliveryPeriod-Period, a4g_shape:ShipmentInformation-refersToDeliveryInformation-DeliveryInformation .
+
+a4g_shape:ful-shape a owl:Ontology ;
+	dcterms:description "The eProcurement Ontology ful SHACL shapes provides the datashape specifications for the eProcurement Ontology ful module."@en ;
+	rdfs:label "eProcurement Ontology ful - SHACL shapes"@en ;
+	dcterms:created "2021-06-01"^^xsd:date ;
+	dcterms:issued "2024-03-21"^^xsd:date ;
+	dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+	dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
+	dcterms:title "eProcurement Ontology ful - SHACL shapes"@en ;
+	vann:preferredNamespacePrefix "epo" ;
+	vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
+	rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>, <https://github.com/OP-TED/ePO/releases>, <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>, <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
+	owl:imports <http://data.europa.eu/eli/ontology#>, <http://data.europa.eu/m8g/>, <http://purl.org/dc/terms/>, <http://purl.org/vocab/vann/>, <http://www.w3.org/2004/02/skos/core>, <http://www.w3.org/2006/time>, <http://www.w3.org/ns/adms>, <http://www.w3.org/ns/locn>, <http://www.w3.org/ns/org#>, <http://www.w3.org/ns/person>, <http://xmlns.com/foaf/0.1/> ;
+	owl:incompatibleWith "3.1.0" ;
+	owl:priorVersion "http://data.europa.eu/a4g/data-shape#ful-shape-4.0.2" ;
+	owl:versionIRI a4g_shape:ful-shape-4.1.0 ;
+	owl:versionInfo "4.1.0" .
+
+a4g_shape:ShipmentInformation-despatchDate-dateTime a shacl:PropertyShape ;
+	shacl:datatype xsd:dateTime ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:despatchDate ;
+	shacl:name "despatch date"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 .
+
+a4g_shape:DespatchLineShape a shacl:NodeShape ;
+	shacl:targetClass a4g:DespatchLine ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:property a4g_shape:DespatchLine-hasOutstandingQuantityReason-PlainLiteral, a4g_shape:DespatchLine-refersToOrderLine-OrderLine, a4g_shape:DespatchLine-hasDespatchedQuantity-Quantity, a4g_shape:DespatchLine-hasOutstandingQuantity-Quantity, a4g_shape:DespatchLine-hasAssociatedDocument-Document .
+
+a4g_shape:DespatchLine-hasOutstandingQuantityReason-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasOutstandingQuantityReason ;
+	shacl:name "has outstanding quantity reason"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:PlainLiteral .
+
+a4g_shape:TransportHandlingUnitShape a shacl:NodeShape ;
+	shacl:targetClass a4g:TransportHandlingUnit ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	rdfs:comment "A description of Individual Handling Units in which the Line Items are packed." ;
+	shacl:property a4g_shape:TransportHandlingUnit-hasShippingMark-PlainLiteral, a4g_shape:TransportHandlingUnit-hasHandlingInstruction-PlainLiteral, a4g_shape:TransportHandlingUnit-transportsItemFrom-DespatchLine, a4g_shape:TransportHandlingUnit-usesTransportEquipment-TransportEquipment, a4g_shape:TransportHandlingUnit-hasHandlingInstructionCode-handling-instruction, a4g_shape:TransportHandlingUnit-inScheme-handling-instruction .
+
+a4g_shape:TransportHandlingUnit-hasShippingMark-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasShippingMark ;
+	shacl:name "has shipping mark"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral .
+
+a4g_shape:ShipmentInformation-description-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path dcterms:description ;
+	shacl:name "description"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral ;
+	shacl:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" .
+
+a4g_shape:ConsignmentShape a shacl:NodeShape ;
+	shacl:targetClass a4g:Consignment ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	rdfs:comment "A batch of goods destined for or delivered to someone. Additional information: Consignment it is a Transport Agreement. They do not care about the content of what is being shipped. (only if there are dangerous goods, and temperature requirements). How to move from place a to place B." ;
+	shacl:property a4g_shape:Consignment-hasVehicleDescription-PlainLiteral, a4g_shape:Consignment-isHazardousRisk-boolean, a4g_shape:Consignment-hasHandlingInstruction-PlainLiteral, a4g_shape:Consignment-hasCarrierServiceInstruction-PlainLiteral, a4g_shape:Consignment-hasSpecialInstruction-PlainLiteral, a4g_shape:Consignment-hasDeliveryInstruction-PlainLiteral, a4g_shape:Consignment-hasSpecialServiceInstruction-PlainLiteral, a4g_shape:Consignment-hasGrossWeight-Quantity, a4g_shape:Consignment-hasGrossVolume-Quantity, a4g_shape:Consignment-hasHandlingInstructionCode-handling-instruction, a4g_shape:Consignment-inScheme-handling-instruction, a4g_shape:Consignment-hasCarrierConsignmentID-Identifier, a4g_shape:Consignment-hasNetWeight-Quantity, a4g_shape:Consignment-hasChargeableWeight-Quantity, a4g_shape:Consignment-hasConsignmentDeclaredStatisticsValue-MonetaryValue, a4g_shape:Consignment-hasConsignmentFreeOnBoardValue-MonetaryValue, a4g_shape:Consignment-specifiesFreightForwarder-FreightForwarder, a4g_shape:Consignment-containsTransportHandlingUnit-TransportHandlingUnit, a4g_shape:Consignment-hasFreightAllowanceCharge-ChargeInformation, a4g_shape:Consignment-identifier-Identifier, a4g_shape:Consignment-hasRequestedPickUpInformation-ShipmentInformation, a4g_shape:Consignment-hasTransportHandlingUnitQuantity-Quantity, a4g_shape:Consignment-specifiesNotifier-Notifier, a4g_shape:Consignment-hasMainCarriageShipmentStage-ShipmentStage, a4g_shape:Consignment-hasPreCarriageShipmentStage-ShipmentStage, a4g_shape:Consignment-hasOnCarriageShipmentStage-ShipmentStage, a4g_shape:Consignment-hasConsigneeConsignmentID-Identifier, a4g_shape:Consignment-hasFreightForwarderConsignmentID-Identifier, a4g_shape:Consignment-hasTotalGoodsItemQuantity-Quantity, a4g_shape:Consignment-hasLoadingLength-Quantity, a4g_shape:Consignment-hasConsignmentInvoiceValue-MonetaryValue .
+
+a4g_shape:Consignment-hasVehicleDescription-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasVehicleDescription ;
+	shacl:name "has vehicle description"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:PlainLiteral .
+
+a4g_shape:TransportEquipmentShape a shacl:NodeShape ;
+	shacl:targetClass a4g:TransportEquipment ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:property a4g_shape:TransportEquipment-isReturnable-boolean, a4g_shape:TransportEquipment-isRefrigerated-boolean, a4g_shape:TransportEquipment-description-PlainLiteral, a4g_shape:TransportEquipment-isPowerIndicated-boolean, a4g_shape:TransportEquipment-identifier-Identifier, a4g_shape:TransportEquipment-hasTransportEquipmentSeal-TransportEquipmentSeal, a4g_shape:TransportEquipment-hasTransportEquipmentType-transport-equipment-type, a4g_shape:TransportEquipment-inScheme-transport-equipment-type, a4g_shape:TransportEquipment-hasSizeType-size-type, a4g_shape:TransportEquipment-inScheme-size-type .
+
+a4g_shape:TransportEquipment-isReturnable-boolean a shacl:PropertyShape ;
+	shacl:datatype xsd:boolean ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:isReturnable ;
+	shacl:name "is returnable"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 .
+
+a4g_shape:TransportEquipment-isRefrigerated-boolean a shacl:PropertyShape ;
+	shacl:datatype xsd:boolean ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:isRefrigerated ;
+	shacl:name "is refrigerated"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 .
+
+a4g_shape:TransportEquipment-description-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path dcterms:description ;
+	shacl:name "description"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral ;
+	shacl:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" .
+
+a4g_shape:TransportEquipment-isPowerIndicated-boolean a shacl:PropertyShape ;
+	shacl:datatype xsd:boolean ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:isPowerIndicated ;
+	shacl:name "is power indicated"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 .
+
+a4g_shape:AbstractContainerShape a shacl:NodeShape ;
+	shacl:targetClass a4g:AbstractContainer ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:property a4g_shape:AbstractContainer-isReturnableMaterial-boolean, a4g_shape:AbstractContainer-isHazardousRisk-boolean, a4g_shape:AbstractContainer-hasGrossWeight-Quantity, a4g_shape:AbstractContainer-hasGrossVolume-Quantity, a4g_shape:AbstractContainer-identifier-Identifier, a4g_shape:AbstractContainer-hasTotalGoodsItemQuantity-Quantity, a4g_shape:AbstractContainer-hasNetVolume-Quantity, a4g_shape:AbstractContainer-hasNetWeight-Quantity, a4g_shape:AbstractContainer-hasTemperatureSpecification-TemperatureSpecification, a4g_shape:AbstractContainer-hasLength-Quantity, a4g_shape:AbstractContainer-hasHeight-Quantity, a4g_shape:AbstractContainer-hasWidth-Quantity .
+
+a4g_shape:AbstractContainer-isReturnableMaterial-boolean a shacl:PropertyShape ;
+	shacl:datatype xsd:boolean ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:isReturnableMaterial ;
+	shacl:name "is returnable material"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 .
+
+a4g_shape:PackageShape a shacl:NodeShape ;
+	shacl:targetClass a4g:Package ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:property a4g_shape:Package-hasPackagingTypeDescription-PlainLiteral, a4g_shape:Package-hasPackagingType-packaging-type, a4g_shape:Package-inScheme-packaging-type, a4g_shape:Package-containsPackage-Package, a4g_shape:Package-containsGoodsItem-GoodsItem .
+
+a4g_shape:Package-hasPackagingTypeDescription-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasPackagingTypeDescription ;
+	shacl:name "has packaging type description"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:PlainLiteral .
+
+a4g_shape:ShipmentStageShape a shacl:NodeShape ;
+	shacl:targetClass a4g:ShipmentStage ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:property a4g_shape:ShipmentStage-isHazardousRisk-boolean, a4g_shape:ShipmentStage-specifiesCarrier-Carrier, a4g_shape:ShipmentStage-usesTransportMeans-TransportMeans, a4g_shape:ShipmentStage-identifier-Identifier, a4g_shape:ShipmentStage-hasArrivalShipmentInformation-ShipmentInformation, a4g_shape:ShipmentStage-hasDepartureShipmentInformation-ShipmentInformation .
+
+a4g_shape:ShipmentStage-isHazardousRisk-boolean a shacl:PropertyShape ;
+	shacl:datatype xsd:boolean ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:isHazardousRisk ;
+	shacl:name "is hazardous risk"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 .
+
+a4g_shape:Consignment-isHazardousRisk-boolean a shacl:PropertyShape ;
+	shacl:datatype xsd:boolean ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:isHazardousRisk ;
+	shacl:name "is hazardous risk"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 .
+
+a4g_shape:AbstractContainer-isHazardousRisk-boolean a shacl:PropertyShape ;
+	shacl:datatype xsd:boolean ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:isHazardousRisk ;
+	shacl:name "is hazardous risk"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 .
+
+a4g_shape:TemperatureSpecificationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:TemperatureSpecification ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:property a4g_shape:TemperatureSpecification-description-PlainLiteral, a4g_shape:TemperatureSpecification-hasMinimumTemperature-Quantity, a4g_shape:TemperatureSpecification-hasMaximumTemperature-Quantity .
+
+a4g_shape:TemperatureSpecification-description-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path dcterms:description ;
+	shacl:name "description"@en ;
+	shacl:minCount 0 ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:PlainLiteral ;
+	shacl:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" .
+
+a4g_shape:Consignment-hasHandlingInstruction-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasHandlingInstruction ;
+	shacl:name "has handling instruction"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral .
+
+a4g_shape:Consignment-hasCarrierServiceInstruction-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasCarrierServiceInstruction ;
+	shacl:name "has carrier service instruction"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral .
+
+a4g_shape:Consignment-hasSpecialInstruction-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasSpecialInstruction ;
+	shacl:name "has special instruction"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral .
+
+a4g_shape:Consignment-hasDeliveryInstruction-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasDeliveryInstruction ;
+	shacl:name "has delivery instruction"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral .
+
+a4g_shape:AllowanceChargeInformationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:AllowanceChargeInformation ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	rdfs:comment "Information about discounts, taxes, duties and fees imposed. WG approval 16/05/2023" ;
+	shacl:property a4g_shape:AllowanceChargeInformation-hasAllowanceChargeReasonDescription-PlainLiteral, a4g_shape:AllowanceChargeInformation-hasAllowanceChargeReason-allowance-charge-reason, a4g_shape:AllowanceChargeInformation-inScheme-allowance-charge-reason .
+
+a4g_shape:AllowanceChargeInformation-hasAllowanceChargeReasonDescription-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasAllowanceChargeReasonDescription ;
+	shacl:name "has allowance charge reason description"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral .
+
+a4g_shape:Consignment-hasSpecialServiceInstruction-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasSpecialServiceInstruction ;
+	shacl:name "has special service instruction"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral .
+
+a4g_shape:TransportHandlingUnit-hasHandlingInstruction-PlainLiteral a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasHandlingInstruction ;
+	shacl:name "has handling instruction"@en ;
+	shacl:minCount 0 ;
+	shacl:node a4g_shape:PlainLiteral .
+
+a4g_shape:DespatchAdviceShape a shacl:NodeShape ;
+	shacl:targetClass a4g:DespatchAdvice ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:property a4g_shape:DespatchAdvice-specifiesDespatcher-Despatcher, a4g_shape:DespatchAdvice-specifiesConsignee-Consignee, a4g_shape:DespatchAdvice-specifiesOriginator-Originator, a4g_shape:DespatchAdvice-refersToOrder-Order, a4g_shape:DespatchAdvice-comprisesDespatchLine-DespatchLine, a4g_shape:DespatchAdvice-specifiesShipment-ShipmentInformation, a4g_shape:DespatchAdvice-specifiesTransportHandlingUnits-TransportHandlingUnit, a4g_shape:DespatchAdvice-hasAssociatedDocument-Document, a4g_shape:DespatchAdvice-refersToConsignment-Consignment, a4g_shape:DespatchAdvice-hasDespatchAdviceType-despatch-advice-type, a4g_shape:DespatchAdvice-inScheme-despatch-advice-type, a4g_shape:DespatchAdvice-refersToShipmentAgreement-ShipmentAgreement .
+
+a4g_shape:DespatchAdvice-specifiesDespatcher-Despatcher a shacl:PropertyShape ;
+	shacl:targetClass a4g:Despatcher ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesDespatcher ;
+	shacl:name "specifies despatcher"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchAdvice-specifiesConsignee-Consignee a shacl:PropertyShape ;
+	shacl:targetClass a4g:Consignee ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesConsignee ;
+	shacl:name "specifies consignee"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchAdvice-specifiesOriginator-Originator a shacl:PropertyShape ;
+	shacl:targetClass a4g:Originator ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesOriginator ;
+	shacl:name "specifies originator"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchAdvice-refersToOrder-Order a shacl:PropertyShape ;
+	shacl:targetClass a4g:Order ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:refersToOrder ;
+	shacl:name "refers to order"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ShipmentInformation-specifiesPlaceOfDespatch-Location a shacl:PropertyShape ;
+	shacl:targetClass dcterms:Location ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesPlaceOfDespatch ;
+	shacl:name "specifies place of despatch"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchAdvice-comprisesDespatchLine-DespatchLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:DespatchLine ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:comprisesDespatchLine ;
+	shacl:name "comprises despatch line"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdviceShape a shacl:NodeShape ;
+	shacl:targetClass a4g:ReceiptAdvice ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:property a4g_shape:ReceiptAdvice-comprisesReceiptAdviceLine-ReceiptAdviceLine, a4g_shape:ReceiptAdvice-isSubmittedForDespatchAdvice-DespatchAdvice, a4g_shape:ReceiptAdvice-isSubmittedForShipment-ShipmentInformation, a4g_shape:ReceiptAdvice-specifiesDespatcher-Despatcher, a4g_shape:ReceiptAdvice-specifiesConsignee-Consignee, a4g_shape:ReceiptAdvice-specifiesBuyer-Buyer, a4g_shape:ReceiptAdvice-specifiesSeller-Seller, a4g_shape:ReceiptAdvice-hasAssociatedDocument-Document .
+
+a4g_shape:ReceiptAdvice-comprisesReceiptAdviceLine-ReceiptAdviceLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:ReceiptAdviceLine ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:comprisesReceiptAdviceLine ;
+	shacl:name "comprises receipt advice line"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportEquipmentSealShape a shacl:NodeShape ;
+	shacl:targetClass a4g:TransportEquipmentSeal ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:property a4g_shape:TransportEquipmentSeal-identifier-Identifier .
+
+a4g_shape:TransportEquipmentSeal-identifier-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path adms:identifier ;
+	shacl:name "identifier"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdviceLineShape a shacl:NodeShape ;
+	shacl:targetClass a4g:ReceiptAdviceLine ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:property a4g_shape:ReceiptAdviceLine-hasShortageAction-action-code, a4g_shape:ReceiptAdviceLine-inScheme-action-code, a4g_shape:ReceiptAdviceLine-RejectionAction-action-code, a4g_shape:ReceiptAdviceLine-hasRejectReason-reject-reason, a4g_shape:ReceiptAdviceLine-inScheme-reject-reason, a4g_shape:ReceiptAdviceLine-hasShortQuantity-Quantity, a4g_shape:ReceiptAdviceLine-hasReceivedQuantity-Quantity, a4g_shape:ReceiptAdviceLine-hasOversupplyQuantity-Quantity, a4g_shape:ReceiptAdviceLine-hasRejectedQuantity-Quantity, a4g_shape:ReceiptAdviceLine-isSubmittedForDespatchLine-DespatchLine .
+
+a4g_shape:ReceiptAdviceLine-hasShortageAction-action-code a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasShortageAction ;
+	shacl:name "has shortage action"@en ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:ReceiptAdviceLineShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdviceLine-inScheme-action-code a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/action-code> .
+
+a4g_shape:ReceiptAdviceLine-RejectionAction-action-code a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:RejectionAction ;
+	shacl:name "rejection action"@en ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:ReceiptAdviceLineShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchLine-refersToOrderLine-OrderLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:OrderLine ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:refersToOrderLine ;
+	shacl:name "refers to order line"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdviceLine-hasRejectReason-reject-reason a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasRejectReason ;
+	shacl:name "has reject reason"@en ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:ReceiptAdviceLineShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdviceLine-inScheme-reject-reason a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/reject-reason> .
+
+a4g_shape:ReceiptAdviceLine-hasShortQuantity-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasShortQuantity ;
+	shacl:name "has short quantity"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ShipmentInformation-isSpecificToDespatchLine-DespatchLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:DespatchLine ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:isSpecificToDespatchLine ;
+	shacl:name "is specific to despatch line"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdviceLine-hasReceivedQuantity-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasReceivedQuantity ;
+	shacl:name "has received quantity"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdviceLine-hasOversupplyQuantity-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasOversupplyQuantity ;
+	shacl:name "has oversupply quantity"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdviceLine-hasRejectedQuantity-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasRejectedQuantity ;
+	shacl:name "has rejected quantity"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdviceLine-isSubmittedForDespatchLine-DespatchLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:DespatchLine ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:isSubmittedForDespatchLine ;
+	shacl:name "is submitted for despatch line"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdvice-isSubmittedForDespatchAdvice-DespatchAdvice a shacl:PropertyShape ;
+	shacl:targetClass a4g:DespatchAdvice ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:isSubmittedForDespatchAdvice ;
+	shacl:name "is submitted for despatch advice"@en ;
+	shacl:maxCount 1 ;
+	shacl:description "Additional information: In PEPPOL (https://test-docs.peppol.eu/logistics/qa/codelist/ReceiptAdviceTypeCode/) this predicate is used for option D - Response to the Advanced Despatch Advice document." ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdvice-isSubmittedForShipment-ShipmentInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:ShipmentInformation ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:isSubmittedForShipment ;
+	shacl:name "is submitted for shipment"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ShipmentInformation-identifier-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path adms:identifier ;
+	shacl:name "identifier"@en ;
+	shacl:maxCount 1 ;
+	shacl:description "Links a resource to an adms:Identifier class." ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasGrossWeight-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasGrossWeight ;
+	shacl:name "has gross weight"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdvice-specifiesDespatcher-Despatcher a shacl:PropertyShape ;
+	shacl:targetClass a4g:Despatcher ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesDespatcher ;
+	shacl:name "specifies despatcher"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdvice-specifiesConsignee-Consignee a shacl:PropertyShape ;
+	shacl:targetClass a4g:Consignee ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesConsignee ;
+	shacl:name "specifies consignee"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdvice-specifiesBuyer-Buyer a shacl:PropertyShape ;
+	shacl:targetClass a4g:Buyer ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesBuyer ;
+	shacl:name "specifies buyer"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdvice-specifiesSeller-Seller a shacl:PropertyShape ;
+	shacl:targetClass a4g:Seller ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesSeller ;
+	shacl:name "specifies seller"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasGrossVolume-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasGrossVolume ;
+	shacl:name "has gross volume"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ShipmentStage-specifiesCarrier-Carrier a shacl:PropertyShape ;
+	shacl:targetClass a4g:Carrier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesCarrier ;
+	shacl:name "specifies carrier"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ShipmentInformation-hasEstimatedDeliveryPeriod-Period a shacl:PropertyShape ;
+	shacl:targetClass a4g:Period ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasEstimatedDeliveryPeriod ;
+	shacl:name "has estimated delivery period"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ReceiptAdvice-hasAssociatedDocument-Document a shacl:PropertyShape ;
+	shacl:targetClass a4g:Document ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasAssociatedDocument ;
+	shacl:name "has associated document"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchAdvice-specifiesShipment-ShipmentInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:ShipmentInformation ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesShipment ;
+	shacl:name "specifies shipment"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchLine-hasDespatchedQuantity-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasDespatchedQuantity ;
+	shacl:name "has despatched quantity"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:description "Quantity despatched for delivered." ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchLine-hasOutstandingQuantity-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasOutstandingQuantity ;
+	shacl:name "has outstanding quantity"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchLine-hasAssociatedDocument-Document a shacl:PropertyShape ;
+	shacl:targetClass a4g:Document ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasAssociatedDocument ;
+	shacl:name "has associated document"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportHandlingUnit-transportsItemFrom-DespatchLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:DespatchLine ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:transportsItemFrom ;
+	shacl:name "transports item from"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchAdvice-specifiesTransportHandlingUnits-TransportHandlingUnit a shacl:PropertyShape ;
+	shacl:targetClass a4g:TransportHandlingUnit ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesTransportHandlingUnits ;
+	shacl:name "specifies transport handling units"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AbstractContainer-hasGrossWeight-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasGrossWeight ;
+	shacl:name "has gross weight"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AbstractContainer-hasGrossVolume-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasGrossVolume ;
+	shacl:name "has gross volume"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Package-hasPackagingType-packaging-type a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasPackagingType ;
+	shacl:name "has packaging type"@en ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:PackageShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Package-inScheme-packaging-type a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/packaging-type> .
+
+a4g_shape:Consignment-hasHandlingInstructionCode-handling-instruction a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasHandlingInstructionCode ;
+	shacl:name "has handling instruction code"@en ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:ConsignmentShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-inScheme-handling-instruction a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/handling-instruction> .
+
+a4g_shape:AllowanceChargeInformation-hasAllowanceChargeReason-allowance-charge-reason a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasAllowanceChargeReason ;
+	shacl:name "has allowance charge reason"@en ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:AllowanceChargeInformationShape ;
+	shacl:description "https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5189/ https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7161/" ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AllowanceChargeInformation-inScheme-allowance-charge-reason a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/allowance-charge-reason> .
+
+a4g_shape:DespatchAdvice-hasAssociatedDocument-Document a shacl:PropertyShape ;
+	shacl:targetClass a4g:Document ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasAssociatedDocument ;
+	shacl:name "has associated document"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasCarrierConsignmentID-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasCarrierConsignmentID ;
+	shacl:name "has carrier consignment id"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasNetWeight-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasNetWeight ;
+	shacl:name "has net weight"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasChargeableWeight-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasChargeableWeight ;
+	shacl:name "has chargeable weight"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasConsignmentDeclaredStatisticsValue-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasConsignmentDeclaredStatisticsValue ;
+	shacl:name "has consignment declared statistics value"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasConsignmentFreeOnBoardValue-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasConsignmentFreeOnBoardValue ;
+	shacl:name "has consignment free on board value"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ShipmentAgreementShape a shacl:NodeShape ;
+	shacl:targetClass a4g:ShipmentAgreement ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	rdfs:comment "The Commercial Agreement between the Commercial Parties. Additional Information: It describes items being shipped. What is being moved. " ;
+	shacl:property a4g_shape:ShipmentAgreement-agreedByBuyer-Buyer, a4g_shape:ShipmentAgreement-agreedBySeller-Seller .
+
+a4g_shape:ShipmentAgreement-agreedByBuyer-Buyer a shacl:PropertyShape ;
+	shacl:targetClass a4g:Buyer ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:agreedByBuyer ;
+	shacl:name "agreed by buyer"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ShipmentAgreement-agreedBySeller-Seller a shacl:PropertyShape ;
+	shacl:targetClass a4g:Seller ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:agreedBySeller ;
+	shacl:name "agreed by seller"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-specifiesFreightForwarder-FreightForwarder a shacl:PropertyShape ;
+	shacl:targetClass a4g:FreightForwarder ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesFreightForwarder ;
+	shacl:name "specifies freight forwarder"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-containsTransportHandlingUnit-TransportHandlingUnit a shacl:PropertyShape ;
+	shacl:targetClass a4g:TransportHandlingUnit ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:containsTransportHandlingUnit ;
+	shacl:name "contains transport handling unit"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportHandlingUnit-usesTransportEquipment-TransportEquipment a shacl:PropertyShape ;
+	shacl:targetClass a4g:TransportEquipment ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:usesTransportEquipment ;
+	shacl:name "uses transport equipment"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasFreightAllowanceCharge-ChargeInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:ChargeInformation ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasFreightAllowanceCharge ;
+	shacl:name "has freight allowance charge"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-identifier-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path adms:identifier ;
+	shacl:name "identifier"@en ;
+	shacl:maxCount 1 ;
+	shacl:description "Links a resource to an adms:Identifier class." ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportEquipment-identifier-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path adms:identifier ;
+	shacl:name "identifier"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasRequestedPickUpInformation-ShipmentInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:ShipmentInformation ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasRequestedPickUpInformation ;
+	shacl:name "has requested pick up information"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchAdvice-refersToConsignment-Consignment a shacl:PropertyShape ;
+	shacl:targetClass a4g:Consignment ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:refersToConsignment ;
+	shacl:name "refers to consignment"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ShipmentStage-usesTransportMeans-TransportMeans a shacl:PropertyShape ;
+	shacl:targetClass a4g:TransportMeans ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:usesTransportMeans ;
+	shacl:name "uses transport means"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportMeansShape a shacl:NodeShape ;
+	shacl:targetClass a4g:TransportMeans ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:property a4g_shape:TransportMeans-hasDriverPerson-TransportMeansOperator, a4g_shape:TransportMeans-hasTransportMode-transport-mode, a4g_shape:TransportMeans-inScheme-transport-mode, a4g_shape:TransportMeans-hasVehicleID-Identifier, a4g_shape:TransportMeans-hasTransportMeansType-transport-means-type, a4g_shape:TransportMeans-inScheme-transport-means-type, a4g_shape:TransportMeans-hasVehicleSegmentID-Identifier .
+
+a4g_shape:TransportMeans-hasDriverPerson-TransportMeansOperator a shacl:PropertyShape ;
+	shacl:targetClass a4g:TransportMeansOperator ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasDriverPerson ;
+	shacl:name "has driver person"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ShipmentInformation-refersToDeliveryInformation-DeliveryInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:DeliveryInformation ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:refersToDeliveryInformation ;
+	shacl:name "refers to delivery information"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DeliveryInformationShape a shacl:NodeShape ;
+	shacl:targetClass a4g:DeliveryInformation ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	rdfs:comment "Information about the timing, the delivery destination, the delivery agreement and the involved parties. WG approval 16/05/2023 " ;
+	shacl:property a4g_shape:DeliveryInformation-hasTrackingID-Identifier .
+
+a4g_shape:DeliveryInformation-hasTrackingID-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasTrackingID ;
+	shacl:name "has tracking id"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasTransportHandlingUnitQuantity-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasTransportHandlingUnitQuantity ;
+	shacl:name "has transport handling unit quantity"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AbstractContainer-identifier-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path adms:identifier ;
+	shacl:name "identifier"@en ;
+	shacl:maxCount 1 ;
+	shacl:description "Links a resource to an adms:Identifier class." ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ShipmentStage-identifier-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path adms:identifier ;
+	shacl:name "identifier"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-specifiesNotifier-Notifier a shacl:PropertyShape ;
+	shacl:targetClass a4g:Notifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:specifiesNotifier ;
+	shacl:name "specifies notifier"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasMainCarriageShipmentStage-ShipmentStage a shacl:PropertyShape ;
+	shacl:targetClass a4g:ShipmentStage ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasMainCarriageShipmentStage ;
+	shacl:name "has main carriage shipment stage"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportMeansOperatorShape a shacl:NodeShape ;
+	shacl:targetClass a4g:TransportMeansOperator ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:property a4g_shape:TransportMeansOperator-playedBy-Person .
+
+a4g_shape:TransportMeansOperator-playedBy-Person a shacl:PropertyShape ;
+	shacl:targetClass foaf:Person ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:playedBy ;
+	shacl:name "played by"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasPreCarriageShipmentStage-ShipmentStage a shacl:PropertyShape ;
+	shacl:targetClass a4g:ShipmentStage ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasPreCarriageShipmentStage ;
+	shacl:name "has pre carriage shipment stage"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasOnCarriageShipmentStage-ShipmentStage a shacl:PropertyShape ;
+	shacl:targetClass a4g:ShipmentStage ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasOnCarriageShipmentStage ;
+	shacl:name "has on carriage shipment stage"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportMeans-hasTransportMode-transport-mode a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasTransportMode ;
+	shacl:name "has transport mode"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:TransportMeansShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportMeans-inScheme-transport-mode a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/transport-mode> .
+
+a4g_shape:GoodsItemShape a shacl:NodeShape ;
+	shacl:targetClass a4g:GoodsItem ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	rdfs:comment "An Item including its initial packaging during transportation. Additional information: For example, the Item being bought is the computer. The weight of the computer is X. The weight of the Goods Item is the weight of the computer plus the weight of the initial packaging. During transportation you have for example trace ID which is applied to the GoodsItem, rather than on the Item itself. The declared statistical value can only apply once you have a GoodsItem. WG approval 30/03/2023" ;
+	shacl:property a4g_shape:GoodsItem-refersToDespatchLine-DespatchLine, a4g_shape:GoodsItem-hasTraceID-Identifier, a4g_shape:GoodsItem-hasDeclaredStatisticalValue-MonetaryValue .
+
+a4g_shape:GoodsItem-refersToDespatchLine-DespatchLine a shacl:PropertyShape ;
+	shacl:targetClass a4g:DespatchLine ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:refersToDespatchLine ;
+	shacl:name "refers to despatch line"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasConsigneeConsignmentID-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasConsigneeConsignmentID ;
+	shacl:name "has consignee consignment id"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasFreightForwarderConsignmentID-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasFreightForwarderConsignmentID ;
+	shacl:name "has freight forwarder consignment id"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportMeans-hasVehicleID-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasVehicleID ;
+	shacl:name "has vehicle id"@en ;
+	shacl:minCount 1 ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ShipmentStage-hasArrivalShipmentInformation-ShipmentInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:ShipmentInformation ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasArrivalShipmentInformation ;
+	shacl:name "has arrival shipment information"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:ShipmentStage-hasDepartureShipmentInformation-ShipmentInformation a shacl:PropertyShape ;
+	shacl:targetClass a4g:ShipmentInformation ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasDepartureShipmentInformation ;
+	shacl:name "has departure shipment information"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportEquipment-hasTransportEquipmentSeal-TransportEquipmentSeal a shacl:PropertyShape ;
+	shacl:targetClass a4g:TransportEquipmentSeal ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasTransportEquipmentSeal ;
+	shacl:name "has transport equipment seal"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportEquipment-hasTransportEquipmentType-transport-equipment-type a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasTransportEquipmentType ;
+	shacl:name "has transport equipment type"@en ;
+	shacl:node a4g_shape:TransportEquipmentShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportEquipment-inScheme-transport-equipment-type a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/transport-equipment-type> .
+
+a4g_shape:TransportEquipment-hasSizeType-size-type a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasSizeType ;
+	shacl:name "has size type"@en ;
+	shacl:node a4g_shape:TransportEquipmentShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportEquipment-inScheme-size-type a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/size-type> .
+
+a4g_shape:Consignment-hasTotalGoodsItemQuantity-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasTotalGoodsItemQuantity ;
+	shacl:name "has total goods item quantity"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AbstractContainer-hasTotalGoodsItemQuantity-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasTotalGoodsItemQuantity ;
+	shacl:name "has total goods item quantity"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AbstractContainer-hasNetVolume-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasNetVolume ;
+	shacl:name "has net volume"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AbstractContainer-hasNetWeight-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasNetWeight ;
+	shacl:name "has net weight"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TemperatureSpecification-hasMinimumTemperature-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasMinimumTemperature ;
+	shacl:name "has minimum temperature"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Package-containsPackage-Package a shacl:PropertyShape ;
+	shacl:targetClass a4g:Package ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:containsPackage ;
+	shacl:name "contains package"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Package-containsGoodsItem-GoodsItem a shacl:PropertyShape ;
+	shacl:targetClass a4g:GoodsItem ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:containsGoodsItem ;
+	shacl:name "contains goods item"@en ;
+	shacl:minCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:GoodsItem-hasTraceID-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasTraceID ;
+	shacl:name "has trace id"@en ;
+	shacl:maxCount 1 ;
+	shacl:description "The identifier used for tracking the goods item Additional information: An example is the EPC number used in RFID. WG approval 21/09/2023 " ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:GoodsItem-hasDeclaredStatisticalValue-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasDeclaredStatisticalValue ;
+	shacl:name "has declared statistical value"@en ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasLoadingLength-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasLoadingLength ;
+	shacl:name "has loading length"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchAdvice-hasDespatchAdviceType-despatch-advice-type a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasDespatchAdviceType ;
+	shacl:name "has despatch advice type"@en ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:DespatchAdviceShape ;
+	shacl:description "https://test-docs.peppol.eu/logistics/transport-execution/codelist/DespatchAdviceTypeCode/ " ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchAdvice-inScheme-despatch-advice-type a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/despatch-advice-type> .
+
+a4g_shape:TemperatureSpecification-hasMaximumTemperature-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasMaximumTemperature ;
+	shacl:name "has maximum temperature"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AbstractContainer-hasTemperatureSpecification-TemperatureSpecification a shacl:PropertyShape ;
+	shacl:targetClass a4g:TemperatureSpecification ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasTemperatureSpecification ;
+	shacl:name "has temperature specification"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AbstractContainer-hasLength-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasLength ;
+	shacl:name "has length"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AbstractContainer-hasHeight-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasHeight ;
+	shacl:name "has height"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:AbstractContainer-hasWidth-Quantity a shacl:PropertyShape ;
+	shacl:targetClass a4g:Quantity ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasWidth ;
+	shacl:name "has width"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:DespatchAdvice-refersToShipmentAgreement-ShipmentAgreement a shacl:PropertyShape ;
+	shacl:targetClass a4g:ShipmentAgreement ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:refersToShipmentAgreement ;
+	shacl:name "refers to shipment agreement"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:Consignment-hasConsignmentInvoiceValue-MonetaryValue a shacl:PropertyShape ;
+	shacl:targetClass a4g:MonetaryValue ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasConsignmentInvoiceValue ;
+	shacl:name "has consignment invoice value"@en ;
+	shacl:maxCount 1 ;
+	shacl:description "Declared amount of the Consignment. Additional Information: This is a logistics information needed for logistics, security measures, customs check, etc." ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportMeans-hasTransportMeansType-transport-means-type a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasTransportMeansType ;
+	shacl:name "has transport means type"@en ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:TransportMeansShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportMeans-inScheme-transport-means-type a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/transport-means-type> .
+
+a4g_shape:TransportMeans-hasVehicleSegmentID-Identifier a shacl:PropertyShape ;
+	shacl:targetClass adms:Identifier ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasVehicleSegmentID ;
+	shacl:name "has vehicle segment id"@en ;
+	shacl:maxCount 1 ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportHandlingUnit-hasHandlingInstructionCode-handling-instruction a shacl:PropertyShape ;
+	rdfs:isDefinedBy a4g_shape:ful-shape ;
+	shacl:path a4g:hasHandlingInstructionCode ;
+	shacl:name "has handling instruction code"@en ;
+	shacl:maxCount 1 ;
+	shacl:node a4g_shape:TransportHandlingUnitShape ;
+	shacl:nodeKind shacl:IRI .
+
+a4g_shape:TransportHandlingUnit-inScheme-handling-instruction a shacl:PropertyShape ;
+	shacl:path skos:inScheme ;
+	shacl:hasValue <http://unknown.org/handling-instruction> .
 
