@@ -94,6 +94,7 @@
 
 :agreedBySeller a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
+    skos:definition "Accepted by Seller. WG approval 10/06/2024 (epo-ful:ShipmentAgreement -> epo-ord:Seller (+epo-ful:agreedBySeller))"@en ;
     skos:prefLabel "Agreed by seller"@en .
 
 :comprisesOrderLine a owl:ObjectProperty ;
@@ -129,9 +130,13 @@
     skos:definition "The accounting reference used by the Buyer to specify the account to which the order and the corresponding invoice are booked. WG approval 2023-01-26 (epo-ord:Order)"@en ;
     skos:prefLabel "Has accounting cost"@en .
 
+:hasActualDeliveryDate a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :ord ;
+    skos:prefLabel "Has actual delivery date"@en .
+
 :hasAllowanceChargeReason a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
-    skos:definition "https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5189/ https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7161/ (epo-ord:AllowanceChargeInformation -> at-voc-new:allowance-charge-reason (+epo-ful:hasAllowanceChargeReason))"@en ;
+    skos:definition "The justification for using the Allowance or the Charge. WG approval 10/06/2024 (epo-ord:AllowanceChargeInformation -> at-voc-new:allowance-charge-reason (+epo-ful:hasAllowanceChargeReason))"@en ;
     skos:prefLabel "Has allowance charge reason"@en .
 
 :hasAllowanceChargeReasonDescription a owl:DatatypeProperty ;
@@ -196,6 +201,7 @@
 
 :hasSellerOrderID a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
+    skos:definition "The identifier of the Order given by the Seller. Additional Information: This identifier is different than the identifier of the Order given by the Buyer and it is useful for internal purposes. WG approval 12/10/2023 (epo-ord:Order -> adms:Identifier (+epo-ord:hasSellerOrderID))"@en ;
     skos:prefLabel "Has seller order i d"@en .
 
 :hasShippingMark a owl:DatatypeProperty ;
@@ -238,6 +244,10 @@
     rdfs:isDefinedBy :ord ;
     skos:prefLabel "Has tracking i d"@en .
 
+:hasValidityPeriod a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ord ;
+    skos:prefLabel "Has validity period"@en .
+
 :implementsContract a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
     skos:prefLabel "Implements contract"@en .
@@ -246,6 +256,10 @@
     rdfs:isDefinedBy :ord ;
     skos:definition "The monetary amount to which the multiplier factor is applied in calculating the amount of this allowance or charge. (epo-ord:AllowanceChargeInformation -> epo:MonetaryValue (+epo:isCalculatedOn)) The monetary amount to which the multiplier factor is applied in calculating the amount of this allowance or charge. (epo-ord:TaxInformation -> epo:MonetaryValue (+epo:isCalculatedOn))"@en ;
     skos:prefLabel "Is calculated on"@en .
+
+:isSpecificToInvoiceLine a owl:ObjectProperty ;
+    rdfs:isDefinedBy :ord ;
+    skos:prefLabel "Is specific to invoice line"@en .
 
 :isSpecificToOrderLine a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
@@ -276,14 +290,17 @@
 
 :refersToDeliveryInformation a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
+    skos:definition "Reference to a Delivery Information. WG approval 25/06/2024 (epo-ful:ShipmentInformation -> epo-ord:DeliveryInformation (+epo-ful:refersToDeliveryInformation))"@en ;
     skos:prefLabel "Refers to delivery information"@en .
 
 :refersToOrder a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
+    skos:definition "Reference to an Order. WG approval 25/06/2024 (epo-ful:DespatchAdvice -> epo-ord:Order (+epo-ful:refersToOrder))"@en ;
     skos:prefLabel "Refers to order"@en .
 
 :refersToOrderLine a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
+    skos:definition "Reference to an Order Line. WG approval 25/06/2024 (epo-ful:DespatchLine -> epo-ord:OrderLine (+epo-ful:refersToOrderLine))"@en ;
     skos:prefLabel "Refers to order line"@en .
 
 :refersToProject a owl:ObjectProperty ;
@@ -304,6 +321,7 @@
 
 :specifiesConsignee a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
+    skos:definition "Relation indicating that the instance of the concept involves the Consignee. WG approval 25/06/2024 (epo-ful:DespatchAdvice -> epo-ord:Consignee (+epo-ful:specifiesConsignee))"@en ;
     skos:prefLabel "Specifies consignee"@en .
 
 :specifiesContractInformation a owl:ObjectProperty ;
@@ -321,6 +339,7 @@
 
 :specifiesDespatcher a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
+    skos:definition "Relation indicating that the instance of the concept involves the Despatcher. WG approval 25/06/2024 (epo-ord:Order -> epo-ful:Despatcher (+epo:specifiesDespatcher))"@en ;
     skos:prefLabel "Specifies despatcher"@en .
 
 :specifiesGeneralDeliveryAgreement a owl:ObjectProperty ;
@@ -333,6 +352,7 @@
 
 :specifiesOriginator a owl:ObjectProperty ;
     rdfs:isDefinedBy :ord ;
+    skos:definition "Relation indicating that the instance of the concept involves the Originator. WG approval 25/06/2024 (epo-ful:DespatchAdvice -> epo-ord:Originator (+epo-ful:specifiesOriginator))"@en ;
     skos:prefLabel "Specifies originator"@en .
 
 :specifiesOriginatorInformation a owl:ObjectProperty ;
@@ -392,13 +412,13 @@ xsd:integer a rdfs:Datatype ;
     rdfs:label "eProcurement Ontology Ordering - core"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Ordering core describes the concepts and properties representing the European Public Procurement Ordering domain. The provision of these semantics offers the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency. The ontology restrictions are published in a separate artefact."@en ;
-    dcterms:issued "2024-07-10"^^xsd:date ;
+    dcterms:issued "2024-07-23"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology Ordering - core"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eOrdering.xml on 2024-07-10" ;
+    rdfs:comment "This version is automatically generated from eOrdering.xml on 2024-07-23" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
@@ -419,7 +439,7 @@ xsd:integer a rdfs:Datatype ;
         <http://www.w3.org/ns/person>,
         foaf: ;
     owl:incompatibleWith "3.1.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/ontology#ord-4.0.2" ;
-    owl:versionIRI :ord-4.1.0 ;
-    owl:versionInfo "4.1.0" .
+    owl:priorVersion "http://data.europa.eu/a4g/ontology#ord-4.1.0" ;
+    owl:versionIRI :ord-4.2.0 ;
+    owl:versionInfo "4.2.0" .
 

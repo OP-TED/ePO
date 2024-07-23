@@ -1,0 +1,406 @@
+@prefix : <http://data.europa.eu/a4g/ontology#> .
+@prefix cccev: <http://data.europa.eu/m8g/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix frbroo: <http://iflastandards.info/ns/fr/frbr/frbroo/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:CreditNote a owl:Class ;
+    rdfs:isDefinedBy :inv ;
+    rdfs:subClassOf :Invoice ;
+    skos:prefLabel "Credit note"@en .
+
+:CreditNoteLine a owl:Class ;
+    rdfs:isDefinedBy :inv ;
+    rdfs:subClassOf :InvoiceLine ;
+    skos:prefLabel "Credit note line"@en .
+
+:CreditTransferInformation a owl:Class ;
+    rdfs:isDefinedBy :inv ;
+    rdfs:subClassOf :InformationHub ;
+    skos:definition "Information about a direct payment of money from one bank account into another. WG approval 11/07/2024"@en ;
+    skos:prefLabel "Credit transfer information"@en .
+
+:InvoiceNote a owl:Class ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "Textual note that is relevant to the Invoice as a whole. WG approval 11/07/2024"@en ;
+    skos:prefLabel "Invoice note"@en .
+
+:Payee a owl:Class ;
+    rdfs:isDefinedBy :inv ;
+    rdfs:subClassOf :OfferingParty ;
+    skos:definition "A Role of an Agent that receives the payment. Additional Information: The role of Payee may be fulfilled by another party than the Seller, e.g. a factoring service. WG approval 11/07/2024"@en ;
+    skos:prefLabel "Payee"@en .
+
+:PaymentCardInformation a owl:Class ;
+    rdfs:isDefinedBy :inv ;
+    rdfs:subClassOf :InformationHub ;
+    skos:definition "Information about card used for payment contemporaneous with invoice issuance. WG approval 11/07/2024"@en ;
+    skos:prefLabel "Payment card information"@en .
+
+:PaymentInstructionsInformation a owl:Class ;
+    rdfs:isDefinedBy :inv ;
+    rdfs:subClassOf :InformationHub ;
+    skos:definition "Information about the payment. WG approval 11/07/2024"@en ;
+    skos:prefLabel "Payment instructions information"@en .
+
+:SellerTaxRepresentative a owl:Class ;
+    rdfs:isDefinedBy :inv ;
+    rdfs:subClassOf :OfferingParty ;
+    skos:definition "A Role of an Agent that can represent an Organization for taxation purposes. Additional Information: The Seller Tax Representative Role is not a Legal Representative. WG approval 11/07/2024"@en ;
+    skos:prefLabel "Seller tax representative"@en .
+
+:TaxBreakdownInformation a owl:Class ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "Information about tax breakdown by different categories, rates and exemption reasons. WG approval 11/07/2024"@en ;
+    skos:prefLabel "Tax breakdown information"@en .
+
+:comprisesCreditNoteLine a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    rdfs:subPropertyOf :comprisesInvoiceLine ;
+    skos:prefLabel "Comprises credit note line"@en .
+
+:hasAccountingCost a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has accounting cost"@en .
+
+:hasAmountDueForPayment a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has amount due for payment"@en .
+
+:hasBankingIdentifier a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "An unique banking reference identifier of the Payee or Seller, assigned by the Payee or Seller bank. WG approval 11/07/2024 (epo-inv:PaymentInstructionsInformation -> adms:Identifier (+epo-inv:hasBankingIdentifier))"@en ;
+    skos:prefLabel "Has banking identifier"@en .
+
+:hasCreditTransferInformation a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has credit transfer information"@en .
+
+:hasCustomerReference a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has customer reference"@en .
+
+:hasDebitedAccountIdentifier a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "An identifier for the account to be debited by the direct debit. WG approval 11/07/2024 (epo-inv:PaymentInstructionsInformation -> adms:Identifier (+epo-inv:hasDebitedAccountIdentifier))"@en ;
+    skos:prefLabel "Has debited account identifier"@en .
+
+:hasInvoiceLineObjectIdentifier a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "An identifier for an object on which the invoice line is based, given by the Seller. Additional Information: It may be a subscription number, telephone number, meter point etc., as applicable. WG approval 26/06/2024 (epo-inv:InvoiceLine -> adms:Identifier (+epo-inv:hasInvoiceLineObjectIdentifier))"@en ;
+    skos:prefLabel "Has invoice line object identifier"@en .
+
+:hasInvoiceLinePeriod a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has invoice line period"@en .
+
+:hasInvoiceNote a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "Contains Invoice Note. WG approval 11/07/2024 (epo-inv:Invoice -> epo-inv:InvoiceNote (+epo-inv:hasInvoiceNote))"@en ;
+    skos:prefLabel "Has invoice note"@en .
+
+:hasInvoiceNoteDescription a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "A textual note that gives unstructured information that is relevant to the Invoice as a whole. WG approval 11/07/2024 (epo-inv:InvoiceNote)"@en ;
+    skos:prefLabel "Has invoice note description"@en .
+
+:hasInvoiceNoteSubject a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has invoice note subject"@en .
+
+:hasInvoicedObjectIdentifier a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "An identifier for an object on which the invoice is based, given by the Seller. (epo-inv:Invoice -> adms:Identifier (+epo-inv:hasInvoicedObjectIdentifier))"@en ;
+    skos:editorialNote "check https://skr.se/download/18.42336a32177c8ab158d77219/1616148012158/Referencing_and_Matching_3.pdf"@en ;
+    skos:prefLabel "Has invoiced object identifier"@en .
+
+:hasInvoicingPeriod a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has invoicing period"@en .
+
+:hasLotReference a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has lot reference"@en .
+
+:hasMandateIdentifier a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "An unique identifier for referencing the direct debit mandate, assigned by the Payee. WG approval 11/07/2024 (epo-inv:PaymentInstructionsInformation -> adms:Identifier (+epo-inv:hasMandateIdentifier))"@en ;
+    skos:prefLabel "Has mandate identifier"@en .
+
+:hasNetAmount a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has net amount"@en .
+
+:hasPaymentAccountIdentifier a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "A unique identifier of the financial payment account, at a payment service provider, to which payment should be made. WG approval 11/07/2024 (epo-inv:CreditTransferInformation -> adms:Identifier (+epo-inv:hasPaymentAccountIdentifier))"@en ;
+    skos:prefLabel "Has payment account identifier"@en .
+
+:hasPaymentAccountName a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "The name of the account that can send and receive payments to and from a payment service provider. WG approval 07/11/2024 (epo-inv:CreditTransferInformation)"@en ;
+    skos:prefLabel "Has payment account name"@en .
+
+:hasPaymentCardHolderName a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "The name of the account holder of the card used for payment. Additional Information: An account holder is the entity listed or identified as the holder of a Financial Account by the Financial Institution. WG approval 11/07/2024 (epo-inv:PaymentCardInformation)"@en ;
+    skos:prefLabel "Has payment card holder name"@en .
+
+:hasPaymentCardInformation a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has payment card information"@en .
+
+:hasPaymentCardPrimaryAccountNumber a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "The series of digits embossed on the front of a card used for payment. WG approval 11/07/2024 (epo-inv:PaymentCardInformation)"@en ;
+    skos:prefLabel "Has payment card primary account number"@en .
+
+:hasPaymentDueDate a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has payment due date"@en .
+
+:hasPaymentInstructionsInformation a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has payment instructions information"@en .
+
+:hasPaymentMeansDescription a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "The means for how a payment is expected to be or has been settled, expressed as text. WG approval 11/07/2024 (epo-inv:PaymentInstructionsInformation)"@en ;
+    skos:prefLabel "Has payment means description"@en .
+
+:hasPaymentMeansType a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "The means for how a payment is expected to be or has been settled, expressed as code. WG approval 11/07/2024 (epo-inv:PaymentInstructionsInformation -> at-voc-new:payment-means-type (+epo-inv:hasPaymentMeansType))"@en ;
+    skos:prefLabel "Has payment means type"@en .
+
+:hasPaymentServiceProviderIdentifier a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "An identifier for the payment service provider where a payment account is located. WG approval 11/07/2024 (epo-inv:CreditTransferInformation -> adms:Identifier (+epo-inv:hasPaymentServiceProviderIdentifier))"@en ;
+    skos:prefLabel "Has payment service provider identifier"@en .
+
+:hasPaymentTerm a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has payment term"@en .
+
+:hasPrepaidAmount a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has prepaid amount"@en .
+
+:hasPrice a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has price"@en .
+
+:hasQuantity a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has quantity"@en .
+
+:hasRemittanceInformation a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "A textual value used to establish a link between the payment and the Invoice, issued by the Seller. WG approval 11/07/2024 (epo-inv:PaymentInstructionsInformation)"@en ;
+    skos:prefLabel "Has remittance information"@en .
+
+:hasRoundingAmount a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has rounding amount"@en .
+
+:hasTaxBreakdownInformation a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has tax breakdown information"@en .
+
+:hasTaxExemptionReason a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "An explanation on why the amount is exempted from tax or why no tax is being charged according to the legislation, expressed as a code. WG approval 11/07/2024 (epo-inv:TaxBreakdownInformation -> at-voc-new:tax-exemption-reason (+epo-inv:hasTaxExemptionReason))"@en ;
+    skos:prefLabel "Has tax exemption reason"@en .
+
+:hasTaxExemptionReasonDescription a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "An explanation on why the amount is exempted from tax or why no tax is being charged according to the legislation, expressed as a text. WG approval 11/07/2024 (epo-inv:TaxBreakdownInformation)"@en ;
+    skos:prefLabel "Has tax exemption reason description"@en .
+
+:hasTaxInformation a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has tax information"@en .
+
+:hasTaxPointDate a owl:DatatypeProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:definition "The date when the tax becomes accountable for the Seller and for the Buyer. Additional Information: That date can be determined and differs from the date of issue of the invoice, according to the national implementation of the directive. WG approval 11/07/2024 (epo-inv:Invoice)"@en ;
+    skos:prefLabel "Has tax point date"@en .
+
+:hasTaxPointDateCode a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has tax point date code"@en .
+
+:hasTotalAccountingCurrencyTaxAmount a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has total accounting currency tax amount"@en .
+
+:hasTotalAllowanceAmount a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has total allowance amount"@en .
+
+:hasTotalChargeAmount a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has total charge amount"@en .
+
+:hasTotalLineAmount a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has total line amount"@en .
+
+:hasTotalTaxAmount a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has total tax amount"@en .
+
+:hasTotalTaxExclusiveAmount a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has total tax exclusive amount"@en .
+
+:hasTotalTaxInclusiveAmount a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Has total tax inclusive amount"@en .
+
+:isSpecificToInvoiceLine a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Is specific to invoice line"@en .
+
+:isSubmittedForInvoiceLine a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Is submitted for invoice line"@en .
+
+:refersToContract a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Refers to contract"@en .
+
+:refersToDespatchAdvice a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Refers to despatch advice"@en .
+
+:refersToInvoice a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Refers to invoice"@en .
+
+:refersToOrder a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Refers to order"@en .
+
+:refersToOrderLine a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Refers to order line"@en .
+
+:refersToProject a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:editorialNote "are these the same?"@en ;
+    skos:prefLabel "Refers to project"@en .
+
+:refersToReceiptAdvice a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Refers to receipt advice"@en .
+
+:specifiesAllowanceInformation a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Specifies allowance information"@en .
+
+:specifiesBuyer a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Specifies buyer"@en .
+
+:specifiesChargeInformation a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Specifies charge information"@en .
+
+:specifiesDeliveryInformation a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Specifies delivery information"@en .
+
+:specifiesPayee a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Specifies payee"@en .
+
+:specifiesSeller a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Specifies seller"@en .
+
+:specifiesSellerTaxRepresentative a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Specifies seller tax representative"@en .
+
+rdf:PlainLiteral a rdfs:Datatype ;
+    skos:prefLabel "Plain literal"@en .
+
+xsd:anyURI a rdfs:Datatype ;
+    skos:prefLabel "Any u r i"@en .
+
+xsd:boolean a rdfs:Datatype ;
+    skos:prefLabel "Boolean"@en .
+
+xsd:date a rdfs:Datatype ;
+    skos:prefLabel "Date"@en .
+
+xsd:dateTime a rdfs:Datatype ;
+    skos:prefLabel "Date time"@en .
+
+xsd:decimal a rdfs:Datatype ;
+    skos:prefLabel "Decimal"@en .
+
+xsd:integer a rdfs:Datatype ;
+    skos:prefLabel "Integer"@en .
+
+:Invoice a owl:Class ;
+    rdfs:isDefinedBy :inv ;
+    rdfs:subClassOf :PostAwardDocument ;
+    skos:definition "A commercial Document issued by the Seller to the Buyer to collect payments for the goods or services provided and to state the VAT amount due by the Buyer. WG approval 04/07/2024"@en ;
+    skos:prefLabel "Invoice"@en .
+
+:InvoiceLine a owl:Class ;
+    rdfs:isDefinedBy :inv ;
+    rdfs:subClassOf :Line ;
+    skos:definition "Details concerning a given unit of goods, services or works mentioned in the Invoice. WG approval 11/07/2024"@en ;
+    skos:prefLabel "Invoice line"@en .
+
+:comprisesInvoiceLine a owl:ObjectProperty ;
+    rdfs:isDefinedBy :inv ;
+    skos:prefLabel "Comprises invoice line"@en .
+
+:inv a owl:Ontology ;
+    rdfs:label "eProcurement Ontology Invoicing - core"@en ;
+    dcterms:created "2021-06-01"^^xsd:date ;
+    dcterms:description "The eProcurement Ontology Invoicing core describes the concepts and properties representing the European Public Procurement Invoicing domain. The provision of these semantics offers the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency. The ontology restrictions are published in a separate artefact."@en ;
+    dcterms:issued "2024-07-23"^^xsd:date ;
+    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+    dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
+    dcterms:title "eProcurement Ontology Invoicing - core"@en ;
+    vann:preferredNamespacePrefix "epo" ;
+    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
+    rdfs:comment "This version is automatically generated from eInvoicing.xml on 2024-07-23" ;
+    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
+        <https://github.com/OP-TED/ePO/releases>,
+        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
+        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
+    owl:imports :cat,
+        :core,
+        :ful,
+        :ord,
+        eli:,
+        cccev:,
+        frbroo:,
+        dcterms:,
+        vann:,
+        <http://www.w3.org/2004/02/skos/core>,
+        <http://www.w3.org/2006/time>,
+        <http://www.w3.org/ns/adms>,
+        <http://www.w3.org/ns/locn>,
+        org:,
+        <http://www.w3.org/ns/person>,
+        foaf: ;
+    owl:incompatibleWith "3.1.0" ;
+    owl:priorVersion "http://data.europa.eu/a4g/ontology#inv-4.1.0" ;
+    owl:versionIRI :inv-4.2.0 ;
+    owl:versionInfo "4.2.0" .
+
