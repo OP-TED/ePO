@@ -37,7 +37,7 @@ a4g_shape:PlainLiteral a shacl:NodeShape ;
 a4g_shape:ContractModificationInformationShape a shacl:NodeShape ;
 	shacl:targetClass a4g:ContractModificationInformation ;
 	rdfs:isDefinedBy a4g_shape:con-shape ;
-	shacl:property a4g_shape:ContractModificationInformation-hasModificationDescription-PlainLiteral, a4g_shape:ContractModificationInformation-hasModificationReasonDescription-PlainLiteral, a4g_shape:ContractModificationInformation-relatesToEFormSectionIdentifier-Identifier, a4g_shape:ContractModificationInformation-concernsContractAmendment-ContractAmendment, a4g_shape:ContractModificationInformation-hasModificationJustification-modification-justification, a4g_shape:ContractModificationInformation-inScheme-modification-justification .
+	shacl:property a4g_shape:ContractModificationInformation-hasModificationDescription-PlainLiteral, a4g_shape:ContractModificationInformation-hasModificationReasonDescription-PlainLiteral, a4g_shape:ContractModificationInformation-relatesToEFormSectionIdentifier-Identifier, a4g_shape:ContractModificationInformation-concernsContractAmendment-ContractAmendment, a4g_shape:ContractModificationInformation-hasModificationJustification-modification-justification .
 
 a4g_shape:con-shape a owl:Ontology ;
 	rdfs:label "eProcurement Ontology con - SHACL shapes"@en ;
@@ -134,12 +134,14 @@ a4g_shape:ContractModificationInformation-hasModificationJustification-modificat
 	shacl:name "has modification justification"@en ;
 	shacl:minCount 1 ;
 	shacl:maxCount 1 ;
-	shacl:node a4g_shape:ContractModificationInformationShape ;
+	shacl:node [
+		rdf:type shacl:NodeShape ;
+		shacl:property [
+			shacl:path skos:inScheme ;
+			shacl:hasValue atold:modification-justification ;
+		] ;
+	] ;
 	shacl:nodeKind shacl:IRI .
-
-a4g_shape:ContractModificationInformation-inScheme-modification-justification a shacl:PropertyShape ;
-	shacl:path skos:inScheme ;
-	shacl:hasValue atold:modification-justification .
 
 a4g_shape:Deliverable-hasTotalValue-MonetaryValue a shacl:PropertyShape ;
 	shacl:targetClass a4g:MonetaryValue ;

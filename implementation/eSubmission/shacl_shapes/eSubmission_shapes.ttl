@@ -142,7 +142,7 @@ a4g_shape:ResponseShape a shacl:NodeShape ;
 	shacl:targetClass a4g:Response ;
 	rdfs:isDefinedBy a4g_shape:sub-shape ;
 	rdfs:comment "An answer given to a question that is part of an ESPD Request. WG approval 12/03/2024" ;
-	shacl:property a4g_shape:Response-answersQuestion-InformationRequirement, a4g_shape:Response-isReinforcedBy-Evidence, a4g_shape:Response-supportsValue-SupportedValue, a4g_shape:Response-confidentialityLevelType-access-rights, a4g_shape:Response-inScheme-access-rights, a4g_shape:Response-refersToApplicablePeriod-Period .
+	shacl:property a4g_shape:Response-answersQuestion-InformationRequirement, a4g_shape:Response-isReinforcedBy-Evidence, a4g_shape:Response-supportsValue-SupportedValue, a4g_shape:Response-confidentialityLevelType-access-rights, a4g_shape:Response-refersToApplicablePeriod-Period .
 
 a4g_shape:Response-answersQuestion-InformationRequirement a shacl:PropertyShape ;
 	shacl:targetClass m8g:InformationRequirement ;
@@ -219,12 +219,14 @@ a4g_shape:Response-confidentialityLevelType-access-rights a shacl:PropertyShape 
 	shacl:description "Security classification assigned to an Evidence e.g. classified, sensitive, public. Additional Information: Classifications should be defined by an organisation/country as an outcome of a security assessment." ;
 	shacl:name "confidentiality level type"@en ;
 	shacl:maxCount 1 ;
-	shacl:node a4g_shape:ResponseShape ;
+	shacl:node [
+		rdf:type shacl:NodeShape ;
+		shacl:property [
+			shacl:path skos:inScheme ;
+			shacl:hasValue atold:access-rights ;
+		] ;
+	] ;
 	shacl:nodeKind shacl:IRI .
-
-a4g_shape:Response-inScheme-access-rights a shacl:PropertyShape ;
-	shacl:path skos:inScheme ;
-	shacl:hasValue atold:access-rights .
 
 a4g_shape:Response-refersToApplicablePeriod-Period a shacl:PropertyShape ;
 	shacl:targetClass a4g:Period ;
