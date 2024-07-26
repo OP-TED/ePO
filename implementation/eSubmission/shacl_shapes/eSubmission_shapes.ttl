@@ -15,7 +15,7 @@
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix person: <http://www.w3.org/ns/person#> .
 @prefix locn: <http://www.w3.org/ns/locn#> .
-@prefix shacl: <http://www.w3.org/ns/shacl#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix rml: <http://semweb.mmlab.be/ns/rml#> .
@@ -25,21 +25,11 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix sub-shape: <http://data.europa.eu/a4g/data-shape/sub/> .
 
-a4g_shape:PlainLiteral a shacl:NodeShape ;
-	shacl:or (
-		[
-			shacl:datatype xsd:string ;
-		]
-		[
-			shacl:datatype rdf:langString ;
-		]
-	) .
-
-sub-shape:NationalPreQualificationDataShape a shacl:NodeShape ;
-	shacl:targetClass a4g:NationalPreQualificationData ;
+sub-shape:epo-sub-NationalPreQualificationDataShape a sh:NodeShape ;
+	sh:targetClass a4g:NationalPreQualificationData ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
 	rdfs:comment "Data that describe the distinctive features or characteristics that qualify an economic operator to take part in a tendering process. WG approval 05/03/2024" ;
-	shacl:property sub-shape:NationalPreQualificationData-providesOrganisationCompletedTaskDescription-PlainLiteral, sub-shape:NationalPreQualificationData-concernsOrganisation-Organization, sub-shape:NationalPreQualificationData-providesOrganisationEmployeeQuantity-Quantity, sub-shape:NationalPreQualificationData-providesOrganisationFinancialCapability-MonetaryValue, sub-shape:NationalPreQualificationData-providesOrganisationPreQualificationListingIdentifier-Identifier .
+	sh:property sub-shape:epo-sub-NationalPreQualificationData-epo-sub-providesOrganisationCompletedTaskDescription, sub-shape:epo-sub-NationalPreQualificationData-epo-sub-concernsOrganisation, sub-shape:epo-sub-NationalPreQualificationData-epo-sub-providesOrganisationEmployeeQuantity, sub-shape:epo-sub-NationalPreQualificationData-epo-sub-providesOrganisationFinancialCapability, sub-shape:epo-sub-NationalPreQualificationData-epo-sub-providesOrganisationPreQualificationListingIdentifier .
 
 <http://data.europa.eu/a4g/data-shape/sub/> a owl:Ontology ;
 	dcterms:description "The eProcurement Ontology sub SHACL shapes provides the datashape specifications for the eProcurement Ontology sub module."@en ;
@@ -58,200 +48,214 @@ sub-shape:NationalPreQualificationDataShape a shacl:NodeShape ;
 	owl:versionIRI sub-shape:sub-shape-4.1.0 ;
 	owl:versionInfo "4.1.0" .
 
-sub-shape:NationalPreQualificationData-providesOrganisationCompletedTaskDescription-PlainLiteral a shacl:PropertyShape ;
+sub-shape:epo-sub-NationalPreQualificationData-epo-sub-providesOrganisationCompletedTaskDescription a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:providesOrganisationCompletedTaskDescription ;
-	shacl:description "Text describing the works, supplies or services executed, delivered or performed in a procurement project that can be used as an evidence for the classification of the Organization. WG approval 05/03/2024" ;
-	shacl:name "provides organisation completed task description"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path a4g:providesOrganisationCompletedTaskDescription ;
+	sh:description "Text describing the works, supplies or services executed, delivered or performed in a procurement project that can be used as an evidence for the classification of the Organization. WG approval 05/03/2024" ;
+	sh:name "Provides organisation completed task description" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-sub-shape:CertificateInformationShape a shacl:NodeShape ;
-	shacl:targetClass a4g:CertificateInformation ;
+sub-shape:epo-sub-CertificateInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:CertificateInformation ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
 	rdfs:comment "Information about a Certificate. WG approval 12/03/2024" ;
-	shacl:property sub-shape:CertificateInformation-description-PlainLiteral, sub-shape:CertificateInformation-coversAllSelectionCriteria-boolean, sub-shape:CertificateInformation-summarisesInformationAboutCertificate-Certificate .
+	sh:property sub-shape:epo-sub-CertificateInformation-dct-description, sub-shape:epo-sub-CertificateInformation-epo-sub-coversAllSelectionCriteria, sub-shape:epo-sub-CertificateInformation-epo-sub-summarisesInformationAboutCertificate .
 
-sub-shape:CertificateInformation-description-PlainLiteral a shacl:PropertyShape ;
+sub-shape:epo-sub-CertificateInformation-dct-description a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path dcterms:description ;
-	shacl:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 " ;
-	shacl:name "description"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path dcterms:description ;
+	sh:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 " ;
+	sh:name "Description" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-sub-shape:CertificateInformation-coversAllSelectionCriteria-boolean a shacl:PropertyShape ;
-	shacl:datatype xsd:boolean ;
+sub-shape:epo-sub-CertificateInformation-epo-sub-coversAllSelectionCriteria a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:coversAllSelectionCriteria ;
-	shacl:description "Indicator that the Certificate proves whether the Organization fulfils all Selection Criteria. WG approval 12/03/2024" ;
-	shacl:name "covers all selection criteria"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 .
+	sh:path a4g:coversAllSelectionCriteria ;
+	sh:description "Indicator that the Certificate proves whether the Organization fulfils all Selection Criteria. WG approval 12/03/2024" ;
+	sh:name "Covers all selection criteria" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:boolean .
 
-sub-shape:ESPDShape a shacl:NodeShape ;
-	shacl:targetClass a4g:ESPD ;
+sub-shape:epo-sub-ESPDShape a sh:NodeShape ;
+	sh:targetClass a4g:ESPD ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
 	rdfs:comment "A document conveying the fulfilment or not by the economic operator of the Exclusion Grounds and the Selection Criteria set out by the Buyer for a specific Procurement using an European Single Procurement Document (ESPD) Request. WG Approval 05/03/2024" ;
-	shacl:property sub-shape:ESPD-providesInformationOn-Organization, sub-shape:ESPD-relatesToESPDRequest-ESPDRequest, sub-shape:ESPD-specifiesResponse-Response .
+	sh:property sub-shape:epo-sub-ESPD-epo-sub-providesInformationOn, sub-shape:epo-sub-ESPD-epo-sub-relatesToESPDRequest, sub-shape:epo-sub-ESPD-epo-sub-specifiesResponse .
 
-sub-shape:ESPD-providesInformationOn-Organization a shacl:PropertyShape ;
-	shacl:targetClass org:Organization ;
+sub-shape:epo-sub-ESPD-epo-sub-providesInformationOn a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:providesInformationOn ;
-	shacl:description "Offers information about an instance of a concept. WG approval 05/03/2024" ;
-	shacl:name "provides information on"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:providesInformationOn ;
+	sh:description "Offers information about an instance of a concept. WG approval 05/03/2024" ;
+	sh:name "Provides information on" ;
+	sh:nodeKind sh:IRI ;
+	sh:class org:Organization .
 
-sub-shape:ESPD-relatesToESPDRequest-ESPDRequest a shacl:PropertyShape ;
-	shacl:targetClass a4g:ESPDRequest ;
+sub-shape:epo-sub-ESPD-epo-sub-relatesToESPDRequest a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:relatesToESPDRequest ;
-	shacl:description "Is about an European Single Procurement Document (ESPD) Request. WG approval 05/03/2024" ;
-	shacl:name "relates to espd request"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:relatesToESPDRequest ;
+	sh:description "Is about an European Single Procurement Document (ESPD) Request. WG approval 05/03/2024" ;
+	sh:name "Relates to espd request" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ESPDRequest .
 
-sub-shape:CertificateInformation-summarisesInformationAboutCertificate-Certificate a shacl:PropertyShape ;
-	shacl:targetClass a4g:Certificate ;
+sub-shape:epo-sub-CertificateInformation-epo-sub-summarisesInformationAboutCertificate a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:summarisesInformationAboutCertificate ;
-	shacl:description "Relation indicating the Certificate that the information refers to. WG approval 12/03/2024 " ;
-	shacl:name "summarises information about certificate"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:summarisesInformationAboutCertificate ;
+	sh:description "Relation indicating the Certificate that the information refers to. WG approval 12/03/2024 " ;
+	sh:name "Summarises information about certificate" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Certificate .
 
-sub-shape:LegalRepresentativeShape a shacl:NodeShape ;
-	shacl:targetClass a4g:LegalRepresentative ;
+sub-shape:epo-sub-LegalRepresentativeShape a sh:NodeShape ;
+	sh:targetClass a4g:LegalRepresentative ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
 	rdfs:comment "The Role of an Agent that can represent an Organization. WG approval 05/03/2024" ;
-	shacl:property sub-shape:LegalRepresentative-actsOnBehalfOf-OfferingParty, sub-shape:LegalRepresentative-hasPowerOfAttorney-PowerOfAttorney, sub-shape:LegalRepresentative-hasMandate-Mandate .
+	sh:property sub-shape:epo-sub-LegalRepresentative-epo-actsOnBehalfOf, sub-shape:epo-sub-LegalRepresentative-epo-sub-hasPowerOfAttorney, sub-shape:epo-sub-LegalRepresentative-epo-sub-hasMandate .
 
-sub-shape:LegalRepresentative-actsOnBehalfOf-OfferingParty a shacl:PropertyShape ;
-	shacl:targetClass a4g:OfferingParty ;
+sub-shape:epo-sub-LegalRepresentative-epo-actsOnBehalfOf a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:actsOnBehalfOf ;
-	shacl:name "acts on behalf of"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:actsOnBehalfOf ;
+	sh:name "Acts on behalf of" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:OfferingParty .
 
-sub-shape:ResponseShape a shacl:NodeShape ;
-	shacl:targetClass a4g:Response ;
+sub-shape:epo-sub-ResponseShape a sh:NodeShape ;
+	sh:targetClass a4g:Response ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
 	rdfs:comment "An answer given to a question that is part of an ESPD Request. WG approval 12/03/2024" ;
-	shacl:property sub-shape:Response-answersQuestion-InformationRequirement, sub-shape:Response-isReinforcedBy-Evidence, sub-shape:Response-supportsValue-SupportedValue, sub-shape:Response-confidentialityLevelType-access-rights, sub-shape:Response-refersToApplicablePeriod-Period .
+	sh:property sub-shape:epo-sub-Response-epo-sub-answersQuestion, sub-shape:epo-sub-Response-epo-sub-isReinforcedBy, sub-shape:epo-sub-Response-cccev-supportsValue, sub-shape:epo-sub-Response-cccev-confidentialityLevelType, sub-shape:epo-sub-Response-epo-sub-refersToApplicablePeriod .
 
-sub-shape:Response-answersQuestion-InformationRequirement a shacl:PropertyShape ;
-	shacl:targetClass m8g:InformationRequirement ;
+sub-shape:epo-sub-Response-epo-sub-answersQuestion a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:answersQuestion ;
-	shacl:description "Relation indicating that the Response replies to a question. WG approval 12/03/2024" ;
-	shacl:name "answers question"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:answersQuestion ;
+	sh:description "Relation indicating that the Response replies to a question. WG approval 12/03/2024" ;
+	sh:name "Answers question" ;
+	sh:nodeKind sh:IRI ;
+	sh:class m8g:InformationRequirement .
 
-sub-shape:NationalPreQualificationData-concernsOrganisation-Organization a shacl:PropertyShape ;
-	shacl:targetClass org:Organization ;
+sub-shape:epo-sub-NationalPreQualificationData-epo-sub-concernsOrganisation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:concernsOrganisation ;
-	shacl:description "Relates to Organization. WG approval 05/03/2024 " ;
-	shacl:name "concerns organisation"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:concernsOrganisation ;
+	sh:description "Relates to Organization. WG approval 05/03/2024 " ;
+	sh:name "Concerns organisation" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class org:Organization .
 
-sub-shape:NationalPreQualificationData-providesOrganisationEmployeeQuantity-Quantity a shacl:PropertyShape ;
-	shacl:targetClass a4g:Quantity ;
+sub-shape:epo-sub-NationalPreQualificationData-epo-sub-providesOrganisationEmployeeQuantity a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:providesOrganisationEmployeeQuantity ;
-	shacl:description "The number of people hired by the Organization. WG approval 05/03/2024" ;
-	shacl:name "provides organisation employee quantity"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:providesOrganisationEmployeeQuantity ;
+	sh:description "The number of people hired by the Organization. WG approval 05/03/2024" ;
+	sh:name "Provides organisation employee quantity" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
 
-sub-shape:NationalPreQualificationData-providesOrganisationFinancialCapability-MonetaryValue a shacl:PropertyShape ;
-	shacl:targetClass a4g:MonetaryValue ;
+sub-shape:epo-sub-NationalPreQualificationData-epo-sub-providesOrganisationFinancialCapability a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:providesOrganisationFinancialCapability ;
-	shacl:description "A monetary amount representing the financial capability of the Organization. Additional information: Used to represent the general Turnover of the Organization (for statistical purposes). WG approval 05/03/2024" ;
-	shacl:name "provides organisation financial capability"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:providesOrganisationFinancialCapability ;
+	sh:description "A monetary amount representing the financial capability of the Organization. Additional information: Used to represent the general Turnover of the Organization (for statistical purposes). WG approval 05/03/2024" ;
+	sh:name "Provides organisation financial capability" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
 
-sub-shape:NationalPreQualificationData-providesOrganisationPreQualificationListingIdentifier-Identifier a shacl:PropertyShape ;
-	shacl:targetClass adms:Identifier ;
+sub-shape:epo-sub-NationalPreQualificationData-epo-sub-providesOrganisationPreQualificationListingIdentifier a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:providesOrganisationPreQualificationListingIdentifier ;
-	shacl:description "The identifier assigned to an economic operator in a national pre-qualification system or official list. WG approval 05/03/2024" ;
-	shacl:name "provides organisation pre qualification listing identifier"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:providesOrganisationPreQualificationListingIdentifier ;
+	sh:description "The identifier assigned to an economic operator in a national pre-qualification system or official list. WG approval 05/03/2024" ;
+	sh:name "Provides organisation pre qualification listing identifier" ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
-sub-shape:ESPD-specifiesResponse-Response a shacl:PropertyShape ;
-	shacl:targetClass a4g:Response ;
+sub-shape:epo-sub-ESPD-epo-sub-specifiesResponse a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:specifiesResponse ;
-	shacl:description "Relation indicating that an ESPD Response contains a Response. WG approval 12/03/2024" ;
-	shacl:name "specifies response"@en ;
-	shacl:minCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:specifiesResponse ;
+	sh:description "Relation indicating that an ESPD Response contains a Response. WG approval 12/03/2024" ;
+	sh:name "Specifies response" ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Response .
 
-sub-shape:Response-isReinforcedBy-Evidence a shacl:PropertyShape ;
-	shacl:targetClass m8g:Evidence ;
+sub-shape:epo-sub-Response-epo-sub-isReinforcedBy a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:isReinforcedBy ;
-	shacl:description "Relation indicating an Evidence that supports the Response. WG approval 12/03/2024" ;
-	shacl:name "is reinforced by"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:isReinforcedBy ;
+	sh:description "Relation indicating an Evidence that supports the Response. WG approval 12/03/2024" ;
+	sh:name "Is reinforced by" ;
+	sh:nodeKind sh:IRI ;
+	sh:class m8g:Evidence .
 
-sub-shape:Response-supportsValue-SupportedValue a shacl:PropertyShape ;
-	shacl:targetClass m8g:SupportedValue ;
+sub-shape:epo-sub-Response-cccev-supportsValue a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path m8g:supportsValue ;
-	shacl:description "Supported Value that the Evidence contains." ;
-	shacl:name "supports value"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path m8g:supportsValue ;
+	sh:description "Supported Value that the Evidence contains." ;
+	sh:name "Supports value" ;
+	sh:nodeKind sh:IRI ;
+	sh:class m8g:SupportedValue .
 
-sub-shape:Response-confidentialityLevelType-access-rights a shacl:PropertyShape ;
+sub-shape:epo-sub-Response-cccev-confidentialityLevelType a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path m8g:confidentialityLevelType ;
-	shacl:description "Security classification assigned to an Evidence e.g. classified, sensitive, public. Additional Information: Classifications should be defined by an organisation/country as an outcome of a security assessment." ;
-	shacl:name "confidentiality level type"@en ;
-	shacl:maxCount 1 ;
-	shacl:node [
-		rdf:type shacl:NodeShape ;
-		shacl:property [
-			shacl:path skos:inScheme ;
-			shacl:hasValue atold:access-rights ;
+	sh:path m8g:confidentialityLevelType ;
+	sh:description "Security classification assigned to an Evidence e.g. classified, sensitive, public. Additional Information: Classifications should be defined by an organisation/country as an outcome of a security assessment." ;
+	sh:name "Confidentiality level type" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:node [
+		rdf:type sh:NodeShape ;
+		sh:property [
+			sh:path skos:inScheme ;
+			sh:hasValue atold:access-rights ;
 		] ;
-	] ;
-	shacl:nodeKind shacl:IRI .
+	] .
 
-sub-shape:Response-refersToApplicablePeriod-Period a shacl:PropertyShape ;
-	shacl:targetClass a4g:Period ;
+sub-shape:epo-sub-Response-epo-sub-refersToApplicablePeriod a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:refersToApplicablePeriod ;
-	shacl:description "Relation indicating the period to which the Response shall apply. WG approval 12/03/2024" ;
-	shacl:name "refers to applicable period"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:refersToApplicablePeriod ;
+	sh:description "Relation indicating the period to which the Response shall apply. WG approval 12/03/2024" ;
+	sh:name "Refers to applicable period" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Period .
 
-sub-shape:LegalRepresentative-hasPowerOfAttorney-PowerOfAttorney a shacl:PropertyShape ;
-	shacl:targetClass a4g:PowerOfAttorney ;
+sub-shape:epo-sub-LegalRepresentative-epo-sub-hasPowerOfAttorney a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:hasPowerOfAttorney ;
-	shacl:description "Relation indicating that a Legal Representative has a Power of Attorney. WG approval 12/03/2024" ;
-	shacl:name "has power of attorney"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasPowerOfAttorney ;
+	sh:description "Relation indicating that a Legal Representative has a Power of Attorney. WG approval 12/03/2024" ;
+	sh:name "Has power of attorney" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:PowerOfAttorney .
 
-sub-shape:LegalRepresentative-hasMandate-Mandate a shacl:PropertyShape ;
-	shacl:targetClass a4g:Mandate ;
+sub-shape:epo-sub-LegalRepresentative-epo-sub-hasMandate a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/sub/> ;
-	shacl:path a4g:hasMandate ;
-	shacl:description "Relation indicating that a Legal Representative has a Mandate. WG approval 12/03/2024" ;
-	shacl:name "has mandate"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasMandate ;
+	sh:description "Relation indicating that a Legal Representative has a Mandate. WG approval 12/03/2024" ;
+	sh:name "Has mandate" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Mandate .
 

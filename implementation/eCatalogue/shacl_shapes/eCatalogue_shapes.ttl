@@ -15,7 +15,7 @@
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix person: <http://www.w3.org/ns/person#> .
 @prefix locn: <http://www.w3.org/ns/locn#> .
-@prefix shacl: <http://www.w3.org/ns/shacl#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix rml: <http://semweb.mmlab.be/ns/rml#> .
@@ -25,21 +25,11 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix cat-shape: <http://data.europa.eu/a4g/data-shape/cat/> .
 
-a4g_shape:PlainLiteral a shacl:NodeShape ;
-	shacl:or (
-		[
-			shacl:datatype xsd:string ;
-		]
-		[
-			shacl:datatype rdf:langString ;
-		]
-	) .
-
-cat-shape:BrandShape a shacl:NodeShape ;
-	shacl:targetClass a4g:Brand ;
+cat-shape:epo-cat-BrandShape a sh:NodeShape ;
+	sh:targetClass a4g:Brand ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "Name given by an organisation to its product or service, or range of products or services. Additional information: Brand name allows economic operators to distinctively describe an item in their eCatalogue. This may be different from the item name. WG acceptance 10/03/2022 " ;
-	shacl:property cat-shape:Brand-title-PlainLiteral .
+	sh:property cat-shape:epo-cat-Brand-dct-title .
 
 <http://data.europa.eu/a4g/data-shape/cat/> a owl:Ontology ;
 	dcterms:title "eProcurement Ontology cat - SHACL shapes"@en ;
@@ -58,1006 +48,1104 @@ cat-shape:BrandShape a shacl:NodeShape ;
 	owl:versionIRI cat-shape:cat-shape-4.1.0 ;
 	owl:versionInfo "4.1.0" .
 
-cat-shape:Brand-title-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-Brand-dct-title a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path dcterms:title ;
-	shacl:description "A name given to the resource. WG approval 30/05/2023 " ;
-	shacl:name "title"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path dcterms:title ;
+	sh:description "A name given to the resource. WG approval 30/05/2023 " ;
+	sh:name "Title" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:ItemModelShape a shacl:NodeShape ;
-	shacl:targetClass a4g:ItemModel ;
+cat-shape:epo-cat-ItemModelShape a sh:NodeShape ;
+	sh:targetClass a4g:ItemModel ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "A specific design or version of a product or service. Additional information: This class is meant as a reusable reference to the model name rather than as a set of specifications of an Item of this particular model. WG acceptance 10/03/2022 " ;
-	shacl:property cat-shape:ItemModel-title-PlainLiteral .
+	sh:property cat-shape:epo-cat-ItemModel-dct-title .
 
-cat-shape:ItemModel-title-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-ItemModel-dct-title a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path dcterms:title ;
-	shacl:description "A name given to the resource. WG approval 30/05/2023" ;
-	shacl:name "title"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path dcterms:title ;
+	sh:description "A name given to the resource. WG approval 30/05/2023" ;
+	sh:name "Title" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:ItemRelationShape a shacl:NodeShape ;
-	shacl:targetClass a4g:ItemRelation ;
+cat-shape:epo-cat-ItemRelationShape a sh:NodeShape ;
+	sh:targetClass a4g:ItemRelation ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "Connection between two Items. WG Approval: 30/06/2022 " ;
-	shacl:property cat-shape:ItemRelation-hasFactor-decimal, cat-shape:ItemRelation-isRelatedToItem-Item .
+	sh:property cat-shape:epo-cat-ItemRelation-epo-cat-hasFactor, cat-shape:epo-cat-ItemRelation-epo-cat-isRelatedToItem .
 
-cat-shape:ItemRelation-hasFactor-decimal a shacl:PropertyShape ;
-	shacl:datatype xsd:decimal ;
+cat-shape:epo-cat-ItemRelation-epo-cat-hasFactor a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasFactor ;
-	shacl:description "The number or the fraction of a related item. " ;
-	shacl:name "has factor"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 .
+	sh:path a4g:hasFactor ;
+	sh:description "The number or the fraction of a related item. " ;
+	sh:name "Has factor" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:decimal .
 
-cat-shape:LineShape a shacl:NodeShape ;
-	shacl:targetClass a4g:Line ;
+cat-shape:epo-cat-LineShape a sh:NodeShape ;
+	sh:targetClass a4g:Line ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:property cat-shape:Line-description-PlainLiteral, cat-shape:Line-specifiesItem-Item, cat-shape:Line-identifier-Identifier .
+	sh:property cat-shape:epo-cat-Line-dct-description, cat-shape:epo-cat-Line-epo-cat-specifiesItem, cat-shape:epo-cat-Line-adms-identifier .
 
-cat-shape:Line-description-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-Line-dct-description a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path dcterms:description ;
-	shacl:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" ;
-	shacl:name "description"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path dcterms:description ;
+	sh:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" ;
+	sh:name "Description" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:ItemPropertyShape a shacl:NodeShape ;
-	shacl:targetClass a4g:ItemProperty ;
+cat-shape:epo-cat-ItemPropertyShape a sh:NodeShape ;
+	sh:targetClass a4g:ItemProperty ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "Construct meant to represent the association between an attribute defined in an external classification scheme and the value ascribed to it. WG approval 26/07/2022" ;
-	shacl:property cat-shape:ItemProperty-hasAttributeType-PlainLiteral, cat-shape:ItemProperty-hasClassificationScheme-PlainLiteral, cat-shape:ItemProperty-hasLiteralValue-PlainLiteral, cat-shape:ItemProperty-hasQualifiedValue-Quantity, cat-shape:ItemProperty-describesItem-Item .
+	sh:property cat-shape:epo-cat-ItemProperty-epo-cat-hasAttributeType, cat-shape:epo-cat-ItemProperty-epo-cat-hasClassificationScheme, cat-shape:epo-cat-ItemProperty-epo-cat-hasLiteralValue, cat-shape:epo-cat-ItemProperty-epo-cat-hasQualifiedValue, cat-shape:epo-cat-ItemProperty-epo-cat-describesItem .
 
-cat-shape:ItemProperty-hasAttributeType-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-ItemProperty-epo-cat-hasAttributeType a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasAttributeType ;
-	shacl:description "The property defined in a classification scheme. Additional Information: For example, the following two properties are defined in the ECLASS classification of goods and services: (0173-1#02-AAA026#007) drilling diameter: drilling diameter, (0173-1#02-AAA030#007) flange diameter: flange diameter . WG approval 28/07/2022" ;
-	shacl:name "has attribute type"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path a4g:hasAttributeType ;
+	sh:description "The property defined in a classification scheme. Additional Information: For example, the following two properties are defined in the ECLASS classification of goods and services: (0173-1#02-AAA026#007) drilling diameter: drilling diameter, (0173-1#02-AAA030#007) flange diameter: flange diameter . WG approval 28/07/2022" ;
+	sh:name "Has attribute type" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:ItemProperty-hasClassificationScheme-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-ItemProperty-epo-cat-hasClassificationScheme a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasClassificationScheme ;
-	shacl:description "The classification scheme where a property is defined. Additional Information: For example, the following two properties are defined in the ECLASS classification of goods and services: (0173-1#02-AAA026#007) drilling diameter: drilling diameter, (0173-1#02-AAA030#007) flange diameter: flange diameter . WG approval 28/07/2022 " ;
-	shacl:name "has classification scheme"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path a4g:hasClassificationScheme ;
+	sh:description "The classification scheme where a property is defined. Additional Information: For example, the following two properties are defined in the ECLASS classification of goods and services: (0173-1#02-AAA026#007) drilling diameter: drilling diameter, (0173-1#02-AAA030#007) flange diameter: flange diameter . WG approval 28/07/2022 " ;
+	sh:name "Has classification scheme" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:ItemProperty-hasLiteralValue-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-ItemProperty-epo-cat-hasLiteralValue a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasLiteralValue ;
-	shacl:description "Simple value of the property, which is defined in a classification scheme. Additional Information: For example, the (0173-1#02-AAV139#001) coating 1 of an optical material has value of silver. This simple literal value is for the cases when the property value does not have units, in which case the qualifiedValue shall be used. WG approval 28/07/2022 " ;
-	shacl:name "has literal value"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path a4g:hasLiteralValue ;
+	sh:description "Simple value of the property, which is defined in a classification scheme. Additional Information: For example, the (0173-1#02-AAV139#001) coating 1 of an optical material has value of silver. This simple literal value is for the cases when the property value does not have units, in which case the qualifiedValue shall be used. WG approval 28/07/2022 " ;
+	sh:name "Has literal value" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:CatalogueShape a shacl:NodeShape ;
-	shacl:targetClass a4g:Catalogue ;
+cat-shape:epo-cat-CatalogueShape a sh:NodeShape ;
+	sh:targetClass a4g:Catalogue ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "A Document describing a set of Items offered for purchase that can be processed in an electronic way. " ;
-	shacl:property cat-shape:Catalogue-hasSpecificPaymentArrangement-PlainLiteral, cat-shape:Catalogue-specifiesCatalogueReceiver-CatalogueReceiver, cat-shape:Catalogue-specifiesCatalogueProvider-CatalogueProvider, cat-shape:Catalogue-isSubordinatedToContract-Contract, cat-shape:Catalogue-comprisesCatalogueLine-CatalogueLine, cat-shape:Catalogue-specifiesBuyer-Buyer, cat-shape:Catalogue-hasActivityCode-activity-code, cat-shape:Catalogue-specifiesSeller-Seller, cat-shape:Catalogue-hasValidityPeriod-Period .
+	sh:property cat-shape:epo-cat-Catalogue-epo-cat-hasSpecificPaymentArrangement, cat-shape:epo-cat-Catalogue-epo-specifiesCatalogueReceiver, cat-shape:epo-cat-Catalogue-epo-specifiesCatalogueProvider, cat-shape:epo-cat-Catalogue-epo-cat-isSubordinatedToContract, cat-shape:epo-cat-Catalogue-epo-cat-comprisesCatalogueLine, cat-shape:epo-cat-Catalogue-epo-specifiesBuyer, cat-shape:epo-cat-Catalogue-epo-cat-hasActivityCode, cat-shape:epo-cat-Catalogue-epo-specifiesSeller, cat-shape:epo-cat-Catalogue-epo-hasValidityPeriod .
 
-cat-shape:Catalogue-hasSpecificPaymentArrangement-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-Catalogue-epo-cat-hasSpecificPaymentArrangement a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasSpecificPaymentArrangement ;
-	shacl:description "Information about payment conditions applied to all items in the catalogue. Additional information: This property may need to be used together with the payment arrangements provided in the ContractTerms, where such terms exists. WG approval 30/06/2022 " ;
-	shacl:name "has specific payment arrangement"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path a4g:hasSpecificPaymentArrangement ;
+	sh:description "Information about payment conditions applied to all items in the catalogue. Additional information: This property may need to be used together with the payment arrangements provided in the ContractTerms, where such terms exists. WG approval 30/06/2022 " ;
+	sh:name "Has specific payment arrangement" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:AllowanceChargeInformationShape a shacl:NodeShape ;
-	shacl:targetClass a4g:AllowanceChargeInformation ;
+cat-shape:epo-ord-AllowanceChargeInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:AllowanceChargeInformation ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "Information about discounts, taxes, duties and fees imposed. WG approval 16/05/2023" ;
-	shacl:property cat-shape:AllowanceChargeInformation-hasPercentage-decimal, cat-shape:AllowanceChargeInformation-hasAmount-MonetaryValue .
+	sh:property cat-shape:epo-ord-AllowanceChargeInformation-epo-cat-hasPercentage, cat-shape:epo-ord-AllowanceChargeInformation-epo-cat-hasAmount .
 
-cat-shape:AllowanceChargeInformation-hasPercentage-decimal a shacl:PropertyShape ;
-	shacl:datatype xsd:decimal ;
+cat-shape:epo-ord-AllowanceChargeInformation-epo-cat-hasPercentage a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasPercentage ;
-	shacl:description "The factor relative to the price charged in addition. WG approval 26/07/2022" ;
-	shacl:name "has percentage"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 .
+	sh:path a4g:hasPercentage ;
+	sh:description "The factor relative to the price charged in addition. WG approval 26/07/2022" ;
+	sh:name "Has percentage" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:decimal .
 
-cat-shape:BatchShape a shacl:NodeShape ;
-	shacl:targetClass a4g:Batch ;
+cat-shape:epo-cat-BatchShape a sh:NodeShape ;
+	sh:targetClass a4g:Batch ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "A production Lot in which the Item instances were produced. WG Acceptance 10/03/2022 " ;
-	shacl:property cat-shape:Batch-hasManufactureDate-dateTime, cat-shape:Batch-hasExpiryDate-date, cat-shape:Batch-hasBestBeforeDate-date, cat-shape:Batch-isProductionOf-Item, cat-shape:Batch-hasBatchID-Identifier .
+	sh:property cat-shape:epo-cat-Batch-epo-cat-hasManufactureDate, cat-shape:epo-cat-Batch-epo-cat-hasExpiryDate, cat-shape:epo-cat-Batch-epo-cat-hasBestBeforeDate, cat-shape:epo-cat-Batch-epo-cat-isProductionOf, cat-shape:epo-cat-Batch-epo-hasBatchID .
 
-cat-shape:Batch-hasManufactureDate-dateTime a shacl:PropertyShape ;
-	shacl:datatype xsd:dateTime ;
+cat-shape:epo-cat-Batch-epo-cat-hasManufactureDate a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasManufactureDate ;
-	shacl:description "The day of production. " ;
-	shacl:name "has manufacture date"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 .
+	sh:path a4g:hasManufactureDate ;
+	sh:description "The day of production. " ;
+	sh:name "Has manufacture date" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:dateTime .
 
-cat-shape:TaxInformationShape a shacl:NodeShape ;
-	shacl:targetClass a4g:TaxInformation ;
+cat-shape:epo-ord-TaxInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:TaxInformation ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "Information about the imposition of mandatory levies required by law. WG approval 25/04/2023 " ;
-	shacl:property cat-shape:TaxInformation-hasPercentage-decimal, cat-shape:TaxInformation-hasTaxCategory-tax-category, cat-shape:TaxInformation-hasTaxScheme-tax-scheme, cat-shape:TaxInformation-hasAmount-MonetaryValue .
+	sh:property cat-shape:epo-ord-TaxInformation-epo-cat-hasPercentage, cat-shape:epo-ord-TaxInformation-epo-cat-hasTaxCategory, cat-shape:epo-ord-TaxInformation-epo-cat-hasTaxScheme, cat-shape:epo-ord-TaxInformation-epo-cat-hasAmount .
 
-cat-shape:TaxInformation-hasPercentage-decimal a shacl:PropertyShape ;
-	shacl:datatype xsd:decimal ;
+cat-shape:epo-ord-TaxInformation-epo-cat-hasPercentage a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasPercentage ;
-	shacl:description "The factor relative to the price charged in addition. WG approval 26/07/2022 " ;
-	shacl:name "has percentage"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 .
+	sh:path a4g:hasPercentage ;
+	sh:description "The factor relative to the price charged in addition. WG approval 26/07/2022 " ;
+	sh:name "Has percentage" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:decimal .
 
-cat-shape:ItemShape a shacl:NodeShape ;
-	shacl:targetClass a4g:Item ;
+cat-shape:epo-cat-ItemShape a sh:NodeShape ;
+	sh:targetClass a4g:Item ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "A product, work, service or any combination of them. Additional Information: An Item can be an atomic Thing or a composition of things that together are seen as a unit, e.g. a tetrabrik of milk or an indivisible package of six tetrabriks. No distinction is provided between services, goods and works to leave room for innovation. WG approval 30/06/2022" ;
-	shacl:property cat-shape:Item-description-PlainLiteral, cat-shape:Item-title-PlainLiteral, cat-shape:Item-hasKeyword-PlainLiteral, cat-shape:Item-isInStock-boolean, cat-shape:Item-hasDimensionDescription-PlainLiteral, cat-shape:Item-hasHazardousClass-PlainLiteral, cat-shape:Item-hasBrand-Brand, cat-shape:Item-hasQualifiedItemRelation-ItemRelation, cat-shape:Item-hasModel-ItemModel, cat-shape:Item-hasItemClassification-item-classification, cat-shape:Item-hasPart-Item, cat-shape:Item-hasManufacturerItemID-Identifier, cat-shape:Item-hasSellerItemID-Identifier, cat-shape:Item-hasItemStandardID-Identifier, cat-shape:Item-hasNetQuantity-Quantity, cat-shape:Item-hasCountryOfOrigin-country, cat-shape:Item-hasDeliveryClassification-delivery-item-type, cat-shape:Item-hasCertification-Certificate, cat-shape:Item-hasAccessoryItem-Item, cat-shape:Item-isReplacedBy-Item, cat-shape:Item-hasSpecification-ProductSpecification, cat-shape:Item-hasComplementaryItem-Item, cat-shape:Item-hasManufacturer-Manufacturer, cat-shape:Item-hasHazardousItemUNDGCode-dangerous-goods-list, cat-shape:Item-requires-Item, cat-shape:Item-hasBuyerItemID-Identifier, cat-shape:Item-hasExternalSpecification-Document, cat-shape:Item-hasSerialID-Identifier, cat-shape:Item-hasTaxInformation-TaxInformation .
+	sh:property cat-shape:epo-cat-Item-dct-description, cat-shape:epo-cat-Item-dct-title, cat-shape:epo-cat-Item-epo-cat-hasKeyword, cat-shape:epo-cat-Item-epo-cat-isInStock, cat-shape:epo-cat-Item-epo-cat-hasDimensionDescription, cat-shape:epo-cat-Item-epo-cat-hasHazardousClass, cat-shape:epo-cat-Item-epo-cat-hasBrand, cat-shape:epo-cat-Item-epo-cat-hasQualifiedItemRelation, cat-shape:epo-cat-Item-epo-cat-hasModel, cat-shape:epo-cat-Item-epo-cat-hasItemClassification, cat-shape:epo-cat-Item-dct-hasPart, cat-shape:epo-cat-Item-epo-hasManufacturerItemID, cat-shape:epo-cat-Item-epo-hasSellerItemID, cat-shape:epo-cat-Item-epo-hasItemStandardID, cat-shape:epo-cat-Item-epo-cat-hasNetQuantity, cat-shape:epo-cat-Item-epo-cat-hasCountryOfOrigin, cat-shape:epo-cat-Item-epo-cat-hasDeliveryClassification, cat-shape:epo-cat-Item-epo-hasCertification, cat-shape:epo-cat-Item-epo-cat-hasAccessoryItem, cat-shape:epo-cat-Item-dct-isReplacedBy, cat-shape:epo-cat-Item-epo-cat-hasSpecification, cat-shape:epo-cat-Item-epo-cat-hasComplementaryItem, cat-shape:epo-cat-Item-epo-cat-hasManufacturer, cat-shape:epo-cat-Item-epo-cat-hasHazardousItemUNDGCode, cat-shape:epo-cat-Item-dct-requires, cat-shape:epo-cat-Item-epo-hasBuyerItemID, cat-shape:epo-cat-Item-epo-cat-hasExternalSpecification, cat-shape:epo-cat-Item-epo-hasSerialID, cat-shape:epo-cat-Item-epo-ord-hasTaxInformation .
 
-cat-shape:Item-description-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-Item-dct-description a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path dcterms:description ;
-	shacl:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" ;
-	shacl:name "description"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path dcterms:description ;
+	sh:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023" ;
+	sh:name "Description" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:Item-title-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-Item-dct-title a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path dcterms:title ;
-	shacl:description "A name given to the resource. WG approval 30/05/2023" ;
-	shacl:name "title"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path dcterms:title ;
+	sh:description "A name given to the resource. WG approval 30/05/2023" ;
+	sh:name "Title" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:CatalogueLineShape a shacl:NodeShape ;
-	shacl:targetClass a4g:CatalogueLine ;
+cat-shape:epo-cat-CatalogueLineShape a sh:NodeShape ;
+	sh:targetClass a4g:CatalogueLine ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "Aggregated information about the Terms and specifications for procuring an Item. Details about an Item, like Prices, packaging, discounts, special promotions, etc. TC 440: Detailed information of an Item, Price and its composition in a Catalogue. Composition: e.g. information referring to its description, how to order it, what it is made of, properties, delivery conditions, etc. " ;
-	shacl:property cat-shape:CatalogueLine-isOrderable-boolean, cat-shape:CatalogueLine-hasOrderableUnitFactorRate-decimal, cat-shape:CatalogueLine-hasOrderableQuantityIncrement-integer, cat-shape:CatalogueLine-hasWarrantyInformation-PlainLiteral, cat-shape:CatalogueLine-isContractedItem-boolean, cat-shape:CatalogueLine-hasTransactionConditions-PlainLiteral, cat-shape:CatalogueLine-hasCatalogueLineValidity-Period, cat-shape:CatalogueLine-hasMaximumOrderQuantity-Quantity, cat-shape:CatalogueLine-hasMinimumQuantityGuaranteedForDelivery-Quantity, cat-shape:CatalogueLine-hasOrderableUnit-orderable-unit, cat-shape:CatalogueLine-hasTransactionConditionsCode-transaction-conditions, cat-shape:CatalogueLine-hasPrice-Price, cat-shape:CatalogueLine-hasActivityCode-activity-code, cat-shape:CatalogueLine-hasStandardisedUnitPrice-Price, cat-shape:CatalogueLine-foreseesPackage-Package, cat-shape:CatalogueLine-hasChargeInformation-ChargeInformation .
+	sh:property cat-shape:epo-cat-CatalogueLine-epo-cat-isOrderable, cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableUnitFactorRate, cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableQuantityIncrement, cat-shape:epo-cat-CatalogueLine-epo-cat-hasWarrantyInformation, cat-shape:epo-cat-CatalogueLine-epo-cat-isContractedItem, cat-shape:epo-cat-CatalogueLine-epo-cat-hasTransactionConditions, cat-shape:epo-cat-CatalogueLine-epo-cat-hasCatalogueLineValidity, cat-shape:epo-cat-CatalogueLine-epo-cat-hasMaximumOrderQuantity, cat-shape:epo-cat-CatalogueLine-epo-cat-hasMinimumQuantityGuaranteedForDelivery, cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableUnit, cat-shape:epo-cat-CatalogueLine-epo-cat-hasTransactionConditionsCode, cat-shape:epo-cat-CatalogueLine-epo-cat-hasPrice, cat-shape:epo-cat-CatalogueLine-epo-cat-hasActivityCode, cat-shape:epo-cat-CatalogueLine-epo-cat-hasStandardisedUnitPrice, cat-shape:epo-cat-CatalogueLine-epo-cat-foreseesPackage, cat-shape:epo-cat-CatalogueLine-epo-cat-hasChargeInformation .
 
-cat-shape:CatalogueLine-isOrderable-boolean a shacl:PropertyShape ;
-	shacl:datatype xsd:boolean ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-isOrderable a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:isOrderable ;
-	shacl:description "Indicator, if the item is orderable or not, e.g. because it is temporarily out of stock." ;
-	shacl:name "is orderable"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 .
+	sh:path a4g:isOrderable ;
+	sh:description "Indicator, if the item is orderable or not, e.g. because it is temporarily out of stock." ;
+	sh:name "Is orderable" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:boolean .
 
-cat-shape:CatalogueLine-hasOrderableUnitFactorRate-decimal a shacl:PropertyShape ;
-	shacl:datatype xsd:decimal ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableUnitFactorRate a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasOrderableUnitFactorRate ;
-	shacl:description "The factor by which the Item net price of an unit of an item can be converted to the orderable unit." ;
-	shacl:name "has orderable unit factor rate"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 .
+	sh:path a4g:hasOrderableUnitFactorRate ;
+	sh:description "The factor by which the Item net price of an unit of an item can be converted to the orderable unit." ;
+	sh:name "Has orderable unit factor rate" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:decimal .
 
-cat-shape:CatalogueLine-hasOrderableQuantityIncrement-integer a shacl:PropertyShape ;
-	shacl:datatype xsd:integer ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableQuantityIncrement a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasOrderableQuantityIncrement ;
-	shacl:description "Orderable quantity increment: The increment of Orderable units that can be ordered." ;
-	shacl:name "has orderable quantity increment"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 .
+	sh:path a4g:hasOrderableQuantityIncrement ;
+	sh:description "Orderable quantity increment: The increment of Orderable units that can be ordered." ;
+	sh:name "Has orderable quantity increment" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:integer .
 
-cat-shape:CatalogueLine-hasWarrantyInformation-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasWarrantyInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasWarrantyInformation ;
-	shacl:description "Warranty information that applies to the catalogue line item." ;
-	shacl:name "has warranty information"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path a4g:hasWarrantyInformation ;
+	sh:description "Warranty information that applies to the catalogue line item." ;
+	sh:name "Has warranty information" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:CatalogueLine-isContractedItem-boolean a shacl:PropertyShape ;
-	shacl:datatype xsd:boolean ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-isContractedItem a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:isContractedItem ;
-	shacl:description "Indicator if the item is offered in accordance to an existing contract." ;
-	shacl:name "is contracted item"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 .
+	sh:path a4g:isContractedItem ;
+	sh:description "Indicator if the item is offered in accordance to an existing contract." ;
+	sh:name "Is contracted item" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:boolean .
 
-cat-shape:CatalogueLine-hasTransactionConditions-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasTransactionConditions a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasTransactionConditions ;
-	shacl:description "Textual description of the specific transaction conditions (purchasing, sales, payment) for an item." ;
-	shacl:name "has transaction conditions"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path a4g:hasTransactionConditions ;
+	sh:description "Textual description of the specific transaction conditions (purchasing, sales, payment) for an item." ;
+	sh:name "Has transaction conditions" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:Item-hasKeyword-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-Item-epo-cat-hasKeyword a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasKeyword ;
-	shacl:description "List of words (e.g, synonyms) to make the item searchable. WG Approval 7/04/2022 " ;
-	shacl:name "has keyword"@en ;
-	shacl:minCount 0 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path a4g:hasKeyword ;
+	sh:description "List of words (e.g, synonyms) to make the item searchable. WG Approval 7/04/2022 " ;
+	sh:name "Has keyword" ;
+	sh:minCount 0 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:Item-isInStock-boolean a shacl:PropertyShape ;
-	shacl:datatype xsd:boolean ;
+cat-shape:epo-cat-Item-epo-cat-isInStock a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:isInStock ;
-	shacl:description "Indicator whether an item is in the supplier's stock. If not in stock the supplier has to order the item." ;
-	shacl:name "is in stock"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 .
+	sh:path a4g:isInStock ;
+	sh:description "Indicator whether an item is in the supplier's stock. If not in stock the supplier has to order the item." ;
+	sh:name "Is in stock" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:boolean .
 
-cat-shape:Batch-hasExpiryDate-date a shacl:PropertyShape ;
-	shacl:datatype xsd:date ;
+cat-shape:epo-cat-Batch-epo-cat-hasExpiryDate a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasExpiryDate ;
-	shacl:description "The last day until which the item can be used. WG approval 10/03/2021 " ;
-	shacl:name "has expiry date"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 .
+	sh:path a4g:hasExpiryDate ;
+	sh:description "The last day until which the item can be used. WG approval 10/03/2021 " ;
+	sh:name "Has expiry date" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:date .
 
-cat-shape:Batch-hasBestBeforeDate-date a shacl:PropertyShape ;
-	shacl:datatype xsd:date ;
+cat-shape:epo-cat-Batch-epo-cat-hasBestBeforeDate a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasBestBeforeDate ;
-	shacl:description "The day until which the quality of the item will remain optimal. WG approval 10/03/2021" ;
-	shacl:name "has best before date"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 .
+	sh:path a4g:hasBestBeforeDate ;
+	sh:description "The day until which the quality of the item will remain optimal. WG approval 10/03/2021" ;
+	sh:name "Has best before date" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:date .
 
-cat-shape:Item-hasDimensionDescription-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-Item-epo-cat-hasDimensionDescription a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasDimensionDescription ;
-	shacl:description "Textual description of the item's dimensions." ;
-	shacl:name "has dimension description"@en ;
-	shacl:minCount 0 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path a4g:hasDimensionDescription ;
+	sh:description "Textual description of the item's dimensions." ;
+	sh:name "Has dimension description" ;
+	sh:minCount 0 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:Item-hasHazardousClass-PlainLiteral a shacl:PropertyShape ;
+cat-shape:epo-cat-Item-epo-cat-hasHazardousClass a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasHazardousClass ;
-	shacl:description "Specification of the hazardous nature of an item according to a classification schema. Provides detail of the classification and nature of a hazardous item." ;
-	shacl:name "has hazardous class"@en ;
-	shacl:minCount 0 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path a4g:hasHazardousClass ;
+	sh:description "Specification of the hazardous nature of an item according to a classification schema. Provides detail of the classification and nature of a hazardous item." ;
+	sh:name "Has hazardous class" ;
+	sh:minCount 0 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-cat-shape:Batch-isProductionOf-Item a shacl:PropertyShape ;
-	shacl:targetClass a4g:Item ;
+cat-shape:epo-cat-Batch-epo-cat-isProductionOf a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:isProductionOf ;
-	shacl:name "is production of"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:isProductionOf ;
+	sh:name "Is production of" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
 
-cat-shape:Item-hasBrand-Brand a shacl:PropertyShape ;
-	shacl:targetClass a4g:Brand ;
+cat-shape:epo-cat-Item-epo-cat-hasBrand a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasBrand ;
-	shacl:name "has brand"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasBrand ;
+	sh:name "Has brand" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Brand .
 
-cat-shape:ItemRelation-isRelatedToItem-Item a shacl:PropertyShape ;
-	shacl:targetClass a4g:Item ;
+cat-shape:epo-cat-ItemRelation-epo-cat-isRelatedToItem a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:isRelatedToItem ;
-	shacl:name "is related to item"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:isRelatedToItem ;
+	sh:name "Is related to item" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
 
-cat-shape:Item-hasQualifiedItemRelation-ItemRelation a shacl:PropertyShape ;
-	shacl:targetClass a4g:ItemRelation ;
+cat-shape:epo-cat-Item-epo-cat-hasQualifiedItemRelation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasQualifiedItemRelation ;
-	shacl:name "has qualified item relation"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasQualifiedItemRelation ;
+	sh:name "Has qualified item relation" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ItemRelation .
 
-cat-shape:Catalogue-specifiesCatalogueReceiver-CatalogueReceiver a shacl:PropertyShape ;
-	shacl:targetClass a4g:CatalogueReceiver ;
+cat-shape:epo-cat-Catalogue-epo-specifiesCatalogueReceiver a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:specifiesCatalogueReceiver ;
-	shacl:name "specifies catalogue receiver"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:specifiesCatalogueReceiver ;
+	sh:name "Specifies catalogue receiver" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueReceiver .
 
-cat-shape:ChargeInformationShape a shacl:NodeShape ;
-	shacl:targetClass a4g:ChargeInformation ;
+cat-shape:epo-cat-ChargeInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:ChargeInformation ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "Information about tax, fee or duty imposed. Additional Information: Charge category indicates the nature of the tax/duty/fee, for example VAT, CAR, etc. Charge category modifier may be used in case different levels, exemptions or other modifications apply. The charge can be fixed or relative to the price. WG approval 16/05/2023" ;
-	shacl:property cat-shape:ChargeInformation-isSpecificToOrderLine-OrderLine .
+	sh:property cat-shape:epo-cat-ChargeInformation-epo-ord-isSpecificToOrderLine .
 
-cat-shape:ChargeInformation-isSpecificToOrderLine-OrderLine a shacl:PropertyShape ;
-	shacl:targetClass a4g:OrderLine ;
+cat-shape:epo-cat-ChargeInformation-epo-ord-isSpecificToOrderLine a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:isSpecificToOrderLine ;
-	shacl:description "Information that is particular to one or multiple Order Lines. " ;
-	shacl:name "is specific to order line"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:isSpecificToOrderLine ;
+	sh:description "Information that is particular to one or multiple Order Lines. " ;
+	sh:name "Is specific to order line" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:OrderLine .
 
-cat-shape:DeliverableShape a shacl:NodeShape ;
-	shacl:targetClass a4g:Deliverable ;
+cat-shape:epo-con-DeliverableShape a sh:NodeShape ;
+	sh:targetClass a4g:Deliverable ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:property cat-shape:Deliverable-hasQuantity-Quantity .
+	sh:property cat-shape:epo-con-Deliverable-epo-cat-hasQuantity .
 
-cat-shape:Deliverable-hasQuantity-Quantity a shacl:PropertyShape ;
-	shacl:targetClass a4g:Quantity ;
+cat-shape:epo-con-Deliverable-epo-cat-hasQuantity a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasQuantity ;
-	shacl:name "has quantity"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasQuantity ;
+	sh:name "Has quantity" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
 
-cat-shape:Item-hasModel-ItemModel a shacl:PropertyShape ;
-	shacl:targetClass a4g:ItemModel ;
+cat-shape:epo-cat-Item-epo-cat-hasModel a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasModel ;
-	shacl:name "has model"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasModel ;
+	sh:name "Has model" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ItemModel .
 
-cat-shape:Item-hasItemClassification-item-classification a shacl:PropertyShape ;
+cat-shape:epo-cat-Item-epo-cat-hasItemClassification a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasItemClassification ;
-	shacl:description "A classification of this item according to a specific system for classifying products or services. Additional information: Examples of classification schemes are: CPV, UNSPC, eCl@ss, GPC, ... WG acceptance 10/03/2022" ;
-	shacl:name "has item classification"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasItemClassification ;
+	sh:description "A classification of this item according to a specific system for classifying products or services. Additional information: Examples of classification schemes are: CPV, UNSPC, eCl@ss, GPC, ... WG acceptance 10/03/2022" ;
+	sh:name "Has item classification" ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:Catalogue-specifiesCatalogueProvider-CatalogueProvider a shacl:PropertyShape ;
-	shacl:targetClass a4g:CatalogueProvider ;
+cat-shape:epo-cat-Catalogue-epo-specifiesCatalogueProvider a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:specifiesCatalogueProvider ;
-	shacl:name "specifies catalogue provider"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:specifiesCatalogueProvider ;
+	sh:name "Specifies catalogue provider" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueProvider .
 
-cat-shape:PriceShape a shacl:NodeShape ;
-	shacl:targetClass a4g:Price ;
+cat-shape:epo-cat-PriceShape a sh:NodeShape ;
+	sh:targetClass a4g:Price ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "Amount of money required or given in exchange for Items. Additional information: The Price excludes any charges (such as taxes, duties and fees) and discounts. WG approval 26/07/2022" ;
-	shacl:property cat-shape:Price-hasDeliveryLocation-Location, cat-shape:Price-hasPriceValidity-Period, cat-shape:Price-hasNetMonetaryValue-MonetaryValue, cat-shape:Price-hasOrderabableUnitFactorRate-Quantity, cat-shape:Price-hasQuantityThreshold-Quantity, cat-shape:Price-hasExpectedDeliveryTime-Duration, cat-shape:Price-hasBaseQuantity-Quantity, cat-shape:Price-hasPriceSurchargeInformation-ChargeInformation, cat-shape:Price-hasPriceType-price-type, cat-shape:Price-hasPriceDiscountInformation-AllowanceInformation .
+	sh:property cat-shape:epo-cat-Price-epo-cat-hasDeliveryLocation, cat-shape:epo-cat-Price-epo-cat-hasPriceValidity, cat-shape:epo-cat-Price-epo-cat-hasNetMonetaryValue, cat-shape:epo-cat-Price-epo-cat-hasOrderabableUnitFactorRate, cat-shape:epo-cat-Price-epo-cat-hasQuantityThreshold, cat-shape:epo-cat-Price-epo-cat-hasExpectedDeliveryTime, cat-shape:epo-cat-Price-epo-cat-hasBaseQuantity, cat-shape:epo-cat-Price-epo-hasPriceSurchargeInformation, cat-shape:epo-cat-Price-epo-cat-hasPriceType, cat-shape:epo-cat-Price-epo-ord-hasPriceDiscountInformation .
 
-cat-shape:Price-hasDeliveryLocation-Location a shacl:PropertyShape ;
-	shacl:targetClass dcterms:Location ;
+cat-shape:epo-cat-Price-epo-cat-hasDeliveryLocation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasDeliveryLocation ;
-	shacl:description "Location delivery area where the Item can be ordered to the given price. " ;
-	shacl:name "has delivery location"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasDeliveryLocation ;
+	sh:description "Location delivery area where the Item can be ordered to the given price. " ;
+	sh:name "Has delivery location" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class dcterms:Location .
 
-cat-shape:CatalogueLine-hasCatalogueLineValidity-Period a shacl:PropertyShape ;
-	shacl:targetClass a4g:Period ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasCatalogueLineValidity a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasCatalogueLineValidity ;
-	shacl:description "The relation indicating until when a Catalogue Line instance is applicable. WG approval 21/09/2023" ;
-	shacl:name "has catalogue line validity"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasCatalogueLineValidity ;
+	sh:description "The relation indicating until when a Catalogue Line instance is applicable. WG approval 21/09/2023" ;
+	sh:name "Has catalogue line validity" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Period .
 
-cat-shape:Price-hasPriceValidity-Period a shacl:PropertyShape ;
-	shacl:targetClass a4g:Period ;
+cat-shape:epo-cat-Price-epo-cat-hasPriceValidity a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasPriceValidity ;
-	shacl:name "has price validity"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasPriceValidity ;
+	sh:name "Has price validity" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Period .
 
-cat-shape:ItemProperty-hasQualifiedValue-Quantity a shacl:PropertyShape ;
-	shacl:targetClass a4g:Quantity ;
+cat-shape:epo-cat-ItemProperty-epo-cat-hasQualifiedValue a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasQualifiedValue ;
-	shacl:description "Qualified value of the property, which is defined in a classification scheme. Additional Information: For example, the (0173-1#02-AAA026#007) drilling diameter of an item has value of 12 inches. WG approval 28/07/2022" ;
-	shacl:name "has qualified value"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasQualifiedValue ;
+	sh:description "Qualified value of the property, which is defined in a classification scheme. Additional Information: For example, the (0173-1#02-AAA026#007) drilling diameter of an item has value of 12 inches. WG approval 28/07/2022" ;
+	sh:name "Has qualified value" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
 
-cat-shape:Item-hasPart-Item a shacl:PropertyShape ;
-	shacl:targetClass a4g:Item ;
+cat-shape:epo-cat-Item-dct-hasPart a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path dcterms:hasPart ;
-	shacl:description "A related resource that is included either physically or logically in the described resource. Additional Information: In the eCatalogue context, when this relation is used between two items, the resource in the definition refers to Items, i.e. one item is part of another item. WG Approval: 30/06/2022 " ;
-	shacl:name "has part"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path dcterms:hasPart ;
+	sh:description "A related resource that is included either physically or logically in the described resource. Additional Information: In the eCatalogue context, when this relation is used between two items, the resource in the definition refers to Items, i.e. one item is part of another item. WG Approval: 30/06/2022 " ;
+	sh:name "Has part" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
 
-cat-shape:Catalogue-isSubordinatedToContract-Contract a shacl:PropertyShape ;
-	shacl:targetClass a4g:Contract ;
+cat-shape:epo-cat-Catalogue-epo-cat-isSubordinatedToContract a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:isSubordinatedToContract ;
-	shacl:name "is subordinated to contract"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:isSubordinatedToContract ;
+	sh:name "Is subordinated to contract" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Contract .
 
-cat-shape:Catalogue-comprisesCatalogueLine-CatalogueLine a shacl:PropertyShape ;
-	shacl:targetClass a4g:CatalogueLine ;
+cat-shape:epo-cat-Catalogue-epo-cat-comprisesCatalogueLine a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:comprisesCatalogueLine ;
-	shacl:name "comprises catalogue line"@en ;
-	shacl:minCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:comprisesCatalogueLine ;
+	sh:name "Comprises catalogue line" ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueLine .
 
-cat-shape:ManufacturerShape a shacl:NodeShape ;
-	shacl:targetClass a4g:Manufacturer ;
+cat-shape:epo-cat-ManufacturerShape a sh:NodeShape ;
+	sh:targetClass a4g:Manufacturer ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "The Producer of goods or provider of services. Additional Information: Also, known as Supplier and Manufacturer. We do not care who provides these service or products we care with whom Business is done. PEPPOL - Invoice: The Supplier is the Legal Person or Organisation who provides a product and/or service. PEPPOL - Order: The supplier is the legal person or organisation who provides a product or service. Examples of supplier roles: seller, despatch party, creditor, economic operator. " ;
-	shacl:property cat-shape:Manufacturer-hasManufacturerID-Identifier .
+	sh:property cat-shape:epo-cat-Manufacturer-epo-hasManufacturerID .
 
-cat-shape:Manufacturer-hasManufacturerID-Identifier a shacl:PropertyShape ;
-	shacl:targetClass adms:Identifier ;
+cat-shape:epo-cat-Manufacturer-epo-hasManufacturerID a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasManufacturerID ;
-	shacl:description "The manufacturer's identifier for the item. " ;
-	shacl:name "has manufacturer id"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasManufacturerID ;
+	sh:description "The manufacturer's identifier for the item. " ;
+	sh:name "Has manufacturer id" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
-cat-shape:Batch-hasBatchID-Identifier a shacl:PropertyShape ;
-	shacl:targetClass adms:Identifier ;
+cat-shape:epo-cat-Batch-epo-hasBatchID a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasBatchID ;
-	shacl:description "The identifier assigned to a specific batch of the produced Item. WG Approval 16/05/2023 " ;
-	shacl:name "has batch id"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasBatchID ;
+	sh:description "The identifier assigned to a specific batch of the produced Item. WG Approval 16/05/2023 " ;
+	sh:name "Has batch id" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
-cat-shape:Item-hasManufacturerItemID-Identifier a shacl:PropertyShape ;
-	shacl:targetClass adms:Identifier ;
+cat-shape:epo-cat-Item-epo-hasManufacturerItemID a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasManufacturerItemID ;
-	shacl:description "The general identifier assigned to the concept as defined by the Manufacturer. ​ WG approval 16/05/2023 " ;
-	shacl:name "has manufacturer item id"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasManufacturerItemID ;
+	sh:description "The general identifier assigned to the concept as defined by the Manufacturer. ​ WG approval 16/05/2023 " ;
+	sh:name "Has manufacturer item id" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
-cat-shape:Item-hasSellerItemID-Identifier a shacl:PropertyShape ;
-	shacl:targetClass adms:Identifier ;
+cat-shape:epo-cat-Item-epo-hasSellerItemID a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasSellerItemID ;
-	shacl:description "The general identifier assigned to the concept as defined by the Seller.​ WG approval 16/05/2023 " ;
-	shacl:name "has seller item id"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasSellerItemID ;
+	sh:description "The general identifier assigned to the concept as defined by the Seller.​ WG approval 16/05/2023 " ;
+	sh:name "Has seller item id" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
-cat-shape:Item-hasItemStandardID-Identifier a shacl:PropertyShape ;
-	shacl:targetClass adms:Identifier ;
+cat-shape:epo-cat-Item-epo-hasItemStandardID a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasItemStandardID ;
-	shacl:description "The general identifier assigned to the concept based on a standard scheme.​ Additional information: For example the GTIN scheme (Global Trade Item Number). WG approval 16/05/2023" ;
-	shacl:name "has item standard id"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasItemStandardID ;
+	sh:description "The general identifier assigned to the concept based on a standard scheme.​ Additional information: For example the GTIN scheme (Global Trade Item Number). WG approval 16/05/2023" ;
+	sh:name "Has item standard id" ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
-cat-shape:CatalogueLine-hasMaximumOrderQuantity-Quantity a shacl:PropertyShape ;
-	shacl:targetClass a4g:Quantity ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasMaximumOrderQuantity a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasMaximumOrderQuantity ;
-	shacl:description "The maximum number of orderable units that can be ordered according to details provided in the catalogue line, such as price. " ;
-	shacl:name "has maximum order quantity"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasMaximumOrderQuantity ;
+	sh:description "The maximum number of orderable units that can be ordered according to details provided in the catalogue line, such as price. " ;
+	sh:name "Has maximum order quantity" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
 
-cat-shape:CatalogueLine-hasMinimumQuantityGuaranteedForDelivery-Quantity a shacl:PropertyShape ;
-	shacl:targetClass a4g:Quantity ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasMinimumQuantityGuaranteedForDelivery a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasMinimumQuantityGuaranteedForDelivery ;
-	shacl:description "The minimum quantity of an item that is guaranteed by the seller to be delivered. " ;
-	shacl:name "has minimum quantity guaranteed for delivery"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasMinimumQuantityGuaranteedForDelivery ;
+	sh:description "The minimum quantity of an item that is guaranteed by the seller to be delivered. " ;
+	sh:name "Has minimum quantity guaranteed for delivery" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
 
-cat-shape:Item-hasNetQuantity-Quantity a shacl:PropertyShape ;
-	shacl:targetClass a4g:Quantity ;
+cat-shape:epo-cat-Item-epo-cat-hasNetQuantity a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasNetQuantity ;
-	shacl:description "The net quantity of the item that is contained in each consumable unit, excluding any packaging materials. " ;
-	shacl:name "has net quantity"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasNetQuantity ;
+	sh:description "The net quantity of the item that is contained in each consumable unit, excluding any packaging materials. " ;
+	sh:name "Has net quantity" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
 
-cat-shape:Item-hasCountryOfOrigin-country a shacl:PropertyShape ;
+cat-shape:epo-cat-Item-epo-cat-hasCountryOfOrigin a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasCountryOfOrigin ;
-	shacl:name "has country of origin"@en ;
-	shacl:maxCount 1 ;
-	shacl:node [
-		rdf:type shacl:NodeShape ;
-		shacl:property [
-			shacl:path skos:inScheme ;
-			shacl:hasValue atold:country ;
+	sh:path a4g:hasCountryOfOrigin ;
+	sh:name "Has country of origin" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:node [
+		rdf:type sh:NodeShape ;
+		sh:property [
+			sh:path skos:inScheme ;
+			sh:hasValue atold:country ;
 		] ;
-	] ;
-	shacl:nodeKind shacl:IRI .
+	] .
 
-cat-shape:CatalogueLine-hasOrderableUnit-orderable-unit a shacl:PropertyShape ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasOrderableUnit a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasOrderableUnit ;
-	shacl:description "The unit in which the item described in this catalogue line can be ordered." ;
-	shacl:name "has orderable unit"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasOrderableUnit ;
+	sh:description "The unit in which the item described in this catalogue line can be ordered." ;
+	sh:name "Has orderable unit" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:CatalogueLine-hasTransactionConditionsCode-transaction-conditions a shacl:PropertyShape ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasTransactionConditionsCode a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasTransactionConditionsCode ;
-	shacl:description "Coded description of the specific transaction conditions (purchasing, sales, payment) for an item. " ;
-	shacl:name "has transaction conditions code"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasTransactionConditionsCode ;
+	sh:description "Coded description of the specific transaction conditions (purchasing, sales, payment) for an item. " ;
+	sh:name "Has transaction conditions code" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:Catalogue-specifiesBuyer-Buyer a shacl:PropertyShape ;
-	shacl:targetClass a4g:Buyer ;
+cat-shape:epo-cat-Catalogue-epo-specifiesBuyer a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:specifiesBuyer ;
-	shacl:name "specifies buyer"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:specifiesBuyer ;
+	sh:name "Specifies buyer" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Buyer .
 
-cat-shape:Catalogue-hasActivityCode-activity-code a shacl:PropertyShape ;
+cat-shape:epo-cat-Catalogue-epo-cat-hasActivityCode a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasActivityCode ;
-	shacl:name "has activity code"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasActivityCode ;
+	sh:name "Has activity code" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:CatalogueLine-hasPrice-Price a shacl:PropertyShape ;
-	shacl:targetClass a4g:Price ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasPrice a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasPrice ;
-	shacl:name "has price"@en ;
-	shacl:minCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasPrice ;
+	sh:name "Has price" ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Price .
 
-cat-shape:Price-hasNetMonetaryValue-MonetaryValue a shacl:PropertyShape ;
-	shacl:targetClass a4g:MonetaryValue ;
+cat-shape:epo-cat-Price-epo-cat-hasNetMonetaryValue a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasNetMonetaryValue ;
-	shacl:name "has net monetary value"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasNetMonetaryValue ;
+	sh:name "Has net monetary value" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
 
-cat-shape:CatalogueLine-hasActivityCode-activity-code a shacl:PropertyShape ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasActivityCode a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasActivityCode ;
-	shacl:name "has activity code"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasActivityCode ;
+	sh:name "Has activity code" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:Price-hasOrderabableUnitFactorRate-Quantity a shacl:PropertyShape ;
-	shacl:targetClass a4g:Quantity ;
+cat-shape:epo-cat-Price-epo-cat-hasOrderabableUnitFactorRate a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasOrderabableUnitFactorRate ;
-	shacl:name "has orderabable unit factor rate"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasOrderabableUnitFactorRate ;
+	sh:name "Has orderabable unit factor rate" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
 
-cat-shape:Price-hasQuantityThreshold-Quantity a shacl:PropertyShape ;
-	shacl:targetClass a4g:Quantity ;
+cat-shape:epo-cat-Price-epo-cat-hasQuantityThreshold a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasQuantityThreshold ;
-	shacl:name "has quantity threshold"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasQuantityThreshold ;
+	sh:name "Has quantity threshold" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
 
-cat-shape:Price-hasExpectedDeliveryTime-Duration a shacl:PropertyShape ;
-	shacl:targetClass a4g:Duration ;
+cat-shape:epo-cat-Price-epo-cat-hasExpectedDeliveryTime a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasExpectedDeliveryTime ;
-	shacl:description "The expected amount of time between the order and delivery of an item. WG approval 26/07/2022" ;
-	shacl:name "has expected delivery time"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasExpectedDeliveryTime ;
+	sh:description "The expected amount of time between the order and delivery of an item. WG approval 26/07/2022" ;
+	sh:name "Has expected delivery time" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Duration .
 
-cat-shape:CatalogueLine-hasStandardisedUnitPrice-Price a shacl:PropertyShape ;
-	shacl:targetClass a4g:Price ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasStandardisedUnitPrice a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasStandardisedUnitPrice ;
-	shacl:description "The item price based on a standardised unit. Additional Information: The unit must be indicated in the Quantity, with a quantity value of 1." ;
-	shacl:name "has standardised unit price"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasStandardisedUnitPrice ;
+	sh:description "The item price based on a standardised unit. Additional Information: The unit must be indicated in the Quantity, with a quantity value of 1." ;
+	sh:name "Has standardised unit price" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Price .
 
-cat-shape:OrderLineShape a shacl:NodeShape ;
-	shacl:targetClass a4g:OrderLine ;
+cat-shape:epo-ord-OrderLineShape a sh:NodeShape ;
+	sh:targetClass a4g:OrderLine ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "Details concerning a given unit of goods, services or works requested in the Order. Additional information: In general, an Order Line contains the Quantity and Price of the goods, services and goods requested in the Order. However, in certain cases, the Price may not be known, as the Price may fluctuate from one day to the other. WG approval 20/04/2023" ;
-	shacl:property cat-shape:OrderLine-hasQuantity-Quantity, cat-shape:OrderLine-hasPrice-Price .
+	sh:property cat-shape:epo-ord-OrderLine-epo-cat-hasQuantity, cat-shape:epo-ord-OrderLine-epo-cat-hasPrice .
 
-cat-shape:OrderLine-hasQuantity-Quantity a shacl:PropertyShape ;
-	shacl:targetClass a4g:Quantity ;
+cat-shape:epo-ord-OrderLine-epo-cat-hasQuantity a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasQuantity ;
-	shacl:name "has quantity"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasQuantity ;
+	sh:name "Has quantity" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
 
-cat-shape:OrderShape a shacl:NodeShape ;
-	shacl:targetClass a4g:Order ;
+cat-shape:epo-ord-OrderShape a sh:NodeShape ;
+	sh:targetClass a4g:Order ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "A formal request of the Buyer to the Seller specifying the goods, services or works to be delivered. Additional Information: A Buyer submits an Order for delivery of goods, services or works to a Seller. WG approval 23/04/2023 " ;
-	shacl:property cat-shape:Order-specifiesChargeInformation-ChargeInformation .
+	sh:property cat-shape:epo-ord-Order-epo-cat-specifiesChargeInformation .
 
-cat-shape:Order-specifiesChargeInformation-ChargeInformation a shacl:PropertyShape ;
-	shacl:targetClass a4g:ChargeInformation ;
+cat-shape:epo-ord-Order-epo-cat-specifiesChargeInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:specifiesChargeInformation ;
-	shacl:name "specifies charge information"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:specifiesChargeInformation ;
+	sh:name "Specifies charge information" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ChargeInformation .
 
-cat-shape:Price-hasBaseQuantity-Quantity a shacl:PropertyShape ;
-	shacl:targetClass a4g:Quantity ;
+cat-shape:epo-cat-Price-epo-cat-hasBaseQuantity a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasBaseQuantity ;
-	shacl:description "The quantity at which the net monetary value applies." ;
-	shacl:name "has base quantity"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasBaseQuantity ;
+	sh:description "The quantity at which the net monetary value applies." ;
+	sh:name "Has base quantity" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
 
-cat-shape:Item-hasDeliveryClassification-delivery-item-type a shacl:PropertyShape ;
+cat-shape:epo-cat-Item-epo-cat-hasDeliveryClassification a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasDeliveryClassification ;
-	shacl:name "has delivery classification"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasDeliveryClassification ;
+	sh:name "Has delivery classification" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:Item-hasCertification-Certificate a shacl:PropertyShape ;
-	shacl:targetClass a4g:Certificate ;
+cat-shape:epo-cat-Item-epo-hasCertification a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasCertification ;
-	shacl:description "Relation to the proof of conformance. WG approval 30/05/2023" ;
-	shacl:name "has certification"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasCertification ;
+	sh:description "Relation to the proof of conformance. WG approval 30/05/2023" ;
+	sh:name "Has certification" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Certificate .
 
-cat-shape:Catalogue-specifiesSeller-Seller a shacl:PropertyShape ;
-	shacl:targetClass a4g:Seller ;
+cat-shape:epo-cat-Catalogue-epo-specifiesSeller a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:specifiesSeller ;
-	shacl:name "specifies seller"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:specifiesSeller ;
+	sh:name "Specifies seller" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Seller .
 
-cat-shape:Item-hasAccessoryItem-Item a shacl:PropertyShape ;
-	shacl:targetClass a4g:Item ;
+cat-shape:epo-cat-Item-epo-cat-hasAccessoryItem a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasAccessoryItem ;
-	shacl:description "An item that can be added to another item to enhance it. WG Approval: 30/06/2022" ;
-	shacl:name "has accessory item"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasAccessoryItem ;
+	sh:description "An item that can be added to another item to enhance it. WG Approval: 30/06/2022" ;
+	sh:name "Has accessory item" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
 
-cat-shape:Item-isReplacedBy-Item a shacl:PropertyShape ;
-	shacl:targetClass a4g:Item ;
+cat-shape:epo-cat-Item-dct-isReplacedBy a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path dcterms:isReplacedBy ;
-	shacl:description "A related resource that is supplanted, displaced, or superseded by the described resource. Additional Information: In the eCatalogue context, when this relation is used between two items, the resource in the definition refers to Items, i.e. one item replaces another item. WG Approval: 30/06/2022 " ;
-	shacl:name "is replaced by"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path dcterms:isReplacedBy ;
+	sh:description "A related resource that is supplanted, displaced, or superseded by the described resource. Additional Information: In the eCatalogue context, when this relation is used between two items, the resource in the definition refers to Items, i.e. one item replaces another item. WG Approval: 30/06/2022 " ;
+	sh:name "Is replaced by" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
 
-cat-shape:Item-hasSpecification-ProductSpecification a shacl:PropertyShape ;
-	shacl:targetClass a4g:ProductSpecification ;
+cat-shape:epo-cat-Item-epo-cat-hasSpecification a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasSpecification ;
-	shacl:name "has specification"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasSpecification ;
+	sh:name "Has specification" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ProductSpecification .
 
-cat-shape:Item-hasComplementaryItem-Item a shacl:PropertyShape ;
-	shacl:targetClass a4g:Item ;
+cat-shape:epo-cat-Item-epo-cat-hasComplementaryItem a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasComplementaryItem ;
-	shacl:description "An item that if used with another item provides mutual enhancements to both of them. Additional information: For example, gin and tonic; or smart-phone and smart-watch. WG Approval: 19/05/2022 " ;
-	shacl:name "has complementary item"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasComplementaryItem ;
+	sh:description "An item that if used with another item provides mutual enhancements to both of them. Additional information: For example, gin and tonic; or smart-phone and smart-watch. WG Approval: 19/05/2022 " ;
+	sh:name "Has complementary item" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
 
-cat-shape:Item-hasManufacturer-Manufacturer a shacl:PropertyShape ;
-	shacl:targetClass a4g:Manufacturer ;
+cat-shape:epo-cat-Item-epo-cat-hasManufacturer a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasManufacturer ;
-	shacl:name "has manufacturer"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasManufacturer ;
+	sh:name "Has manufacturer" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Manufacturer .
 
-cat-shape:Item-hasHazardousItemUNDGCode-dangerous-goods-list a shacl:PropertyShape ;
+cat-shape:epo-cat-Item-epo-cat-hasHazardousItemUNDGCode a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasHazardousItemUNDGCode ;
-	shacl:description "Specification of the hazardous nature of an item according to the UNDG classification schema. Provides detail of the classification and nature of a hazardous item. " ;
-	shacl:name "has hazardous item undg code"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasHazardousItemUNDGCode ;
+	sh:description "Specification of the hazardous nature of an item according to the UNDG classification schema. Provides detail of the classification and nature of a hazardous item. " ;
+	sh:name "Has hazardous item undg code" ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:CatalogueLine-foreseesPackage-Package a shacl:PropertyShape ;
-	shacl:targetClass a4g:Package ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-foreseesPackage a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:foreseesPackage ;
-	shacl:name "foresees package"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:foreseesPackage ;
+	sh:name "Foresees package" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Package .
 
-cat-shape:ItemProperty-describesItem-Item a shacl:PropertyShape ;
-	shacl:targetClass a4g:Item ;
+cat-shape:epo-cat-ItemProperty-epo-cat-describesItem a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:describesItem ;
-	shacl:name "describes item"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:describesItem ;
+	sh:name "Describes item" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
 
-cat-shape:Item-requires-Item a shacl:PropertyShape ;
-	shacl:targetClass a4g:Item ;
+cat-shape:epo-cat-Item-dct-requires a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path dcterms:requires ;
-	shacl:description "A related resource that is required by the described resource to support its function, delivery, or coherence. Additional Information: In the eCatalogue context, when this relation is used between two items, the resource in the definition refers to Items, i.e. one Item requires another Item. WG Approval: 30/06/2022 " ;
-	shacl:name "requires"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path dcterms:requires ;
+	sh:description "A related resource that is required by the described resource to support its function, delivery, or coherence. Additional Information: In the eCatalogue context, when this relation is used between two items, the resource in the definition refers to Items, i.e. one Item requires another Item. WG Approval: 30/06/2022 " ;
+	sh:name "Requires" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
 
-cat-shape:AllowanceChargeInformation-hasAmount-MonetaryValue a shacl:PropertyShape ;
-	shacl:targetClass a4g:MonetaryValue ;
+cat-shape:epo-ord-AllowanceChargeInformation-epo-cat-hasAmount a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasAmount ;
-	shacl:description "The predetermined monetary value charged in addition to the price. WG approval 26/07/2022" ;
-	shacl:name "has amount"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasAmount ;
+	sh:description "The predetermined monetary value charged in addition to the price. WG approval 26/07/2022" ;
+	sh:name "Has amount" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
 
-cat-shape:CatalogueLine-hasChargeInformation-ChargeInformation a shacl:PropertyShape ;
-	shacl:targetClass a4g:ChargeInformation ;
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasChargeInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasChargeInformation ;
-	shacl:name "has charge information"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasChargeInformation ;
+	sh:name "Has charge information" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ChargeInformation .
 
-cat-shape:TaxInformation-hasTaxCategory-tax-category a shacl:PropertyShape ;
+cat-shape:epo-ord-TaxInformation-epo-cat-hasTaxCategory a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasTaxCategory ;
-	shacl:name "has tax category"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasTaxCategory ;
+	sh:name "Has tax category" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:TaxInformation-hasTaxScheme-tax-scheme a shacl:PropertyShape ;
+cat-shape:epo-ord-TaxInformation-epo-cat-hasTaxScheme a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasTaxScheme ;
-	shacl:name "has tax scheme"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasTaxScheme ;
+	sh:name "Has tax scheme" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:CatalogueResponseShape a shacl:NodeShape ;
-	shacl:targetClass a4g:CatalogueResponse ;
+cat-shape:epo-cat-CatalogueResponseShape a sh:NodeShape ;
+	sh:targetClass a4g:CatalogueResponse ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:property cat-shape:CatalogueResponse-comprisesCatalogueResponseLine-CatalogueResponseLine, cat-shape:CatalogueResponse-refersToCatalogue-Catalogue, cat-shape:CatalogueResponse-specifiesCatalogueReceiver-CatalogueReceiver, cat-shape:CatalogueResponse-specifiesCatalogueProvider-CatalogueProvider, cat-shape:CatalogueResponse-specifiesCatalogueResponseInformation-CatalogueResponseInformation .
+	sh:property cat-shape:epo-cat-CatalogueResponse-epo-cat-comprisesCatalogueResponseLine, cat-shape:epo-cat-CatalogueResponse-epo-cat-refersToCatalogue, cat-shape:epo-cat-CatalogueResponse-epo-specifiesCatalogueReceiver, cat-shape:epo-cat-CatalogueResponse-epo-specifiesCatalogueProvider, cat-shape:epo-cat-CatalogueResponse-epo-cat-specifiesCatalogueResponseInformation .
 
-cat-shape:CatalogueResponse-comprisesCatalogueResponseLine-CatalogueResponseLine a shacl:PropertyShape ;
-	shacl:targetClass a4g:CatalogueResponseLine ;
+cat-shape:epo-cat-CatalogueResponse-epo-cat-comprisesCatalogueResponseLine a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:comprisesCatalogueResponseLine ;
-	shacl:name "comprises catalogue response line"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:comprisesCatalogueResponseLine ;
+	sh:name "Comprises catalogue response line" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueResponseLine .
 
-cat-shape:CatalogueResponseLineShape a shacl:NodeShape ;
-	shacl:targetClass a4g:CatalogueResponseLine ;
+cat-shape:epo-cat-CatalogueResponseLineShape a sh:NodeShape ;
+	sh:targetClass a4g:CatalogueResponseLine ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:property cat-shape:CatalogueResponseLine-refersToCatalogueLine-CatalogueLine, cat-shape:CatalogueResponseLine-hasUUID-Identifier .
+	sh:property cat-shape:epo-cat-CatalogueResponseLine-epo-cat-refersToCatalogueLine, cat-shape:epo-cat-CatalogueResponseLine-epo-hasUUID .
 
-cat-shape:CatalogueResponseLine-refersToCatalogueLine-CatalogueLine a shacl:PropertyShape ;
-	shacl:targetClass a4g:CatalogueLine ;
+cat-shape:epo-cat-CatalogueResponseLine-epo-cat-refersToCatalogueLine a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:refersToCatalogueLine ;
-	shacl:name "refers to catalogue line"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:refersToCatalogueLine ;
+	sh:name "Refers to catalogue line" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueLine .
 
-cat-shape:OrderLine-hasPrice-Price a shacl:PropertyShape ;
-	shacl:targetClass a4g:Price ;
+cat-shape:epo-ord-OrderLine-epo-cat-hasPrice a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasPrice ;
-	shacl:name "has price"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasPrice ;
+	sh:name "Has price" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Price .
 
-cat-shape:CatalogueResponse-refersToCatalogue-Catalogue a shacl:PropertyShape ;
-	shacl:targetClass a4g:Catalogue ;
+cat-shape:epo-cat-CatalogueResponse-epo-cat-refersToCatalogue a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:refersToCatalogue ;
-	shacl:name "refers to catalogue"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:refersToCatalogue ;
+	sh:name "Refers to catalogue" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Catalogue .
 
-cat-shape:CatalogueResponseLine-hasUUID-Identifier a shacl:PropertyShape ;
-	shacl:targetClass adms:Identifier ;
+cat-shape:epo-cat-CatalogueResponseLine-epo-hasUUID a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasUUID ;
-	shacl:description "A universally unique identifier for an instance of this document. WG Approval 12/05/2020 " ;
-	shacl:name "has uuid"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasUUID ;
+	sh:description "A universally unique identifier for an instance of this document. WG Approval 12/05/2020 " ;
+	sh:name "Has uuid" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
-cat-shape:CatalogueResponse-specifiesCatalogueReceiver-CatalogueReceiver a shacl:PropertyShape ;
-	shacl:targetClass a4g:CatalogueReceiver ;
+cat-shape:epo-cat-CatalogueResponse-epo-specifiesCatalogueReceiver a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:specifiesCatalogueReceiver ;
-	shacl:name "specifies catalogue receiver"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:specifiesCatalogueReceiver ;
+	sh:name "Specifies catalogue receiver" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueReceiver .
 
-cat-shape:CatalogueResponse-specifiesCatalogueProvider-CatalogueProvider a shacl:PropertyShape ;
-	shacl:targetClass a4g:CatalogueProvider ;
+cat-shape:epo-cat-CatalogueResponse-epo-specifiesCatalogueProvider a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:specifiesCatalogueProvider ;
-	shacl:name "specifies catalogue provider"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:specifiesCatalogueProvider ;
+	sh:name "Specifies catalogue provider" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueProvider .
 
-cat-shape:CatalogueResponse-specifiesCatalogueResponseInformation-CatalogueResponseInformation a shacl:PropertyShape ;
-	shacl:targetClass a4g:CatalogueResponseInformation ;
+cat-shape:epo-cat-CatalogueResponse-epo-cat-specifiesCatalogueResponseInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:specifiesCatalogueResponseInformation ;
-	shacl:name "specifies catalogue response information"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:specifiesCatalogueResponseInformation ;
+	sh:name "Specifies catalogue response information" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueResponseInformation .
 
-cat-shape:CatalogueResponseInformationShape a shacl:NodeShape ;
-	shacl:targetClass a4g:CatalogueResponseInformation ;
+cat-shape:epo-cat-CatalogueResponseInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:CatalogueResponseInformation ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:property cat-shape:CatalogueResponseInformation-isSpecificToCatalogueResponseLine-CatalogueResponseLine, cat-shape:CatalogueResponseInformation-hasAcceptanceStatus-ResponseStatus .
+	sh:property cat-shape:epo-cat-CatalogueResponseInformation-epo-cat-isSpecificToCatalogueResponseLine, cat-shape:epo-cat-CatalogueResponseInformation-epo-ord-hasAcceptanceStatus .
 
-cat-shape:CatalogueResponseInformation-isSpecificToCatalogueResponseLine-CatalogueResponseLine a shacl:PropertyShape ;
-	shacl:targetClass a4g:CatalogueResponseLine ;
+cat-shape:epo-cat-CatalogueResponseInformation-epo-cat-isSpecificToCatalogueResponseLine a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:isSpecificToCatalogueResponseLine ;
-	shacl:name "is specific to catalogue response line"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:isSpecificToCatalogueResponseLine ;
+	sh:name "Is specific to catalogue response line" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueResponseLine .
 
-cat-shape:CatalogueResponseInformation-hasAcceptanceStatus-ResponseStatus a shacl:PropertyShape ;
+cat-shape:epo-cat-CatalogueResponseInformation-epo-ord-hasAcceptanceStatus a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasAcceptanceStatus ;
-	shacl:name "has acceptance status"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasAcceptanceStatus ;
+	sh:name "Has acceptance status" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:Catalogue-hasValidityPeriod-Period a shacl:PropertyShape ;
-	shacl:targetClass a4g:Period ;
+cat-shape:epo-cat-Catalogue-epo-hasValidityPeriod a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasValidityPeriod ;
-	shacl:description "The relation indicating until when a given instance of a concept is applicable. WG approval 30/05/2023" ;
-	shacl:name "has validity period"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasValidityPeriod ;
+	sh:description "The relation indicating until when a given instance of a concept is applicable. WG approval 30/05/2023" ;
+	sh:name "Has validity period" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Period .
 
-cat-shape:Price-hasPriceSurchargeInformation-ChargeInformation a shacl:PropertyShape ;
-	shacl:targetClass a4g:ChargeInformation ;
+cat-shape:epo-cat-Price-epo-hasPriceSurchargeInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasPriceSurchargeInformation ;
-	shacl:name "has price surcharge information"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasPriceSurchargeInformation ;
+	sh:name "Has price surcharge information" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ChargeInformation .
 
-cat-shape:Price-hasPriceType-price-type a shacl:PropertyShape ;
+cat-shape:epo-cat-Price-epo-cat-hasPriceType a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasPriceType ;
-	shacl:name "has price type"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasPriceType ;
+	sh:name "Has price type" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:PostAwardDocumentShape a shacl:NodeShape ;
-	shacl:targetClass a4g:PostAwardDocument ;
+cat-shape:epo-cat-PostAwardDocumentShape a sh:NodeShape ;
+	sh:targetClass a4g:PostAwardDocument ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:property cat-shape:PostAwardDocument-hasDocumentType-document-type, cat-shape:PostAwardDocument-hasDocumentStatus-document-status .
+	sh:property cat-shape:epo-cat-PostAwardDocument-epo-cat-hasDocumentType, cat-shape:epo-cat-PostAwardDocument-epo-hasDocumentStatus .
 
-cat-shape:PostAwardDocument-hasDocumentType-document-type a shacl:PropertyShape ;
+cat-shape:epo-cat-PostAwardDocument-epo-cat-hasDocumentType a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasDocumentType ;
-	shacl:name "has document type"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasDocumentType ;
+	sh:name "Has document type" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:Item-hasBuyerItemID-Identifier a shacl:PropertyShape ;
-	shacl:targetClass adms:Identifier ;
+cat-shape:epo-cat-Item-epo-hasBuyerItemID a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasBuyerItemID ;
-	shacl:description "The general identifier assigned to the concept as defined by the Buyer.​ WG approval 16/05/2023 " ;
-	shacl:name "has buyer item id"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasBuyerItemID ;
+	sh:description "The general identifier assigned to the concept as defined by the Buyer.​ WG approval 16/05/2023 " ;
+	sh:name "Has buyer item id" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
-cat-shape:PostAwardDocument-hasDocumentStatus-document-status a shacl:PropertyShape ;
+cat-shape:epo-cat-PostAwardDocument-epo-hasDocumentStatus a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasDocumentStatus ;
-	shacl:description "https://test-docs.peppol.eu/logistics/transport-execution/codelist/DocumentStatusCode/" ;
-	shacl:name "has document status"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasDocumentStatus ;
+	sh:description "https://test-docs.peppol.eu/logistics/transport-execution/codelist/DocumentStatusCode/" ;
+	sh:name "Has document status" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
 
-cat-shape:Line-specifiesItem-Item a shacl:PropertyShape ;
-	shacl:targetClass a4g:Item ;
+cat-shape:epo-cat-Line-epo-cat-specifiesItem a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:specifiesItem ;
-	shacl:name "specifies item"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:specifiesItem ;
+	sh:name "Specifies item" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
 
-cat-shape:InformationHubShape a shacl:NodeShape ;
-	shacl:targetClass a4g:InformationHub ;
+cat-shape:epo-cat-InformationHubShape a sh:NodeShape ;
+	sh:targetClass a4g:InformationHub ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	rdfs:comment "Grouping of data that may be associated to various concepts. Additional Information: For example, AllowanceChargeInformation may be associated to the Order or the Catalogue (either at the Line level or at the Document level), amongst others. WG approval 16/05/2023" ;
-	shacl:property cat-shape:InformationHub-isSpecificToLine-Line .
+	sh:property cat-shape:epo-cat-InformationHub-epo-cat-isSpecificToLine .
 
-cat-shape:InformationHub-isSpecificToLine-Line a shacl:PropertyShape ;
-	shacl:targetClass a4g:Line ;
+cat-shape:epo-cat-InformationHub-epo-cat-isSpecificToLine a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:isSpecificToLine ;
-	shacl:name "is specific to line"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:isSpecificToLine ;
+	sh:name "Is specific to line" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Line .
 
-cat-shape:Line-identifier-Identifier a shacl:PropertyShape ;
-	shacl:targetClass adms:Identifier ;
+cat-shape:epo-cat-Line-adms-identifier a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path adms:identifier ;
-	shacl:description "Links a resource to an adms:Identifier class." ;
-	shacl:name "identifier"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path adms:identifier ;
+	sh:description "Links a resource to an adms:Identifier class." ;
+	sh:name "Identifier" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
-cat-shape:TaxInformation-hasAmount-MonetaryValue a shacl:PropertyShape ;
-	shacl:targetClass a4g:MonetaryValue ;
+cat-shape:epo-ord-TaxInformation-epo-cat-hasAmount a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasAmount ;
-	shacl:description "The predetermined monetary value charged in addition to the price. WG approval 26/07/2022 " ;
-	shacl:name "has amount"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasAmount ;
+	sh:description "The predetermined monetary value charged in addition to the price. WG approval 26/07/2022 " ;
+	sh:name "Has amount" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
 
-cat-shape:Item-hasExternalSpecification-Document a shacl:PropertyShape ;
-	shacl:targetClass a4g:Document ;
+cat-shape:epo-cat-Item-epo-cat-hasExternalSpecification a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasExternalSpecification ;
-	shacl:description "URI reference to external item information or specifications, e.g. web address. " ;
-	shacl:name "has external specification"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasExternalSpecification ;
+	sh:description "URI reference to external item information or specifications, e.g. web address. " ;
+	sh:name "Has external specification" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Document .
 
-cat-shape:Item-hasSerialID-Identifier a shacl:PropertyShape ;
-	shacl:targetClass adms:Identifier ;
+cat-shape:epo-cat-Item-epo-hasSerialID a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasSerialID ;
-	shacl:description "The identifier assigned to the specific instance of the produced concept. WG Approval 16/05/2023 " ;
-	shacl:name "has serial id"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasSerialID ;
+	sh:description "The identifier assigned to the specific instance of the produced concept. WG Approval 16/05/2023 " ;
+	sh:name "Has serial id" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
-cat-shape:Price-hasPriceDiscountInformation-AllowanceInformation a shacl:PropertyShape ;
-	shacl:targetClass a4g:AllowanceInformation ;
+cat-shape:epo-cat-Price-epo-ord-hasPriceDiscountInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasPriceDiscountInformation ;
-	shacl:name "has price discount information"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasPriceDiscountInformation ;
+	sh:name "Has price discount information" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:AllowanceInformation .
 
-cat-shape:Item-hasTaxInformation-TaxInformation a shacl:PropertyShape ;
-	shacl:targetClass a4g:TaxInformation ;
+cat-shape:epo-cat-Item-epo-ord-hasTaxInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	shacl:path a4g:hasTaxInformation ;
-	shacl:name "has tax information"@en ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasTaxInformation ;
+	sh:name "Has tax information" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:TaxInformation .
 

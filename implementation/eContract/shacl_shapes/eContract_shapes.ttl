@@ -15,7 +15,7 @@
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix person: <http://www.w3.org/ns/person#> .
 @prefix locn: <http://www.w3.org/ns/locn#> .
-@prefix shacl: <http://www.w3.org/ns/shacl#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix rml: <http://semweb.mmlab.be/ns/rml#> .
@@ -25,20 +25,10 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix con-shape: <http://data.europa.eu/a4g/data-shape/con/> .
 
-a4g_shape:PlainLiteral a shacl:NodeShape ;
-	shacl:or (
-		[
-			shacl:datatype xsd:string ;
-		]
-		[
-			shacl:datatype rdf:langString ;
-		]
-	) .
-
-con-shape:ContractModificationInformationShape a shacl:NodeShape ;
-	shacl:targetClass a4g:ContractModificationInformation ;
+con-shape:epo-con-ContractModificationInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:ContractModificationInformation ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/con/> ;
-	shacl:property con-shape:ContractModificationInformation-hasModificationDescription-PlainLiteral, con-shape:ContractModificationInformation-hasModificationReasonDescription-PlainLiteral, con-shape:ContractModificationInformation-relatesToEFormSectionIdentifier-Identifier, con-shape:ContractModificationInformation-concernsContractAmendment-ContractAmendment, con-shape:ContractModificationInformation-hasModificationJustification-modification-justification .
+	sh:property con-shape:epo-con-ContractModificationInformation-epo-hasModificationDescription, con-shape:epo-con-ContractModificationInformation-epo-hasModificationReasonDescription, con-shape:epo-con-ContractModificationInformation-epo-relatesToEFormSectionIdentifier, con-shape:epo-con-ContractModificationInformation-epo-concernsContractAmendment, con-shape:epo-con-ContractModificationInformation-epo-hasModificationJustification .
 
 <http://data.europa.eu/a4g/data-shape/con/> a owl:Ontology ;
 	rdfs:label "eProcurement Ontology con - SHACL shapes"@en ;
@@ -57,98 +47,112 @@ con-shape:ContractModificationInformationShape a shacl:NodeShape ;
 	owl:versionIRI con-shape:con-shape-4.1.0 ;
 	owl:versionInfo "4.1.0" .
 
-con-shape:ContractModificationInformation-hasModificationDescription-PlainLiteral a shacl:PropertyShape ;
+con-shape:epo-con-ContractModificationInformation-epo-hasModificationDescription a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/con/> ;
-	shacl:path a4g:hasModificationDescription ;
-	shacl:description "An explanatory text about this context. Additional Information This corresponds in Standard forms to Field VII.2.1 in F20 This corresponds in eForms to BT-202 . WG Approval 5/11/2019 " ;
-	shacl:name "has modification description"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path a4g:hasModificationDescription ;
+	sh:description "An explanatory text about this context. Additional Information This corresponds in Standard forms to Field VII.2.1 in F20 This corresponds in eForms to BT-202 . WG Approval 5/11/2019 " ;
+	sh:name "Has modification description" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-con-shape:ContractModificationInformation-hasModificationReasonDescription-PlainLiteral a shacl:PropertyShape ;
+con-shape:epo-con-ContractModificationInformation-epo-hasModificationReasonDescription a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/con/> ;
-	shacl:path a4g:hasModificationReasonDescription ;
-	shacl:description "An explanation about the reasons for using the concept. Additional Information This corresponds in Standard forms to Field VII.2.2.2 and VII.2.2.4 in F20. This corresponds in eForms to BT-201 . WG Approval 5/11/2019 " ;
-	shacl:name "has modification reason description"@en ;
-	shacl:minCount 0 ;
-	shacl:maxCount 1 ;
-	shacl:node a4g_shape:PlainLiteral .
+	sh:path a4g:hasModificationReasonDescription ;
+	sh:description "An explanation about the reasons for using the concept. Additional Information This corresponds in Standard forms to Field VII.2.2.2 and VII.2.2.4 in F20. This corresponds in eForms to BT-201 . WG Approval 5/11/2019 " ;
+	sh:name "Has modification reason description" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
 
-con-shape:ContractAmendmentShape a shacl:NodeShape ;
-	shacl:targetClass a4g:ContractAmendment ;
+con-shape:epo-con-ContractAmendmentShape a sh:NodeShape ;
+	sh:targetClass a4g:ContractAmendment ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/con/> ;
-	shacl:property con-shape:ContractAmendment-updatesContractValue-MonetaryValue, con-shape:ContractAmendment-amendsContract-Contract ;
+	sh:property con-shape:epo-con-ContractAmendment-epo-updatesContractValue, con-shape:epo-con-ContractAmendment-epo-amendsContract ;
 	rdfs:comment "A change to an existing Contract that is agreed by the contracting parties." .
 
-con-shape:ContractAmendment-updatesContractValue-MonetaryValue a shacl:PropertyShape ;
-	shacl:targetClass a4g:MonetaryValue ;
+con-shape:epo-con-ContractAmendment-epo-updatesContractValue a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/con/> ;
-	shacl:path a4g:updatesContractValue ;
-	shacl:name "updates contract value"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:updatesContractValue ;
+	sh:name "Updates contract value" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
 
-con-shape:DeliverableShape a shacl:NodeShape ;
-	shacl:targetClass a4g:Deliverable ;
+con-shape:epo-con-DeliverableShape a sh:NodeShape ;
+	sh:targetClass a4g:Deliverable ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/con/> ;
-	shacl:property con-shape:Deliverable-hasQuantity-Quantity, con-shape:Deliverable-hasTotalValue-MonetaryValue .
+	sh:property con-shape:epo-con-Deliverable-epo-cat-hasQuantity, con-shape:epo-con-Deliverable-epo-hasTotalValue .
 
-con-shape:Deliverable-hasQuantity-Quantity a shacl:PropertyShape ;
-	shacl:targetClass a4g:Quantity ;
+con-shape:epo-con-Deliverable-epo-cat-hasQuantity a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/con/> ;
-	shacl:path a4g:hasQuantity ;
-	shacl:name "has quantity"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasQuantity ;
+	sh:name "Has quantity" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
 
-con-shape:ContractAmendment-amendsContract-Contract a shacl:PropertyShape ;
-	shacl:targetClass a4g:Contract ;
+con-shape:epo-con-ContractAmendment-epo-amendsContract a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/con/> ;
-	shacl:path a4g:amendsContract ;
-	shacl:name "amends contract"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:amendsContract ;
+	sh:name "Amends contract" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Contract .
 
-con-shape:ContractModificationInformation-relatesToEFormSectionIdentifier-Identifier a shacl:PropertyShape ;
-	shacl:targetClass adms:Identifier ;
+con-shape:epo-con-ContractModificationInformation-epo-relatesToEFormSectionIdentifier a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/con/> ;
-	shacl:path a4g:relatesToEFormSectionIdentifier ;
-	shacl:name "relates to e form section identifier"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:relatesToEFormSectionIdentifier ;
+	sh:name "Relates to e form section identifier" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
-con-shape:ContractModificationInformation-concernsContractAmendment-ContractAmendment a shacl:PropertyShape ;
-	shacl:targetClass a4g:ContractAmendment ;
+con-shape:epo-con-ContractModificationInformation-epo-concernsContractAmendment a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/con/> ;
-	shacl:path a4g:concernsContractAmendment ;
-	shacl:name "concerns contract amendment"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:concernsContractAmendment ;
+	sh:name "Concerns contract amendment" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ContractAmendment .
 
-con-shape:ContractModificationInformation-hasModificationJustification-modification-justification a shacl:PropertyShape ;
+con-shape:epo-con-ContractModificationInformation-epo-hasModificationJustification a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/con/> ;
-	shacl:path a4g:hasModificationJustification ;
-	shacl:description "Explanation of why a contract was modified. WG Approval 09/11/2021 The codelist to be used is at-voc:modification-justification which is available at http://publications.europa.eu/resource/dataset/modification-justification Additional Information This corresponds in Standard forms to Field VII.2.2.1 and VII.2.2.3 in F20 . This corresponds in eForms to BT-200. " ;
-	shacl:name "has modification justification"@en ;
-	shacl:minCount 1 ;
-	shacl:maxCount 1 ;
-	shacl:node [
-		rdf:type shacl:NodeShape ;
-		shacl:property [
-			shacl:path skos:inScheme ;
-			shacl:hasValue atold:modification-justification ;
+	sh:path a4g:hasModificationJustification ;
+	sh:description "Explanation of why a contract was modified. WG Approval 09/11/2021 The codelist to be used is at-voc:modification-justification which is available at http://publications.europa.eu/resource/dataset/modification-justification Additional Information This corresponds in Standard forms to Field VII.2.2.1 and VII.2.2.3 in F20 . This corresponds in eForms to BT-200. " ;
+	sh:name "Has modification justification" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:node [
+		rdf:type sh:NodeShape ;
+		sh:property [
+			sh:path skos:inScheme ;
+			sh:hasValue atold:modification-justification ;
 		] ;
-	] ;
-	shacl:nodeKind shacl:IRI .
+	] .
 
-con-shape:Deliverable-hasTotalValue-MonetaryValue a shacl:PropertyShape ;
-	shacl:targetClass a4g:MonetaryValue ;
+con-shape:epo-con-Deliverable-epo-hasTotalValue a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/con/> ;
-	shacl:path a4g:hasTotalValue ;
-	shacl:name "has total value"@en ;
-	shacl:maxCount 1 ;
-	shacl:nodeKind shacl:IRI .
+	sh:path a4g:hasTotalValue ;
+	sh:name "Has total value" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
 
