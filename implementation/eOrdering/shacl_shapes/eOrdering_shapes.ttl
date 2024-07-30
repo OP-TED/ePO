@@ -32,27 +32,48 @@ ord-shape:epo-ord-TaxInformationShape a sh:NodeShape ;
 	sh:property ord-shape:epo-ord-TaxInformation-dct-description, ord-shape:epo-ord-TaxInformation-epo-cat-hasPercentage, ord-shape:epo-ord-TaxInformation-epo-cat-hasTaxCategory, ord-shape:epo-ord-TaxInformation-epo-cat-hasTaxScheme, ord-shape:epo-ord-TaxInformation-epo-cat-hasAmount, ord-shape:epo-ord-TaxInformation-epo-isCalculatedOn .
 
 <http://data.europa.eu/a4g/data-shape/ord/> a owl:Ontology ;
-	dcterms:description "The eProcurement Ontology ord SHACL shapes provides the datashape specifications for the eProcurement Ontology ord module."@en ;
-	rdfs:label "eProcurement Ontology ord - SHACL shapes"@en ;
+	dcterms:description "The eProcurement Ontology eOrdering SHACL shapes provides the datashape specifications for the eProcurement Ontology ord module."@en ;
+	rdfs:label "eProcurement Ontology eOrdering - SHACL shapes"@en ;
 	dcterms:created "2021-06-01"^^xsd:date ;
-	dcterms:issued "2024-03-21"^^xsd:date ;
+	dcterms:issued "2024-07-23"^^xsd:date ;
 	dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
 	dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
-	dcterms:title "eProcurement Ontology ord - SHACL shapes"@en ;
+	dcterms:title "eProcurement Ontology eOrdering - SHACL shapes"@en ;
 	vann:preferredNamespacePrefix "epo" ;
 	vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
 	rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>, <https://github.com/OP-TED/ePO/releases>, <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>, <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
 	owl:imports <http://data.europa.eu/eli/ontology#>, <http://data.europa.eu/m8g/>, <http://purl.org/dc/terms/>, <http://purl.org/vocab/vann/>, <http://www.w3.org/2004/02/skos/core>, <http://www.w3.org/2006/time>, <http://www.w3.org/ns/adms>, <http://www.w3.org/ns/locn>, <http://www.w3.org/ns/org#>, <http://www.w3.org/ns/person>, <http://xmlns.com/foaf/0.1/> ;
 	owl:incompatibleWith "3.1.0" ;
-	owl:priorVersion "http://data.europa.eu/a4g/data-shape#ord-shape-4.0.2" ;
-	owl:versionIRI ord-shape:ord-shape-4.1.0 ;
-	owl:versionInfo "4.1.0" .
+	owl:priorVersion "http://data.europa.eu/a4g/data-shape#ord-shape-4.1.0" ;
+	owl:versionIRI ord-shape:ord-shape-4.2.0 ;
+	owl:versionInfo "4.2.0" .
 
 ord-shape:epo-ord-TaxInformation-dct-description a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
 	sh:path dcterms:description ;
 	sh:description "An account of the resource. Additional Information: Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource. WG Approval 30/05/2023 " ;
 	sh:name "Description" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
+
+ord-shape:epo-inv-InvoiceLineShape a sh:NodeShape ;
+	sh:targetClass a4g:InvoiceLine ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	rdfs:comment "Details concerning a given unit of goods, services or works mentioned in the Invoice. WG approval 11/07/2024" ;
+	sh:property ord-shape:epo-inv-InvoiceLine-epo-ord-hasAccountingCost, ord-shape:epo-inv-InvoiceLine-epo-ord-hasTaxInformation .
+
+ord-shape:epo-inv-InvoiceLine-epo-ord-hasAccountingCost a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasAccountingCost ;
+	sh:name "Has accounting cost" ;
 	sh:minCount 0 ;
 	sh:maxCount 1 ;
 	sh:or (
@@ -83,7 +104,7 @@ ord-shape:epo-ord-DeliveryInformationShape a sh:NodeShape ;
 	sh:targetClass a4g:DeliveryInformation ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
 	rdfs:comment "Information about the timing, the delivery destination, the delivery agreement and the involved parties. WG approval 16/05/2023 " ;
-	sh:property ord-shape:epo-ord-DeliveryInformation-epo-ord-hasShippingMark, ord-shape:epo-ord-DeliveryInformation-epo-ord-hasDeliveryDeadline, ord-shape:epo-ord-DeliveryInformation-epo-ord-concernsConsignee, ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesPlaceOfDelivery, ord-shape:epo-ord-DeliveryInformation-epo-ord-hasDeliveryPeriod, ord-shape:epo-ord-DeliveryInformation-epo-ord-isSpecificToOrderLine, ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesGeneralDeliveryAgreement, ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesSpecificDeliveryAgreement, ord-shape:epo-ord-DeliveryInformation-epo-ful-hasTrackingID .
+	sh:property ord-shape:epo-ord-DeliveryInformation-epo-ord-hasShippingMark, ord-shape:epo-ord-DeliveryInformation-epo-inv-hasActualDeliveryDate, ord-shape:epo-ord-DeliveryInformation-epo-ord-hasDeliveryDeadline, ord-shape:epo-ord-DeliveryInformation-epo-ord-concernsConsignee, ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesPlaceOfDelivery, ord-shape:epo-ord-DeliveryInformation-epo-ord-hasDeliveryPeriod, ord-shape:epo-ord-DeliveryInformation-epo-ord-isSpecificToOrderLine, ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesGeneralDeliveryAgreement, ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesSpecificDeliveryAgreement, ord-shape:epo-ord-DeliveryInformation-epo-ful-hasTrackingID .
 
 ord-shape:epo-ord-DeliveryInformation-epo-ord-hasShippingMark a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
@@ -125,9 +146,30 @@ ord-shape:epo-ord-OrderShape a sh:NodeShape ;
 	sh:targetClass a4g:Order ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
 	rdfs:comment "A formal request of the Buyer to the Seller specifying the goods, services or works to be delivered. Additional Information: A Buyer submits an Order for delivery of goods, services or works to a Seller. WG approval 23/04/2023 " ;
-	sh:property ord-shape:epo-ord-Order-epo-ord-hasPaymentTerm, ord-shape:epo-ord-Order-epo-ord-hasCustomerReference, ord-shape:epo-ord-Order-epo-ord-hasAccountingCost, ord-shape:epo-ord-Order-epo-specifiesSeller, ord-shape:epo-ord-Order-epo-ord-refersToCatalogue, ord-shape:epo-ord-Order-epo-ord-specifiesDeliveryInformation, ord-shape:epo-ord-Order-epo-ord-comprisesOrderLine, ord-shape:epo-ord-Order-epo-ord-specifiesContractInformation, ord-shape:epo-ord-Order-epo-cat-specifiesChargeInformation, ord-shape:epo-ord-Order-epo-specifiesBuyer, ord-shape:epo-ord-Order-epo-specifiesDespatcher, ord-shape:epo-ord-Order-epo-ord-hasSellerOrderID, ord-shape:epo-ord-Order-epo-ord-specifiesAllowanceInformation, ord-shape:epo-ord-Order-epo-ord-specifiesOriginatorInformation, ord-shape:epo-ord-Order-epo-refersToProject, ord-shape:epo-ord-Order-epo-ord-hasTotalLineAmount, ord-shape:epo-ord-Order-epo-ord-hasTotalTaxExclusiveAmount, ord-shape:epo-ord-Order-epo-ord-hasTotalTaxInclusiveAmount, ord-shape:epo-ord-Order-epo-ord-hasTotalAllowanceAmount, ord-shape:epo-ord-Order-epo-ord-hasTotalChargeAmount, ord-shape:epo-ord-Order-epo-ord-hasPrepaidAmount, ord-shape:epo-ord-Order-epo-ord-hasRoundingAmount, ord-shape:epo-ord-Order-epo-ord-hasAmountDueForPayment .
+	sh:property ord-shape:epo-ord-Order-epo-ord-hasPaymentTerm, ord-shape:epo-ord-Order-epo-ord-hasCustomerReference, ord-shape:epo-ord-Order-epo-ord-hasAccountingCost, ord-shape:epo-ord-Order-epo-specifiesSeller, ord-shape:epo-ord-Order-epo-ord-refersToCatalogue, ord-shape:epo-ord-Order-epo-ord-specifiesDeliveryInformation, ord-shape:epo-ord-Order-epo-ord-comprisesOrderLine, ord-shape:epo-ord-Order-epo-ord-specifiesContractInformation, ord-shape:epo-ord-Order-epo-cat-specifiesChargeInformation, ord-shape:epo-ord-Order-epo-specifiesBuyer, ord-shape:epo-ord-Order-epo-specifiesDespatcher, ord-shape:epo-ord-Order-epo-ord-hasSellerOrderID, ord-shape:epo-ord-Order-epo-ord-specifiesAllowanceInformation, ord-shape:epo-ord-Order-epo-ord-specifiesOriginatorInformation, ord-shape:epo-ord-Order-epo-refersToProject, ord-shape:epo-ord-Order-epo-ord-hasTotalLineAmount, ord-shape:epo-ord-Order-epo-ord-hasTotalTaxExclusiveAmount, ord-shape:epo-ord-Order-epo-ord-hasTotalTaxInclusiveAmount, ord-shape:epo-ord-Order-epo-ord-hasTotalAllowanceAmount, ord-shape:epo-ord-Order-epo-ord-hasTotalChargeAmount, ord-shape:epo-ord-Order-epo-ord-hasPrepaidAmount, ord-shape:epo-ord-Order-epo-ord-hasRoundingAmount, ord-shape:epo-ord-Order-epo-ord-hasAmountDueForPayment, ord-shape:epo-ord-Order-epo-hasValidityPeriod .
 
 ord-shape:epo-ord-Order-epo-ord-hasPaymentTerm a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasPaymentTerm ;
+	sh:name "Has payment term" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
+
+ord-shape:epo-inv-InvoiceShape a sh:NodeShape ;
+	sh:targetClass a4g:Invoice ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	rdfs:comment "A commercial Document issued by the Seller to the Buyer to collect payments for the goods or services provided and to state the VAT amount due by the Buyer. WG approval 04/07/2024" ;
+	sh:property ord-shape:epo-inv-Invoice-epo-ord-hasPaymentTerm, ord-shape:epo-inv-Invoice-epo-ord-hasAccountingCost, ord-shape:epo-inv-Invoice-epo-ord-hasCustomerReference, ord-shape:epo-inv-Invoice-epo-ord-specifiesDeliveryInformation, ord-shape:epo-inv-Invoice-epo-ord-specifiesAllowanceInformation, ord-shape:epo-inv-Invoice-epo-ord-hasTotalAllowanceAmount, ord-shape:epo-inv-Invoice-epo-ord-hasTotalChargeAmount, ord-shape:epo-inv-Invoice-epo-ord-hasTotalLineAmount, ord-shape:epo-inv-Invoice-epo-ord-hasTotalTaxExclusiveAmount, ord-shape:epo-inv-Invoice-epo-ord-hasTotalTaxInclusiveAmount, ord-shape:epo-inv-Invoice-epo-ord-hasPrepaidAmount, ord-shape:epo-inv-Invoice-epo-ord-hasRoundingAmount, ord-shape:epo-inv-Invoice-epo-ord-hasAmountDueForPayment, ord-shape:epo-inv-Invoice-epo-ord-hasTaxInformation .
+
+ord-shape:epo-inv-Invoice-epo-ord-hasPaymentTerm a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
 	sh:path a4g:hasPaymentTerm ;
 	sh:name "Has payment term" ;
@@ -150,6 +192,44 @@ ord-shape:epo-ord-Order-epo-ord-hasCustomerReference a sh:PropertyShape ;
 	sh:minCount 0 ;
 	sh:maxCount 1 ;
 	sh:datatype xsd:boolean .
+
+ord-shape:epo-inv-Invoice-epo-ord-hasAccountingCost a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasAccountingCost ;
+	sh:name "Has accounting cost" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
+
+ord-shape:epo-inv-Invoice-epo-ord-hasCustomerReference a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasCustomerReference ;
+	sh:name "Has customer reference" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
+
+ord-shape:epo-ord-DeliveryInformation-epo-inv-hasActualDeliveryDate a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasActualDeliveryDate ;
+	sh:name "Has actual delivery date" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:date .
 
 ord-shape:epo-ord-Order-epo-ord-hasAccountingCost a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
@@ -422,7 +502,7 @@ ord-shape:epo-ord-AllowanceInformationShape a sh:NodeShape ;
 	sh:targetClass a4g:AllowanceInformation ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
 	rdfs:comment "Information about the discounts imposed. WG approval 16/05/2023 " ;
-	sh:property ord-shape:epo-ord-AllowanceInformation-epo-ord-isSpecificToOrderLine .
+	sh:property ord-shape:epo-ord-AllowanceInformation-epo-ord-isSpecificToOrderLine, ord-shape:epo-ord-AllowanceInformation-epo-inv-isSpecificToInvoiceLine .
 
 ord-shape:epo-ord-AllowanceInformation-epo-ord-isSpecificToOrderLine a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
@@ -460,7 +540,6 @@ ord-shape:epo-ord-OrderLine-epo-cat-hasPrice a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
 	sh:path a4g:hasPrice ;
 	sh:name "Has price" ;
-	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:Price .
 
@@ -519,6 +598,7 @@ ord-shape:epo-cat-CatalogueResponseInformation-epo-ord-hasAcceptanceStatus a sh:
 ord-shape:epo-ord-Order-epo-specifiesDespatcher a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
 	sh:path a4g:specifiesDespatcher ;
+	sh:description "Relation indicating that the instance of the concept involves the Despatcher. WG approval 25/06/2024" ;
 	sh:name "Specifies despatcher" ;
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI ;
@@ -527,7 +607,7 @@ ord-shape:epo-ord-Order-epo-specifiesDespatcher a sh:PropertyShape ;
 ord-shape:epo-ContractShape a sh:NodeShape ;
 	sh:targetClass a4g:Contract ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
-	rdfs:comment "A voluntary, deliberate, and legally binding agreement between two or more competent parties. Additional information: This includes Concession Contracts. WG approval 01/06/2018" ;
+	rdfs:comment "A voluntary, deliberate, and legally binding agreement between two or more competent parties. WG approval 19/03/2024" ;
 	sh:property ord-shape:epo-Contract-epo-ord-hasTaxInformation .
 
 ord-shape:epo-Contract-epo-ord-hasTaxInformation a sh:PropertyShape ;
@@ -541,6 +621,7 @@ ord-shape:epo-Contract-epo-ord-hasTaxInformation a sh:PropertyShape ;
 ord-shape:epo-ord-Order-epo-ord-hasSellerOrderID a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
 	sh:path a4g:hasSellerOrderID ;
+	sh:description "The identifier of the Order given by the Seller. Additional Information: This identifier is different than the identifier of the Order given by the Buyer and it is useful for internal purposes. WG approval 12/10/2023" ;
 	sh:name "Has seller order id" ;
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI ;
@@ -593,10 +674,24 @@ ord-shape:epo-ord-Order-epo-ord-specifiesOriginatorInformation a sh:PropertyShap
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:OriginatorInformation .
 
+ord-shape:epo-cat-PriceShape a sh:NodeShape ;
+	sh:targetClass a4g:Price ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	rdfs:comment "Amount of money required or given in exchange for Items. Additional information: The Price excludes any charges (such as taxes, duties and fees) and discounts. WG approval 26/07/2022" ;
+	sh:property ord-shape:epo-cat-Price-epo-ord-hasGrossMonetaryValue, ord-shape:epo-cat-Price-epo-ord-hasPriceDiscountInformation .
+
+ord-shape:epo-cat-Price-epo-ord-hasGrossMonetaryValue a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasGrossMonetaryValue ;
+	sh:name "Has gross monetary value" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
+
 ord-shape:epo-ord-AllowanceChargeInformation-epo-ful-hasAllowanceChargeReason a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
 	sh:path a4g:hasAllowanceChargeReason ;
-	sh:description "https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5189/ https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7161/" ;
+	sh:description "The justification for using the Allowance or the Charge. WG approval 10/06/2024 " ;
 	sh:name "Has allowance charge reason" ;
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI .
@@ -625,6 +720,14 @@ ord-shape:epo-ord-DeliveryInformation-epo-ord-specifiesSpecificDeliveryAgreement
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:DeliveryAgreement .
+
+ord-shape:epo-inv-Invoice-epo-ord-specifiesDeliveryInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:specifiesDeliveryInformation ;
+	sh:name "Specifies delivery information" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:DeliveryInformation .
 
 ord-shape:epo-ord-DeliveryInformation-epo-ful-hasTrackingID a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
@@ -742,12 +845,6 @@ ord-shape:epo-ord-AllowanceChargeInformation-epo-ord-hasTaxInformation a sh:Prop
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:TaxInformation .
 
-ord-shape:epo-cat-PriceShape a sh:NodeShape ;
-	sh:targetClass a4g:Price ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
-	rdfs:comment "Amount of money required or given in exchange for Items. Additional information: The Price excludes any charges (such as taxes, duties and fees) and discounts. WG approval 26/07/2022" ;
-	sh:property ord-shape:epo-cat-Price-epo-ord-hasPriceDiscountInformation .
-
 ord-shape:epo-cat-Price-epo-ord-hasPriceDiscountInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
 	sh:path a4g:hasPriceDiscountInformation ;
@@ -755,6 +852,42 @@ ord-shape:epo-cat-Price-epo-ord-hasPriceDiscountInformation a sh:PropertyShape ;
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:AllowanceInformation .
+
+ord-shape:epo-inv-Invoice-epo-ord-specifiesAllowanceInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:specifiesAllowanceInformation ;
+	sh:name "Specifies allowance information" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:AllowanceInformation .
+
+ord-shape:epo-ord-AllowanceInformation-epo-inv-isSpecificToInvoiceLine a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:isSpecificToInvoiceLine ;
+	sh:name "Is specific to invoice line" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:InvoiceLine .
+
+ord-shape:epo-inv-Invoice-epo-ord-hasTotalAllowanceAmount a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasTotalAllowanceAmount ;
+	sh:name "Has total allowance amount" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
+
+ord-shape:epo-inv-Invoice-epo-ord-hasTotalChargeAmount a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasTotalChargeAmount ;
+	sh:name "Has total charge amount" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
+
+ord-shape:epo-inv-Invoice-epo-ord-hasTotalLineAmount a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasTotalLineAmount ;
+	sh:name "Has total line amount" ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
 
 ord-shape:epo-cat-ItemShape a sh:NodeShape ;
 	sh:targetClass a4g:Item ;
@@ -766,6 +899,87 @@ ord-shape:epo-cat-Item-epo-ord-hasTaxInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
 	sh:path a4g:hasTaxInformation ;
 	sh:name "Has tax information" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:TaxInformation .
+
+ord-shape:epo-inv-Invoice-epo-ord-hasTotalTaxExclusiveAmount a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasTotalTaxExclusiveAmount ;
+	sh:name "Has total tax exclusive amount" ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
+
+ord-shape:epo-inv-Invoice-epo-ord-hasTotalTaxInclusiveAmount a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasTotalTaxInclusiveAmount ;
+	sh:name "Has total tax inclusive amount" ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
+
+ord-shape:epo-inv-Invoice-epo-ord-hasPrepaidAmount a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasPrepaidAmount ;
+	sh:name "Has prepaid amount" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
+
+ord-shape:epo-inv-Invoice-epo-ord-hasRoundingAmount a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasRoundingAmount ;
+	sh:name "Has rounding amount" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
+
+ord-shape:epo-inv-Invoice-epo-ord-hasAmountDueForPayment a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasAmountDueForPayment ;
+	sh:name "Has amount due for payment" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
+
+ord-shape:epo-ord-Order-epo-hasValidityPeriod a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasValidityPeriod ;
+	sh:name "Has validity period" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Period .
+
+ord-shape:epo-inv-TaxBreakdownInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:TaxBreakdownInformation ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	rdfs:comment "Information about tax breakdown by different categories, rates and exemption reasons. WG approval 11/07/2024" ;
+	sh:property ord-shape:epo-inv-TaxBreakdownInformation-epo-ord-hasTaxInformation .
+
+ord-shape:epo-inv-TaxBreakdownInformation-epo-ord-hasTaxInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasTaxInformation ;
+	sh:name "Has tax information" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:TaxInformation .
+
+ord-shape:epo-inv-Invoice-epo-ord-hasTaxInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasTaxInformation ;
+	sh:name "Has tax information" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:TaxInformation .
+
+ord-shape:epo-inv-InvoiceLine-epo-ord-hasTaxInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/ord/> ;
+	sh:path a4g:hasTaxInformation ;
+	sh:name "Has tax information" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:TaxInformation .
 

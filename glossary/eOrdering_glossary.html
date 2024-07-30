@@ -234,6 +234,12 @@
                      <td>rdf:PlainLiteral [0..*]</td>
                   </tr>
                   <tr>
+                     <td>epo-ord:DeliveryInformation</td>
+                     <td>epo-inv:hasActualDeliveryDate</td>
+                     <td></td>
+                     <td>xsd:date [0..1]</td>
+                  </tr>
+                  <tr>
                      <td>epo-ord:Order</td>
                      <td>epo-ord:hasAccountingCost</td>
                      <td>The accounting reference used by the Buyer to specify the account to which the order
@@ -291,6 +297,11 @@
                </thead>
                <tbody>
                   <tr>
+                     <td>epo:hasValidityPeriod</td>
+                     <td></td>
+                     <td>epo-ord:Order -&gt; epo:Period (external) [0..1]</td>
+                  </tr>
+                  <tr>
                      <td>epo:isCalculatedOn</td>
                      <td>The monetary amount to which the multiplier factor is applied in calculating the amount
                         of this allowance or charge.
@@ -311,13 +322,15 @@
                   </tr>
                   <tr>
                      <td>epo:specifiesDespatcher</td>
-                     <td></td>
+                     <td>Relation indicating that the instance of the concept involves the Despatcher.
+                        
+                        WG approval 25/06/2024</td>
                      <td>epo-ord:Order -&gt; epo-ful:Despatcher (external) [0..1]</td>
                   </tr>
                   <tr>
                      <td>epo:specifiesSeller</td>
-                     <td> </td>
-                     <td>epo-ord:Order -&gt; epo-ord:Seller [1]<br>epo-cat:Catalogue (external) -&gt; epo-ord:Seller [0..*]<br></td>
+                     <td>  </td>
+                     <td>epo-ord:Order -&gt; epo-ord:Seller [1]<br>epo-cat:Catalogue (external) -&gt; epo-ord:Seller [0..*]<br>epo-inv:Invoice (external) -&gt; epo-ord:Seller [1]<br></td>
                   </tr>
                   <tr>
                      <td>epo-cat:hasAmount</td>
@@ -333,7 +346,7 @@
                   <tr>
                      <td>epo-cat:hasPrice</td>
                      <td></td>
-                     <td>epo-ord:OrderLine -&gt; epo-cat:Price (external) [0..1]</td>
+                     <td>epo-ord:OrderLine -&gt; epo-cat:Price (external) [0..*]</td>
                   </tr>
                   <tr>
                      <td>epo-cat:hasQuantity</td>
@@ -357,14 +370,18 @@
                   </tr>
                   <tr>
                      <td>epo-ful:agreedBySeller</td>
-                     <td></td>
+                     <td>Accepted by Seller.
+                        
+                        WG approval 10/06/2024</td>
                      <td>epo-ful:ShipmentAgreement (external) -&gt; epo-ord:Seller [1..*]</td>
                   </tr>
                   <tr>
                      <td>epo-ful:hasAllowanceChargeReason</td>
-                     <td>https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL5189/
+                     <td>The justification for using the Allowance or the Charge.
                         
-                        https://docs.peppol.eu/poacc/billing/3.0/codelist/UNCL7161/</td>
+                        WG approval 10/06/2024
+                        
+                        </td>
                      <td>epo-ord:AllowanceChargeInformation -&gt; at-voc-new:allowance-charge-reason (external) [0..1]</td>
                   </tr>
                   <tr>
@@ -374,33 +391,56 @@
                   </tr>
                   <tr>
                      <td>epo-ful:refersToDeliveryInformation</td>
-                     <td></td>
+                     <td>Reference to a Delivery Information.
+                        
+                        WG approval 25/06/2024
+                        </td>
                      <td>epo-ful:ShipmentInformation (external) -&gt; epo-ord:DeliveryInformation [1]</td>
                   </tr>
                   <tr>
                      <td>epo-ful:refersToOrder</td>
-                     <td></td>
-                     <td>epo-ful:DespatchAdvice (external) -&gt; epo-ord:Order [0..1]</td>
+                     <td>Reference to an Order.
+                        
+                        WG approval 25/06/2024 </td>
+                     <td>epo-ful:DespatchAdvice (external) -&gt; epo-ord:Order [0..1]<br>epo-inv:Invoice (external) -&gt; epo-ord:Order [0..1]<br></td>
                   </tr>
                   <tr>
                      <td>epo-ful:refersToOrderLine</td>
-                     <td></td>
-                     <td>epo-ful:DespatchLine (external) -&gt; epo-ord:OrderLine [0..1]</td>
+                     <td>Reference to an Order Line.
+                        
+                        WG approval 25/06/2024</td>
+                     <td>epo-ful:DespatchLine (external) -&gt; epo-ord:OrderLine [1]</td>
                   </tr>
                   <tr>
                      <td>epo-ful:specifiesConsignee</td>
-                     <td> </td>
+                     <td>Relation indicating that the instance of the concept involves the Consignee.
+                        
+                        WG approval 25/06/2024
+                         </td>
                      <td>epo-ful:DespatchAdvice (external) -&gt; epo-ord:Consignee [1..*]<br>epo-ful:ReceiptAdvice (external) -&gt; epo-ord:Consignee [1..*]<br></td>
                   </tr>
                   <tr>
                      <td>epo-ful:specifiesOriginator</td>
-                     <td></td>
+                     <td>Relation indicating that the instance of the concept involves the Originator.
+                        
+                        WG approval 25/06/2024
+                        </td>
                      <td>epo-ful:DespatchAdvice (external) -&gt; epo-ord:Originator [0..*]</td>
                   </tr>
                   <tr>
                      <td>epo-ful:specifiesSeller</td>
                      <td></td>
                      <td>epo-ful:ReceiptAdvice (external) -&gt; epo-ord:Seller [0..1]</td>
+                  </tr>
+                  <tr>
+                     <td>epo-inv:isSpecificToInvoiceLine</td>
+                     <td></td>
+                     <td>epo-ord:AllowanceInformation -&gt; epo-inv:InvoiceLine (external) [0..*]</td>
+                  </tr>
+                  <tr>
+                     <td>epo-inv:refersToOrderLine</td>
+                     <td></td>
+                     <td>epo-inv:InvoiceLine (external) -&gt; epo-ord:OrderLine [0..1]</td>
                   </tr>
                   <tr>
                      <td>epo-ord:comprisesOrderLine</td>
@@ -464,13 +504,19 @@
                   </tr>
                   <tr>
                      <td>epo-ord:hasSellerOrderID</td>
-                     <td></td>
+                     <td>The identifier of the Order given by the Seller.
+                        
+                        Additional Information:
+                        This identifier is different than the identifier of the Order given by the Buyer and
+                        it is useful for internal purposes.
+                        
+                        WG approval 12/10/2023</td>
                      <td>epo-ord:Order -&gt; adms:Identifier (external) [0..1]</td>
                   </tr>
                   <tr>
                      <td>epo-ord:hasTaxInformation</td>
-                     <td>  </td>
-                     <td>epo-ord:AllowanceChargeInformation -&gt; epo-ord:TaxInformation [0..1]<br>epo-cat:Item (external) -&gt; epo-ord:TaxInformation [0..*]<br>epo:Contract (external) -&gt; epo-ord:TaxInformation [0..1]<br></td>
+                     <td>     </td>
+                     <td>epo-ord:AllowanceChargeInformation -&gt; epo-ord:TaxInformation [0..1]<br>epo-cat:Item (external) -&gt; epo-ord:TaxInformation [0..*]<br>epo-inv:InvoiceLine (external) -&gt; epo-ord:TaxInformation [1]<br>epo-inv:TaxBreakdownInformation (external) -&gt; epo-ord:TaxInformation [1]<br>epo-inv:Invoice (external) -&gt; epo-ord:TaxInformation [1]<br>epo:Contract (external) -&gt; epo-ord:TaxInformation [0..1]<br></td>
                   </tr>
                   <tr>
                      <td>epo-ord:hasTotalAllowanceAmount</td>
@@ -544,8 +590,8 @@
                   </tr>
                   <tr>
                      <td>epo-ord:specifiesAllowanceInformation</td>
-                     <td></td>
-                     <td>epo-ord:Order -&gt; epo-ord:AllowanceInformation [0..*]</td>
+                     <td> </td>
+                     <td>epo-inv:Invoice (external) -&gt; epo-ord:AllowanceInformation [0..*]<br>epo-ord:Order -&gt; epo-ord:AllowanceInformation [0..*]<br></td>
                   </tr>
                   <tr>
                      <td>epo-ord:specifiesBuyer</td>
@@ -565,8 +611,8 @@
                   </tr>
                   <tr>
                      <td>epo-ord:specifiesDeliveryInformation</td>
-                     <td></td>
-                     <td>epo-ord:Order -&gt; epo-ord:DeliveryInformation [1..*]</td>
+                     <td> </td>
+                     <td>epo-inv:Invoice (external) -&gt; epo-ord:DeliveryInformation [0..1]<br>epo-ord:Order -&gt; epo-ord:DeliveryInformation [1..*]<br></td>
                   </tr>
                   <tr>
                      <td>epo-ord:specifiesGeneralDeliveryAgreement</td>

@@ -19,7 +19,7 @@
    <body>
       <header class="counter-skip">
          <h1 class="title">UML Conventions Comformance Report</h1>
-         <h2>[ 10/07/2024 ]</h2>
+         <h2>[ 23/07/2024 ]</h2>
          <div class="authors col-span">
             <div class="author">
                <div>Publications Office of the European Union</div>
@@ -56,7 +56,7 @@
                   Generalisations</em>. Each major section lists model items that need correction of errors
                or consideration of warnings.</p>
             <p>The UML model in file <em>eCatalogue.xml</em> 
-               was tested at 12:11 on July 10, 2024.</p>
+               was tested at 10:46 on July 23, 2024.</p>
          </div>
          <h1 xmlns:f="http://https://github.com/costezki/model2owl#" id="nomenclature">Nomenclature</h1>
          <h2 xmlns:f="http://https://github.com/costezki/model2owl#" id="classNames">Class names</h2>
@@ -91,11 +91,13 @@
                      <li>epo-cat:Line (rdf:PlainLiteral) [0..1]</li>
                      <li>epo-cat:Item (rdf:PlainLiteral) [0..1]</li></em></ul>
             </li>
-            <li><a href="#attribute-dct:title-usage">dct:title (3)</a><ul><em>
+            <li><a href="#attribute-dct:title-usage">dct:title (4)</a><ul><em>
                      <li>epo-cat:Brand (rdf:PlainLiteral) [1..1]</li>
+                     <li>epo-cat:ItemProperty (rdf:PlainLiteral) [0..1]</li>
                      <li>epo-cat:ItemModel (rdf:PlainLiteral) [1..1]</li>
                      <li>epo-cat:Item (rdf:PlainLiteral) [1..1]</li></em></ul>
             </li>
+            <li><a href="#attribute-epo:hasAdditionalInformation">epo:hasAdditionalInformation</a></li>
             <li><a href="#attribute-epo-cat:hasAttributeType">epo-cat:hasAttributeType</a></li>
             <li><a href="#attribute-epo-cat:hasBestBeforeDate">epo-cat:hasBestBeforeDate</a></li>
             <li><a href="#attribute-epo-cat:hasClassificationScheme">epo-cat:hasClassificationScheme</a></li>
@@ -174,8 +176,9 @@
             <li>epo-cat:hasNetQuantity</li>
             <li>epo-cat:hasOrderabableUnitFactorRate</li>
             <li>epo-cat:hasOrderableUnit</li>
-            <li><a href="#connector-epo-cat:hasPrice">epo-cat:hasPrice (2)</a><ul><em>
-                     <li> -&gt; epo-cat:Price [0..1]</li>
+            <li><a href="#connector-epo-cat:hasPrice">epo-cat:hasPrice (3)</a><ul><em>
+                     <li> -&gt; epo-cat:Price [1..*]</li>
+                     <li> -&gt; epo-cat:Price [0..*]</li>
                      <li>epo-cat:CatalogueLine -&gt; epo-cat:Price [1..*]</li></em></ul>
             </li>
             <li>epo-cat:hasPriceType</li>
@@ -196,10 +199,17 @@
             <li>epo-cat:refersToCatalogue</li>
             <li>epo-cat:refersToCatalogueLine</li>
             <li>epo-cat:specifiesCatalogueResponseInformation</li>
-            <li>epo-cat:specifiesChargeInformation</li>
+            <li><a href="#connector-epo-cat:specifiesChargeInformation">epo-cat:specifiesChargeInformation (2)</a><ul><em>
+                     <li> -&gt; epo-cat:ChargeInformation [0..*]</li>
+                     <li> -&gt; epo-cat:ChargeInformation [0..*]</li></em></ul>
+            </li>
             <li>epo-cat:specifiesItem</li>
             <li>epo-ful:hasFreightAllowanceCharge</li>
+            <li>epo-ful:hasFreightCharge</li>
+            <li>epo-inv:hasItemClassificationIdentifier</li>
+            <li>epo-inv:isSpecificToInvoiceLine</li>
             <li>epo-ord:hasAcceptanceStatus</li>
+            <li>epo-ord:hasGrossMonetaryValue</li>
             <li>epo-ord:hasPriceDiscountInformation</li>
             <li>epo-ord:hasTaxInformation</li>
             <li>epo-ord:isSpecificToOrderLine</li>
@@ -291,6 +301,13 @@
                <dt>Unmet class conventions</dt>
                <dd class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>The class epo-cat:ItemComposition has no attributes provided. A class should define
                   some attributes.</dd>
+            </dl>
+         </section>
+         <h2 xmlns:f="http://https://github.com/costezki/model2owl#" id="epo-cat:ItemProperty">epo-cat:ItemProperty</h2>
+         <section xmlns:f="http://https://github.com/costezki/model2owl#">
+            <dl id="attribute-dct:title">
+               <dt>dct:title</dt>
+               <dd class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>dct:title is missing a description. All concepts should be defined or described.</dd>
             </dl>
          </section>
          <h2 xmlns:f="http://https://github.com/costezki/model2owl#" id="epo-cat:ItemReplacement">epo-cat:ItemReplacement</h2>
@@ -423,6 +440,14 @@
                Unmet package conventions 
                </dt>
             <dd class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>The package diagrams is empty. Packages must contain child classes and conenctors
+               (i.e. owned elements).</dd>
+         </dl>
+         <h2 xmlns:f="http://https://github.com/costezki/model2owl#">post award object</h2>
+         <dl xmlns:f="http://https://github.com/costezki/model2owl#">
+            <dt>
+               Unmet package conventions 
+               </dt>
+            <dd class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>The package post award object is empty. Packages must contain child classes and conenctors
                (i.e. owned elements).</dd>
          </dl>
          <h1 class="selector-heading" id="object">Object</h1>
@@ -629,6 +654,16 @@
          <h1 xmlns:f="http://https://github.com/costezki/model2owl#" id="classAttributesUsage">Class attributes with multiple usages</h1>
          <dl xmlns:f="http://https://github.com/costezki/model2owl#" id="attribute-dct:title-usage">
             <dt>dct:title</dt>
+            <dd class="filter infos"><i class="fa fa-info-circle info"></i>The attribute dct:title has different multiplicities in reuse contexts.          
+               When a property is reused in multiple contexts, the multiplicity is expected to be
+               the same. Please see usage below:
+               <ul>
+                  <li>epo-cat:Brand (rdf:PlainLiteral) [1..1]</li>
+                  <li>epo-cat:ItemProperty (rdf:PlainLiteral) [0..1]</li>
+                  <li>epo-cat:ItemModel (rdf:PlainLiteral) [1..1]</li>
+                  <li>epo-cat:Item (rdf:PlainLiteral) [1..1]</li>
+               </ul>
+            </dd>
             <dd class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>The attribute dct:title is defined differently in reuse contexts. When a property
                is reused in multiple contexts, the meaning given by the definition is expected to
                be the same.In this case, multiple definitions are found: 
@@ -637,6 +672,7 @@
                      
                      WG approval 30/05/2023
                      (epo-cat:Brand) </li>
+                  <li>... (epo-cat:ItemProperty) </li>
                   <li>A name given to the resource.
                      
                      WG approval 30/05/2023 (epo-cat:ItemModel) </li>
@@ -656,6 +692,7 @@
          <dd xmlns:f="http://https://github.com/costezki/model2owl#" class="filter warnings"><i class="fa fa-exclamation-triangle warning"></i>Only Class, Package, Datatype, Enumeration, and Object elements are supported. The
             following element types were found in model and are not supported
             <ul>
+               <li>uml:Note</li>
                <li>uml:ProxyConnector</li>
             </ul>
          </dd>
