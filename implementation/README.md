@@ -11,6 +11,7 @@ In addition, there are the following modules that extend the Core:
 - eNotice
 - eOrdering
 - eSubmission
+- eInvoicing
 ---
 
 Each module folder is structured as follows:
