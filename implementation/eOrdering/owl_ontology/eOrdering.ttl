@@ -1,458 +1,427 @@
-@prefix : <http://data.europa.eu/a4g/ontology#> .
-@prefix cccev: <http://data.europa.eu/m8g/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix eli: <http://data.europa.eu/eli/ontology#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix frbroo: <http://iflastandards.info/ns/fr/frbr/frbroo/> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix schema: <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-:AllowanceInformation a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :AllowanceChargeInformation ;
-    skos:definition "Information about the discounts imposed."@en ;
-    skos:prefLabel "Allowance information"@en .
-
-:Consignee a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :AcquiringParty ;
-    skos:definition "A Role of an Agent that receives the Shipment of the Procurement (service, goods or works) and who is taking possession. Additional information: The Role is carried out by the Customer or on behalf of the Customer. The possession of the goods does not necessary imply ownership. The Consignee may be the end-user or the beneficiary. (Consignee) Definition from PEPPOL Despatch: The Consignee is the person or Organisation to which the products will be shipped and who is taking possession. The Role is carried out by the Customer or on behalf of the Customer."@en ;
-    skos:editorialNote "Context: Ordering, Despatch"@en ;
-    skos:prefLabel "Consignee"@en .
-
-:ContractInformation a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :InformationHub ;
-    skos:definition "Information about the Contract."@en ;
-    skos:prefLabel "Contract information"@en .
-
-:DeliveryAgreement a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "Term applying to the delivery of goods, services and works. Additional Information: Delivery terms identifier can normally be Incoterms accompanied by the description of specific conditions related to the delivery."@en ;
-    skos:prefLabel "Delivery agreement"@en .
-
-:DeliveryInformation a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :InformationHub ;
-    skos:definition "Information about the timing, the delivery destination, the delivery agreement and the involved parties."@en ;
-    skos:prefLabel "Delivery information"@en .
-
-:Order a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :PostAwardDocument ;
-    skos:definition "A formal request of the Buyer to the Seller specifying the goods, services or works to be delivered. Additional Information: A Buyer submits an Order for delivery of goods, services or works to a Seller."@en ;
-    skos:prefLabel "Order"@en .
-
-:OrderResponse a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :PostAwardDocument ;
-    skos:definition "A formal reply from the Seller to the Buyer stating the Seller's ability to fulfil the order. Additional Information: The Order Response is used to inform on the acceptance or rejection of an Order or to make a counter-offer."@en ;
-    skos:editorialNote "If contractually agreed, the Seller also may respond to the order, changing details that are acceptable by the Buyer. -- If an order is accepted with change, the buyer and seller need to have an agreement between them regarding the processing of the changed order, i.e. when is a contract concluded and when can the items be shipped. Proposal: If the order response is \"Change\" then the Buyer will create (instantiate) a new order implementing the changes and superseding the previously sent order."@en ;
-    skos:prefLabel "Order response"@en .
-
-:OrderResponseInformation a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :InformationHub ;
-    skos:prefLabel "Order response information"@en .
-
-:OrderResponseLine a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :OrderLine ;
-    skos:definition "Details concerning the Seller's ability to fulfil a given Order Line. Additional Information: The Order Response Line is used to inform on the acceptance or rejection of an Order Line or to make a counter-offer."@en ;
-    skos:prefLabel "Order response line"@en .
-
-:Originator a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :AcquiringParty ;
-    skos:definition "A Role of an Agent that expresses the needs to trigger the Procurement. Additional Information: The Originator is often the end-user or the Beneficiary."@en ;
-    skos:editorialNote "Context: Expressing Needs"@en ;
-    skos:prefLabel "Originator"@en .
-
-:OriginatorInformation a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :InformationHub ;
-    skos:definition "Information about the Originator of the Order."@en ;
-    skos:prefLabel "Originator information"@en .
-
-:Seller a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :OfferingParty ;
-    skos:definition "A Role of an Agent who transfers the ownership of the Procurement results (goods, services or works) to the Buyer. Additional information: A Role of an Agent that sells a Procurement Result (goods, services or work) to a Buyer. The Seller is bound by a Contract i.e. it has legal responsibility. The Seller may or may not be the same as the Supplier. The Seller may or may not issue the Invoice. The Seller may or may not be the owner of the credit owed by the Buyer."@en ;
-    skos:editorialNote "Note: Supplier is out of discussion. It is a third party. We do not care who provides these service or products we care with whom business is done. PEPPOL - Invoice: The supplier is the legal person or organization who provides a product and/or service. PEPPOL - Order: The supplier is the legal person or organisation who provides a product or service. Examples of supplier roles: seller, despatch party, creditor, economic operator."@en ;
-    skos:prefLabel "Seller"@en .
-
-:TaxInformation a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :InformationHub ;
-    skos:definition "Information about the imposition of mandatory levies required by law."@en ;
-    skos:prefLabel "Tax information"@en .
-
-:agreedBySeller a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "Accepted by Seller. (epo-ful:ShipmentAgreement -> epo-ord:Seller (+epo-ful:agreedBySeller))"@en ;
-    skos:historyNote "WG Approval 10/06/2024"@en ;
-    skos:prefLabel "Agreed by seller"@en .
-
-:comprisesOrderLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Comprises order line"@en .
-
-:comprisesOrderResponseLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Comprises order response line"@en .
-
-:concernsConsignee a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Concerns consignee"@en .
-
-:concernsContract a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Concerns contract"@en .
-
-:concernsOriginator a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Concerns originator"@en .
-
-:concernsOriginatorRequest a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Concerns originator request"@en .
-
-:hasAcceptanceStatus a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has acceptance status"@en .
-
-:hasAccountingCost a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "The accounting reference used by the Buyer to specify the account to which the order and the corresponding invoice are booked. (epo-ord:Order)"@en ;
-    skos:historyNote "WG Approval 26/01/2023"@en ;
-    skos:prefLabel "Has accounting cost"@en .
-
-:hasActualDeliveryDate a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has actual delivery date"@en .
-
-:hasAllowanceChargeReason a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "The justification for using the Allowance or the Charge. (epo-ord:AllowanceChargeInformation -> at-voc-new:allowance-charge-reason (+epo-ful:hasAllowanceChargeReason))"@en ;
-    skos:prefLabel "Has allowance charge reason"@en .
-
-:hasAllowanceChargeReasonDescription a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has allowance charge reason description"@en .
-
-:hasAmount a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "The predetermined monetary value charged in addition to the price. (epo-ord:AllowanceChargeInformation -> epo:MonetaryValue (+epo-cat:hasAmount)) The predetermined monetary value charged in addition to the price. (epo-ord:TaxInformation -> epo:MonetaryValue (+epo-cat:hasAmount))"@en ;
-    skos:historyNote "WG Approval 26/07/2022"@en ;
-    skos:prefLabel "Has amount"@en .
-
-:hasAmountDueForPayment a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has amount due for payment"@en .
-
-:hasCustomerReference a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "A supplementary reference for the order. Additional information: This information can be used for the buyer's internal processes. This reference can also be used in the invoice. (epo-ord:Order)"@en ;
-    skos:historyNote "WG Approval 26/01/2023"@en ;
-    skos:prefLabel "Has customer reference"@en .
-
-:hasDeliveryDeadline a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has delivery deadline"@en .
-
-:hasDeliveryPeriod a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has delivery period"@en .
-
-:hasPaymentTerm a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has payment term"@en .
-
-:hasPercentage a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "The factor relative to the price charged in addition. (epo-ord:AllowanceChargeInformation) The factor relative to the price charged in addition. (epo-ord:TaxInformation)"@en ;
-    skos:historyNote "WG Approval 26/07/2022"@en ;
-    skos:prefLabel "Has percentage"@en .
-
-:hasPrepaidAmount a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has prepaid amount"@en .
-
-:hasPrice a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has price"@en .
-
-:hasPriceDiscountInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has price discount information"@en .
-
-:hasQuantity a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has quantity"@en .
-
-:hasResponseDescription a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "Response clarification of the Supplier decision. (epo-ord:OrderResponse)"@en ;
-    skos:prefLabel "Has response description"@en .
-
-:hasRoundingAmount a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has rounding amount"@en .
-
-:hasSellerOrderID a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "The identifier of the Order given by the Seller. Additional Information: This identifier is different than the identifier of the Order given by the Buyer and it is useful for internal purposes. (epo-ord:Order -> adms:Identifier (+epo-ord:hasSellerOrderID))"@en ;
-    skos:historyNote "WG Approval 12/10/2023"@en ;
-    skos:prefLabel "Has seller order i d"@en .
-
-:hasShippingMark a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has shipping mark"@en .
-
-:hasTaxCategory a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has tax category"@en .
-
-:hasTaxInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has tax information"@en .
-
-:hasTaxScheme a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has tax scheme"@en .
-
-:hasTotalAllowanceAmount a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has total allowance amount"@en .
-
-:hasTotalChargeAmount a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has total charge amount"@en .
-
-:hasTotalLineAmount a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has total line amount"@en .
-
-:hasTotalTaxExclusiveAmount a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has total tax exclusive amount"@en .
-
-:hasTotalTaxInclusiveAmount a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has total tax inclusive amount"@en .
-
-:hasTrackingID a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has tracking i d"@en .
-
-:hasValidityPeriod a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Has validity period"@en .
-
-:implementsContract a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Implements contract"@en .
-
-:isCalculatedOn a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "The monetary amount to which the multiplier factor is applied in calculating the amount of this allowance or charge. (epo-ord:AllowanceChargeInformation -> epo:MonetaryValue (+epo:isCalculatedOn)) The monetary amount to which the multiplier factor is applied in calculating the amount of this allowance or charge. (epo-ord:TaxInformation -> epo:MonetaryValue (+epo:isCalculatedOn))"@en ;
-    skos:prefLabel "Is calculated on"@en .
-
-:isSpecificToInvoiceLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Is specific to invoice line"@en .
-
-:isSpecificToOrderLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "Information that is particular to one or multiple Order Lines. (epo-ord:AllowanceInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine)) Information that is particular to one or multiple Order Lines. (epo-ord:ContractInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine)) Information that is particular to one or multiple Order Lines. (epo-ord:DeliveryInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine)) Information that is particular to one or multiple Order Lines. (epo-cat:ChargeInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine)) Information that is particular to one or multiple Order Lines. (epo-ord:OriginatorInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine))"@en ;
-    skos:prefLabel "Is specific to order line"@en .
-
-:isSpecificToOrderResponseLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Is specific to order response line"@en .
-
-:isSubmittedForOrder a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Is submitted for order"@en .
-
-:isSubmittedForOrderLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Is submitted for order line"@en .
-
-:refersToCatalogue a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "Additional information: If an order refers to multiple catalogues then all these catalogues ideally are subordinated to the same contract. Some countries however may allow multiple contracts per order (i.e Italy). (epo-ord:Order -> epo-cat:Catalogue (+epo-ord:refersToCatalogue))"@en ;
-    skos:prefLabel "Refers to catalogue"@en .
-
-:refersToCatalogueLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "Additional Information: The reference to the catalogue line is for information only, to trace the source of the information provided in the order line. (epo-ord:OrderLine -> epo-cat:CatalogueLine (+epo-ord:refersToCatalogueLine))"@en ;
-    skos:prefLabel "Refers to catalogue line"@en .
-
-:refersToDeliveryInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "Reference to a Delivery Information. (epo-ful:ShipmentInformation -> epo-ord:DeliveryInformation (+epo-ful:refersToDeliveryInformation))"@en ;
-    skos:historyNote "WG Approval 25/06/2024"@en ;
-    skos:prefLabel "Refers to delivery information"@en .
-
-:refersToOrder a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "Reference to an Order. (epo-ful:DespatchAdvice -> epo-ord:Order (+epo-ful:refersToOrder))"@en ;
-    skos:historyNote "WG Approval 25/06/2024"@en ;
-    skos:prefLabel "Refers to order"@en .
-
-:refersToOrderLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "Reference to an Order Line. (epo-ful:DespatchLine -> epo-ord:OrderLine (+epo-ful:refersToOrderLine))"@en ;
-    skos:historyNote "WG Approval 25/06/2024"@en ;
-    skos:prefLabel "Refers to order line"@en .
-
-:refersToProject a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Refers to project"@en .
-
-:specifiesAllowanceInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Specifies allowance information"@en .
-
-:specifiesBuyer a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Specifies buyer"@en .
-
-:specifiesChargeInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Specifies charge information"@en .
-
-:specifiesConsignee a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "Relation indicating that the instance of the concept involves the Consignee. (epo-ful:DespatchAdvice -> epo-ord:Consignee (+epo-ful:specifiesConsignee))"@en ;
-    skos:historyNote "WG Approval 25/06/2024"@en ;
-    skos:prefLabel "Specifies consignee"@en .
-
-:specifiesContractInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "(epo-ord:Order -> epo-ord:ContractInformation (+epo-ord:specifiesContractInformation))"@en ;
-    skos:prefLabel "Specifies contract information"@en .
-
-:specifiesDeliveryAgreementLocation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Specifies delivery agreement location"@en .
-
-:specifiesDeliveryInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Specifies delivery information"@en .
-
-:specifiesDespatcher a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "Relation indicating that the instance of the concept involves the Despatcher. (epo-ord:Order -> epo-ful:Despatcher (+epo:specifiesDespatcher))"@en ;
-    skos:historyNote "WG Approval 25/06/2024"@en ;
-    skos:prefLabel "Specifies despatcher"@en .
-
-:specifiesGeneralDeliveryAgreement a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Specifies general delivery agreement"@en .
-
-:specifiesOrderResponseInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Specifies order response information"@en .
-
-:specifiesOriginator a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:definition "Relation indicating that the instance of the concept involves the Originator. (epo-ful:DespatchAdvice -> epo-ord:Originator (+epo-ful:specifiesOriginator))"@en ;
-    skos:historyNote "WG Approval 25/06/2024"@en ;
-    skos:prefLabel "Specifies originator"@en .
-
-:specifiesOriginatorInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Specifies originator information"@en .
-
-:specifiesPlaceOfDelivery a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Specifies place of delivery"@en .
-
-:specifiesSeller a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Specifies seller"@en .
-
-:specifiesSpecificDeliveryAgreement a owl:ObjectProperty ;
-    rdfs:isDefinedBy :ord ;
-    skos:prefLabel "Specifies specific delivery agreement"@en .
-
-dcterms:description a owl:DatatypeProperty ;
-    skos:definition "External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/description\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/description</u></foreign></xref> (epo-ord:DeliveryAgreement) External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/description\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/description</u></foreign></xref> (epo-ord:TaxInformation)"@en ;
-    skos:historyNote "WG Approval 30/05/2023"@en ;
-    skos:prefLabel "Description"@en .
-
-rdf:PlainLiteral a rdfs:Datatype ;
-    skos:prefLabel "Plain literal"@en .
-
-xsd:anyURI a rdfs:Datatype ;
-    skos:prefLabel "Any u r i"@en .
-
-xsd:boolean a rdfs:Datatype ;
-    skos:prefLabel "Boolean"@en .
-
-xsd:date a rdfs:Datatype ;
-    skos:prefLabel "Date"@en .
-
-xsd:dateTime a rdfs:Datatype ;
-    skos:prefLabel "Date time"@en .
-
-xsd:decimal a rdfs:Datatype ;
-    skos:prefLabel "Decimal"@en .
-
-xsd:integer a rdfs:Datatype ;
-    skos:prefLabel "Integer"@en .
-
-:AllowanceChargeInformation a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :InformationHub ;
-    skos:definition "Information about discounts, taxes, duties and fees imposed."@en ;
-    skos:prefLabel "Allowance charge information"@en .
-
-:OrderLine a owl:Class ;
-    rdfs:isDefinedBy :ord ;
-    rdfs:subClassOf :Line ;
-    skos:definition "Details concerning a given unit of goods, services or works requested in the Order. Additional information: In general, an Order Line contains the Quantity and Price of the goods, services and goods requested in the Order. However, in certain cases, the Price may not be known, as the Price may fluctuate from one day to the other."@en ;
-    skos:prefLabel "Order line"@en .
-
-:ord a owl:Ontology ;
-    rdfs:label "eProcurement Ontology Ordering - core"@en ;
-    dcterms:created "2021-06-01"^^xsd:date ;
-    dcterms:description "The eProcurement Ontology Ordering core describes the concepts and properties representing the European Public Procurement Ordering domain. The provision of these semantics offers the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency. The ontology restrictions are published in a separate artefact."@en ;
-    dcterms:issued "2024-11-12"^^xsd:date ;
-    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
-    dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
-    dcterms:title "eProcurement Ontology Ordering - core"@en ;
-    vann:preferredNamespacePrefix "epo" ;
-    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eOrdering.xml on 2024-11-12" ;
-    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
-        <https://github.com/OP-TED/ePO/releases>,
-        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
-        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :cat,
-        :core,
-        :ful,
-        eli:,
-        cccev:,
-        frbroo:,
-        dcterms:,
-        vann:,
-        <http://www.w3.org/2004/02/skos/core>,
-        <http://www.w3.org/2006/time>,
-        <http://www.w3.org/ns/adms>,
-        <http://www.w3.org/ns/locn>,
-        org:,
-        <http://www.w3.org/ns/person>,
-        foaf: ;
-    owl:incompatibleWith "3.1.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/ontology#ord-4.1.1" ;
-    owl:versionIRI :ord-4.2.0 ;
-    owl:versionInfo "4.2.0" .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix cpov: <http://data.europa.eu/m8g/> .
+@prefix a4g: <http://data.europa.eu/a4g/ontology#> .
+@prefix sfrml: <http://data.europa.eu/a4g/mapping/sf-rml/> .
+@prefix a4g_shape: <http://data.europa.eu/a4g/data-shape#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix person: <http://www.w3.org/ns/person#> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix r2rml: <http://www.w3.org/ns/r2rml#> .
+@prefix at: <http://publications.europa.eu/ontology/authority/> .
+@prefix atold: <http://publications.europa.eu/resource/authority/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+a4g:AllowanceInformation a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:AllowanceChargeInformation ;
+	skos:definition "Information about the discounts imposed."@en ;
+	skos:prefLabel "Allowance information"@en .
+
+a4g:ord a owl:Ontology ;
+	dcterms:description "The eProcurement Ontology Ordering core describes the concepts and properties representing the European Public Procurement Ordering domain. The provision of these semantics offers the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency. The ontology restrictions are published in a separate artefact."@en ;
+	rdfs:label "eProcurement Ontology Ordering - core"@en ;
+	dcterms:created "2021-06-01"^^xsd:date ;
+	dcterms:issued "2024-11-12"^^xsd:date ;
+	dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+	dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
+	dcterms:title "eProcurement Ontology Ordering - core"@en ;
+	vann:preferredNamespacePrefix "epo" ;
+	vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
+	rdfs:comment "This version is automatically generated from eOrdering.xml on 2024-11-12" ;
+	rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>, <https://github.com/OP-TED/ePO/releases>, <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>, <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
+	owl:imports a4g:cat, a4g:core, a4g:ful, <http://data.europa.eu/eli/ontology#>, <http://data.europa.eu/m8g/>, <http://iflastandards.info/ns/fr/frbr/frbroo/>, <http://purl.org/dc/terms/>, <http://purl.org/vocab/vann/>, <http://www.w3.org/2004/02/skos/core>, <http://www.w3.org/2006/time>, <http://www.w3.org/ns/adms>, <http://www.w3.org/ns/locn>, <http://www.w3.org/ns/org#>, <http://www.w3.org/ns/person>, <http://xmlns.com/foaf/0.1/> ;
+	owl:incompatibleWith "3.1.0" ;
+	owl:priorVersion "http://data.europa.eu/a4g/ontology#ord-4.1.1" ;
+	owl:versionIRI a4g:ord-4.2.0 ;
+	owl:versionInfo "4.2.0" .
+
+a4g:AllowanceChargeInformation a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:InformationHub ;
+	skos:definition "Information about discounts, taxes, duties and fees imposed."@en ;
+	skos:prefLabel "Allowance charge information"@en .
+
+a4g:Consignee a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:AcquiringParty ;
+	skos:definition "A Role of an Agent that receives the Shipment of the Procurement (service, goods or works) and who is taking possession. Additional information: The Role is carried out by the Customer or on behalf of the Customer. The possession of the goods does not necessary imply ownership. The Consignee may be the end-user or the beneficiary. (Consignee) Definition from PEPPOL Despatch: The Consignee is the person or Organisation to which the products will be shipped and who is taking possession. The Role is carried out by the Customer or on behalf of the Customer."@en ;
+	skos:prefLabel "Consignee"@en ;
+	skos:editorialNote "Context: Ordering, Despatch"@en .
+
+a4g:ContractInformation a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:InformationHub ;
+	skos:definition "Information about the Contract."@en ;
+	skos:prefLabel "Contract information"@en .
+
+a4g:DeliveryAgreement a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "Term applying to the delivery of goods, services and works. Additional Information: Delivery terms identifier can normally be Incoterms accompanied by the description of specific conditions related to the delivery."@en ;
+	skos:prefLabel "Delivery agreement"@en .
+
+a4g:DeliveryInformation a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:InformationHub ;
+	skos:definition "Information about the timing, the delivery destination, the delivery agreement and the involved parties."@en ;
+	skos:prefLabel "Delivery information"@en .
+
+a4g:Order a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:PostAwardDocument ;
+	skos:definition "A formal request of the Buyer to the Seller specifying the goods, services or works to be delivered. Additional Information: A Buyer submits an Order for delivery of goods, services or works to a Seller."@en ;
+	skos:prefLabel "Order"@en .
+
+a4g:OrderResponse a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:PostAwardDocument ;
+	skos:definition "A formal reply from the Seller to the Buyer stating the Seller's ability to fulfil the order. Additional Information: The Order Response is used to inform on the acceptance or rejection of an Order or to make a counter-offer."@en ;
+	skos:prefLabel "Order response"@en ;
+	skos:editorialNote "If contractually agreed, the Seller also may respond to the order, changing details that are acceptable by the Buyer. -- If an order is accepted with change, the buyer and seller need to have an agreement between them regarding the processing of the changed order, i.e. when is a contract concluded and when can the items be shipped. Proposal: If the order response is \"Change\" then the Buyer will create (instantiate) a new order implementing the changes and superseding the previously sent order."@en .
+
+a4g:OrderResponseInformation a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:InformationHub ;
+	skos:prefLabel "Order response information"@en .
+
+a4g:OrderResponseLine a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:OrderLine ;
+	skos:definition "Details concerning the Seller's ability to fulfil a given Order Line. Additional Information: The Order Response Line is used to inform on the acceptance or rejection of an Order Line or to make a counter-offer."@en ;
+	skos:prefLabel "Order response line"@en .
+
+a4g:OrderLine a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:Line ;
+	skos:definition "Details concerning a given unit of goods, services or works requested in the Order. Additional information: In general, an Order Line contains the Quantity and Price of the goods, services and goods requested in the Order. However, in certain cases, the Price may not be known, as the Price may fluctuate from one day to the other."@en ;
+	skos:prefLabel "Order line"@en .
+
+a4g:Originator a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:AcquiringParty ;
+	skos:definition "A Role of an Agent that expresses the needs to trigger the Procurement. Additional Information: The Originator is often the end-user or the Beneficiary."@en ;
+	skos:prefLabel "Originator"@en ;
+	skos:editorialNote "Context: Expressing Needs"@en .
+
+a4g:OriginatorInformation a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:InformationHub ;
+	skos:definition "Information about the Originator of the Order."@en ;
+	skos:prefLabel "Originator information"@en .
+
+a4g:Seller a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:OfferingParty ;
+	skos:definition "A Role of an Agent who transfers the ownership of the Procurement results (goods, services or works) to the Buyer. Additional information: A Role of an Agent that sells a Procurement Result (goods, services or work) to a Buyer. The Seller is bound by a Contract i.e. it has legal responsibility. The Seller may or may not be the same as the Supplier. The Seller may or may not issue the Invoice. The Seller may or may not be the owner of the credit owed by the Buyer."@en ;
+	skos:prefLabel "Seller"@en ;
+	skos:editorialNote "Note: Supplier is out of discussion. It is a third party. We do not care who provides these service or products we care with whom business is done. PEPPOL - Invoice: The supplier is the legal person or organization who provides a product and/or service. PEPPOL - Order: The supplier is the legal person or organisation who provides a product or service. Examples of supplier roles: seller, despatch party, creditor, economic operator."@en .
+
+a4g:TaxInformation a owl:Class ;
+	rdfs:isDefinedBy a4g:ord ;
+	rdfs:subClassOf a4g:InformationHub ;
+	skos:definition "Information about the imposition of mandatory levies required by law."@en ;
+	skos:prefLabel "Tax information"@en .
+
+a4g:agreedBySeller a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "Accepted by Seller. (epo-ful:ShipmentAgreement -> epo-ord:Seller (+epo-ful:agreedBySeller))"@en ;
+	skos:prefLabel "Agreed by seller"@en ;
+	skos:historyNote "WG Approval 10/06/2024"@en .
+
+a4g:comprisesOrderLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Comprises order line"@en .
+
+a4g:comprisesOrderResponseLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Comprises order response line"@en .
+
+a4g:concernsConsignee a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Concerns consignee"@en .
+
+a4g:concernsContract a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Concerns contract"@en .
+
+a4g:concernsOriginator a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Concerns originator"@en .
+
+a4g:concernsOriginatorRequest a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Concerns originator request"@en .
+
+a4g:hasAcceptanceStatus a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has acceptance status"@en .
+
+a4g:hasAccountingCost a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "The accounting reference used by the Buyer to specify the account to which the order and the corresponding invoice are booked. (epo-ord:Order)"@en ;
+	skos:prefLabel "Has accounting cost"@en ;
+	skos:historyNote "WG Approval 26/01/2023"@en .
+
+a4g:hasActualDeliveryDate a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has actual delivery date"@en .
+
+a4g:hasAllowanceChargeReason a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "The justification for using the Allowance or the Charge. (epo-ord:AllowanceChargeInformation -> at-voc-new:allowance-charge-reason (+epo-ful:hasAllowanceChargeReason))"@en ;
+	skos:prefLabel "Has allowance charge reason"@en .
+
+a4g:hasAllowanceChargeReasonDescription a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has allowance charge reason description"@en .
+
+a4g:hasAmount a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "The predetermined monetary value charged in addition to the price. (epo-ord:AllowanceChargeInformation -> epo:MonetaryValue (+epo-cat:hasAmount)) The predetermined monetary value charged in addition to the price. (epo-ord:TaxInformation -> epo:MonetaryValue (+epo-cat:hasAmount))"@en ;
+	skos:prefLabel "Has amount"@en ;
+	skos:historyNote "WG Approval 26/07/2022"@en .
+
+a4g:hasAmountDueForPayment a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has amount due for payment"@en .
+
+a4g:hasCustomerReference a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "A supplementary reference for the order. Additional information: This information can be used for the buyer's internal processes. This reference can also be used in the invoice. (epo-ord:Order)"@en ;
+	skos:prefLabel "Has customer reference"@en ;
+	skos:historyNote "WG Approval 26/01/2023"@en .
+
+a4g:hasDeliveryDeadline a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has delivery deadline"@en .
+
+a4g:hasDeliveryPeriod a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has delivery period"@en .
+
+a4g:hasPaymentTerm a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has payment term"@en .
+
+a4g:hasPercentage a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "The factor relative to the price charged in addition. (epo-ord:AllowanceChargeInformation) The factor relative to the price charged in addition. (epo-ord:TaxInformation)"@en ;
+	skos:prefLabel "Has percentage"@en ;
+	skos:historyNote "WG Approval 26/07/2022"@en .
+
+a4g:hasPrepaidAmount a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has prepaid amount"@en .
+
+a4g:hasPrice a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has price"@en .
+
+a4g:hasPriceDiscountInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has price discount information"@en .
+
+a4g:hasQuantity a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has quantity"@en .
+
+a4g:hasResponseDescription a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "Response clarification of the Supplier decision. (epo-ord:OrderResponse)"@en ;
+	skos:prefLabel "Has response description"@en .
+
+a4g:hasRoundingAmount a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has rounding amount"@en .
+
+a4g:hasSellerOrderID a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "The identifier of the Order given by the Seller. Additional Information: This identifier is different than the identifier of the Order given by the Buyer and it is useful for internal purposes. (epo-ord:Order -> adms:Identifier (+epo-ord:hasSellerOrderID))"@en ;
+	skos:prefLabel "Has seller order i d"@en ;
+	skos:historyNote "WG Approval 12/10/2023"@en .
+
+a4g:hasShippingMark a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has shipping mark"@en .
+
+a4g:hasTaxCategory a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has tax category"@en .
+
+a4g:hasTaxInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has tax information"@en .
+
+a4g:hasTaxScheme a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has tax scheme"@en .
+
+a4g:hasTotalAllowanceAmount a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has total allowance amount"@en .
+
+a4g:hasTotalChargeAmount a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has total charge amount"@en .
+
+a4g:hasTotalLineAmount a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has total line amount"@en .
+
+a4g:hasTotalTaxExclusiveAmount a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has total tax exclusive amount"@en .
+
+a4g:hasTotalTaxInclusiveAmount a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has total tax inclusive amount"@en .
+
+a4g:hasTrackingID a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has tracking i d"@en .
+
+a4g:hasValidityPeriod a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Has validity period"@en .
+
+a4g:implementsContract a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Implements contract"@en .
+
+a4g:isCalculatedOn a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "The monetary amount to which the multiplier factor is applied in calculating the amount of this allowance or charge. (epo-ord:AllowanceChargeInformation -> epo:MonetaryValue (+epo:isCalculatedOn)) The monetary amount to which the multiplier factor is applied in calculating the amount of this allowance or charge. (epo-ord:TaxInformation -> epo:MonetaryValue (+epo:isCalculatedOn))"@en ;
+	skos:prefLabel "Is calculated on"@en .
+
+a4g:isSpecificToInvoiceLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Is specific to invoice line"@en .
+
+a4g:isSpecificToOrderLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "Information that is particular to one or multiple Order Lines. (epo-ord:AllowanceInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine)) Information that is particular to one or multiple Order Lines. (epo-ord:ContractInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine)) Information that is particular to one or multiple Order Lines. (epo-ord:DeliveryInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine)) Information that is particular to one or multiple Order Lines. (epo-cat:ChargeInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine)) Information that is particular to one or multiple Order Lines. (epo-ord:OriginatorInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine))"@en ;
+	skos:prefLabel "Is specific to order line"@en .
+
+a4g:isSpecificToOrderResponseLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Is specific to order response line"@en .
+
+a4g:isSubmittedForOrder a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Is submitted for order"@en .
+
+a4g:isSubmittedForOrderLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Is submitted for order line"@en .
+
+a4g:refersToCatalogue a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "Additional information: If an order refers to multiple catalogues then all these catalogues ideally are subordinated to the same contract. Some countries however may allow multiple contracts per order (i.e Italy). (epo-ord:Order -> epo-cat:Catalogue (+epo-ord:refersToCatalogue))"@en ;
+	skos:prefLabel "Refers to catalogue"@en .
+
+a4g:refersToCatalogueLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "Additional Information: The reference to the catalogue line is for information only, to trace the source of the information provided in the order line. (epo-ord:OrderLine -> epo-cat:CatalogueLine (+epo-ord:refersToCatalogueLine))"@en ;
+	skos:prefLabel "Refers to catalogue line"@en .
+
+a4g:refersToDeliveryInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "Reference to a Delivery Information. (epo-ful:ShipmentInformation -> epo-ord:DeliveryInformation (+epo-ful:refersToDeliveryInformation))"@en ;
+	skos:prefLabel "Refers to delivery information"@en ;
+	skos:historyNote "WG Approval 25/06/2024"@en .
+
+a4g:refersToOrder a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "Reference to an Order. (epo-ful:DespatchAdvice -> epo-ord:Order (+epo-ful:refersToOrder))"@en ;
+	skos:prefLabel "Refers to order"@en ;
+	skos:historyNote "WG Approval 25/06/2024"@en .
+
+a4g:refersToOrderLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "Reference to an Order Line. (epo-ful:DespatchLine -> epo-ord:OrderLine (+epo-ful:refersToOrderLine))"@en ;
+	skos:prefLabel "Refers to order line"@en ;
+	skos:historyNote "WG Approval 25/06/2024"@en .
+
+a4g:refersToProject a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Refers to project"@en .
+
+a4g:specifiesAllowanceInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Specifies allowance information"@en .
+
+a4g:specifiesBuyer a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Specifies buyer"@en .
+
+a4g:specifiesChargeInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Specifies charge information"@en .
+
+a4g:specifiesConsignee a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "Relation indicating that the instance of the concept involves the Consignee. (epo-ful:DespatchAdvice -> epo-ord:Consignee (+epo-ful:specifiesConsignee))"@en ;
+	skos:prefLabel "Specifies consignee"@en ;
+	skos:historyNote "WG Approval 25/06/2024"@en .
+
+a4g:specifiesContractInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "(epo-ord:Order -> epo-ord:ContractInformation (+epo-ord:specifiesContractInformation))"@en ;
+	skos:prefLabel "Specifies contract information"@en .
+
+a4g:specifiesDeliveryAgreementLocation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Specifies delivery agreement location"@en .
+
+a4g:specifiesDeliveryInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Specifies delivery information"@en .
+
+a4g:specifiesDespatcher a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "Relation indicating that the instance of the concept involves the Despatcher. (epo-ord:Order -> epo-ful:Despatcher (+epo:specifiesDespatcher))"@en ;
+	skos:prefLabel "Specifies despatcher"@en ;
+	skos:historyNote "WG Approval 25/06/2024"@en .
+
+a4g:specifiesGeneralDeliveryAgreement a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Specifies general delivery agreement"@en .
+
+a4g:specifiesOrderResponseInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Specifies order response information"@en .
+
+a4g:specifiesOriginator a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:definition "Relation indicating that the instance of the concept involves the Originator. (epo-ful:DespatchAdvice -> epo-ord:Originator (+epo-ful:specifiesOriginator))"@en ;
+	skos:prefLabel "Specifies originator"@en ;
+	skos:historyNote "WG Approval 25/06/2024"@en .
+
+a4g:specifiesOriginatorInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Specifies originator information"@en .
+
+a4g:specifiesPlaceOfDelivery a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Specifies place of delivery"@en .
+
+a4g:specifiesSeller a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Specifies seller"@en .
+
+a4g:specifiesSpecificDeliveryAgreement a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:ord ;
+	skos:prefLabel "Specifies specific delivery agreement"@en .
 
