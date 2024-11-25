@@ -5,6 +5,7 @@ on:
       - "**"
       - "!demo"
       - "!master"
+      - "!develop"
     paths:
       - "implementation/ePO_core/xmi_conceptual_model/ePO_core.xml"
       - "implementation/eCatalogue/xmi_conceptual_model/eCatalogue.xml"
@@ -12,8 +13,9 @@ on:
       - "implementation/eOrdering/xmi_conceptual_model/eOrdering.xml"
       - "implementation/eFulfilment/xmi_conceptual_model/eFulfilment.xml"
       - "implementation/eContract/xmi_conceptual_model/eContract.xml"
-      - "implementation/eContract/xmi_conceptual_model/eAccess.xml"
-      - "implementation/eContract/xmi_conceptual_model/eSubmission.xml"
+      - "implementation/eAccess/xmi_conceptual_model/eAccess.xml"
+      - "implementation/eSubmission/xmi_conceptual_model/eSubmission.xml"
+      - "implementation/eInvoicing/xmi_conceptual_model/eInvoicing.xml"
 jobs:
   report_and_glossary:
     runs-on: ubuntu-latest
@@ -26,7 +28,7 @@ jobs:
 
       - name: get model2owl
         run: |
-          git clone --branch 2.2.0 https://github.com/OP-TED/model2owl.git
+          git clone --branch no-tags-2-2-0 https://github.com/OP-TED/model2owl.git
           pwd
 
       - name: get-saxon
@@ -35,7 +37,7 @@ jobs:
 
       - name: generate convention report and glossary
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core)
+          AVAILABLE_IMPLEMENTATIONS=(eInvoicing eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             echo "-------------------${implementation}---------------------------------"
@@ -68,7 +70,7 @@ jobs:
 
       - name: merge implementations xmi files into one
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core)
+          AVAILABLE_IMPLEMENTATIONS=(eInvoicing eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core)
           cd model2owl
           mkdir -p merge-xmis
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
@@ -137,7 +139,7 @@ jobs:
 
       - name: get model2owl
         run: |
-          git clone --branch 2.2.0 https://github.com/OP-TED/model2owl.git
+          git clone --branch no-tags-2-2-0 https://github.com/OP-TED/model2owl.git
           pwd
 
       - name: get-saxon
@@ -148,7 +150,7 @@ jobs:
 
       - name: transform step
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core)
+          AVAILABLE_IMPLEMENTATIONS=(eInvoicing eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             echo "-------------------${implementation} transform---------------------------------"

@@ -8,6 +8,7 @@ In addition, there are the following modules that extend the Core:
 - eCatalogue
 - eContract
 - eFulfilment
+- eInvoicing
 - eNotice
 - eOrdering
 - eSubmission
