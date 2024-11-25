@@ -1,669 +1,608 @@
-@prefix : <http://data.europa.eu/a4g/ontology#> .
-@prefix adms: <http://www.w3.org/ns/adms#> .
-@prefix cccev: <http://data.europa.eu/m8g/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix eli: <http://data.europa.eu/eli/ontology#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix frbroo: <http://iflastandards.info/ns/fr/frbr/frbroo/> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix schema: <http://schema.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-:Batch a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "A production Lot in which the Item instances were produced."@en ;
-    skos:prefLabel "Batch"@en .
-
-:Brand a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Name given by an organisation to its product or service, or range of products or services. Additional information: Brand name allows economic operators to distinctively describe an item in their eCatalogue. This may be different from the \"item name\"."@en ;
-    skos:prefLabel "Brand"@en .
-
-:Catalogue a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :PostAwardDocument ;
-    skos:definition "A Document describing a set of Items offered for purchase that can be processed in an electronic way."@en ;
-    skos:prefLabel "Catalogue"@en .
-
-:CatalogueLine a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Aggregated information about the Terms and specifications for procuring an Item. Details about an Item, like Prices, packaging, discounts, special promotions, etc. TC 440: Detailed information of an Item, Price and its composition in a Catalogue. Composition: e.g. information referring to its description, how to order it, what it is made of, properties, delivery conditions, etc."@en ;
-    skos:prefLabel "Catalogue line"@en .
-
-:CatalogueResponse a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :PostAwardDocument ;
-    skos:prefLabel "Catalogue response"@en .
-
-:CatalogueResponseInformation a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Catalogue response information"@en .
-
-:CatalogueResponseLine a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Catalogue response line"@en .
-
-:ChargeInformation a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :AllowanceChargeInformation ;
-    skos:definition "Information about tax, fee or duty imposed. Additional Information: Charge category indicates the nature of the tax/duty/fee, for example VAT, CAR, etc. Charge category modifier may be used in case different levels, exemptions or other modifications apply. The charge can be fixed or relative to the price."@en ;
-    skos:prefLabel "Charge information"@en .
-
-:InformationHub a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :ContextDescription ;
-    skos:definition "Grouping of data that may be associated to various concepts. Additional Information: For example, AllowanceChargeInformation may be associated to the Order or the Catalogue (either at the Line level or at the Document level), amongst others."@en ;
-    skos:prefLabel "Information hub"@en .
-
-:Item a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "A product, work, service or any combination of them. Additional Information: An Item can be an atomic Thing or a composition of things that together are seen as a unit, e.g. a tetrabrik of milk or an indivisible package of six tetrabriks. No distinction is provided between services, goods and works to leave room for innovation."@en ;
-    skos:prefLabel "Item"@en .
-
-:ItemAccessoryRelation a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :ItemRelation ;
-    skos:definition "Combination of two Items where the former enhances the latter."@en ;
-    skos:prefLabel "Item accessory relation"@en .
-
-:ItemComplementaryRelation a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :ItemRelation ;
-    skos:definition "Combination of two Items which mutually enhance one another."@en ;
-    skos:prefLabel "Item complementary relation"@en .
-
-:ItemComposition a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :ItemRelation ;
-    skos:definition "Inclusion of an Item into in the described Item. Additional Information: The Item is provided with its components, however, the component Items may also be provided separately. For example, a bicycle has wheels as components, but they may be provided as spare parts as well. This relation is useful to describe different package levels of an item or hierarchies of Items."@en ;
-    skos:prefLabel "Item composition"@en .
-
-:ItemModel a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "A specific design or version of a product or service. Additional information: This class is meant as a reusable reference to the model name rather than as a set of specifications of an Item of this particular model."@en ;
-    skos:prefLabel "Item model"@en .
-
-:ItemProperty a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Construct meant to represent the association between an attribute defined in an external classification scheme and the value ascribed to it."@en ;
-    skos:prefLabel "Item property"@en .
-
-:ItemReplacement a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :ItemRelation ;
-    skos:definition "Supplantment, displacement or suspension of an Item by the described Item."@en ;
-    skos:prefLabel "Item replacement"@en .
-
-:ItemRequirement a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :ItemRelation ;
-    skos:definition "Necessity of an Item by the described item. Additional Information: The described item is provided without other items that are required for proper functionality. For example, a printer cannot be used without ink cartridge; or a Server cannot be used without its installation."@en ;
-    skos:prefLabel "Item requirement"@en .
-
-:Line a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Line"@en .
-
-:Manufacturer a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :OfferingParty ;
-    skos:definition "The Producer of goods or provider of services. Additional Information: Also, known as Supplier and Manufacturer. We do not care who provides these service or products we care with whom Business is done. PEPPOL - Invoice: The Supplier is the Legal Person or Organisation who provides a product and/or service. PEPPOL - Order: The supplier is the legal person or organisation who provides a product or service. Examples of supplier roles: seller, despatch party, creditor, economic operator."@en ;
-    skos:prefLabel "Manufacturer"@en .
-
-:Price a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Amount of money required or given in exchange for Items. Additional information: The Price excludes any charges (such as taxes, duties and fees) and discounts."@en ;
-    skos:prefLabel "Price"@en .
-
-:ProductSpecification a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :PostAwardDocument ;
-    skos:definition "Document providing information about an Item."@en ;
-    skos:prefLabel "Product specification"@en .
-
-:comprisesCatalogueLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Comprises catalogue line"@en .
-
-:comprisesCatalogueResponseLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Comprises catalogue response line"@en .
-
-:describesItem a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Describes item"@en .
-
-:foreseesPackage a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Foresees package"@en .
-
-:hasAcceptanceStatus a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has acceptance status"@en .
-
-:hasAccessoryItem a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "An additional item that can enhance the original item. (epo-cat:Item -> epo-cat:Item (+epo-cat:hasAccessoryItem))"@en ;
-    skos:historyNote "WG Approval 30/06/2022"@en ;
-    skos:prefLabel "Has accessory item"@en .
-
-:hasActivityCode a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has activity code"@en .
-
-:hasAdditionalInformation a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Supplementary data about the instance of the concept. (epo-cat:Line)"@en ;
-    skos:historyNote "WG Approval 15/10/2019"@en ;
-    skos:prefLabel "Has additional information"@en .
-
-:hasAttributeType a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The property defined in a classification scheme. Additional Information: For example, the following two properties are defined in the ECLASS classification of goods and services: (0173-1#02-AAA026#007) drilling diameter: drilling diameter, (0173-1#02-AAA030#007) flange diameter: flange diameter . (epo-cat:ItemProperty)"@en ;
-    skos:historyNote "WG Approval 28/07/2022"@en ;
-    skos:prefLabel "Has attribute type"@en .
-
-:hasBaseQuantity a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The quantity at which the net monetary value applies. (epo-cat:Price -> epo:Quantity (+epo-cat:hasBaseQuantity))"@en ;
-    skos:prefLabel "Has base quantity"@en .
-
-:hasBatchID a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The identifier assigned to a specific batch of the produced Item. (epo-cat:Batch -> adms:Identifier (+epo:hasBatchID))"@en ;
-    skos:historyNote "WG Approval 16/05/2023"@en ;
-    skos:prefLabel "Has batch i d"@en .
-
-:hasBestBeforeDate a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The day until which the quality of the item will remain optimal. (epo-cat:Batch)"@en ;
-    skos:historyNote "WG Approval 10/03/2021"@en ;
-    skos:prefLabel "Has best before date"@en .
-
-:hasBrand a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has brand"@en .
-
-:hasBuyerItemID a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The general identifier assigned to the concept as defined by the Buyer.​ (epo-cat:Item -> adms:Identifier (+epo:hasBuyerItemID))"@en ;
-    skos:historyNote "WG Approval 16/05/2023"@en ;
-    skos:prefLabel "Has buyer item i d"@en .
-
-:hasCatalogueLineValidity a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The relation indicating until when a Catalogue Line instance is applicable. (epo-cat:CatalogueLine -> epo:Period (+epo-cat:hasCatalogueLineValidity))"@en ;
-    skos:historyNote "WG Approval 21/09/2023"@en ;
-    skos:prefLabel "Has catalogue line validity"@en .
-
-:hasCertification a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Relation to the proof of conformance. (epo-cat:Item -> epo:Certificate (+epo:hasCertification))"@en ;
-    skos:historyNote "WG Approval 30/05/2023"@en ;
-    skos:prefLabel "Has certification"@en .
-
-:hasChargeInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has charge information"@en .
-
-:hasClassificationScheme a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The classification scheme where a property is defined. Additional Information: For example, the following two properties are defined in the ECLASS classification of goods and services: (0173-1#02-AAA026#007) drilling diameter: drilling diameter, (0173-1#02-AAA030#007) flange diameter: flange diameter . (epo-cat:ItemProperty)"@en ;
-    skos:historyNote "WG Approval 28/07/2022"@en ;
-    skos:prefLabel "Has classification scheme"@en .
-
-:hasComplementaryItem a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "An item that if used with another item provides mutual enhancements to both of them. Additional information: For example, gin and tonic; or smart-phone and smart-watch. (epo-cat:Item -> epo-cat:Item (+epo-cat:hasComplementaryItem))"@en ;
-    skos:historyNote "WG Approval 19/05/2022"@en ;
-    skos:prefLabel "Has complementary item"@en .
-
-:hasCountryOfOrigin a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The source country of the product or service. Additional Information: The country of origin can be provided by the buyer as a requirement or by the tenderer information of the item to be provided. (epo-cat:Item -> at-voc:country (+epo-cat:hasCountryOfOrigin))"@en ;
-    skos:prefLabel "Has country of origin"@en .
-
-:hasDeliveryClassification a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has delivery classification"@en .
-
-:hasDeliveryLocation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Location delivery area where the Item can be ordered to the given price. (epo-cat:Price -> dct:Location (+epo-cat:hasDeliveryLocation))"@en ;
-    skos:prefLabel "Has delivery location"@en .
-
-:hasDimensionDescription a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Textual description of the item's dimensions. (epo-cat:Item)"@en ;
-    skos:prefLabel "Has dimension description"@en .
-
-:hasDocumentStatus a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "https://test-docs.peppol.eu/logistics/transport-execution/codelist/DocumentStatusCode/ (epo-cat:PostAwardDocument -> at-voc-new:document-status (+epo:hasDocumentStatus))"@en ;
-    skos:prefLabel "Has document status"@en .
-
-:hasDocumentType a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has document type"@en .
-
-:hasExpectedDeliveryTime a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The expected amount of time between the order and delivery of an item. (epo-cat:Price -> epo:Duration (+epo-cat:hasExpectedDeliveryTime))"@en ;
-    skos:historyNote "WG Approval 26/07/2022"@en ;
-    skos:prefLabel "Has expected delivery time"@en .
-
-:hasExpiryDate a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The last day until which the item can be used. (epo-cat:Batch)"@en ;
-    skos:historyNote "WG Approval 10/03/2021"@en ;
-    skos:prefLabel "Has expiry date"@en .
-
-:hasExternalSpecification a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "URI reference to external item information or specifications, e.g. web address. (epo-cat:Item -> epo:Document (+epo-cat:hasExternalSpecification))"@en ;
-    skos:prefLabel "Has external specification"@en .
-
-:hasFactor a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The number or the fraction of a related item. (epo-cat:ItemRelation)"@en ;
-    skos:prefLabel "Has factor"@en .
-
-:hasFreightAllowanceCharge a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has freight allowance charge"@en .
-
-:hasFreightCharge a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The total cost for moving the goods. (epo-ful:Consignment -> epo-cat:ChargeInformation (+epo-ful:hasFreightCharge))"@en ;
-    skos:historyNote "WG Approval 18/06/2024"@en ;
-    skos:prefLabel "Has freight charge"@en .
-
-:hasGrossMonetaryValue a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has gross monetary value"@en .
-
-:hasHazardousClass a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Specification of the hazardous nature of an item according to a classification schema. Provides detail of the classification and nature of a hazardous item. (epo-cat:Item)"@en ;
-    skos:prefLabel "Has hazardous class"@en .
-
-:hasHazardousItemUNDGCode a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Specification of the hazardous nature of an item according to the UNDG classification schema. Provides detail of the classification and nature of a hazardous item. (epo-cat:Item -> at-voc-new:dangerous-goods-list (+epo-cat:hasHazardousItemUNDGCode))"@en ;
-    skos:prefLabel "Has hazardous item u n d g code"@en .
-
-:hasItemClassification a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "A classification of this item according to a specific system for classifying products or services. Additional information: Examples of classification schemes are: CPV, UNSPC, eCl@ss, GPC, ... (epo-cat:Item -> at-voc-new:item-classification (+epo-cat:hasItemClassification))"@en ;
-    skos:prefLabel "Has item classification"@en .
-
-:hasItemClassificationIdentifier a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has item classification identifier"@en .
-
-:hasItemStandardID a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy</u></foreign></xref> (epo-cat:Item -> adms:Identifier (+epo:hasItemStandardID))"@en ;
-    skos:historyNote "WG Approval 16/05/2023"@en ;
-    skos:prefLabel "Has item standard i d"@en .
-
-:hasKeyword a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "List of words (e.g, synonyms) to make the item searchable. (epo-cat:Item)"@en ;
-    skos:historyNote "WG Approval 07/04/2022"@en ;
-    skos:prefLabel "Has keyword"@en .
-
-:hasLiteralValue a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Simple value of the property, which is defined in a classification scheme. Additional Information: For example, the (0173-1#02-AAV139#001) coating 1 of an optical material has value of \"silver\". This simple literal value is for the cases when the property value does not have units, in which case the qualifiedValue shall be used. (epo-cat:ItemProperty)"@en ;
-    skos:historyNote "WG Approval 28/07/2022"@en ;
-    skos:prefLabel "Has literal value"@en .
-
-:hasManufactureDate a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The day of production. (epo-cat:Batch)"@en ;
-    skos:prefLabel "Has manufacture date"@en .
-
-:hasManufacturer a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has manufacturer"@en .
-
-:hasManufacturerID a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The manufacturer's identifier for the item. (epo-cat:Manufacturer -> adms:Identifier (+epo:hasManufacturerID))"@en ;
-    skos:prefLabel "Has manufacturer i d"@en .
-
-:hasManufacturerItemID a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The general identifier assigned to the concept as defined by the Manufacturer. ​ (epo-cat:Item -> adms:Identifier (+epo:hasManufacturerItemID))"@en ;
-    skos:historyNote "WG Approval 16/05/2023"@en ;
-    skos:prefLabel "Has manufacturer item i d"@en .
-
-:hasMaximumOrderQuantity a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The maximum number of orderable units that can be ordered according to details provided in the catalogue line, such as price. (epo-cat:CatalogueLine -> epo:Quantity (+epo-cat:hasMaximumOrderQuantity))"@en ;
-    skos:prefLabel "Has maximum order quantity"@en .
-
-:hasMinimumQuantityGuaranteedForDelivery a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The minimum quantity of an item that is guaranteed by the seller to be delivered. (epo-cat:CatalogueLine -> epo:Quantity (+epo-cat:hasMinimumQuantityGuaranteedForDelivery))"@en ;
-    skos:prefLabel "Has minimum quantity guaranteed for delivery"@en .
-
-:hasModel a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has model"@en .
-
-:hasNetMonetaryValue a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has net monetary value"@en .
-
-:hasNetQuantity a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The net quantity of the item that is contained in each consumable unit, excluding any packaging materials. (epo-cat:Item -> epo:Quantity (+epo-cat:hasNetQuantity))"@en ;
-    skos:prefLabel "Has net quantity"@en .
-
-:hasOrderabableUnitFactorRate a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has orderabable unit factor rate"@en .
-
-:hasOrderableQuantityIncrement a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Orderable quantity increment: The increment of Orderable units that can be ordered. (epo-cat:CatalogueLine)"@en ;
-    skos:prefLabel "Has orderable quantity increment"@en .
-
-:hasOrderableUnit a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The unit in which the item described in this catalogue line can be ordered. (epo-cat:CatalogueLine -> at-voc-new:orderable-unit (+epo-cat:hasOrderableUnit))"@en ;
-    skos:prefLabel "Has orderable unit"@en .
-
-:hasOrderableUnitFactorRate a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The factor by which the Item net price of an unit of an item can be converted to the orderable unit. (epo-cat:CatalogueLine)"@en ;
-    skos:prefLabel "Has orderable unit factor rate"@en .
-
-:hasPrice a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has price"@en .
-
-:hasPriceDiscountInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has price discount information"@en .
-
-:hasPriceSurchargeInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has price surcharge information"@en .
-
-:hasPriceType a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has price type"@en .
-
-:hasPriceValidity a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has price validity"@en .
-
-:hasQualifiedItemRelation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has qualified item relation"@en .
-
-:hasQualifiedValue a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Qualified value of the property, which is defined in a classification scheme. Additional Information: For example, the (0173-1#02-AAA026#007) drilling diameter of an item has value of 12 inches. (epo-cat:ItemProperty -> epo:Quantity (+epo-cat:hasQualifiedValue))"@en ;
-    skos:historyNote "WG Approval 28/07/2022"@en ;
-    skos:prefLabel "Has qualified value"@en .
-
-:hasQuantityThreshold a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has quantity threshold"@en .
-
-:hasSellerItemID a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The general identifier assigned to the concept as defined by the Seller.​ (epo-cat:Item -> adms:Identifier (+epo:hasSellerItemID))"@en ;
-    skos:historyNote "WG Approval 16/05/2023"@en ;
-    skos:prefLabel "Has seller item i d"@en .
-
-:hasSerialID a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The identifier assigned to the specific instance of the produced concept. (epo-cat:Item -> adms:Identifier (+epo:hasSerialID))"@en ;
-    skos:historyNote "WG Approval 16/05/2023"@en ;
-    skos:prefLabel "Has serial i d"@en .
-
-:hasSpecificPaymentArrangement a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Information about payment conditions applied to all items in the catalogue. Additional information: This property may need to be used together with the payment arrangements provided in the ContractTerms, where such terms exists. (epo-cat:Catalogue)"@en ;
-    skos:historyNote "WG Approval 30/06/2022"@en ;
-    skos:prefLabel "Has specific payment arrangement"@en .
-
-:hasSpecification a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has specification"@en .
-
-:hasStandardisedUnitPrice a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The item price based on a standardised unit. Additional Information: The unit must be indicated in the Quantity, with a quantity value of 1. (epo-cat:CatalogueLine -> epo-cat:Price (+epo-cat:hasStandardisedUnitPrice))"@en ;
-    skos:prefLabel "Has standardised unit price"@en .
-
-:hasTaxCategory a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has tax category"@en .
-
-:hasTaxInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has tax information"@en .
-
-:hasTaxScheme a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Has tax scheme"@en .
-
-:hasTransactionConditions a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Textual description of the specific transaction conditions (purchasing, sales, payment) for an item. (epo-cat:CatalogueLine)"@en ;
-    skos:prefLabel "Has transaction conditions"@en .
-
-:hasTransactionConditionsCode a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Coded description of the specific transaction conditions (purchasing, sales, payment) for an item. (epo-cat:CatalogueLine -> at-voc-new:transaction-conditions (+epo-cat:hasTransactionConditionsCode))"@en ;
-    skos:prefLabel "Has transaction conditions code"@en .
-
-:hasUUID a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "A universally unique identifier for an instance of this document. (epo-cat:CatalogueResponseLine -> adms:Identifier (+epo:hasUUID))"@en ;
-    skos:historyNote "WG Approval 12/05/2020"@en ;
-    skos:prefLabel "Has u u i d"@en .
-
-:hasValidityPeriod a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "The relation indicating until when a given instance of a concept is applicable. (epo-cat:Catalogue -> epo:Period (+epo:hasValidityPeriod))"@en ;
-    skos:historyNote "WG Approval 30/05/2023"@en ;
-    skos:prefLabel "Has validity period"@en .
-
-:hasWarrantyInformation a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Warranty information that applies to the catalogue line item. (epo-cat:CatalogueLine)"@en ;
-    skos:prefLabel "Has warranty information"@en .
-
-:isContractedItem a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Indicator if the item is offered in accordance to an existing contract. (epo-cat:CatalogueLine)"@en ;
-    skos:prefLabel "Is contracted item"@en .
-
-:isInStock a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Indicator whether an item is in the supplier's stock. If not in stock the supplier has to order the item. (epo-cat:Item)"@en ;
-    skos:prefLabel "Is in stock"@en .
-
-:isOrderable a owl:DatatypeProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Indicator, if the item is orderable or not, e.g. because it is temporarily out of stock. (epo-cat:CatalogueLine)"@en ;
-    skos:prefLabel "Is orderable"@en .
-
-:isProductionOf a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Is production of"@en .
-
-:isRelatedToItem a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Is related to item"@en .
-
-:isSpecificToCatalogueResponseLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Is specific to catalogue response line"@en .
-
-:isSpecificToInvoiceLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Is specific to invoice line"@en .
-
-:isSpecificToLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Is specific to line"@en .
-
-:isSpecificToOrderLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Information that is particular to one or multiple Order Lines. (epo-cat:ChargeInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine))"@en ;
-    skos:prefLabel "Is specific to order line"@en .
-
-:isSubordinatedToContract a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Is subordinated to contract"@en .
-
-:refersToCatalogue a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Additional information: If an order refers to multiple catalogues then all these catalogues ideally are subordinated to the same contract. Some countries however may allow multiple contracts per order (i.e Italy). (epo-ord:Order -> epo-cat:Catalogue (+epo-ord:refersToCatalogue))"@en ;
-    skos:prefLabel "Refers to catalogue"@en .
-
-:refersToCatalogueLine a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Additional Information: The reference to the catalogue line is for information only, to trace the source of the information provided in the order line. (epo-ord:OrderLine -> epo-cat:CatalogueLine (+epo-ord:refersToCatalogueLine))"@en ;
-    skos:prefLabel "Refers to catalogue line"@en .
-
-:specifiesBuyer a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Specifies buyer"@en .
-
-:specifiesCatalogueProvider a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Specifies catalogue provider"@en .
-
-:specifiesCatalogueReceiver a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Specifies catalogue receiver"@en .
-
-:specifiesCatalogueResponseInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Specifies catalogue response information"@en .
-
-:specifiesChargeInformation a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Specifies charge information"@en .
-
-:specifiesItem a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Specifies item"@en .
-
-:specifiesSeller a owl:ObjectProperty ;
-    rdfs:isDefinedBy :cat ;
-    skos:prefLabel "Specifies seller"@en .
-
-dcterms:description a owl:DatatypeProperty ;
-    skos:definition "External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/description\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/description</u></foreign></xref> (epo-cat:Line) External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/description\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/description</u></foreign></xref> (epo-cat:Item)"@en ;
-    skos:historyNote "WG Approval 30/05/2023"@en ;
-    skos:prefLabel "Description"@en .
-
-dcterms:hasPart a owl:ObjectProperty ;
-    skos:definition "External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/hasPart\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/hasPart</u></foreign></xref> (epo-cat:Item -> epo-cat:Item (+dct:hasPart))"@en ;
-    skos:historyNote "WG Approval 30/06/2022"@en ;
-    skos:prefLabel "Has part"@en .
-
-dcterms:isReplacedBy a owl:ObjectProperty ;
-    skos:definition "External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy</u></foreign></xref> (epo-cat:Item <-> epo-cat:Item (+dct:isReplacedBy +dct:replaces))"@en ;
-    skos:historyNote "WG Approval 30/06/2022"@en ;
-    skos:prefLabel "Is replaced by"@en .
-
-dcterms:replaces a owl:ObjectProperty ;
-    skos:definition "External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy</u></foreign></xref> (epo-cat:Item <-> epo-cat:Item (+dct:isReplacedBy +dct:replaces))"@en ;
-    skos:historyNote "WG Approval 30/06/2022"@en ;
-    skos:prefLabel "Replaces"@en .
-
-dcterms:requires a owl:ObjectProperty ;
-    skos:definition "External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/requires\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/requires</u></foreign></xref> (epo-cat:Item -> epo-cat:Item (+dct:requires))"@en ;
-    skos:historyNote "WG Approval 30/06/2022"@en ;
-    skos:prefLabel "Requires"@en .
-
-dcterms:title a owl:DatatypeProperty ;
-    skos:definition "External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/title\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/title</u></foreign></xref> (epo-cat:Brand) External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/title\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/title</u></foreign></xref> (epo-cat:ItemProperty) External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/title\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/title</u></foreign></xref> (epo-cat:ItemModel) External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/title\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/title</u></foreign></xref> (epo-cat:Item)"@en ;
-    skos:historyNote "WG Approval 30/05/2023"@en ;
-    skos:prefLabel "Title"@en .
-
-rdf:PlainLiteral a rdfs:Datatype ;
-    skos:prefLabel "Plain literal"@en .
-
-xsd:anyURI a rdfs:Datatype ;
-    skos:prefLabel "Any u r i"@en .
-
-xsd:boolean a rdfs:Datatype ;
-    skos:prefLabel "Boolean"@en .
-
-xsd:date a rdfs:Datatype ;
-    skos:prefLabel "Date"@en .
-
-xsd:dateTime a rdfs:Datatype ;
-    skos:prefLabel "Date time"@en .
-
-xsd:decimal a rdfs:Datatype ;
-    skos:prefLabel "Decimal"@en .
-
-xsd:integer a rdfs:Datatype ;
-    skos:prefLabel "Integer"@en .
-
-adms:identifier a owl:ObjectProperty ;
-    skos:definition "External concept defined by <xref scope=\"external\" href=\"https://semiceu.github.io/ADMS/releases/2.00/#identifier\"><foreign otherprops=\"#0000ff\"><u>https://semiceu.github.io/ADMS/releases/2.00/#identifier</u></foreign></xref> (epo-cat:Line -> adms:Identifier (+adms:identifier))"@en ;
-    skos:prefLabel "Identifier"@en .
-
-:PostAwardDocument a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    rdfs:subClassOf :Document ;
-    skos:prefLabel "Post award document"@en .
-
-:ItemRelation a owl:Class ;
-    rdfs:isDefinedBy :cat ;
-    skos:definition "Connection between two Items."@en ;
-    skos:prefLabel "Item relation"@en .
-
-:cat a owl:Ontology ;
-    rdfs:label "eProcurement Ontology Catalogue - core"@en ;
-    dcterms:created "2021-06-01"^^xsd:date ;
-    dcterms:description "The eProcurement Ontology Catalogue core describes the concepts and properties representing the European Public Procurement Catalogue domain. The provision of these semantics offers the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency. The ontology restrictions are published in a separate artefact."@en ;
-    dcterms:issued "2024-11-12"^^xsd:date ;
-    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
-    dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
-    dcterms:title "eProcurement Ontology Catalogue - core"@en ;
-    vann:preferredNamespacePrefix "epo" ;
-    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eCatalogue.xml on 2024-11-12" ;
-    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
-        <https://github.com/OP-TED/ePO/releases>,
-        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
-        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :core,
-        :ful,
-        :ord,
-        eli:,
-        cccev:,
-        frbroo:,
-        dcterms:,
-        vann:,
-        <http://www.w3.org/2004/02/skos/core>,
-        <http://www.w3.org/2006/time>,
-        <http://www.w3.org/ns/adms>,
-        <http://www.w3.org/ns/locn>,
-        org:,
-        <http://www.w3.org/ns/person>,
-        foaf: ;
-    owl:incompatibleWith "3.1.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/ontology#cat-4.1.1" ;
-    owl:versionIRI :cat-4.2.0 ;
-    owl:versionInfo "4.2.0" .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix cpov: <http://data.europa.eu/m8g/> .
+@prefix a4g: <http://data.europa.eu/a4g/ontology#> .
+@prefix sfrml: <http://data.europa.eu/a4g/mapping/sf-rml/> .
+@prefix a4g_shape: <http://data.europa.eu/a4g/data-shape#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix person: <http://www.w3.org/ns/person#> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix r2rml: <http://www.w3.org/ns/r2rml#> .
+@prefix at: <http://publications.europa.eu/ontology/authority/> .
+@prefix atold: <http://publications.europa.eu/resource/authority/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+a4g:Batch a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "A production Lot in which the Item instances were produced."@en ;
+	skos:prefLabel "Batch"@en .
+
+a4g:cat a owl:Ontology ;
+	dcterms:description "The eProcurement Ontology Catalogue core describes the concepts and properties representing the European Public Procurement Catalogue domain. The provision of these semantics offers the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency. The ontology restrictions are published in a separate artefact."@en ;
+	dcterms:title "eProcurement Ontology Catalogue - core"@en ;
+	rdfs:label "eProcurement Ontology Catalogue - core"@en ;
+	dcterms:created "2021-06-01"^^xsd:date ;
+	dcterms:issued "2024-11-12"^^xsd:date ;
+	dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+	dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
+	vann:preferredNamespacePrefix "epo" ;
+	vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
+	rdfs:comment "This version is automatically generated from eCatalogue.xml on 2024-11-12" ;
+	rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>, <https://github.com/OP-TED/ePO/releases>, <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>, <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
+	owl:imports a4g:core, a4g:ful, a4g:ord, <http://data.europa.eu/eli/ontology#>, <http://data.europa.eu/m8g/>, <http://iflastandards.info/ns/fr/frbr/frbroo/>, <http://purl.org/dc/terms/>, <http://purl.org/vocab/vann/>, <http://www.w3.org/2004/02/skos/core>, <http://www.w3.org/2006/time>, <http://www.w3.org/ns/adms>, <http://www.w3.org/ns/locn>, <http://www.w3.org/ns/org#>, <http://www.w3.org/ns/person>, <http://xmlns.com/foaf/0.1/> ;
+	owl:incompatibleWith "3.1.0" ;
+	owl:priorVersion "http://data.europa.eu/a4g/ontology#cat-4.1.1" ;
+	owl:versionIRI a4g:cat-4.2.0 ;
+	owl:versionInfo "4.2.0" .
+
+a4g:Brand a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Name given by an organisation to its product or service, or range of products or services. Additional information: Brand name allows economic operators to distinctively describe an item in their eCatalogue. This may be different from the \"item name\"."@en ;
+	skos:prefLabel "Brand"@en .
+
+a4g:Catalogue a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "A Document describing a set of Items offered for purchase that can be processed in an electronic way."@en ;
+	skos:prefLabel "Catalogue"@en ;
+	rdfs:subClassOf a4g:PostAwardDocument .
+
+a4g:PostAwardDocument a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Post award document"@en ;
+	rdfs:subClassOf a4g:Document .
+
+a4g:CatalogueLine a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Aggregated information about the Terms and specifications for procuring an Item. Details about an Item, like Prices, packaging, discounts, special promotions, etc. TC 440: Detailed information of an Item, Price and its composition in a Catalogue. Composition: e.g. information referring to its description, how to order it, what it is made of, properties, delivery conditions, etc."@en ;
+	skos:prefLabel "Catalogue line"@en .
+
+a4g:CatalogueResponse a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Catalogue response"@en ;
+	rdfs:subClassOf a4g:PostAwardDocument .
+
+a4g:CatalogueResponseInformation a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Catalogue response information"@en .
+
+a4g:CatalogueResponseLine a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Catalogue response line"@en .
+
+a4g:ChargeInformation a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Information about tax, fee or duty imposed. Additional Information: Charge category indicates the nature of the tax/duty/fee, for example VAT, CAR, etc. Charge category modifier may be used in case different levels, exemptions or other modifications apply. The charge can be fixed or relative to the price."@en ;
+	skos:prefLabel "Charge information"@en ;
+	rdfs:subClassOf a4g:AllowanceChargeInformation .
+
+a4g:InformationHub a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Grouping of data that may be associated to various concepts. Additional Information: For example, AllowanceChargeInformation may be associated to the Order or the Catalogue (either at the Line level or at the Document level), amongst others."@en ;
+	skos:prefLabel "Information hub"@en ;
+	rdfs:subClassOf a4g:ContextDescription .
+
+a4g:Item a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "A product, work, service or any combination of them. Additional Information: An Item can be an atomic Thing or a composition of things that together are seen as a unit, e.g. a tetrabrik of milk or an indivisible package of six tetrabriks. No distinction is provided between services, goods and works to leave room for innovation."@en ;
+	skos:prefLabel "Item"@en .
+
+a4g:ItemAccessoryRelation a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Combination of two Items where the former enhances the latter."@en ;
+	skos:prefLabel "Item accessory relation"@en ;
+	rdfs:subClassOf a4g:ItemRelation .
+
+a4g:ItemRelation a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Connection between two Items."@en ;
+	skos:prefLabel "Item relation"@en .
+
+a4g:ItemComplementaryRelation a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Combination of two Items which mutually enhance one another."@en ;
+	skos:prefLabel "Item complementary relation"@en ;
+	rdfs:subClassOf a4g:ItemRelation .
+
+a4g:ItemComposition a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Inclusion of an Item into in the described Item. Additional Information: The Item is provided with its components, however, the component Items may also be provided separately. For example, a bicycle has wheels as components, but they may be provided as spare parts as well. This relation is useful to describe different package levels of an item or hierarchies of Items."@en ;
+	skos:prefLabel "Item composition"@en ;
+	rdfs:subClassOf a4g:ItemRelation .
+
+a4g:ItemModel a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "A specific design or version of a product or service. Additional information: This class is meant as a reusable reference to the model name rather than as a set of specifications of an Item of this particular model."@en ;
+	skos:prefLabel "Item model"@en .
+
+a4g:ItemProperty a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Construct meant to represent the association between an attribute defined in an external classification scheme and the value ascribed to it."@en ;
+	skos:prefLabel "Item property"@en .
+
+a4g:ItemReplacement a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Supplantment, displacement or suspension of an Item by the described Item."@en ;
+	skos:prefLabel "Item replacement"@en ;
+	rdfs:subClassOf a4g:ItemRelation .
+
+a4g:ItemRequirement a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Necessity of an Item by the described item. Additional Information: The described item is provided without other items that are required for proper functionality. For example, a printer cannot be used without ink cartridge; or a Server cannot be used without its installation."@en ;
+	skos:prefLabel "Item requirement"@en ;
+	rdfs:subClassOf a4g:ItemRelation .
+
+a4g:Line a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Line"@en .
+
+a4g:Manufacturer a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The Producer of goods or provider of services. Additional Information: Also, known as Supplier and Manufacturer. We do not care who provides these service or products we care with whom Business is done. PEPPOL - Invoice: The Supplier is the Legal Person or Organisation who provides a product and/or service. PEPPOL - Order: The supplier is the legal person or organisation who provides a product or service. Examples of supplier roles: seller, despatch party, creditor, economic operator."@en ;
+	skos:prefLabel "Manufacturer"@en ;
+	rdfs:subClassOf a4g:OfferingParty .
+
+a4g:Price a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Amount of money required or given in exchange for Items. Additional information: The Price excludes any charges (such as taxes, duties and fees) and discounts."@en ;
+	skos:prefLabel "Price"@en .
+
+a4g:ProductSpecification a owl:Class ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Document providing information about an Item."@en ;
+	skos:prefLabel "Product specification"@en ;
+	rdfs:subClassOf a4g:PostAwardDocument .
+
+a4g:comprisesCatalogueLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Comprises catalogue line"@en .
+
+a4g:comprisesCatalogueResponseLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Comprises catalogue response line"@en .
+
+a4g:describesItem a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Describes item"@en .
+
+a4g:foreseesPackage a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Foresees package"@en .
+
+a4g:hasAcceptanceStatus a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has acceptance status"@en .
+
+a4g:hasAccessoryItem a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "An additional item that can enhance the original item. (epo-cat:Item -> epo-cat:Item (+epo-cat:hasAccessoryItem))"@en ;
+	skos:prefLabel "Has accessory item"@en ;
+	skos:historyNote "WG Approval 30/06/2022"@en .
+
+a4g:hasActivityCode a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has activity code"@en .
+
+a4g:hasAdditionalInformation a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Supplementary data about the instance of the concept. (epo-cat:Line)"@en ;
+	skos:prefLabel "Has additional information"@en ;
+	skos:historyNote "WG Approval 15/10/2019"@en .
+
+a4g:hasAttributeType a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The property defined in a classification scheme. Additional Information: For example, the following two properties are defined in the ECLASS classification of goods and services: (0173-1#02-AAA026#007) drilling diameter: drilling diameter, (0173-1#02-AAA030#007) flange diameter: flange diameter . (epo-cat:ItemProperty)"@en ;
+	skos:prefLabel "Has attribute type"@en ;
+	skos:historyNote "WG Approval 28/07/2022"@en .
+
+a4g:hasBaseQuantity a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The quantity at which the net monetary value applies. (epo-cat:Price -> epo:Quantity (+epo-cat:hasBaseQuantity))"@en ;
+	skos:prefLabel "Has base quantity"@en .
+
+a4g:hasBatchID a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The identifier assigned to a specific batch of the produced Item. (epo-cat:Batch -> adms:Identifier (+epo:hasBatchID))"@en ;
+	skos:prefLabel "Has batch i d"@en ;
+	skos:historyNote "WG Approval 16/05/2023"@en .
+
+a4g:hasBestBeforeDate a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The day until which the quality of the item will remain optimal. (epo-cat:Batch)"@en ;
+	skos:prefLabel "Has best before date"@en ;
+	skos:historyNote "WG Approval 10/03/2021"@en .
+
+a4g:hasBrand a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has brand"@en .
+
+a4g:hasBuyerItemID a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The general identifier assigned to the concept as defined by the Buyer.​ (epo-cat:Item -> adms:Identifier (+epo:hasBuyerItemID))"@en ;
+	skos:prefLabel "Has buyer item i d"@en ;
+	skos:historyNote "WG Approval 16/05/2023"@en .
+
+a4g:hasCatalogueLineValidity a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The relation indicating until when a Catalogue Line instance is applicable. (epo-cat:CatalogueLine -> epo:Period (+epo-cat:hasCatalogueLineValidity))"@en ;
+	skos:prefLabel "Has catalogue line validity"@en ;
+	skos:historyNote "WG Approval 21/09/2023"@en .
+
+a4g:hasCertification a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Relation to the proof of conformance. (epo-cat:Item -> epo:Certificate (+epo:hasCertification))"@en ;
+	skos:prefLabel "Has certification"@en ;
+	skos:historyNote "WG Approval 30/05/2023"@en .
+
+a4g:hasChargeInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has charge information"@en .
+
+a4g:hasClassificationScheme a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The classification scheme where a property is defined. Additional Information: For example, the following two properties are defined in the ECLASS classification of goods and services: (0173-1#02-AAA026#007) drilling diameter: drilling diameter, (0173-1#02-AAA030#007) flange diameter: flange diameter . (epo-cat:ItemProperty)"@en ;
+	skos:prefLabel "Has classification scheme"@en ;
+	skos:historyNote "WG Approval 28/07/2022"@en .
+
+a4g:hasComplementaryItem a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "An item that if used with another item provides mutual enhancements to both of them. Additional information: For example, gin and tonic; or smart-phone and smart-watch. (epo-cat:Item -> epo-cat:Item (+epo-cat:hasComplementaryItem))"@en ;
+	skos:prefLabel "Has complementary item"@en ;
+	skos:historyNote "WG Approval 19/05/2022"@en .
+
+a4g:hasCountryOfOrigin a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The source country of the product or service. Additional Information: The country of origin can be provided by the buyer as a requirement or by the tenderer information of the item to be provided. (epo-cat:Item -> at-voc:country (+epo-cat:hasCountryOfOrigin))"@en ;
+	skos:prefLabel "Has country of origin"@en .
+
+a4g:hasDeliveryClassification a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has delivery classification"@en .
+
+a4g:hasDeliveryLocation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Location delivery area where the Item can be ordered to the given price. (epo-cat:Price -> dct:Location (+epo-cat:hasDeliveryLocation))"@en ;
+	skos:prefLabel "Has delivery location"@en .
+
+a4g:hasDimensionDescription a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Textual description of the item's dimensions. (epo-cat:Item)"@en ;
+	skos:prefLabel "Has dimension description"@en .
+
+a4g:hasDocumentStatus a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "https://test-docs.peppol.eu/logistics/transport-execution/codelist/DocumentStatusCode/ (epo-cat:PostAwardDocument -> at-voc-new:document-status (+epo:hasDocumentStatus))"@en ;
+	skos:prefLabel "Has document status"@en .
+
+a4g:hasDocumentType a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has document type"@en .
+
+a4g:hasExpectedDeliveryTime a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The expected amount of time between the order and delivery of an item. (epo-cat:Price -> epo:Duration (+epo-cat:hasExpectedDeliveryTime))"@en ;
+	skos:prefLabel "Has expected delivery time"@en ;
+	skos:historyNote "WG Approval 26/07/2022"@en .
+
+a4g:hasExpiryDate a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The last day until which the item can be used. (epo-cat:Batch)"@en ;
+	skos:prefLabel "Has expiry date"@en ;
+	skos:historyNote "WG Approval 10/03/2021"@en .
+
+a4g:hasExternalSpecification a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "URI reference to external item information or specifications, e.g. web address. (epo-cat:Item -> epo:Document (+epo-cat:hasExternalSpecification))"@en ;
+	skos:prefLabel "Has external specification"@en .
+
+a4g:hasFactor a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The number or the fraction of a related item. (epo-cat:ItemRelation)"@en ;
+	skos:prefLabel "Has factor"@en .
+
+a4g:hasFreightAllowanceCharge a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has freight allowance charge"@en .
+
+a4g:hasFreightCharge a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The total cost for moving the goods. (epo-ful:Consignment -> epo-cat:ChargeInformation (+epo-ful:hasFreightCharge))"@en ;
+	skos:prefLabel "Has freight charge"@en ;
+	skos:historyNote "WG Approval 18/06/2024"@en .
+
+a4g:hasGrossMonetaryValue a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has gross monetary value"@en .
+
+a4g:hasHazardousClass a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Specification of the hazardous nature of an item according to a classification schema. Provides detail of the classification and nature of a hazardous item. (epo-cat:Item)"@en ;
+	skos:prefLabel "Has hazardous class"@en .
+
+a4g:hasHazardousItemUNDGCode a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Specification of the hazardous nature of an item according to the UNDG classification schema. Provides detail of the classification and nature of a hazardous item. (epo-cat:Item -> at-voc-new:dangerous-goods-list (+epo-cat:hasHazardousItemUNDGCode))"@en ;
+	skos:prefLabel "Has hazardous item u n d g code"@en .
+
+a4g:hasItemClassification a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "A classification of this item according to a specific system for classifying products or services. Additional information: Examples of classification schemes are: CPV, UNSPC, eCl@ss, GPC, ... (epo-cat:Item -> at-voc-new:item-classification (+epo-cat:hasItemClassification))"@en ;
+	skos:prefLabel "Has item classification"@en .
+
+a4g:hasItemClassificationIdentifier a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has item classification identifier"@en .
+
+a4g:hasItemStandardID a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "External concept defined by <xref scope=\"external\" href=\"https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy\"><foreign otherprops=\"#0000ff\"><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy</u></foreign></xref> (epo-cat:Item -> adms:Identifier (+epo:hasItemStandardID))"@en ;
+	skos:prefLabel "Has item standard i d"@en ;
+	skos:historyNote "WG Approval 16/05/2023"@en .
+
+a4g:hasKeyword a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "List of words (e.g, synonyms) to make the item searchable. (epo-cat:Item)"@en ;
+	skos:prefLabel "Has keyword"@en ;
+	skos:historyNote "WG Approval 07/04/2022"@en .
+
+a4g:hasLiteralValue a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Simple value of the property, which is defined in a classification scheme. Additional Information: For example, the (0173-1#02-AAV139#001) coating 1 of an optical material has value of \"silver\". This simple literal value is for the cases when the property value does not have units, in which case the qualifiedValue shall be used. (epo-cat:ItemProperty)"@en ;
+	skos:prefLabel "Has literal value"@en ;
+	skos:historyNote "WG Approval 28/07/2022"@en .
+
+a4g:hasManufactureDate a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The day of production. (epo-cat:Batch)"@en ;
+	skos:prefLabel "Has manufacture date"@en .
+
+a4g:hasManufacturer a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has manufacturer"@en .
+
+a4g:hasManufacturerID a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The manufacturer's identifier for the item. (epo-cat:Manufacturer -> adms:Identifier (+epo:hasManufacturerID))"@en ;
+	skos:prefLabel "Has manufacturer i d"@en .
+
+a4g:hasManufacturerItemID a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The general identifier assigned to the concept as defined by the Manufacturer. ​ (epo-cat:Item -> adms:Identifier (+epo:hasManufacturerItemID))"@en ;
+	skos:prefLabel "Has manufacturer item i d"@en ;
+	skos:historyNote "WG Approval 16/05/2023"@en .
+
+a4g:hasMaximumOrderQuantity a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The maximum number of orderable units that can be ordered according to details provided in the catalogue line, such as price. (epo-cat:CatalogueLine -> epo:Quantity (+epo-cat:hasMaximumOrderQuantity))"@en ;
+	skos:prefLabel "Has maximum order quantity"@en .
+
+a4g:hasMinimumQuantityGuaranteedForDelivery a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The minimum quantity of an item that is guaranteed by the seller to be delivered. (epo-cat:CatalogueLine -> epo:Quantity (+epo-cat:hasMinimumQuantityGuaranteedForDelivery))"@en ;
+	skos:prefLabel "Has minimum quantity guaranteed for delivery"@en .
+
+a4g:hasModel a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has model"@en .
+
+a4g:hasNetMonetaryValue a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has net monetary value"@en .
+
+a4g:hasNetQuantity a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The net quantity of the item that is contained in each consumable unit, excluding any packaging materials. (epo-cat:Item -> epo:Quantity (+epo-cat:hasNetQuantity))"@en ;
+	skos:prefLabel "Has net quantity"@en .
+
+a4g:hasOrderabableUnitFactorRate a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has orderabable unit factor rate"@en .
+
+a4g:hasOrderableQuantityIncrement a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Orderable quantity increment: The increment of Orderable units that can be ordered. (epo-cat:CatalogueLine)"@en ;
+	skos:prefLabel "Has orderable quantity increment"@en .
+
+a4g:hasOrderableUnit a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The unit in which the item described in this catalogue line can be ordered. (epo-cat:CatalogueLine -> at-voc-new:orderable-unit (+epo-cat:hasOrderableUnit))"@en ;
+	skos:prefLabel "Has orderable unit"@en .
+
+a4g:hasOrderableUnitFactorRate a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The factor by which the Item net price of an unit of an item can be converted to the orderable unit. (epo-cat:CatalogueLine)"@en ;
+	skos:prefLabel "Has orderable unit factor rate"@en .
+
+a4g:hasPrice a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has price"@en .
+
+a4g:hasPriceDiscountInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has price discount information"@en .
+
+a4g:hasPriceSurchargeInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has price surcharge information"@en .
+
+a4g:hasPriceType a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has price type"@en .
+
+a4g:hasPriceValidity a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has price validity"@en .
+
+a4g:hasQualifiedItemRelation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has qualified item relation"@en .
+
+a4g:hasQualifiedValue a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Qualified value of the property, which is defined in a classification scheme. Additional Information: For example, the (0173-1#02-AAA026#007) drilling diameter of an item has value of 12 inches. (epo-cat:ItemProperty -> epo:Quantity (+epo-cat:hasQualifiedValue))"@en ;
+	skos:prefLabel "Has qualified value"@en ;
+	skos:historyNote "WG Approval 28/07/2022"@en .
+
+a4g:hasQuantityThreshold a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has quantity threshold"@en .
+
+a4g:hasSellerItemID a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The general identifier assigned to the concept as defined by the Seller.​ (epo-cat:Item -> adms:Identifier (+epo:hasSellerItemID))"@en ;
+	skos:prefLabel "Has seller item i d"@en ;
+	skos:historyNote "WG Approval 16/05/2023"@en .
+
+a4g:hasSerialID a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The identifier assigned to the specific instance of the produced concept. (epo-cat:Item -> adms:Identifier (+epo:hasSerialID))"@en ;
+	skos:prefLabel "Has serial i d"@en ;
+	skos:historyNote "WG Approval 16/05/2023"@en .
+
+a4g:hasSpecificPaymentArrangement a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Information about payment conditions applied to all items in the catalogue. Additional information: This property may need to be used together with the payment arrangements provided in the ContractTerms, where such terms exists. (epo-cat:Catalogue)"@en ;
+	skos:prefLabel "Has specific payment arrangement"@en ;
+	skos:historyNote "WG Approval 30/06/2022"@en .
+
+a4g:hasSpecification a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has specification"@en .
+
+a4g:hasStandardisedUnitPrice a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The item price based on a standardised unit. Additional Information: The unit must be indicated in the Quantity, with a quantity value of 1. (epo-cat:CatalogueLine -> epo-cat:Price (+epo-cat:hasStandardisedUnitPrice))"@en ;
+	skos:prefLabel "Has standardised unit price"@en .
+
+a4g:hasTaxCategory a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has tax category"@en .
+
+a4g:hasTaxInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has tax information"@en .
+
+a4g:hasTaxScheme a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Has tax scheme"@en .
+
+a4g:hasTransactionConditions a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Textual description of the specific transaction conditions (purchasing, sales, payment) for an item. (epo-cat:CatalogueLine)"@en ;
+	skos:prefLabel "Has transaction conditions"@en .
+
+a4g:hasTransactionConditionsCode a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Coded description of the specific transaction conditions (purchasing, sales, payment) for an item. (epo-cat:CatalogueLine -> at-voc-new:transaction-conditions (+epo-cat:hasTransactionConditionsCode))"@en ;
+	skos:prefLabel "Has transaction conditions code"@en .
+
+a4g:hasUUID a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "A universally unique identifier for an instance of this document. (epo-cat:CatalogueResponseLine -> adms:Identifier (+epo:hasUUID))"@en ;
+	skos:prefLabel "Has u u i d"@en ;
+	skos:historyNote "WG Approval 12/05/2020"@en .
+
+a4g:hasValidityPeriod a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "The relation indicating until when a given instance of a concept is applicable. (epo-cat:Catalogue -> epo:Period (+epo:hasValidityPeriod))"@en ;
+	skos:prefLabel "Has validity period"@en ;
+	skos:historyNote "WG Approval 30/05/2023"@en .
+
+a4g:hasWarrantyInformation a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Warranty information that applies to the catalogue line item. (epo-cat:CatalogueLine)"@en ;
+	skos:prefLabel "Has warranty information"@en .
+
+a4g:isContractedItem a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Indicator if the item is offered in accordance to an existing contract. (epo-cat:CatalogueLine)"@en ;
+	skos:prefLabel "Is contracted item"@en .
+
+a4g:isInStock a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Indicator whether an item is in the supplier's stock. If not in stock the supplier has to order the item. (epo-cat:Item)"@en ;
+	skos:prefLabel "Is in stock"@en .
+
+a4g:isOrderable a owl:DatatypeProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Indicator, if the item is orderable or not, e.g. because it is temporarily out of stock. (epo-cat:CatalogueLine)"@en ;
+	skos:prefLabel "Is orderable"@en .
+
+a4g:isProductionOf a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Is production of"@en .
+
+a4g:isRelatedToItem a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Is related to item"@en .
+
+a4g:isSpecificToCatalogueResponseLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Is specific to catalogue response line"@en .
+
+a4g:isSpecificToInvoiceLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Is specific to invoice line"@en .
+
+a4g:isSpecificToLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Is specific to line"@en .
+
+a4g:isSpecificToOrderLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Information that is particular to one or multiple Order Lines. (epo-cat:ChargeInformation -> epo-ord:OrderLine (+epo-ord:isSpecificToOrderLine))"@en ;
+	skos:prefLabel "Is specific to order line"@en .
+
+a4g:isSubordinatedToContract a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Is subordinated to contract"@en .
+
+a4g:refersToCatalogue a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Additional information: If an order refers to multiple catalogues then all these catalogues ideally are subordinated to the same contract. Some countries however may allow multiple contracts per order (i.e Italy). (epo-ord:Order -> epo-cat:Catalogue (+epo-ord:refersToCatalogue))"@en ;
+	skos:prefLabel "Refers to catalogue"@en .
+
+a4g:refersToCatalogueLine a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:definition "Additional Information: The reference to the catalogue line is for information only, to trace the source of the information provided in the order line. (epo-ord:OrderLine -> epo-cat:CatalogueLine (+epo-ord:refersToCatalogueLine))"@en ;
+	skos:prefLabel "Refers to catalogue line"@en .
+
+a4g:specifiesBuyer a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Specifies buyer"@en .
+
+a4g:specifiesCatalogueProvider a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Specifies catalogue provider"@en .
+
+a4g:specifiesCatalogueReceiver a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Specifies catalogue receiver"@en .
+
+a4g:specifiesCatalogueResponseInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Specifies catalogue response information"@en .
+
+a4g:specifiesChargeInformation a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Specifies charge information"@en .
+
+a4g:specifiesItem a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Specifies item"@en .
+
+a4g:specifiesSeller a owl:ObjectProperty ;
+	rdfs:isDefinedBy a4g:cat ;
+	skos:prefLabel "Specifies seller"@en .
 
