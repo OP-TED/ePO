@@ -84,6 +84,7 @@ The issues are classified based on for classification dimensions:
     * eOrdering
     * eCatalogue
     * eFulfillment
+	* eInvoicing
     * eAccess
     * eContract
     * eSubmission

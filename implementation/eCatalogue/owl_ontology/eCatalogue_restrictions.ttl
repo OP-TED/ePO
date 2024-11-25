@@ -28,20 +28,20 @@ a4g:cat-restriction a owl:Ontology ;
 	rdfs:label "eProcurement Ontology Catalogue - core restrictions"@en ;
 	dcterms:created "2021-06-01"^^xsd:date ;
 	dcterms:description "The eProcurement Ontology Catalogue core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Catalogue core."@en ;
-	dcterms:issued "2024-07-18"^^xsd:date ;
+	dcterms:issued "2024-11-12"^^xsd:date ;
 	dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
 	dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
 	dcterms:title "eProcurement Ontology Catalogue - core restrictions"@en ;
 	vann:preferredNamespacePrefix "epo" ;
 	vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-	rdfs:comment """This version is automatically generated from eCatalogue.xml on
-                2024-07-18""" ;
+	rdfs:comment """This version is automatically generated from eCatalogue.xml on 
+                2024-11-12""" ;
 	rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>, <https://github.com/OP-TED/ePO/releases>, <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>, <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
 	owl:imports a4g:cat, a4g:core, a4g:ful, a4g:ord, <http://data.europa.eu/eli/ontology#>, <http://data.europa.eu/m8g/>, <http://iflastandards.info/ns/fr/frbr/frbroo/>, <http://purl.org/dc/terms/>, <http://purl.org/vocab/vann/>, <http://www.w3.org/2004/02/skos/core>, <http://www.w3.org/2006/time>, <http://www.w3.org/ns/adms>, <http://www.w3.org/ns/locn>, <http://www.w3.org/ns/org#>, <http://www.w3.org/ns/person>, <http://xmlns.com/foaf/0.1/> ;
 	owl:incompatibleWith "3.1.0" ;
-	owl:priorVersion "http://data.europa.eu/a4g/ontology#cat-restriction-4.1.0" ;
-	owl:versionIRI a4g:cat-restriction-4.1.1 ;
-	owl:versionInfo "4.1.1" .
+	owl:priorVersion "http://data.europa.eu/a4g/ontology#cat-restriction-4.1.1" ;
+	owl:versionIRI a4g:cat-restriction-4.2.0 ;
+	owl:versionInfo "4.2.0" .
 
 a4g:comprisesCatalogueResponseLine rdfs:domain a4g:CatalogueResponse ;
 	rdfs:range a4g:CatalogueResponseLine .
@@ -67,7 +67,11 @@ a4g:foreseesPackage rdfs:domain a4g:CatalogueLine ;
 
 a4g:CatalogueLine rdfs:subClassOf [
 		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasOrderableUnitFactorRate ;
+		owl:onProperty a4g:hasTransactionConditions ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasWarrantyInformation ;
 		owl:maxCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
@@ -75,7 +79,7 @@ a4g:CatalogueLine rdfs:subClassOf [
 		owl:maxCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasTransactionConditions ;
+		owl:onProperty a4g:isContractedItem ;
 		owl:maxCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
@@ -83,15 +87,11 @@ a4g:CatalogueLine rdfs:subClassOf [
 		owl:minCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasWarrantyInformation ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:isContractedItem ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
 		owl:onProperty a4g:hasOrderableQuantityIncrement ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasOrderableUnitFactorRate ;
 		owl:maxCardinality 1 ;
 	] .
 
@@ -111,19 +111,7 @@ a4g:hasAccessoryItem a owl:AsymmetricProperty ;
 a4g:Item a owl:Class ;
 	rdfs:subClassOf [
 		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasModel ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:isInStock ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:cardinality 1 ;
-		owl:onProperty dcterms:title ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasManufacturer ;
+		owl:onProperty dcterms:description ;
 		owl:maxCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
@@ -131,18 +119,30 @@ a4g:Item a owl:Class ;
 		owl:maxCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
-		owl:onProperty dcterms:description ;
+		owl:onProperty a4g:hasModel ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasManufacturer ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:cardinality 1 ;
+		owl:onProperty dcterms:title ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:isInStock ;
 		owl:maxCardinality 1 ;
 	] .
 
 a4g:Catalogue rdfs:subClassOf [
 		rdf:type owl:Restriction ;
-		owl:onProperty a4g:comprisesCatalogueLine ;
-		owl:minCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
 		owl:onProperty a4g:hasSpecificPaymentArrangement ;
 		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:comprisesCatalogueLine ;
+		owl:minCardinality 1 ;
 	] .
 
 a4g:hasActivityCode rdfs:domain [
@@ -168,19 +168,19 @@ a4g:hasBatchID rdfs:domain a4g:Batch ;
 
 a4g:Batch rdfs:subClassOf [
 		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasBestBeforeDate ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasManufactureDate ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
 		owl:cardinality 1 ;
 		owl:onProperty a4g:isProductionOf ;
 	], [
 		rdf:type owl:Restriction ;
 		owl:onProperty a4g:hasExpiryDate ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasBestBeforeDate ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasManufactureDate ;
 		owl:maxCardinality 1 ;
 	] .
 
@@ -227,6 +227,12 @@ a4g:hasExternalSpecification rdfs:domain a4g:Item ;
 a4g:hasFreightAllowanceCharge rdfs:domain a4g:Consignment ;
 	rdfs:range a4g:ChargeInformation .
 
+a4g:hasFreightCharge rdfs:domain a4g:Consignment ;
+	rdfs:range a4g:ChargeInformation .
+
+a4g:hasGrossMonetaryValue rdfs:domain a4g:Price ;
+	rdfs:range a4g:MonetaryValue .
+
 a4g:hasHazardousClass rdfs:domain a4g:Item ;
 	rdfs:range rdf:PlainLiteral .
 
@@ -235,6 +241,9 @@ a4g:hasHazardousItemUNDGCode rdfs:domain a4g:Item ;
 
 a4g:hasItemClassification rdfs:domain a4g:Item ;
 	rdfs:range skos:Concept .
+
+a4g:hasItemClassificationIdentifier rdfs:domain a4g:Item ;
+	rdfs:range adms:Identifier .
 
 a4g:hasItemStandardID rdfs:domain a4g:Item ;
 	rdfs:range adms:Identifier .
@@ -291,22 +300,27 @@ a4g:ItemRelation rdfs:subClassOf [
 a4g:hasQualifiedValue rdfs:domain a4g:ItemProperty ;
 	rdfs:range a4g:Quantity .
 
-a4g:ItemProperty rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasLiteralValue ;
-		owl:maxCardinality 1 ;
-	], [
+a4g:ItemProperty a owl:Class ;
+	rdfs:subClassOf [
 		rdf:type owl:Restriction ;
 		owl:cardinality 1 ;
 		owl:onProperty a4g:describesItem ;
 	], [
 		rdf:type owl:Restriction ;
-		owl:cardinality 1 ;
-		owl:onProperty a4g:hasClassificationScheme ;
+		owl:onProperty dcterms:title ;
+		owl:maxCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
-		owl:cardinality 1 ;
+		owl:onProperty a4g:hasClassificationScheme ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasLiteralValue ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
 		owl:onProperty a4g:hasAttributeType ;
+		owl:maxCardinality 1 ;
 	] .
 
 a4g:hasQuantityThreshold rdfs:domain a4g:Price ;
@@ -342,6 +356,9 @@ a4g:hasUUID rdfs:domain a4g:CatalogueResponseLine ;
 a4g:hasValidityPeriod rdfs:domain a4g:Catalogue ;
 	rdfs:range a4g:Period .
 
+a4g:isSpecificToInvoiceLine rdfs:domain a4g:ChargeInformation ;
+	rdfs:range a4g:InvoiceLine .
+
 a4g:isSpecificToLine rdfs:domain a4g:InformationHub ;
 	rdfs:range a4g:Line .
 
@@ -349,6 +366,10 @@ a4g:Line a owl:Class ;
 	rdfs:subClassOf [
 		rdf:type owl:Restriction ;
 		owl:onProperty dcterms:description ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasAdditionalInformation ;
 		owl:maxCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
@@ -383,7 +404,13 @@ a4g:specifiesCatalogueReceiver rdfs:domain [
 	] ;
 	rdfs:range a4g:CatalogueReceiver .
 
-a4g:specifiesChargeInformation rdfs:domain a4g:Order ;
+a4g:specifiesChargeInformation rdfs:domain [
+		rdf:type owl:Class ;
+		owl:unionOf (
+			a4g:Invoice
+			a4g:Order
+		) ;
+	] ;
 	rdfs:range a4g:ChargeInformation .
 
 a4g:specifiesSeller rdfs:domain a4g:Catalogue ;
@@ -396,8 +423,10 @@ a4g:describesItem a owl:FunctionalProperty ;
 	rdfs:domain a4g:ItemProperty ;
 	rdfs:range a4g:Item .
 
-a4g:hasAttributeType a owl:FunctionalProperty ;
-	rdfs:domain a4g:ItemProperty ;
+a4g:hasAdditionalInformation rdfs:domain a4g:Line ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:hasAttributeType rdfs:domain a4g:ItemProperty ;
 	rdfs:range rdf:PlainLiteral .
 
 a4g:hasBestBeforeDate rdfs:domain a4g:Batch ;
@@ -413,8 +442,7 @@ a4g:Brand a owl:Class ;
 		owl:onProperty dcterms:title ;
 	] .
 
-a4g:hasClassificationScheme a owl:FunctionalProperty ;
-	rdfs:domain a4g:ItemProperty ;
+a4g:hasClassificationScheme rdfs:domain a4g:ItemProperty ;
 	rdfs:range rdf:PlainLiteral .
 
 a4g:hasExpiryDate rdfs:domain a4g:Batch ;
@@ -451,6 +479,7 @@ a4g:hasOrderableUnitFactorRate rdfs:domain a4g:CatalogueLine ;
 a4g:hasPrice rdfs:domain [
 		rdf:type owl:Class ;
 		owl:unionOf (
+			a4g:InvoiceLine
 			a4g:OrderLine
 			a4g:CatalogueLine
 		) ;
@@ -505,19 +534,19 @@ a4g:specifiesItem a owl:FunctionalProperty ;
 	rdfs:domain a4g:Line ;
 	rdfs:range a4g:Item .
 
-_:b1177 a owl:AllDisjointClasses ;
+_:b1308 a owl:AllDisjointClasses ;
+	owl:members (
+		a4g:CatalogueResponse
+		a4g:Catalogue
+		a4g:ProductSpecification
+	) .
+
+_:b1312 a owl:AllDisjointClasses ;
 	owl:members (
 		a4g:ItemAccessoryRelation
 		a4g:ItemComplementaryRelation
 		a4g:ItemComposition
 		a4g:ItemReplacement
 		a4g:ItemRequirement
-	) .
-
-_:b1183 a owl:AllDisjointClasses ;
-	owl:members (
-		a4g:CatalogueResponse
-		a4g:Catalogue
-		a4g:ProductSpecification
 	) .
 

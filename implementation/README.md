@@ -8,10 +8,10 @@ In addition, there are the following modules that extend the Core:
 - eCatalogue
 - eContract
 - eFulfilment
+- eInvoicing
 - eNotice
 - eOrdering
 - eSubmission
-- eInvoicing
 ---
 
 Each module folder is structured as follows:
