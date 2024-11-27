@@ -38,16 +38,16 @@ a4g:Invoice a owl:Class ;
 		owl:maxCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
-		owl:minCardinality 1 ;
 		owl:onProperty a4g:comprisesInvoiceLine ;
+		owl:minCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
 		owl:onProperty a4g:hasPaymentInstructionsInformation ;
 		owl:maxCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
-		owl:minCardinality 1 ;
 		owl:onProperty a4g:hasTaxBreakdownInformation ;
+		owl:minCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
 		owl:onProperty a4g:specifiesSellerTaxRepresentative ;
@@ -70,8 +70,24 @@ a4g:Invoice a owl:Class ;
 		owl:maxCardinality 1 ;
 	] .
 
-a4g:hasBankingIdentifier rdfs:domain a4g:PaymentInstructionsInformation ;
-	rdfs:range adms:Identifier .
+a4g:hasPaymentDueDate rdfs:domain a4g:Invoice ;
+	rdfs:range xsd:date .
+
+a4g:specifiesPayee rdfs:domain a4g:Invoice ;
+	rdfs:range a4g:Payee .
+
+a4g:comprisesInvoiceLine rdfs:domain a4g:Invoice ;
+	rdfs:range a4g:InvoiceLine .
+
+a4g:InvoiceLine a owl:Class ;
+	rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasAccountingCost ;
+		owl:maxCardinality 1 ;
+	] .
+
+a4g:hasPaymentInstructionsInformation rdfs:domain a4g:Invoice ;
+	rdfs:range a4g:PaymentInstructionsInformation .
 
 a4g:PaymentInstructionsInformation rdfs:subClassOf [
 		rdf:type owl:Restriction ;
@@ -87,6 +103,58 @@ a4g:PaymentInstructionsInformation rdfs:subClassOf [
 		owl:maxCardinality 1 ;
 	] .
 
+a4g:hasTaxBreakdownInformation rdfs:domain a4g:Invoice ;
+	rdfs:range a4g:TaxBreakdownInformation .
+
+a4g:TaxBreakdownInformation rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasTaxExemptionReasonDescription ;
+		owl:maxCardinality 1 ;
+	] .
+
+a4g:specifiesSellerTaxRepresentative rdfs:domain a4g:Invoice ;
+	rdfs:range a4g:SellerTaxRepresentative .
+
+a4g:hasPaymentTerm rdfs:domain a4g:Invoice ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:hasCustomerReference rdfs:domain a4g:Invoice ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:hasAccountingCost rdfs:domain [
+		rdf:type owl:Class ;
+		owl:unionOf (
+			a4g:Invoice
+			a4g:InvoiceLine
+		) ;
+	] ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:hasTaxPointDate rdfs:domain a4g:Invoice ;
+	rdfs:range xsd:date .
+
+a4g:hasBankingIdentifier rdfs:domain a4g:PaymentInstructionsInformation ;
+	rdfs:range adms:Identifier .
+
+a4g:hasPaymentMeansDescription rdfs:domain a4g:PaymentInstructionsInformation ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:hasRemittanceInformation rdfs:domain a4g:PaymentInstructionsInformation ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:hasPaymentCardInformation rdfs:domain a4g:PaymentInstructionsInformation ;
+	rdfs:range a4g:PaymentCardInformation .
+
+a4g:PaymentCardInformation rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasPaymentCardPrimaryAccountNumber ;
+		owl:cardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasPaymentCardHolderName ;
+		owl:maxCardinality 1 ;
+	] .
+
 a4g:hasCreditTransferInformation rdfs:domain a4g:PaymentInstructionsInformation ;
 	rdfs:range a4g:CreditTransferInformation .
 
@@ -96,18 +164,14 @@ a4g:CreditTransferInformation rdfs:subClassOf [
 		owl:maxCardinality 1 ;
 	] .
 
+a4g:hasPaymentAccountName rdfs:domain a4g:CreditTransferInformation ;
+	rdfs:range rdf:PlainLiteral .
+
 a4g:hasDebitedAccountIdentifier rdfs:domain a4g:PaymentInstructionsInformation ;
 	rdfs:range adms:Identifier .
 
 a4g:hasInvoiceLineObjectIdentifier rdfs:domain a4g:InvoiceLine ;
 	rdfs:range adms:Identifier .
-
-a4g:InvoiceLine a owl:Class ;
-	rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasAccountingCost ;
-		owl:maxCardinality 1 ;
-	] .
 
 a4g:hasInvoiceLinePeriod rdfs:domain a4g:InvoiceLine ;
 	rdfs:range a4g:Period .
@@ -120,6 +184,10 @@ a4g:InvoiceNote rdfs:subClassOf [
 		owl:onProperty a4g:hasInvoiceNoteDescription ;
 		owl:cardinality 1 ;
 	] .
+
+a4g:hasInvoiceNoteDescription rdfs:domain a4g:InvoiceNote ;
+	rdfs:range rdf:PlainLiteral ;
+	a owl:FunctionalProperty .
 
 a4g:hasInvoiceNoteSubject rdfs:domain a4g:InvoiceNote ;
 	rdfs:range skos:Concept .
@@ -163,11 +231,8 @@ a4g:hasRoundingAmount rdfs:domain a4g:Invoice ;
 a4g:hasTaxExemptionReason rdfs:domain a4g:TaxBreakdownInformation ;
 	rdfs:range skos:Concept .
 
-a4g:TaxBreakdownInformation rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasTaxExemptionReasonDescription ;
-		owl:maxCardinality 1 ;
-	] .
+a4g:hasTaxExemptionReasonDescription rdfs:domain a4g:TaxBreakdownInformation ;
+	rdfs:range rdf:PlainLiteral .
 
 a4g:hasTaxInformation rdfs:domain [
 		rdf:type owl:Class ;
@@ -269,8 +334,8 @@ a4g:comprisesCreditNoteLine rdfs:domain a4g:CreditNote ;
 
 a4g:CreditNote rdfs:subClassOf [
 		rdf:type owl:Restriction ;
-		owl:minCardinality 1 ;
 		owl:onProperty a4g:comprisesCreditNoteLine ;
+		owl:minCardinality 1 ;
 	], [
 		rdf:type owl:Restriction ;
 		owl:onProperty a4g:refersToInvoice ;
@@ -283,91 +348,26 @@ a4g:CreditNoteLine rdfs:subClassOf [
 		owl:maxCardinality 1 ;
 	] .
 
-a4g:comprisesInvoiceLine rdfs:domain a4g:Invoice ;
+a4g:refersToInvoice rdfs:domain a4g:CreditNote ;
+	rdfs:range a4g:Invoice .
+
+a4g:isSubmittedForInvoiceLine rdfs:domain a4g:CreditNoteLine ;
 	rdfs:range a4g:InvoiceLine .
-
-a4g:hasCustomerReference rdfs:domain a4g:Invoice ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasInvoiceNoteDescription rdfs:domain a4g:InvoiceNote ;
-	rdfs:range rdf:PlainLiteral ;
-	a owl:FunctionalProperty .
-
-a4g:hasPaymentAccountName rdfs:domain a4g:CreditTransferInformation ;
-	rdfs:range rdf:PlainLiteral .
 
 a4g:hasPaymentCardHolderName rdfs:domain a4g:PaymentCardInformation ;
 	rdfs:range rdf:PlainLiteral .
-
-a4g:PaymentCardInformation rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasPaymentCardPrimaryAccountNumber ;
-		owl:cardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasPaymentCardHolderName ;
-		owl:maxCardinality 1 ;
-	] .
-
-a4g:hasPaymentCardInformation rdfs:domain a4g:PaymentInstructionsInformation ;
-	rdfs:range a4g:PaymentCardInformation .
 
 a4g:hasPaymentCardPrimaryAccountNumber rdfs:domain a4g:PaymentCardInformation ;
 	rdfs:range rdf:PlainLiteral ;
 	a owl:FunctionalProperty .
 
-a4g:hasPaymentDueDate rdfs:domain a4g:Invoice ;
-	rdfs:range xsd:date .
-
-a4g:hasPaymentInstructionsInformation rdfs:domain a4g:Invoice ;
-	rdfs:range a4g:PaymentInstructionsInformation .
-
-a4g:hasPaymentMeansDescription rdfs:domain a4g:PaymentInstructionsInformation ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasPaymentTerm rdfs:domain a4g:Invoice ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasRemittanceInformation rdfs:domain a4g:PaymentInstructionsInformation ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasTaxBreakdownInformation rdfs:domain a4g:Invoice ;
-	rdfs:range a4g:TaxBreakdownInformation .
-
-a4g:hasTaxExemptionReasonDescription rdfs:domain a4g:TaxBreakdownInformation ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasTaxPointDate rdfs:domain a4g:Invoice ;
-	rdfs:range xsd:date .
-
-a4g:isSubmittedForInvoiceLine rdfs:domain a4g:CreditNoteLine ;
-	rdfs:range a4g:InvoiceLine .
-
-a4g:refersToInvoice rdfs:domain a4g:CreditNote ;
-	rdfs:range a4g:Invoice .
-
-a4g:specifiesPayee rdfs:domain a4g:Invoice ;
-	rdfs:range a4g:Payee .
-
-a4g:specifiesSellerTaxRepresentative rdfs:domain a4g:Invoice ;
-	rdfs:range a4g:SellerTaxRepresentative .
-
-a4g:hasAccountingCost rdfs:domain [
-		rdf:type owl:Class ;
-		owl:unionOf (
-			a4g:Invoice
-			a4g:InvoiceLine
-		) ;
-	] ;
-	rdfs:range rdf:PlainLiteral .
-
-_:b1149 a owl:AllDisjointClasses ;
+_:b8_b1149 a owl:AllDisjointClasses ;
 	owl:members (
 		a4g:Payee
 		a4g:SellerTaxRepresentative
 	) .
 
-_:b1152 a owl:AllDisjointClasses ;
+_:b8_b1152 a owl:AllDisjointClasses ;
 	owl:members (
 		a4g:CreditTransferInformation
 		a4g:PaymentCardInformation

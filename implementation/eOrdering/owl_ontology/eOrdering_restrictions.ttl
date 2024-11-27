@@ -46,9 +46,60 @@ a4g:OrderResponse rdfs:subClassOf [
 
 a4g:OrderResponseLine rdfs:subClassOf [
 		rdf:type owl:Restriction ;
-		owl:minCardinality 1 ;
 		owl:onProperty a4g:isSubmittedForOrderLine ;
+		owl:minCardinality 1 ;
 	] .
+
+a4g:isSubmittedForOrder rdfs:domain a4g:OrderResponse ;
+	rdfs:range a4g:Order ;
+	a owl:FunctionalProperty .
+
+a4g:Order rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasPaymentTerm ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasAccountingCost ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:comprisesOrderLine ;
+		owl:minCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:specifiesDeliveryInformation ;
+		owl:minCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasCustomerReference ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:specifiesOriginatorInformation ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:specifiesSeller ;
+		owl:cardinality 1 ;
+	] .
+
+a4g:hasResponseDescription rdfs:domain a4g:OrderResponse ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:specifiesSeller rdfs:domain a4g:OrderResponse, a4g:ReceiptAdvice, [
+		rdf:type owl:Class ;
+		owl:unionOf (
+			a4g:Order
+			a4g:Catalogue
+			a4g:Invoice
+		) ;
+	] ;
+	rdfs:range a4g:Seller ;
+	a owl:FunctionalProperty .
+
+a4g:isSubmittedForOrderLine rdfs:domain a4g:OrderResponseLine ;
+	rdfs:range a4g:OrderLine .
 
 a4g:concernsContract rdfs:domain a4g:ContractInformation ;
 	rdfs:range a4g:Contract .
@@ -61,6 +112,10 @@ a4g:OriginatorInformation rdfs:subClassOf [
 		owl:onProperty a4g:concernsOriginator ;
 		owl:cardinality 1 ;
 	] .
+
+a4g:concernsOriginator rdfs:domain a4g:OriginatorInformation ;
+	rdfs:range a4g:Originator ;
+	a owl:FunctionalProperty .
 
 a4g:hasAcceptanceStatus rdfs:domain [
 		rdf:type owl:Class ;
@@ -85,8 +140,27 @@ a4g:AllowanceChargeInformation rdfs:subClassOf [
 	] ;
 	a owl:Class .
 
-a4g:hasAllowanceChargeReasonDescription rdfs:domain a4g:AllowanceChargeInformation ;
-	rdfs:range rdf:PlainLiteral .
+a4g:hasPercentage rdfs:domain [
+		rdf:type owl:Class ;
+		owl:unionOf (
+			a4g:AllowanceChargeInformation
+			a4g:TaxInformation
+		) ;
+	] ;
+	rdfs:range xsd:decimal .
+
+a4g:hasTaxInformation rdfs:domain [
+		rdf:type owl:Class ;
+		owl:unionOf (
+			a4g:AllowanceChargeInformation
+			a4g:Item
+			a4g:InvoiceLine
+			a4g:TaxBreakdownInformation
+			a4g:Invoice
+			a4g:Contract
+		) ;
+	] ;
+	rdfs:range a4g:TaxInformation .
 
 a4g:TaxInformation rdfs:subClassOf [
 		rdf:type owl:Restriction ;
@@ -98,6 +172,9 @@ a4g:TaxInformation rdfs:subClassOf [
 		owl:maxCardinality 1 ;
 	] ;
 	a owl:Class .
+
+a4g:hasAllowanceChargeReasonDescription rdfs:domain a4g:AllowanceChargeInformation ;
+	rdfs:range rdf:PlainLiteral .
 
 a4g:hasAmount rdfs:domain [
 		rdf:type owl:Class ;
@@ -111,35 +188,23 @@ a4g:hasAmount rdfs:domain [
 a4g:hasAmountDueForPayment rdfs:domain a4g:Order ;
 	rdfs:range a4g:MonetaryValue .
 
-a4g:Order rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasPaymentTerm ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasAccountingCost ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:minCardinality 1 ;
-		owl:onProperty a4g:comprisesOrderLine ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:minCardinality 1 ;
-		owl:onProperty a4g:specifiesDeliveryInformation ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasCustomerReference ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:specifiesOriginatorInformation ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:specifiesSeller ;
-		owl:cardinality 1 ;
-	] .
+a4g:hasPaymentTerm rdfs:domain a4g:Order ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:hasAccountingCost rdfs:domain a4g:Order ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:comprisesOrderLine rdfs:domain a4g:Order ;
+	rdfs:range a4g:OrderLine .
+
+a4g:specifiesDeliveryInformation rdfs:domain [
+		rdf:type owl:Class ;
+		owl:unionOf (
+			a4g:Invoice
+			a4g:Order
+		) ;
+	] ;
+	rdfs:range a4g:DeliveryInformation .
 
 a4g:DeliveryInformation rdfs:subClassOf [
 		rdf:type owl:Restriction ;
@@ -162,6 +227,29 @@ a4g:DeliveryInformation rdfs:subClassOf [
 		owl:onProperty a4g:concernsConsignee ;
 		owl:maxCardinality 1 ;
 	] .
+
+a4g:hasCustomerReference rdfs:domain a4g:Order ;
+	rdfs:range xsd:boolean .
+
+a4g:specifiesOriginatorInformation rdfs:domain a4g:Order ;
+	rdfs:range a4g:OriginatorInformation .
+
+a4g:hasDeliveryDeadline rdfs:domain a4g:DeliveryInformation ;
+	rdfs:range xsd:dateTime .
+
+a4g:specifiesGeneralDeliveryAgreement rdfs:domain a4g:DeliveryInformation ;
+	rdfs:range a4g:DeliveryAgreement .
+
+a4g:DeliveryAgreement a owl:Class .
+
+a4g:specifiesSpecificDeliveryAgreement rdfs:domain a4g:DeliveryInformation ;
+	rdfs:range a4g:DeliveryAgreement .
+
+a4g:hasActualDeliveryDate rdfs:domain a4g:DeliveryInformation ;
+	rdfs:range xsd:date .
+
+a4g:concernsConsignee rdfs:domain a4g:DeliveryInformation ;
+	rdfs:range a4g:Consignee .
 
 a4g:hasDeliveryPeriod rdfs:domain [
 		rdf:type owl:Class ;
@@ -251,9 +339,9 @@ a4g:isSpecificToOrderResponseLine rdfs:domain a4g:OrderResponseInformation ;
 	rdfs:range a4g:OrderResponseLine .
 
 a4g:ord-restriction a owl:Ontology ;
+	dcterms:description "The eProcurement Ontology Ordering core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Ordering core."@en ;
 	rdfs:label "eProcurement Ontology Ordering - core restrictions"@en ;
 	dcterms:created "2021-06-01"^^xsd:date ;
-	dcterms:description "The eProcurement Ontology Ordering core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Ordering core."@en ;
 	dcterms:issued "2024-11-12"^^xsd:date ;
 	dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
 	dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
@@ -323,8 +411,6 @@ a4g:specifiesContractInformation rdfs:domain a4g:Order ;
 a4g:specifiesDeliveryAgreementLocation rdfs:domain a4g:DeliveryAgreement ;
 	rdfs:range dcterms:Location .
 
-a4g:DeliveryAgreement a owl:Class .
-
 a4g:specifiesDespatcher rdfs:domain a4g:Order ;
 	rdfs:range a4g:Despatcher .
 
@@ -337,99 +423,13 @@ a4g:specifiesOriginator rdfs:domain a4g:DespatchAdvice ;
 a4g:specifiesPlaceOfDelivery rdfs:domain a4g:DeliveryInformation ;
 	rdfs:range dcterms:Location .
 
-a4g:comprisesOrderLine rdfs:domain a4g:Order ;
-	rdfs:range a4g:OrderLine .
-
-a4g:concernsConsignee rdfs:domain a4g:DeliveryInformation ;
-	rdfs:range a4g:Consignee .
-
-a4g:concernsOriginator rdfs:domain a4g:OriginatorInformation ;
-	rdfs:range a4g:Originator ;
-	a owl:FunctionalProperty .
-
-a4g:hasAccountingCost rdfs:domain a4g:Order ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasActualDeliveryDate rdfs:domain a4g:DeliveryInformation ;
-	rdfs:range xsd:date .
-
-a4g:hasCustomerReference rdfs:domain a4g:Order ;
-	rdfs:range xsd:boolean .
-
-a4g:hasDeliveryDeadline rdfs:domain a4g:DeliveryInformation ;
-	rdfs:range xsd:dateTime .
-
-a4g:hasPaymentTerm rdfs:domain a4g:Order ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasResponseDescription rdfs:domain a4g:OrderResponse ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasTaxInformation rdfs:domain [
-		rdf:type owl:Class ;
-		owl:unionOf (
-			a4g:AllowanceChargeInformation
-			a4g:Item
-			a4g:InvoiceLine
-			a4g:TaxBreakdownInformation
-			a4g:Invoice
-			a4g:Contract
-		) ;
-	] ;
-	rdfs:range a4g:TaxInformation .
-
-a4g:isSubmittedForOrder rdfs:domain a4g:OrderResponse ;
-	rdfs:range a4g:Order ;
-	a owl:FunctionalProperty .
-
-a4g:isSubmittedForOrderLine rdfs:domain a4g:OrderResponseLine ;
-	rdfs:range a4g:OrderLine .
-
-a4g:specifiesDeliveryInformation rdfs:domain [
-		rdf:type owl:Class ;
-		owl:unionOf (
-			a4g:Invoice
-			a4g:Order
-		) ;
-	] ;
-	rdfs:range a4g:DeliveryInformation .
-
-a4g:specifiesGeneralDeliveryAgreement rdfs:domain a4g:DeliveryInformation ;
-	rdfs:range a4g:DeliveryAgreement .
-
-a4g:specifiesOriginatorInformation rdfs:domain a4g:Order ;
-	rdfs:range a4g:OriginatorInformation .
-
-a4g:specifiesSpecificDeliveryAgreement rdfs:domain a4g:DeliveryInformation ;
-	rdfs:range a4g:DeliveryAgreement .
-
-a4g:hasPercentage rdfs:domain [
-		rdf:type owl:Class ;
-		owl:unionOf (
-			a4g:AllowanceChargeInformation
-			a4g:TaxInformation
-		) ;
-	] ;
-	rdfs:range xsd:decimal .
-
-a4g:specifiesSeller rdfs:domain a4g:OrderResponse, a4g:ReceiptAdvice, [
-		rdf:type owl:Class ;
-		owl:unionOf (
-			a4g:Order
-			a4g:Catalogue
-			a4g:Invoice
-		) ;
-	] ;
-	rdfs:range a4g:Seller ;
-	a owl:FunctionalProperty .
-
-_:b853 a owl:AllDisjointClasses ;
+_:b4_b853 a owl:AllDisjointClasses ;
 	owl:members (
 		a4g:Order
 		a4g:OrderResponse
 	) .
 
-_:b856 a owl:AllDisjointClasses ;
+_:b4_b856 a owl:AllDisjointClasses ;
 	owl:members (
 		a4g:AllowanceChargeInformation
 		a4g:ContractInformation
@@ -439,7 +439,7 @@ _:b856 a owl:AllDisjointClasses ;
 		a4g:OrderResponseInformation
 	) .
 
-_:b863 a owl:AllDisjointClasses ;
+_:b4_b863 a owl:AllDisjointClasses ;
 	owl:members (
 		a4g:Consignee
 		a4g:Originator

@@ -62,8 +62,33 @@ a4g:CatalogueResponseLine rdfs:subClassOf [
 		owl:onProperty a4g:refersToCatalogueLine ;
 	] .
 
-a4g:foreseesPackage rdfs:domain a4g:CatalogueLine ;
-	rdfs:range a4g:Package .
+a4g:specifiesCatalogueResponseInformation a owl:FunctionalProperty ;
+	rdfs:domain a4g:CatalogueResponse ;
+	rdfs:range a4g:CatalogueResponseInformation .
+
+a4g:CatalogueResponseInformation rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:isSpecificToCatalogueResponseLine ;
+		owl:maxCardinality 1 ;
+	] .
+
+a4g:refersToCatalogue a owl:FunctionalProperty ;
+	rdfs:domain a4g:CatalogueResponse, a4g:Order ;
+	rdfs:range a4g:Catalogue .
+
+a4g:Catalogue rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasSpecificPaymentArrangement ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:comprisesCatalogueLine ;
+		owl:minCardinality 1 ;
+	] .
+
+a4g:refersToCatalogueLine a owl:FunctionalProperty ;
+	rdfs:domain a4g:CatalogueResponseLine, a4g:OrderLine ;
+	rdfs:range a4g:CatalogueLine .
 
 a4g:CatalogueLine rdfs:subClassOf [
 		rdf:type owl:Restriction ;
@@ -95,14 +120,48 @@ a4g:CatalogueLine rdfs:subClassOf [
 		owl:maxCardinality 1 ;
 	] .
 
+a4g:foreseesPackage rdfs:domain a4g:CatalogueLine ;
+	rdfs:range a4g:Package .
+
+a4g:hasTransactionConditions rdfs:domain a4g:CatalogueLine ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:hasWarrantyInformation rdfs:domain a4g:CatalogueLine ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:isOrderable rdfs:domain a4g:CatalogueLine ;
+	rdfs:range xsd:boolean .
+
+a4g:isContractedItem rdfs:domain a4g:CatalogueLine ;
+	rdfs:range xsd:boolean .
+
+a4g:hasPrice rdfs:domain [
+		rdf:type owl:Class ;
+		owl:unionOf (
+			a4g:InvoiceLine
+			a4g:OrderLine
+			a4g:CatalogueLine
+		) ;
+	] ;
+	rdfs:range a4g:Price .
+
+a4g:Price rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasPriceSurchargeInformation ;
+		owl:maxCardinality 1 ;
+	] .
+
+a4g:hasOrderableQuantityIncrement rdfs:domain a4g:CatalogueLine ;
+	rdfs:range xsd:integer .
+
+a4g:hasOrderableUnitFactorRate rdfs:domain a4g:CatalogueLine ;
+	rdfs:range xsd:decimal .
+
 a4g:hasAcceptanceStatus rdfs:domain a4g:CatalogueResponseInformation ;
 	rdfs:range skos:Concept .
 
-a4g:CatalogueResponseInformation rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:isSpecificToCatalogueResponseLine ;
-		owl:maxCardinality 1 ;
-	] .
+a4g:isSpecificToCatalogueResponseLine rdfs:domain a4g:CatalogueResponseInformation ;
+	rdfs:range a4g:CatalogueResponseLine .
 
 a4g:hasAccessoryItem a owl:AsymmetricProperty ;
 	rdfs:domain a4g:Item ;
@@ -135,15 +194,37 @@ a4g:Item a owl:Class ;
 		owl:maxCardinality 1 ;
 	] .
 
-a4g:Catalogue rdfs:subClassOf [
+a4g:hasBrand rdfs:domain a4g:Item ;
+	rdfs:range a4g:Brand .
+
+a4g:Brand a owl:Class ;
+	rdfs:subClassOf [
 		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasSpecificPaymentArrangement ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:comprisesCatalogueLine ;
-		owl:minCardinality 1 ;
+		owl:cardinality 1 ;
+		owl:onProperty dcterms:title ;
 	] .
+
+a4g:hasModel rdfs:domain a4g:Item ;
+	rdfs:range a4g:ItemModel .
+
+a4g:ItemModel a owl:Class ;
+	rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:cardinality 1 ;
+		owl:onProperty dcterms:title ;
+	] .
+
+a4g:hasManufacturer rdfs:domain a4g:Item ;
+	rdfs:range a4g:Manufacturer .
+
+a4g:isInStock rdfs:domain a4g:Item ;
+	rdfs:range xsd:boolean .
+
+a4g:hasSpecificPaymentArrangement rdfs:domain a4g:Catalogue ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:comprisesCatalogueLine rdfs:domain a4g:Catalogue ;
+	rdfs:range a4g:CatalogueLine .
 
 a4g:hasActivityCode rdfs:domain [
 		rdf:type owl:Class ;
@@ -157,11 +238,8 @@ a4g:hasActivityCode rdfs:domain [
 a4g:hasBaseQuantity rdfs:domain a4g:Price ;
 	rdfs:range a4g:Quantity .
 
-a4g:Price rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasPriceSurchargeInformation ;
-		owl:maxCardinality 1 ;
-	] .
+a4g:hasPriceSurchargeInformation rdfs:domain a4g:Price ;
+	rdfs:range a4g:ChargeInformation .
 
 a4g:hasBatchID rdfs:domain a4g:Batch ;
 	rdfs:range adms:Identifier .
@@ -183,6 +261,19 @@ a4g:Batch rdfs:subClassOf [
 		owl:onProperty a4g:hasManufactureDate ;
 		owl:maxCardinality 1 ;
 	] .
+
+a4g:isProductionOf a owl:FunctionalProperty ;
+	rdfs:domain a4g:Batch ;
+	rdfs:range a4g:Item .
+
+a4g:hasExpiryDate rdfs:domain a4g:Batch ;
+	rdfs:range xsd:date .
+
+a4g:hasBestBeforeDate rdfs:domain a4g:Batch ;
+	rdfs:range xsd:date .
+
+a4g:hasManufactureDate rdfs:domain a4g:Batch ;
+	rdfs:range xsd:dateTime .
 
 a4g:hasBuyerItemID rdfs:domain a4g:Item ;
 	rdfs:range adms:Identifier .
@@ -297,6 +388,13 @@ a4g:ItemRelation rdfs:subClassOf [
 		owl:maxCardinality 1 ;
 	] .
 
+a4g:isRelatedToItem a owl:FunctionalProperty ;
+	rdfs:domain a4g:ItemRelation ;
+	rdfs:range a4g:Item .
+
+a4g:hasFactor rdfs:domain a4g:ItemRelation ;
+	rdfs:range xsd:decimal .
+
 a4g:hasQualifiedValue rdfs:domain a4g:ItemProperty ;
 	rdfs:range a4g:Quantity .
 
@@ -322,6 +420,19 @@ a4g:ItemProperty a owl:Class ;
 		owl:onProperty a4g:hasAttributeType ;
 		owl:maxCardinality 1 ;
 	] .
+
+a4g:describesItem a owl:FunctionalProperty ;
+	rdfs:domain a4g:ItemProperty ;
+	rdfs:range a4g:Item .
+
+a4g:hasClassificationScheme rdfs:domain a4g:ItemProperty ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:hasLiteralValue rdfs:domain a4g:ItemProperty ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:hasAttributeType rdfs:domain a4g:ItemProperty ;
+	rdfs:range rdf:PlainLiteral .
 
 a4g:hasQuantityThreshold rdfs:domain a4g:Price ;
 	rdfs:range a4g:Quantity .
@@ -377,6 +488,13 @@ a4g:Line a owl:Class ;
 		owl:onProperty a4g:specifiesItem ;
 	] .
 
+a4g:hasAdditionalInformation rdfs:domain a4g:Line ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:specifiesItem a owl:FunctionalProperty ;
+	rdfs:domain a4g:Line ;
+	rdfs:range a4g:Item .
+
 a4g:isSpecificToOrderLine rdfs:domain a4g:ChargeInformation ;
 	rdfs:range a4g:OrderLine .
 
@@ -416,132 +534,14 @@ a4g:specifiesChargeInformation rdfs:domain [
 a4g:specifiesSeller rdfs:domain a4g:Catalogue ;
 	rdfs:range a4g:Seller .
 
-a4g:comprisesCatalogueLine rdfs:domain a4g:Catalogue ;
-	rdfs:range a4g:CatalogueLine .
-
-a4g:describesItem a owl:FunctionalProperty ;
-	rdfs:domain a4g:ItemProperty ;
-	rdfs:range a4g:Item .
-
-a4g:hasAdditionalInformation rdfs:domain a4g:Line ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasAttributeType rdfs:domain a4g:ItemProperty ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasBestBeforeDate rdfs:domain a4g:Batch ;
-	rdfs:range xsd:date .
-
-a4g:hasBrand rdfs:domain a4g:Item ;
-	rdfs:range a4g:Brand .
-
-a4g:Brand a owl:Class ;
-	rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:cardinality 1 ;
-		owl:onProperty dcterms:title ;
-	] .
-
-a4g:hasClassificationScheme rdfs:domain a4g:ItemProperty ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasExpiryDate rdfs:domain a4g:Batch ;
-	rdfs:range xsd:date .
-
-a4g:hasFactor rdfs:domain a4g:ItemRelation ;
-	rdfs:range xsd:decimal .
-
-a4g:hasLiteralValue rdfs:domain a4g:ItemProperty ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasManufactureDate rdfs:domain a4g:Batch ;
-	rdfs:range xsd:dateTime .
-
-a4g:hasManufacturer rdfs:domain a4g:Item ;
-	rdfs:range a4g:Manufacturer .
-
-a4g:hasModel rdfs:domain a4g:Item ;
-	rdfs:range a4g:ItemModel .
-
-a4g:ItemModel a owl:Class ;
-	rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:cardinality 1 ;
-		owl:onProperty dcterms:title ;
-	] .
-
-a4g:hasOrderableQuantityIncrement rdfs:domain a4g:CatalogueLine ;
-	rdfs:range xsd:integer .
-
-a4g:hasOrderableUnitFactorRate rdfs:domain a4g:CatalogueLine ;
-	rdfs:range xsd:decimal .
-
-a4g:hasPrice rdfs:domain [
-		rdf:type owl:Class ;
-		owl:unionOf (
-			a4g:InvoiceLine
-			a4g:OrderLine
-			a4g:CatalogueLine
-		) ;
-	] ;
-	rdfs:range a4g:Price .
-
-a4g:hasPriceSurchargeInformation rdfs:domain a4g:Price ;
-	rdfs:range a4g:ChargeInformation .
-
-a4g:hasSpecificPaymentArrangement rdfs:domain a4g:Catalogue ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasTransactionConditions rdfs:domain a4g:CatalogueLine ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasWarrantyInformation rdfs:domain a4g:CatalogueLine ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:isContractedItem rdfs:domain a4g:CatalogueLine ;
-	rdfs:range xsd:boolean .
-
-a4g:isInStock rdfs:domain a4g:Item ;
-	rdfs:range xsd:boolean .
-
-a4g:isOrderable rdfs:domain a4g:CatalogueLine ;
-	rdfs:range xsd:boolean .
-
-a4g:isProductionOf a owl:FunctionalProperty ;
-	rdfs:domain a4g:Batch ;
-	rdfs:range a4g:Item .
-
-a4g:isRelatedToItem a owl:FunctionalProperty ;
-	rdfs:domain a4g:ItemRelation ;
-	rdfs:range a4g:Item .
-
-a4g:isSpecificToCatalogueResponseLine rdfs:domain a4g:CatalogueResponseInformation ;
-	rdfs:range a4g:CatalogueResponseLine .
-
-a4g:refersToCatalogue a owl:FunctionalProperty ;
-	rdfs:domain a4g:CatalogueResponse, a4g:Order ;
-	rdfs:range a4g:Catalogue .
-
-a4g:refersToCatalogueLine a owl:FunctionalProperty ;
-	rdfs:domain a4g:CatalogueResponseLine, a4g:OrderLine ;
-	rdfs:range a4g:CatalogueLine .
-
-a4g:specifiesCatalogueResponseInformation a owl:FunctionalProperty ;
-	rdfs:domain a4g:CatalogueResponse ;
-	rdfs:range a4g:CatalogueResponseInformation .
-
-a4g:specifiesItem a owl:FunctionalProperty ;
-	rdfs:domain a4g:Line ;
-	rdfs:range a4g:Item .
-
-_:b1308 a owl:AllDisjointClasses ;
+_:b14_b1308 a owl:AllDisjointClasses ;
 	owl:members (
 		a4g:CatalogueResponse
 		a4g:Catalogue
 		a4g:ProductSpecification
 	) .
 
-_:b1312 a owl:AllDisjointClasses ;
+_:b14_b1312 a owl:AllDisjointClasses ;
 	owl:members (
 		a4g:ItemAccessoryRelation
 		a4g:ItemComplementaryRelation

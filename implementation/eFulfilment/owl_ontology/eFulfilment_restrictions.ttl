@@ -33,6 +33,16 @@ a4g:ReceiptAdviceLine rdfs:subClassOf [
 		owl:onProperty a4g:isSubmittedForDespatchLine ;
 	] .
 
+a4g:isSubmittedForDespatchLine rdfs:domain a4g:ReceiptAdviceLine ;
+	rdfs:range a4g:DespatchLine ;
+	a owl:FunctionalProperty .
+
+a4g:DespatchLine rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:hasOutstandingQuantityReason ;
+		owl:maxCardinality 1 ;
+	] .
+
 a4g:agreedByBuyer rdfs:domain a4g:ShipmentAgreement ;
 	rdfs:range a4g:Buyer .
 
@@ -56,6 +66,55 @@ a4g:ReceiptAdvice rdfs:subClassOf [
 		owl:maxCardinality 1 ;
 	] .
 
+a4g:isSubmittedForDespatchAdvice rdfs:domain a4g:ReceiptAdvice ;
+	rdfs:range a4g:DespatchAdvice .
+
+a4g:DespatchAdvice rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:refersToShipmentAgreement ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:specifiesDespatcher ;
+		owl:minCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:comprisesDespatchLine ;
+		owl:minCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:specifiesShipment ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:cardinality 1 ;
+		owl:onProperty a4g:refersToConsignment ;
+	] .
+
+a4g:specifiesDespatcher rdfs:domain a4g:Order, [
+		rdf:type owl:Class ;
+		owl:unionOf (
+			a4g:ReceiptAdvice
+			a4g:DespatchAdvice
+		) ;
+	] ;
+	rdfs:range a4g:Despatcher ;
+	a owl:FunctionalProperty .
+
+a4g:isSubmittedForShipment rdfs:domain a4g:ReceiptAdvice ;
+	rdfs:range a4g:ShipmentInformation .
+
+a4g:ShipmentInformation rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:despatchDate ;
+		owl:maxCardinality 1 ;
+	], [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:isSpecificToDespatchLine ;
+		owl:maxCardinality 1 ;
+	] ;
+	a owl:Class .
+
 a4g:containsGoodsItem rdfs:domain a4g:Package ;
 	rdfs:range a4g:GoodsItem .
 
@@ -70,6 +129,13 @@ a4g:GoodsItem rdfs:subClassOf [
 		owl:cardinality 1 ;
 		owl:onProperty a4g:refersToDespatchLine ;
 	] .
+
+a4g:hasPackagingTypeDescription rdfs:domain a4g:Package ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:refersToDespatchLine rdfs:domain a4g:GoodsItem ;
+	rdfs:range a4g:DespatchLine ;
+	a owl:FunctionalProperty .
 
 a4g:containsPackage rdfs:domain a4g:Package ;
 	rdfs:range a4g:Package ;
@@ -118,57 +184,49 @@ a4g:ShipmentStage rdfs:subClassOf [
 	] ;
 	a owl:Class .
 
-a4g:ShipmentInformation rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:despatchDate ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:isSpecificToDespatchLine ;
-		owl:maxCardinality 1 ;
-	] ;
-	a owl:Class .
+a4g:usesTransportMeans rdfs:domain a4g:ShipmentStage ;
+	rdfs:range a4g:TransportMeans .
 
-a4g:DespatchLine rdfs:subClassOf [
+a4g:TransportMeans rdfs:subClassOf [
 		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasOutstandingQuantityReason ;
-		owl:maxCardinality 1 ;
+		owl:onProperty a4g:hasDriverPerson ;
+		owl:minCardinality 1 ;
 	] .
 
-a4g:DespatchAdvice rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:refersToShipmentAgreement ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:specifiesDespatcher ;
-		owl:minCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:comprisesDespatchLine ;
-		owl:minCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:specifiesShipment ;
-		owl:maxCardinality 1 ;
-	], [
-		rdf:type owl:Restriction ;
-		owl:cardinality 1 ;
-		owl:onProperty a4g:refersToConsignment ;
-	] .
-
-a4g:hasAssociatedDocument rdfs:domain [
+a4g:isHazardousRisk rdfs:domain [
 		rdf:type owl:Class ;
 		owl:unionOf (
-			a4g:DespatchLine
-			a4g:DespatchAdvice
-			a4g:ReceiptAdvice
+			a4g:AbstractContainer
+			a4g:ShipmentStage
+			a4g:Consignment
 		) ;
 	] ;
-	rdfs:range a4g:Document .
+	rdfs:range xsd:boolean .
 
-a4g:hasCarrierConsignmentID rdfs:domain a4g:Consignment ;
-	rdfs:range adms:Identifier .
+a4g:specifiesCarrier rdfs:domain a4g:ShipmentStage ;
+	rdfs:range a4g:Carrier .
+
+a4g:despatchDate rdfs:domain a4g:ShipmentInformation ;
+	rdfs:range xsd:dateTime .
+
+a4g:isSpecificToDespatchLine rdfs:domain a4g:ShipmentInformation ;
+	rdfs:range a4g:DespatchLine .
+
+a4g:hasOutstandingQuantityReason rdfs:domain a4g:DespatchLine ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:refersToShipmentAgreement rdfs:domain a4g:DespatchAdvice ;
+	rdfs:range a4g:ShipmentAgreement .
+
+a4g:comprisesDespatchLine rdfs:domain a4g:DespatchAdvice ;
+	rdfs:range a4g:DespatchLine .
+
+a4g:specifiesShipment rdfs:domain a4g:DespatchAdvice ;
+	rdfs:range a4g:ShipmentInformation .
+
+a4g:refersToConsignment rdfs:domain a4g:DespatchAdvice ;
+	rdfs:range a4g:Consignment ;
+	a owl:FunctionalProperty .
 
 a4g:Consignment rdfs:subClassOf [
 		rdf:type owl:Restriction ;
@@ -192,6 +250,39 @@ a4g:Consignment rdfs:subClassOf [
 		owl:maxCardinality 1 ;
 	] ;
 	a owl:Class .
+
+a4g:hasAssociatedDocument rdfs:domain [
+		rdf:type owl:Class ;
+		owl:unionOf (
+			a4g:DespatchLine
+			a4g:DespatchAdvice
+			a4g:ReceiptAdvice
+		) ;
+	] ;
+	rdfs:range a4g:Document .
+
+a4g:hasCarrierConsignmentID rdfs:domain a4g:Consignment ;
+	rdfs:range adms:Identifier .
+
+a4g:hasVehicleDescription rdfs:domain a4g:Consignment ;
+	rdfs:range rdf:PlainLiteral .
+
+a4g:containsTransportHandlingUnit rdfs:domain a4g:Consignment ;
+	rdfs:range a4g:TransportHandlingUnit .
+
+a4g:TransportHandlingUnit rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:onProperty a4g:transportsItemFrom ;
+		owl:minCardinality 1 ;
+	] ;
+	a owl:Class .
+
+a4g:hasMainCarriageShipmentStage rdfs:domain a4g:Consignment ;
+	rdfs:range a4g:ShipmentStage .
+
+a4g:hasRequestedPickUpInformation rdfs:domain a4g:Consignment ;
+	rdfs:range a4g:ShipmentInformation ;
+	a owl:FunctionalProperty .
 
 a4g:hasCarrierServiceInstruction rdfs:domain a4g:Consignment ;
 	rdfs:range rdf:PlainLiteral .
@@ -253,6 +344,9 @@ a4g:hasFreightCharge rdfs:domain a4g:Consignment ;
 a4g:hasFreightForwarderConsignmentID rdfs:domain a4g:Consignment ;
 	rdfs:range adms:Identifier .
 
+a4g:isReturnableMaterial rdfs:domain a4g:AbstractContainer ;
+	rdfs:range xsd:boolean .
+
 a4g:AbstractContainer rdfs:subClassOf [
 		rdf:type owl:Restriction ;
 		owl:onProperty a4g:isReturnableMaterial ;
@@ -264,6 +358,16 @@ a4g:AbstractContainer rdfs:subClassOf [
 	], [
 		rdf:type owl:Restriction ;
 		owl:onProperty a4g:hasTemperatureSpecification ;
+		owl:maxCardinality 1 ;
+	] ;
+	a owl:Class .
+
+a4g:hasTemperatureSpecification rdfs:domain a4g:AbstractContainer ;
+	rdfs:range a4g:TemperatureSpecification .
+
+a4g:TemperatureSpecification rdfs:subClassOf [
+		rdf:type owl:Restriction ;
+		owl:onProperty dcterms:description ;
 		owl:maxCardinality 1 ;
 	] ;
 	a owl:Class .
@@ -286,12 +390,8 @@ a4g:hasGrossWeight rdfs:domain [
 	] ;
 	rdfs:range a4g:Quantity .
 
-a4g:TransportHandlingUnit rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:transportsItemFrom ;
-		owl:minCardinality 1 ;
-	] ;
-	a owl:Class .
+a4g:transportsItemFrom rdfs:domain a4g:TransportHandlingUnit ;
+	rdfs:range a4g:DespatchLine .
 
 a4g:hasHandlingInstruction rdfs:domain [
 		rdf:type owl:Class ;
@@ -325,13 +425,6 @@ a4g:hasLoadingMeter rdfs:domain a4g:Consignment ;
 
 a4g:hasMaximumTemperature rdfs:domain a4g:TemperatureSpecification ;
 	rdfs:range a4g:Quantity .
-
-a4g:TemperatureSpecification rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:onProperty dcterms:description ;
-		owl:maxCardinality 1 ;
-	] ;
-	a owl:Class .
 
 a4g:hasMinimumTemperature rdfs:domain a4g:TemperatureSpecification ;
 	rdfs:range a4g:Quantity .
@@ -399,6 +492,15 @@ a4g:TransportEquipment rdfs:subClassOf [
 	] ;
 	a owl:Class .
 
+a4g:isRefrigerated rdfs:domain a4g:TransportEquipment ;
+	rdfs:range xsd:boolean .
+
+a4g:isReturnable rdfs:domain a4g:TransportEquipment ;
+	rdfs:range xsd:boolean .
+
+a4g:isPowerIndicated rdfs:domain a4g:TransportEquipment ;
+	rdfs:range xsd:boolean .
+
 a4g:hasSpecialInstruction rdfs:domain a4g:Consignment ;
 	rdfs:range rdf:PlainLiteral .
 
@@ -429,11 +531,8 @@ a4g:hasTransportHandlingUnitQuantity rdfs:domain a4g:Consignment ;
 a4g:hasTransportMeansType rdfs:domain a4g:TransportMeans ;
 	rdfs:range skos:Concept .
 
-a4g:TransportMeans rdfs:subClassOf [
-		rdf:type owl:Restriction ;
-		owl:onProperty a4g:hasDriverPerson ;
-		owl:minCardinality 1 ;
-	] .
+a4g:hasDriverPerson rdfs:domain a4g:TransportMeans ;
+	rdfs:range a4g:TransportMeansOperator .
 
 a4g:hasTransportMode rdfs:domain a4g:TransportMeans ;
 	rdfs:range skos:Concept .
@@ -501,106 +600,7 @@ a4g:specifiesTransportHandlingUnits rdfs:domain a4g:DespatchAdvice ;
 a4g:usesTransportEquipment rdfs:domain a4g:TransportHandlingUnit ;
 	rdfs:range a4g:TransportEquipment .
 
-a4g:comprisesDespatchLine rdfs:domain a4g:DespatchAdvice ;
-	rdfs:range a4g:DespatchLine .
-
-a4g:containsTransportHandlingUnit rdfs:domain a4g:Consignment ;
-	rdfs:range a4g:TransportHandlingUnit .
-
-a4g:despatchDate rdfs:domain a4g:ShipmentInformation ;
-	rdfs:range xsd:dateTime .
-
-a4g:hasDriverPerson rdfs:domain a4g:TransportMeans ;
-	rdfs:range a4g:TransportMeansOperator .
-
-a4g:hasMainCarriageShipmentStage rdfs:domain a4g:Consignment ;
-	rdfs:range a4g:ShipmentStage .
-
-a4g:hasOutstandingQuantityReason rdfs:domain a4g:DespatchLine ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasPackagingTypeDescription rdfs:domain a4g:Package ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:hasRequestedPickUpInformation rdfs:domain a4g:Consignment ;
-	rdfs:range a4g:ShipmentInformation ;
-	a owl:FunctionalProperty .
-
-a4g:hasTemperatureSpecification rdfs:domain a4g:AbstractContainer ;
-	rdfs:range a4g:TemperatureSpecification .
-
-a4g:hasVehicleDescription rdfs:domain a4g:Consignment ;
-	rdfs:range rdf:PlainLiteral .
-
-a4g:isPowerIndicated rdfs:domain a4g:TransportEquipment ;
-	rdfs:range xsd:boolean .
-
-a4g:isRefrigerated rdfs:domain a4g:TransportEquipment ;
-	rdfs:range xsd:boolean .
-
-a4g:isReturnable rdfs:domain a4g:TransportEquipment ;
-	rdfs:range xsd:boolean .
-
-a4g:isReturnableMaterial rdfs:domain a4g:AbstractContainer ;
-	rdfs:range xsd:boolean .
-
-a4g:isSpecificToDespatchLine rdfs:domain a4g:ShipmentInformation ;
-	rdfs:range a4g:DespatchLine .
-
-a4g:isSubmittedForDespatchAdvice rdfs:domain a4g:ReceiptAdvice ;
-	rdfs:range a4g:DespatchAdvice .
-
-a4g:isSubmittedForDespatchLine rdfs:domain a4g:ReceiptAdviceLine ;
-	rdfs:range a4g:DespatchLine ;
-	a owl:FunctionalProperty .
-
-a4g:isSubmittedForShipment rdfs:domain a4g:ReceiptAdvice ;
-	rdfs:range a4g:ShipmentInformation .
-
-a4g:refersToConsignment rdfs:domain a4g:DespatchAdvice ;
-	rdfs:range a4g:Consignment ;
-	a owl:FunctionalProperty .
-
-a4g:refersToDespatchLine rdfs:domain a4g:GoodsItem ;
-	rdfs:range a4g:DespatchLine ;
-	a owl:FunctionalProperty .
-
-a4g:refersToShipmentAgreement rdfs:domain a4g:DespatchAdvice ;
-	rdfs:range a4g:ShipmentAgreement .
-
-a4g:specifiesCarrier rdfs:domain a4g:ShipmentStage ;
-	rdfs:range a4g:Carrier .
-
-a4g:specifiesShipment rdfs:domain a4g:DespatchAdvice ;
-	rdfs:range a4g:ShipmentInformation .
-
-a4g:transportsItemFrom rdfs:domain a4g:TransportHandlingUnit ;
-	rdfs:range a4g:DespatchLine .
-
-a4g:usesTransportMeans rdfs:domain a4g:ShipmentStage ;
-	rdfs:range a4g:TransportMeans .
-
-a4g:specifiesDespatcher rdfs:domain a4g:Order, [
-		rdf:type owl:Class ;
-		owl:unionOf (
-			a4g:ReceiptAdvice
-			a4g:DespatchAdvice
-		) ;
-	] ;
-	rdfs:range a4g:Despatcher ;
-	a owl:FunctionalProperty .
-
-a4g:isHazardousRisk rdfs:domain [
-		rdf:type owl:Class ;
-		owl:unionOf (
-			a4g:AbstractContainer
-			a4g:ShipmentStage
-			a4g:Consignment
-		) ;
-	] ;
-	rdfs:range xsd:boolean .
-
-_:b1233 a owl:AllDisjointClasses ;
+_:b10_b1233 a owl:AllDisjointClasses ;
 	owl:members (
 		a4g:TransportMeansOperator
 		a4g:Notifier
@@ -609,13 +609,13 @@ _:b1233 a owl:AllDisjointClasses ;
 		a4g:Carrier
 	) .
 
-_:b1239 a owl:AllDisjointClasses ;
+_:b10_b1239 a owl:AllDisjointClasses ;
 	owl:members (
 		a4g:DespatchAdvice
 		a4g:ReceiptAdvice
 	) .
 
-_:b1242 a owl:AllDisjointClasses ;
+_:b10_b1242 a owl:AllDisjointClasses ;
 	owl:members (
 		a4g:DespatchLine
 		a4g:ReceiptAdviceLine
