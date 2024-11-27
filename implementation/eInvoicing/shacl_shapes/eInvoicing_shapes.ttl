@@ -63,6 +63,66 @@ inv-shape:epo-inv-InvoiceLine-epo-ord-hasAccountingCost a sh:PropertyShape ;
 		]
 	) .
 
+inv-shape:epo-inv-InvoiceLine-epo-inv-hasInvoiceLineObjectIdentifier a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasInvoiceLineObjectIdentifier ;
+	sh:name "Has invoice line object identifier" ;
+	sh:maxCount 1 ;
+	sh:description "An identifier for an object on which the invoice line is based, given by the Seller. Additional Information: It may be a subscription number, telephone number, meter point etc., as applicable. " ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+inv-shape:epo-inv-InvoiceLine-epo-inv-hasNetAmount a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasNetAmount ;
+	sh:name "Has net amount" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
+
+inv-shape:epo-inv-InvoiceLine-epo-inv-refersToOrderLine a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:refersToOrderLine ;
+	sh:name "Refers to order line" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:OrderLine .
+
+inv-shape:epo-inv-InvoiceLine-epo-cat-hasQuantity a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasQuantity ;
+	sh:name "Has quantity" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
+
+inv-shape:epo-inv-InvoiceLine-epo-inv-hasInvoiceLinePeriod a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasInvoiceLinePeriod ;
+	sh:name "Has invoice line period" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Period .
+
+inv-shape:epo-inv-InvoiceLine-epo-cat-hasPrice a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasPrice ;
+	sh:name "Has price" ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Price .
+
+inv-shape:epo-inv-InvoiceLine-epo-ord-hasTaxInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasTaxInformation ;
+	sh:name "Has tax information" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:TaxInformation .
+
 inv-shape:epo-inv-InvoiceShape a sh:NodeShape ;
 	sh:targetClass a4g:Invoice ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
@@ -101,88 +161,6 @@ inv-shape:epo-inv-Invoice-epo-ord-hasPaymentTerm a sh:PropertyShape ;
 		]
 	) .
 
-inv-shape:epo-inv-PaymentInstructionsInformationShape a sh:NodeShape ;
-	sh:targetClass a4g:PaymentInstructionsInformation ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	rdfs:comment "Information about the payment." ;
-	sh:property inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentMeansDescription, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasRemittanceInformation, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasDebitedAccountIdentifier, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentMeansType, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasCreditTransferInformation, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentCardInformation, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasMandateIdentifier, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasBankingIdentifier .
-
-inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentMeansDescription a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasPaymentMeansDescription ;
-	sh:name "Has payment means description" ;
-	sh:minCount 0 ;
-	sh:maxCount 1 ;
-	sh:or (
-		[
-			sh:datatype xsd:string ;
-		]
-		[
-			sh:datatype rdf:langString ;
-		]
-	) ;
-	sh:description "The means for how a payment is expected to be or has been settled, expressed as text." .
-
-inv-shape:epo-inv-CreditTransferInformationShape a sh:NodeShape ;
-	sh:targetClass a4g:CreditTransferInformation ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	rdfs:comment "Information about a direct payment of money from one bank account into another. " ;
-	sh:property inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountName, inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountIdentifier, inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentServiceProviderIdentifier .
-
-inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountName a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasPaymentAccountName ;
-	sh:name "Has payment account name" ;
-	sh:minCount 0 ;
-	sh:maxCount 1 ;
-	sh:or (
-		[
-			sh:datatype xsd:string ;
-		]
-		[
-			sh:datatype rdf:langString ;
-		]
-	) ;
-	sh:description "The name of the account that can send and receive payments to and from a payment service provider." .
-
-inv-shape:epo-inv-PaymentCardInformationShape a sh:NodeShape ;
-	sh:targetClass a4g:PaymentCardInformation ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	rdfs:comment "Information about card used for payment contemporaneous with invoice issuance." ;
-	sh:property inv-shape:epo-inv-PaymentCardInformation-epo-inv-hasPaymentCardPrimaryAccountNumber, inv-shape:epo-inv-PaymentCardInformation-epo-inv-hasPaymentCardHolderName .
-
-inv-shape:epo-inv-PaymentCardInformation-epo-inv-hasPaymentCardPrimaryAccountNumber a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasPaymentCardPrimaryAccountNumber ;
-	sh:name "Has payment card primary account number" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:or (
-		[
-			sh:datatype xsd:string ;
-		]
-		[
-			sh:datatype rdf:langString ;
-		]
-	) ;
-	sh:description "The series of digits embossed on the front of a card used for payment." .
-
-inv-shape:epo-inv-PaymentCardInformation-epo-inv-hasPaymentCardHolderName a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasPaymentCardHolderName ;
-	sh:name "Has payment card holder name" ;
-	sh:minCount 0 ;
-	sh:maxCount 1 ;
-	sh:or (
-		[
-			sh:datatype xsd:string ;
-		]
-		[
-			sh:datatype rdf:langString ;
-		]
-	) ;
-	sh:description "The name of the account holder of the card used for payment. Additional Information: An account holder is the entity listed or identified as the holder of a Financial Account by the Financial Institution." .
-
 inv-shape:epo-inv-Invoice-epo-ord-hasAccountingCost a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
 	sh:path a4g:hasAccountingCost ;
@@ -198,28 +176,6 @@ inv-shape:epo-inv-Invoice-epo-ord-hasAccountingCost a sh:PropertyShape ;
 		]
 	) .
 
-inv-shape:epo-inv-InvoiceNoteShape a sh:NodeShape ;
-	sh:targetClass a4g:InvoiceNote ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	rdfs:comment "Textual note that is relevant to the Invoice as a whole." ;
-	sh:property inv-shape:epo-inv-InvoiceNote-epo-inv-hasInvoiceNoteDescription, inv-shape:epo-inv-InvoiceNote-epo-inv-hasInvoiceNoteSubject .
-
-inv-shape:epo-inv-InvoiceNote-epo-inv-hasInvoiceNoteDescription a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasInvoiceNoteDescription ;
-	sh:name "Has invoice note description" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:or (
-		[
-			sh:datatype xsd:string ;
-		]
-		[
-			sh:datatype rdf:langString ;
-		]
-	) ;
-	sh:description "A textual note that gives unstructured information that is relevant to the Invoice as a whole." .
-
 inv-shape:epo-inv-Invoice-epo-ord-hasCustomerReference a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
 	sh:path a4g:hasCustomerReference ;
@@ -234,67 +190,6 @@ inv-shape:epo-inv-Invoice-epo-ord-hasCustomerReference a sh:PropertyShape ;
 			sh:datatype rdf:langString ;
 		]
 	) .
-
-inv-shape:epo-inv-TaxBreakdownInformationShape a sh:NodeShape ;
-	sh:targetClass a4g:TaxBreakdownInformation ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	rdfs:comment "Information about tax breakdown by different categories, rates and exemption reasons." ;
-	sh:property inv-shape:epo-inv-TaxBreakdownInformation-epo-inv-hasTaxExemptionReasonDescription, inv-shape:epo-inv-TaxBreakdownInformation-epo-ord-hasTaxInformation, inv-shape:epo-inv-TaxBreakdownInformation-epo-inv-hasTaxExemptionReason .
-
-inv-shape:epo-inv-TaxBreakdownInformation-epo-inv-hasTaxExemptionReasonDescription a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasTaxExemptionReasonDescription ;
-	sh:name "Has tax exemption reason description" ;
-	sh:minCount 0 ;
-	sh:maxCount 1 ;
-	sh:or (
-		[
-			sh:datatype xsd:string ;
-		]
-		[
-			sh:datatype rdf:langString ;
-		]
-	) ;
-	sh:description "An explanation on why the amount is exempted from tax or why no tax is being charged according to the legislation, expressed as a text." .
-
-inv-shape:epo-ord-DeliveryInformationShape a sh:NodeShape ;
-	sh:targetClass a4g:DeliveryInformation ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	rdfs:comment "Information about the timing, the delivery destination, the delivery agreement and the involved parties. " ;
-	sh:property inv-shape:epo-ord-DeliveryInformation-epo-inv-hasActualDeliveryDate .
-
-inv-shape:epo-ord-DeliveryInformation-epo-inv-hasActualDeliveryDate a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasActualDeliveryDate ;
-	sh:name "Has actual delivery date" ;
-	sh:minCount 0 ;
-	sh:maxCount 1 ;
-	sh:datatype xsd:date .
-
-inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasRemittanceInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasRemittanceInformation ;
-	sh:name "Has remittance information" ;
-	sh:minCount 0 ;
-	sh:maxCount 1 ;
-	sh:or (
-		[
-			sh:datatype xsd:string ;
-		]
-		[
-			sh:datatype rdf:langString ;
-		]
-	) ;
-	sh:description "A textual value used to establish a link between the payment and the Invoice, issued by the Seller." .
-
-inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasDebitedAccountIdentifier a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasDebitedAccountIdentifier ;
-	sh:name "Has debited account identifier" ;
-	sh:maxCount 1 ;
-	sh:description "An identifier for the account to be debited by the direct debit. " ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
 
 inv-shape:epo-inv-Invoice-epo-inv-comprisesInvoiceLine a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
@@ -393,41 +288,6 @@ inv-shape:epo-inv-Invoice-epo-inv-hasPaymentInstructionsInformation a sh:Propert
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:PaymentInstructionsInformation .
 
-inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentMeansType a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasPaymentMeansType ;
-	sh:name "Has payment means type" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:description "The means for how a payment is expected to be or has been settled, expressed as code. " ;
-	sh:nodeKind sh:IRI .
-
-inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountIdentifier a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasPaymentAccountIdentifier ;
-	sh:name "Has payment account identifier" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:description "A unique identifier of the financial payment account, at a payment service provider, to which payment should be made. " ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentServiceProviderIdentifier a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasPaymentServiceProviderIdentifier ;
-	sh:name "Has payment service provider identifier" ;
-	sh:maxCount 1 ;
-	sh:description "An identifier for the payment service provider where a payment account is located. " ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasCreditTransferInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasCreditTransferInformation ;
-	sh:name "Has credit transfer information" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:CreditTransferInformation .
-
 inv-shape:epo-inv-Invoice-epo-inv-refersToReceiptAdvice a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
 	sh:path a4g:refersToReceiptAdvice ;
@@ -461,52 +321,6 @@ inv-shape:epo-inv-Invoice-epo-inv-hasInvoiceNote a sh:PropertyShape ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:InvoiceNote .
 
-inv-shape:epo-inv-InvoiceNote-epo-inv-hasInvoiceNoteSubject a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasInvoiceNoteSubject ;
-	sh:name "Has invoice note subject" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI .
-
-inv-shape:epo-cat-ItemShape a sh:NodeShape ;
-	sh:targetClass a4g:Item ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	rdfs:comment "A product, work, service or any combination of them. Additional Information: An Item can be an atomic Thing or a composition of things that together are seen as a unit, e.g. a tetrabrik of milk or an indivisible package of six tetrabriks. No distinction is provided between services, goods and works to leave room for innovation." ;
-	sh:property inv-shape:epo-cat-Item-epo-inv-hasItemClassificationIdentifier .
-
-inv-shape:epo-cat-Item-epo-inv-hasItemClassificationIdentifier a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasItemClassificationIdentifier ;
-	sh:name "Has item classification identifier" ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentCardInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasPaymentCardInformation ;
-	sh:name "Has payment card information" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:PaymentCardInformation .
-
-inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasMandateIdentifier a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasMandateIdentifier ;
-	sh:name "Has mandate identifier" ;
-	sh:maxCount 1 ;
-	sh:description "An unique identifier for referencing the direct debit mandate, assigned by the Payee." ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasBankingIdentifier a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasBankingIdentifier ;
-	sh:name "Has banking identifier" ;
-	sh:maxCount 1 ;
-	sh:description "An unique banking reference identifier of the Payee or Seller, assigned by the Payee or Seller bank. " ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
 inv-shape:epo-inv-Invoice-epo-cat-specifiesChargeInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
 	sh:path a4g:specifiesChargeInformation ;
@@ -514,38 +328,12 @@ inv-shape:epo-inv-Invoice-epo-cat-specifiesChargeInformation a sh:PropertyShape 
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:ChargeInformation .
 
-inv-shape:epo-cat-ChargeInformationShape a sh:NodeShape ;
-	sh:targetClass a4g:ChargeInformation ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	rdfs:comment "Information about tax, fee or duty imposed. Additional Information: Charge category indicates the nature of the tax/duty/fee, for example VAT, CAR, etc. Charge category modifier may be used in case different levels, exemptions or other modifications apply. The charge can be fixed or relative to the price." ;
-	sh:property inv-shape:epo-cat-ChargeInformation-epo-inv-isSpecificToInvoiceLine .
-
-inv-shape:epo-cat-ChargeInformation-epo-inv-isSpecificToInvoiceLine a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:isSpecificToInvoiceLine ;
-	sh:name "Is specific to invoice line" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:InvoiceLine .
-
 inv-shape:epo-inv-Invoice-epo-ord-specifiesAllowanceInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
 	sh:path a4g:specifiesAllowanceInformation ;
 	sh:name "Specifies allowance information" ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:AllowanceInformation .
-
-inv-shape:epo-ord-AllowanceInformationShape a sh:NodeShape ;
-	sh:targetClass a4g:AllowanceInformation ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	rdfs:comment "Information about the discounts imposed. " ;
-	sh:property inv-shape:epo-ord-AllowanceInformation-epo-inv-isSpecificToInvoiceLine .
-
-inv-shape:epo-ord-AllowanceInformation-epo-inv-isSpecificToInvoiceLine a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:isSpecificToInvoiceLine ;
-	sh:name "Is specific to invoice line" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:InvoiceLine .
 
 inv-shape:epo-inv-Invoice-epo-ord-hasTotalAllowanceAmount a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
@@ -631,57 +419,6 @@ inv-shape:epo-inv-Invoice-epo-ord-hasAmountDueForPayment a sh:PropertyShape ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:MonetaryValue .
 
-inv-shape:epo-inv-InvoiceLine-epo-inv-hasInvoiceLineObjectIdentifier a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasInvoiceLineObjectIdentifier ;
-	sh:name "Has invoice line object identifier" ;
-	sh:maxCount 1 ;
-	sh:description "An identifier for an object on which the invoice line is based, given by the Seller. Additional Information: It may be a subscription number, telephone number, meter point etc., as applicable. " ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-inv-shape:epo-inv-InvoiceLine-epo-inv-hasNetAmount a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasNetAmount ;
-	sh:name "Has net amount" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:MonetaryValue .
-
-inv-shape:epo-inv-InvoiceLine-epo-inv-refersToOrderLine a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:refersToOrderLine ;
-	sh:name "Refers to order line" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:OrderLine .
-
-inv-shape:epo-inv-InvoiceLine-epo-cat-hasQuantity a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasQuantity ;
-	sh:name "Has quantity" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Quantity .
-
-inv-shape:epo-inv-InvoiceLine-epo-inv-hasInvoiceLinePeriod a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasInvoiceLinePeriod ;
-	sh:name "Has invoice line period" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Period .
-
-inv-shape:epo-inv-InvoiceLine-epo-cat-hasPrice a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasPrice ;
-	sh:name "Has price" ;
-	sh:minCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Price .
-
 inv-shape:epo-inv-Invoice-epo-inv-hasTaxBreakdownInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
 	sh:path a4g:hasTaxBreakdownInformation ;
@@ -689,6 +426,234 @@ inv-shape:epo-inv-Invoice-epo-inv-hasTaxBreakdownInformation a sh:PropertyShape 
 	sh:minCount 1 ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:TaxBreakdownInformation .
+
+inv-shape:epo-inv-Invoice-epo-ord-hasTaxInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasTaxInformation ;
+	sh:name "Has tax information" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:TaxInformation .
+
+inv-shape:epo-inv-PaymentInstructionsInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:PaymentInstructionsInformation ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	rdfs:comment "Information about the payment." ;
+	sh:property inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentMeansDescription, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasRemittanceInformation, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasDebitedAccountIdentifier, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentMeansType, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasCreditTransferInformation, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentCardInformation, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasMandateIdentifier, inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasBankingIdentifier .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentMeansDescription a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasPaymentMeansDescription ;
+	sh:name "Has payment means description" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) ;
+	sh:description "The means for how a payment is expected to be or has been settled, expressed as text." .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasRemittanceInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasRemittanceInformation ;
+	sh:name "Has remittance information" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) ;
+	sh:description "A textual value used to establish a link between the payment and the Invoice, issued by the Seller." .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasDebitedAccountIdentifier a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasDebitedAccountIdentifier ;
+	sh:name "Has debited account identifier" ;
+	sh:maxCount 1 ;
+	sh:description "An identifier for the account to be debited by the direct debit. " ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentMeansType a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasPaymentMeansType ;
+	sh:name "Has payment means type" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:description "The means for how a payment is expected to be or has been settled, expressed as code. " ;
+	sh:nodeKind sh:IRI .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasCreditTransferInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasCreditTransferInformation ;
+	sh:name "Has credit transfer information" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CreditTransferInformation .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentCardInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasPaymentCardInformation ;
+	sh:name "Has payment card information" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:PaymentCardInformation .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasMandateIdentifier a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasMandateIdentifier ;
+	sh:name "Has mandate identifier" ;
+	sh:maxCount 1 ;
+	sh:description "An unique identifier for referencing the direct debit mandate, assigned by the Payee." ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasBankingIdentifier a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasBankingIdentifier ;
+	sh:name "Has banking identifier" ;
+	sh:maxCount 1 ;
+	sh:description "An unique banking reference identifier of the Payee or Seller, assigned by the Payee or Seller bank. " ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+inv-shape:epo-inv-CreditTransferInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:CreditTransferInformation ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	rdfs:comment "Information about a direct payment of money from one bank account into another. " ;
+	sh:property inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountName, inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountIdentifier, inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentServiceProviderIdentifier .
+
+inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountName a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasPaymentAccountName ;
+	sh:name "Has payment account name" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) ;
+	sh:description "The name of the account that can send and receive payments to and from a payment service provider." .
+
+inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountIdentifier a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasPaymentAccountIdentifier ;
+	sh:name "Has payment account identifier" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:description "A unique identifier of the financial payment account, at a payment service provider, to which payment should be made. " ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentServiceProviderIdentifier a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasPaymentServiceProviderIdentifier ;
+	sh:name "Has payment service provider identifier" ;
+	sh:maxCount 1 ;
+	sh:description "An identifier for the payment service provider where a payment account is located. " ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+inv-shape:epo-inv-PaymentCardInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:PaymentCardInformation ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	rdfs:comment "Information about card used for payment contemporaneous with invoice issuance." ;
+	sh:property inv-shape:epo-inv-PaymentCardInformation-epo-inv-hasPaymentCardPrimaryAccountNumber, inv-shape:epo-inv-PaymentCardInformation-epo-inv-hasPaymentCardHolderName .
+
+inv-shape:epo-inv-PaymentCardInformation-epo-inv-hasPaymentCardPrimaryAccountNumber a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasPaymentCardPrimaryAccountNumber ;
+	sh:name "Has payment card primary account number" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) ;
+	sh:description "The series of digits embossed on the front of a card used for payment." .
+
+inv-shape:epo-inv-PaymentCardInformation-epo-inv-hasPaymentCardHolderName a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasPaymentCardHolderName ;
+	sh:name "Has payment card holder name" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) ;
+	sh:description "The name of the account holder of the card used for payment. Additional Information: An account holder is the entity listed or identified as the holder of a Financial Account by the Financial Institution." .
+
+inv-shape:epo-inv-InvoiceNoteShape a sh:NodeShape ;
+	sh:targetClass a4g:InvoiceNote ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	rdfs:comment "Textual note that is relevant to the Invoice as a whole." ;
+	sh:property inv-shape:epo-inv-InvoiceNote-epo-inv-hasInvoiceNoteDescription, inv-shape:epo-inv-InvoiceNote-epo-inv-hasInvoiceNoteSubject .
+
+inv-shape:epo-inv-InvoiceNote-epo-inv-hasInvoiceNoteDescription a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasInvoiceNoteDescription ;
+	sh:name "Has invoice note description" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) ;
+	sh:description "A textual note that gives unstructured information that is relevant to the Invoice as a whole." .
+
+inv-shape:epo-inv-InvoiceNote-epo-inv-hasInvoiceNoteSubject a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasInvoiceNoteSubject ;
+	sh:name "Has invoice note subject" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
+
+inv-shape:epo-inv-TaxBreakdownInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:TaxBreakdownInformation ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	rdfs:comment "Information about tax breakdown by different categories, rates and exemption reasons." ;
+	sh:property inv-shape:epo-inv-TaxBreakdownInformation-epo-inv-hasTaxExemptionReasonDescription, inv-shape:epo-inv-TaxBreakdownInformation-epo-ord-hasTaxInformation, inv-shape:epo-inv-TaxBreakdownInformation-epo-inv-hasTaxExemptionReason .
+
+inv-shape:epo-inv-TaxBreakdownInformation-epo-inv-hasTaxExemptionReasonDescription a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasTaxExemptionReasonDescription ;
+	sh:name "Has tax exemption reason description" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) ;
+	sh:description "An explanation on why the amount is exempted from tax or why no tax is being charged according to the legislation, expressed as a text." .
 
 inv-shape:epo-inv-TaxBreakdownInformation-epo-ord-hasTaxInformation a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
@@ -707,6 +672,59 @@ inv-shape:epo-inv-TaxBreakdownInformation-epo-inv-hasTaxExemptionReason a sh:Pro
 	sh:description "An explanation on why the amount is exempted from tax or why no tax is being charged according to the legislation, expressed as a code." ;
 	sh:nodeKind sh:IRI .
 
+inv-shape:epo-ord-DeliveryInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:DeliveryInformation ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	rdfs:comment "Information about the timing, the delivery destination, the delivery agreement and the involved parties. " ;
+	sh:property inv-shape:epo-ord-DeliveryInformation-epo-inv-hasActualDeliveryDate .
+
+inv-shape:epo-ord-DeliveryInformation-epo-inv-hasActualDeliveryDate a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasActualDeliveryDate ;
+	sh:name "Has actual delivery date" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:date .
+
+inv-shape:epo-cat-ItemShape a sh:NodeShape ;
+	sh:targetClass a4g:Item ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	rdfs:comment "A product, work, service or any combination of them. Additional Information: An Item can be an atomic Thing or a composition of things that together are seen as a unit, e.g. a tetrabrik of milk or an indivisible package of six tetrabriks. No distinction is provided between services, goods and works to leave room for innovation." ;
+	sh:property inv-shape:epo-cat-Item-epo-inv-hasItemClassificationIdentifier .
+
+inv-shape:epo-cat-Item-epo-inv-hasItemClassificationIdentifier a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:hasItemClassificationIdentifier ;
+	sh:name "Has item classification identifier" ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+inv-shape:epo-cat-ChargeInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:ChargeInformation ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	rdfs:comment "Information about tax, fee or duty imposed. Additional Information: Charge category indicates the nature of the tax/duty/fee, for example VAT, CAR, etc. Charge category modifier may be used in case different levels, exemptions or other modifications apply. The charge can be fixed or relative to the price." ;
+	sh:property inv-shape:epo-cat-ChargeInformation-epo-inv-isSpecificToInvoiceLine .
+
+inv-shape:epo-cat-ChargeInformation-epo-inv-isSpecificToInvoiceLine a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:isSpecificToInvoiceLine ;
+	sh:name "Is specific to invoice line" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:InvoiceLine .
+
+inv-shape:epo-ord-AllowanceInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:AllowanceInformation ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	rdfs:comment "Information about the discounts imposed. " ;
+	sh:property inv-shape:epo-ord-AllowanceInformation-epo-inv-isSpecificToInvoiceLine .
+
+inv-shape:epo-ord-AllowanceInformation-epo-inv-isSpecificToInvoiceLine a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
+	sh:path a4g:isSpecificToInvoiceLine ;
+	sh:name "Is specific to invoice line" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:InvoiceLine .
+
 inv-shape:epo-inv-CreditNoteShape a sh:NodeShape ;
 	sh:targetClass a4g:CreditNote ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
@@ -719,24 +737,6 @@ inv-shape:epo-inv-CreditNote-epo-inv-comprisesCreditNoteLine a sh:PropertyShape 
 	sh:minCount 1 ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:CreditNoteLine .
-
-inv-shape:epo-inv-Invoice-epo-ord-hasTaxInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasTaxInformation ;
-	sh:name "Has tax information" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:TaxInformation .
-
-inv-shape:epo-inv-InvoiceLine-epo-ord-hasTaxInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
-	sh:path a4g:hasTaxInformation ;
-	sh:name "Has tax information" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:TaxInformation .
 
 inv-shape:epo-inv-CreditNote-epo-inv-refersToInvoice a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/inv/> ;
