@@ -36,15 +36,15 @@ cat-shape:epo-cat-BrandShape a sh:NodeShape ;
 	dcterms:description "The eProcurement Ontology eCatalogue SHACL shapes provides the datashape specifications for the eProcurement Ontology cat module."@en ;
 	rdfs:label "eProcurement Ontology eCatalogue - SHACL shapes"@en ;
 	dcterms:created "2021-06-01"^^xsd:date ;
-	dcterms:issued "2024-11-12"^^xsd:date ;
+	dcterms:issued "2024-07-23"^^xsd:date ;
 	dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
-	dcterms:publisher <http://publications.europa.eu/resource/authority/corporate-body/PUBL> ;
+	dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
 	vann:preferredNamespacePrefix "epo" ;
 	vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
 	rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>, <https://github.com/OP-TED/ePO/releases>, <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>, <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
 	owl:imports <http://data.europa.eu/eli/ontology#>, <http://data.europa.eu/m8g/>, <http://purl.org/dc/terms/>, <http://purl.org/vocab/vann/>, <http://www.w3.org/2004/02/skos/core>, <http://www.w3.org/2006/time>, <http://www.w3.org/ns/adms>, <http://www.w3.org/ns/locn>, <http://www.w3.org/ns/org#>, <http://www.w3.org/ns/person>, <http://xmlns.com/foaf/0.1/> ;
 	owl:incompatibleWith "3.1.0" ;
-	owl:priorVersion cat-shape:cat-shape-4.1.0 ;
+	owl:priorVersion "http://data.europa.eu/a4g/data-shape#cat-shape-4.1.0" ;
 	owl:versionIRI cat-shape:cat-shape-4.2.0 ;
 	owl:versionInfo "4.2.0" .
 
@@ -101,6 +101,15 @@ cat-shape:epo-cat-ItemRelation-epo-cat-hasFactor a sh:PropertyShape ;
 	sh:maxCount 1 ;
 	sh:datatype xsd:decimal .
 
+cat-shape:epo-cat-ItemRelation-epo-cat-isRelatedToItem a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:isRelatedToItem ;
+	sh:name "Is related to item" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
+
 cat-shape:epo-cat-LineShape a sh:NodeShape ;
 	sh:targetClass a4g:Line ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
@@ -121,6 +130,40 @@ cat-shape:epo-cat-Line-dct-description a sh:PropertyShape ;
 			sh:datatype rdf:langString ;
 		]
 	) .
+
+cat-shape:epo-cat-Line-epo-hasAdditionalInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasAdditionalInformation ;
+	sh:description "Supplementary data about the instance of the concept. " ;
+	sh:name "Has additional information" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
+
+cat-shape:epo-cat-Line-epo-cat-specifiesItem a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:specifiesItem ;
+	sh:name "Specifies item" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
+
+cat-shape:epo-cat-Line-adms-identifier a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path adms:identifier ;
+	sh:description "External concept defined by <a href=$inet://https://semiceu.github.io/ADMS/releases/2.00/#identifier><font color=#0000ff><u>https://semiceu.github.io/ADMS/releases/2.00/#identifier</u></font></a> " ;
+	sh:name "Identifier" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
 cat-shape:epo-cat-ItemPropertyShape a sh:NodeShape ;
 	sh:targetClass a4g:ItemProperty ;
@@ -176,6 +219,40 @@ cat-shape:epo-cat-ItemProperty-epo-cat-hasLiteralValue a sh:PropertyShape ;
 		]
 	) .
 
+cat-shape:epo-cat-ItemProperty-dct-title a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path dcterms:title ;
+	sh:description "External concept defined by <a href=$inet://https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/title><font color=#0000ff><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/title</u></font></a>" ;
+	sh:name "Title" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
+
+cat-shape:epo-cat-ItemProperty-epo-cat-hasQualifiedValue a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasQualifiedValue ;
+	sh:description "Qualified value of the property, which is defined in a classification scheme. Additional Information: For example, the (0173-1#02-AAA026#007) drilling diameter of an item has value of 12 inches. " ;
+	sh:name "Has qualified value" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
+
+cat-shape:epo-cat-ItemProperty-epo-cat-describesItem a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:describesItem ;
+	sh:name "Describes item" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
+
 cat-shape:epo-cat-CatalogueShape a sh:NodeShape ;
 	sh:targetClass a4g:Catalogue ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
@@ -198,6 +275,68 @@ cat-shape:epo-cat-Catalogue-epo-cat-hasSpecificPaymentArrangement a sh:PropertyS
 		]
 	) .
 
+cat-shape:epo-cat-Catalogue-epo-specifiesCatalogueReceiver a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:specifiesCatalogueReceiver ;
+	sh:name "Specifies catalogue receiver" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueReceiver .
+
+cat-shape:epo-cat-Catalogue-epo-specifiesCatalogueProvider a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:specifiesCatalogueProvider ;
+	sh:name "Specifies catalogue provider" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueProvider .
+
+cat-shape:epo-cat-Catalogue-epo-cat-isSubordinatedToContract a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:isSubordinatedToContract ;
+	sh:name "Is subordinated to contract" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Contract .
+
+cat-shape:epo-cat-Catalogue-epo-cat-comprisesCatalogueLine a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:comprisesCatalogueLine ;
+	sh:name "Comprises catalogue line" ;
+	sh:minCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueLine .
+
+cat-shape:epo-cat-Catalogue-epo-specifiesBuyer a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:specifiesBuyer ;
+	sh:name "Specifies buyer" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Buyer .
+
+cat-shape:epo-cat-Catalogue-epo-cat-hasActivityCode a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasActivityCode ;
+	sh:name "Has activity code" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
+
+cat-shape:epo-cat-Catalogue-epo-specifiesSeller a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:specifiesSeller ;
+	sh:name "Specifies seller" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Seller .
+
+cat-shape:epo-cat-Catalogue-epo-hasValidityPeriod a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasValidityPeriod ;
+	sh:description "The relation indicating until when a given instance of a concept is applicable." ;
+	sh:name "Has validity period" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Period .
+
 cat-shape:epo-ord-AllowanceChargeInformationShape a sh:NodeShape ;
 	sh:targetClass a4g:AllowanceChargeInformation ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
@@ -212,6 +351,16 @@ cat-shape:epo-ord-AllowanceChargeInformation-epo-cat-hasPercentage a sh:Property
 	sh:minCount 0 ;
 	sh:maxCount 1 ;
 	sh:datatype xsd:decimal .
+
+cat-shape:epo-ord-AllowanceChargeInformation-epo-cat-hasAmount a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasAmount ;
+	sh:description "The predetermined monetary value charged in addition to the price." ;
+	sh:name "Has amount" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
 
 cat-shape:epo-cat-BatchShape a sh:NodeShape ;
 	sh:targetClass a4g:Batch ;
@@ -228,37 +377,41 @@ cat-shape:epo-cat-Batch-epo-cat-hasManufactureDate a sh:PropertyShape ;
 	sh:maxCount 1 ;
 	sh:datatype xsd:dateTime .
 
-cat-shape:epo-cat-ItemProperty-dct-title a sh:PropertyShape ;
+cat-shape:epo-cat-Batch-epo-cat-hasExpiryDate a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path dcterms:title ;
-	sh:description "External concept defined by <a href=$inet://https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/title><font color=#0000ff><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/title</u></font></a>" ;
-	sh:name "Title" ;
+	sh:path a4g:hasExpiryDate ;
+	sh:description "The last day until which the item can be used. " ;
+	sh:name "Has expiry date" ;
 	sh:minCount 0 ;
 	sh:maxCount 1 ;
-	sh:or (
-		[
-			sh:datatype xsd:string ;
-		]
-		[
-			sh:datatype rdf:langString ;
-		]
-	) .
+	sh:datatype xsd:date .
 
-cat-shape:epo-cat-Line-epo-hasAdditionalInformation a sh:PropertyShape ;
+cat-shape:epo-cat-Batch-epo-cat-hasBestBeforeDate a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasAdditionalInformation ;
-	sh:description "Supplementary data about the instance of the concept. " ;
-	sh:name "Has additional information" ;
+	sh:path a4g:hasBestBeforeDate ;
+	sh:description "The day until which the quality of the item will remain optimal." ;
+	sh:name "Has best before date" ;
 	sh:minCount 0 ;
 	sh:maxCount 1 ;
-	sh:or (
-		[
-			sh:datatype xsd:string ;
-		]
-		[
-			sh:datatype rdf:langString ;
-		]
-	) .
+	sh:datatype xsd:date .
+
+cat-shape:epo-cat-Batch-epo-cat-isProductionOf a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:isProductionOf ;
+	sh:name "Is production of" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
+
+cat-shape:epo-cat-Batch-epo-hasBatchID a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasBatchID ;
+	sh:description "The identifier assigned to a specific batch of the produced Item. " ;
+	sh:name "Has batch id" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
 cat-shape:epo-ord-TaxInformationShape a sh:NodeShape ;
 	sh:targetClass a4g:TaxInformation ;
@@ -274,6 +427,29 @@ cat-shape:epo-ord-TaxInformation-epo-cat-hasPercentage a sh:PropertyShape ;
 	sh:minCount 0 ;
 	sh:maxCount 1 ;
 	sh:datatype xsd:decimal .
+
+cat-shape:epo-ord-TaxInformation-epo-cat-hasTaxCategory a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasTaxCategory ;
+	sh:name "Has tax category" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
+
+cat-shape:epo-ord-TaxInformation-epo-cat-hasTaxScheme a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasTaxScheme ;
+	sh:name "Has tax scheme" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
+
+cat-shape:epo-ord-TaxInformation-epo-cat-hasAmount a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasAmount ;
+	sh:description "The predetermined monetary value charged in addition to the price. " ;
+	sh:name "Has amount" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
 
 cat-shape:epo-cat-ItemShape a sh:NodeShape ;
 	sh:targetClass a4g:Item ;
@@ -312,6 +488,257 @@ cat-shape:epo-cat-Item-dct-title a sh:PropertyShape ;
 			sh:datatype rdf:langString ;
 		]
 	) .
+
+cat-shape:epo-cat-Item-epo-cat-hasKeyword a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasKeyword ;
+	sh:description "List of words (e.g, synonyms) to make the item searchable. " ;
+	sh:name "Has keyword" ;
+	sh:minCount 0 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
+
+cat-shape:epo-cat-Item-epo-cat-isInStock a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:isInStock ;
+	sh:description "Indicator whether an item is in the supplier's stock. If not in stock the supplier has to order the item." ;
+	sh:name "Is in stock" ;
+	sh:minCount 0 ;
+	sh:maxCount 1 ;
+	sh:datatype xsd:boolean .
+
+cat-shape:epo-cat-Item-epo-cat-hasDimensionDescription a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasDimensionDescription ;
+	sh:description "Textual description of the item's dimensions." ;
+	sh:name "Has dimension description" ;
+	sh:minCount 0 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
+
+cat-shape:epo-cat-Item-epo-cat-hasHazardousClass a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasHazardousClass ;
+	sh:description "Specification of the hazardous nature of an item according to a classification schema. Provides detail of the classification and nature of a hazardous item." ;
+	sh:name "Has hazardous class" ;
+	sh:minCount 0 ;
+	sh:or (
+		[
+			sh:datatype xsd:string ;
+		]
+		[
+			sh:datatype rdf:langString ;
+		]
+	) .
+
+cat-shape:epo-cat-Item-epo-cat-hasBrand a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasBrand ;
+	sh:name "Has brand" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Brand .
+
+cat-shape:epo-cat-Item-epo-cat-hasQualifiedItemRelation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasQualifiedItemRelation ;
+	sh:name "Has qualified item relation" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ItemRelation .
+
+cat-shape:epo-cat-Item-epo-cat-hasModel a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasModel ;
+	sh:name "Has model" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ItemModel .
+
+cat-shape:epo-cat-Item-epo-cat-hasItemClassification a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasItemClassification ;
+	sh:description "A classification of this item according to a specific system for classifying products or services. Additional information: Examples of classification schemes are: CPV, UNSPC, eCl@ss, GPC, ..." ;
+	sh:name "Has item classification" ;
+	sh:nodeKind sh:IRI .
+
+cat-shape:epo-cat-Item-dct-hasPart a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path dcterms:hasPart ;
+	sh:description "External concept defined by <a href=$inet://https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/hasPart><font color=#0000ff><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/hasPart</u></font></a>" ;
+	sh:name "Has part" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
+
+cat-shape:epo-cat-Item-epo-hasManufacturerItemID a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasManufacturerItemID ;
+	sh:description "The general identifier assigned to the concept as defined by the Manufacturer. ​ " ;
+	sh:name "Has manufacturer item id" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+cat-shape:epo-cat-Item-epo-hasSellerItemID a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasSellerItemID ;
+	sh:description "The general identifier assigned to the concept as defined by the Seller.​ " ;
+	sh:name "Has seller item id" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+cat-shape:epo-cat-Item-epo-hasItemStandardID a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasItemStandardID ;
+	sh:description "External concept defined by <a href=$inet://https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy><font color=#0000ff><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy</u></font></a>" ;
+	sh:name "Has item standard id" ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+cat-shape:epo-cat-Item-epo-cat-hasNetQuantity a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasNetQuantity ;
+	sh:description "The net quantity of the item that is contained in each consumable unit, excluding any packaging materials. " ;
+	sh:name "Has net quantity" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
+
+cat-shape:epo-cat-Item-epo-cat-hasDeliveryClassification a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasDeliveryClassification ;
+	sh:name "Has delivery classification" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
+
+cat-shape:epo-cat-Item-epo-hasCertification a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasCertification ;
+	sh:description "Relation to the proof of conformance." ;
+	sh:name "Has certification" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Certificate .
+
+cat-shape:epo-cat-Item-epo-cat-hasAccessoryItem a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasAccessoryItem ;
+	sh:description "An additional item that can enhance the original item. " ;
+	sh:name "Has accessory item" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
+
+cat-shape:epo-cat-Item-dct-isReplacedBy a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path dcterms:isReplacedBy ;
+	sh:description "External concept defined by <a href=$inet://https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy><font color=#0000ff><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy</u></font></a> " ;
+	sh:name "Is replaced by" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
+
+cat-shape:epo-cat-Item-epo-cat-hasSpecification a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasSpecification ;
+	sh:name "Has specification" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ProductSpecification .
+
+cat-shape:epo-cat-Item-epo-cat-hasComplementaryItem a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasComplementaryItem ;
+	sh:description "An item that if used with another item provides mutual enhancements to both of them. Additional information: For example, gin and tonic; or smart-phone and smart-watch." ;
+	sh:name "Has complementary item" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
+
+cat-shape:epo-cat-Item-epo-cat-hasManufacturer a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasManufacturer ;
+	sh:name "Has manufacturer" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Manufacturer .
+
+cat-shape:epo-cat-Item-epo-cat-hasHazardousItemUNDGCode a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasHazardousItemUNDGCode ;
+	sh:description "Specification of the hazardous nature of an item according to the UNDG classification schema. Provides detail of the classification and nature of a hazardous item. " ;
+	sh:name "Has hazardous item undg code" ;
+	sh:nodeKind sh:IRI .
+
+cat-shape:epo-cat-Item-dct-requires a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path dcterms:requires ;
+	sh:description "External concept defined by <a href=$inet://https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/requires><font color=#0000ff><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/requires</u></font></a> " ;
+	sh:name "Requires" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Item .
+
+cat-shape:epo-cat-Item-epo-hasBuyerItemID a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasBuyerItemID ;
+	sh:description "The general identifier assigned to the concept as defined by the Buyer.​ " ;
+	sh:name "Has buyer item id" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+cat-shape:epo-cat-Item-epo-inv-hasItemClassificationIdentifier a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasItemClassificationIdentifier ;
+	sh:name "Has item classification identifier" ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+cat-shape:epo-cat-Item-epo-cat-hasCountryOfOrigin a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasCountryOfOrigin ;
+	sh:description "The source country of the product or service. Additional Information: The country of origin can be provided by the buyer as a requirement or by the tenderer information of the item to be provided." ;
+	sh:name "Has country of origin" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:node [
+		rdf:type sh:NodeShape ;
+		sh:property [
+			sh:path skos:inScheme ;
+			sh:hasValue atold:country ;
+		] ;
+	] .
+
+cat-shape:epo-cat-Item-epo-cat-hasExternalSpecification a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasExternalSpecification ;
+	sh:description "URI reference to external item information or specifications, e.g. web address. " ;
+	sh:name "Has external specification" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Document .
+
+cat-shape:epo-cat-Item-epo-hasSerialID a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasSerialID ;
+	sh:description "The identifier assigned to the specific instance of the produced concept. " ;
+	sh:name "Has serial id" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
+cat-shape:epo-cat-Item-epo-ord-hasTaxInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasTaxInformation ;
+	sh:name "Has tax information" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:TaxInformation .
 
 cat-shape:epo-cat-CatalogueLineShape a sh:NodeShape ;
 	sh:targetClass a4g:CatalogueLine ;
@@ -387,184 +814,6 @@ cat-shape:epo-cat-CatalogueLine-epo-cat-hasTransactionConditions a sh:PropertySh
 		]
 	) .
 
-cat-shape:epo-cat-Item-epo-cat-hasKeyword a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasKeyword ;
-	sh:description "List of words (e.g, synonyms) to make the item searchable. " ;
-	sh:name "Has keyword" ;
-	sh:minCount 0 ;
-	sh:or (
-		[
-			sh:datatype xsd:string ;
-		]
-		[
-			sh:datatype rdf:langString ;
-		]
-	) .
-
-cat-shape:epo-cat-Item-epo-cat-isInStock a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:isInStock ;
-	sh:description "Indicator whether an item is in the supplier's stock. If not in stock the supplier has to order the item." ;
-	sh:name "Is in stock" ;
-	sh:minCount 0 ;
-	sh:maxCount 1 ;
-	sh:datatype xsd:boolean .
-
-cat-shape:epo-cat-Batch-epo-cat-hasExpiryDate a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasExpiryDate ;
-	sh:description "The last day until which the item can be used. " ;
-	sh:name "Has expiry date" ;
-	sh:minCount 0 ;
-	sh:maxCount 1 ;
-	sh:datatype xsd:date .
-
-cat-shape:epo-cat-Batch-epo-cat-hasBestBeforeDate a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasBestBeforeDate ;
-	sh:description "The day until which the quality of the item will remain optimal." ;
-	sh:name "Has best before date" ;
-	sh:minCount 0 ;
-	sh:maxCount 1 ;
-	sh:datatype xsd:date .
-
-cat-shape:epo-cat-Item-epo-cat-hasDimensionDescription a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasDimensionDescription ;
-	sh:description "Textual description of the item's dimensions." ;
-	sh:name "Has dimension description" ;
-	sh:minCount 0 ;
-	sh:or (
-		[
-			sh:datatype xsd:string ;
-		]
-		[
-			sh:datatype rdf:langString ;
-		]
-	) .
-
-cat-shape:epo-cat-Item-epo-cat-hasHazardousClass a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasHazardousClass ;
-	sh:description "Specification of the hazardous nature of an item according to a classification schema. Provides detail of the classification and nature of a hazardous item." ;
-	sh:name "Has hazardous class" ;
-	sh:minCount 0 ;
-	sh:or (
-		[
-			sh:datatype xsd:string ;
-		]
-		[
-			sh:datatype rdf:langString ;
-		]
-	) .
-
-cat-shape:epo-cat-Batch-epo-cat-isProductionOf a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:isProductionOf ;
-	sh:name "Is production of" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Item .
-
-cat-shape:epo-cat-Item-epo-cat-hasBrand a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasBrand ;
-	sh:name "Has brand" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Brand .
-
-cat-shape:epo-cat-ItemRelation-epo-cat-isRelatedToItem a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:isRelatedToItem ;
-	sh:name "Is related to item" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Item .
-
-cat-shape:epo-cat-Item-epo-cat-hasQualifiedItemRelation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasQualifiedItemRelation ;
-	sh:name "Has qualified item relation" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:ItemRelation .
-
-cat-shape:epo-cat-Catalogue-epo-specifiesCatalogueReceiver a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:specifiesCatalogueReceiver ;
-	sh:name "Specifies catalogue receiver" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:CatalogueReceiver .
-
-cat-shape:epo-cat-ChargeInformationShape a sh:NodeShape ;
-	sh:targetClass a4g:ChargeInformation ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	rdfs:comment "Information about tax, fee or duty imposed. Additional Information: Charge category indicates the nature of the tax/duty/fee, for example VAT, CAR, etc. Charge category modifier may be used in case different levels, exemptions or other modifications apply. The charge can be fixed or relative to the price." ;
-	sh:property cat-shape:epo-cat-ChargeInformation-epo-ord-isSpecificToOrderLine, cat-shape:epo-cat-ChargeInformation-epo-inv-isSpecificToInvoiceLine .
-
-cat-shape:epo-cat-ChargeInformation-epo-ord-isSpecificToOrderLine a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:isSpecificToOrderLine ;
-	sh:description "Information that is particular to one or multiple Order Lines. " ;
-	sh:name "Is specific to order line" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:OrderLine .
-
-cat-shape:epo-con-DeliverableShape a sh:NodeShape ;
-	sh:targetClass a4g:Deliverable ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:property cat-shape:epo-con-Deliverable-epo-cat-hasQuantity .
-
-cat-shape:epo-con-Deliverable-epo-cat-hasQuantity a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasQuantity ;
-	sh:name "Has quantity" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Quantity .
-
-cat-shape:epo-cat-Item-epo-cat-hasModel a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasModel ;
-	sh:name "Has model" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:ItemModel .
-
-cat-shape:epo-cat-Item-epo-cat-hasItemClassification a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasItemClassification ;
-	sh:description "A classification of this item according to a specific system for classifying products or services. Additional information: Examples of classification schemes are: CPV, UNSPC, eCl@ss, GPC, ..." ;
-	sh:name "Has item classification" ;
-	sh:nodeKind sh:IRI .
-
-cat-shape:epo-cat-Catalogue-epo-specifiesCatalogueProvider a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:specifiesCatalogueProvider ;
-	sh:name "Specifies catalogue provider" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:CatalogueProvider .
-
-cat-shape:epo-cat-PriceShape a sh:NodeShape ;
-	sh:targetClass a4g:Price ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	rdfs:comment "Amount of money required or given in exchange for Items. Additional information: The Price excludes any charges (such as taxes, duties and fees) and discounts." ;
-	sh:property cat-shape:epo-cat-Price-epo-cat-hasDeliveryLocation, cat-shape:epo-cat-Price-epo-cat-hasPriceValidity, cat-shape:epo-cat-Price-epo-cat-hasNetMonetaryValue, cat-shape:epo-cat-Price-epo-cat-hasOrderabableUnitFactorRate, cat-shape:epo-cat-Price-epo-cat-hasQuantityThreshold, cat-shape:epo-cat-Price-epo-cat-hasExpectedDeliveryTime, cat-shape:epo-cat-Price-epo-cat-hasBaseQuantity, cat-shape:epo-cat-Price-epo-hasPriceSurchargeInformation, cat-shape:epo-cat-Price-epo-cat-hasPriceType, cat-shape:epo-cat-Price-epo-ord-hasGrossMonetaryValue, cat-shape:epo-cat-Price-epo-ord-hasPriceDiscountInformation .
-
-cat-shape:epo-cat-Price-epo-cat-hasDeliveryLocation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasDeliveryLocation ;
-	sh:description "Location delivery area where the Item can be ordered to the given price. " ;
-	sh:name "Has delivery location" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class dcterms:Location .
-
 cat-shape:epo-cat-CatalogueLine-epo-cat-hasCatalogueLineValidity a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	sh:path a4g:hasCatalogueLineValidity ;
@@ -573,98 +822,6 @@ cat-shape:epo-cat-CatalogueLine-epo-cat-hasCatalogueLineValidity a sh:PropertySh
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:Period .
-
-cat-shape:epo-cat-Price-epo-cat-hasPriceValidity a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasPriceValidity ;
-	sh:name "Has price validity" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Period .
-
-cat-shape:epo-cat-ItemProperty-epo-cat-hasQualifiedValue a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasQualifiedValue ;
-	sh:description "Qualified value of the property, which is defined in a classification scheme. Additional Information: For example, the (0173-1#02-AAA026#007) drilling diameter of an item has value of 12 inches. " ;
-	sh:name "Has qualified value" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Quantity .
-
-cat-shape:epo-cat-Item-dct-hasPart a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path dcterms:hasPart ;
-	sh:description "External concept defined by <a href=$inet://https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/hasPart><font color=#0000ff><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/hasPart</u></font></a>" ;
-	sh:name "Has part" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Item .
-
-cat-shape:epo-cat-Catalogue-epo-cat-isSubordinatedToContract a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:isSubordinatedToContract ;
-	sh:name "Is subordinated to contract" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Contract .
-
-cat-shape:epo-cat-Catalogue-epo-cat-comprisesCatalogueLine a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:comprisesCatalogueLine ;
-	sh:name "Comprises catalogue line" ;
-	sh:minCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:CatalogueLine .
-
-cat-shape:epo-cat-ManufacturerShape a sh:NodeShape ;
-	sh:targetClass a4g:Manufacturer ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	rdfs:comment "The Producer of goods or provider of services. Additional Information: Also, known as Supplier and Manufacturer. We do not care who provides these service or products we care with whom Business is done. PEPPOL - Invoice: The Supplier is the Legal Person or Organisation who provides a product and/or service. PEPPOL - Order: The supplier is the legal person or organisation who provides a product or service. Examples of supplier roles: seller, despatch party, creditor, economic operator. " ;
-	sh:property cat-shape:epo-cat-Manufacturer-epo-hasManufacturerID .
-
-cat-shape:epo-cat-Manufacturer-epo-hasManufacturerID a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasManufacturerID ;
-	sh:description "The manufacturer's identifier for the item. " ;
-	sh:name "Has manufacturer id" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-cat-shape:epo-cat-Batch-epo-hasBatchID a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasBatchID ;
-	sh:description "The identifier assigned to a specific batch of the produced Item. " ;
-	sh:name "Has batch id" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-cat-shape:epo-cat-Item-epo-hasManufacturerItemID a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasManufacturerItemID ;
-	sh:description "The general identifier assigned to the concept as defined by the Manufacturer. ​ " ;
-	sh:name "Has manufacturer item id" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-cat-shape:epo-cat-Item-epo-hasSellerItemID a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasSellerItemID ;
-	sh:description "The general identifier assigned to the concept as defined by the Seller.​ " ;
-	sh:name "Has seller item id" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-cat-shape:epo-cat-Item-epo-hasItemStandardID a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasItemStandardID ;
-	sh:description "External concept defined by <a href=$inet://https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy><font color=#0000ff><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy</u></font></a>" ;
-	sh:name "Has item standard id" ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
 
 cat-shape:epo-cat-CatalogueLine-epo-cat-hasMaximumOrderQuantity a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
@@ -680,15 +837,6 @@ cat-shape:epo-cat-CatalogueLine-epo-cat-hasMinimumQuantityGuaranteedForDelivery 
 	sh:path a4g:hasMinimumQuantityGuaranteedForDelivery ;
 	sh:description "The minimum quantity of an item that is guaranteed by the seller to be delivered. " ;
 	sh:name "Has minimum quantity guaranteed for delivery" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Quantity .
-
-cat-shape:epo-cat-Item-epo-cat-hasNetQuantity a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasNetQuantity ;
-	sh:description "The net quantity of the item that is contained in each consumable unit, excluding any packaging materials. " ;
-	sh:name "Has net quantity" ;
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:Quantity .
@@ -709,20 +857,6 @@ cat-shape:epo-cat-CatalogueLine-epo-cat-hasTransactionConditionsCode a sh:Proper
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI .
 
-cat-shape:epo-cat-Catalogue-epo-specifiesBuyer a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:specifiesBuyer ;
-	sh:name "Specifies buyer" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Buyer .
-
-cat-shape:epo-cat-Catalogue-epo-cat-hasActivityCode a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasActivityCode ;
-	sh:name "Has activity code" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI .
-
 cat-shape:epo-cat-CatalogueLine-epo-cat-hasPrice a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	sh:path a4g:hasPrice ;
@@ -730,6 +864,94 @@ cat-shape:epo-cat-CatalogueLine-epo-cat-hasPrice a sh:PropertyShape ;
 	sh:minCount 1 ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:Price .
+
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasActivityCode a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasActivityCode ;
+	sh:name "Has activity code" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
+
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasStandardisedUnitPrice a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasStandardisedUnitPrice ;
+	sh:description "The item price based on a standardised unit. Additional Information: The unit must be indicated in the Quantity, with a quantity value of 1." ;
+	sh:name "Has standardised unit price" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Price .
+
+cat-shape:epo-cat-CatalogueLine-epo-cat-foreseesPackage a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:foreseesPackage ;
+	sh:name "Foresees package" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Package .
+
+cat-shape:epo-cat-CatalogueLine-epo-cat-hasChargeInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasChargeInformation ;
+	sh:name "Has charge information" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ChargeInformation .
+
+cat-shape:epo-cat-ChargeInformationShape a sh:NodeShape ;
+	sh:targetClass a4g:ChargeInformation ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	rdfs:comment "Information about tax, fee or duty imposed. Additional Information: Charge category indicates the nature of the tax/duty/fee, for example VAT, CAR, etc. Charge category modifier may be used in case different levels, exemptions or other modifications apply. The charge can be fixed or relative to the price." ;
+	sh:property cat-shape:epo-cat-ChargeInformation-epo-ord-isSpecificToOrderLine, cat-shape:epo-cat-ChargeInformation-epo-inv-isSpecificToInvoiceLine .
+
+cat-shape:epo-cat-ChargeInformation-epo-ord-isSpecificToOrderLine a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:isSpecificToOrderLine ;
+	sh:description "Information that is particular to one or multiple Order Lines. " ;
+	sh:name "Is specific to order line" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:OrderLine .
+
+cat-shape:epo-cat-ChargeInformation-epo-inv-isSpecificToInvoiceLine a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:isSpecificToInvoiceLine ;
+	sh:name "Is specific to invoice line" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:InvoiceLine .
+
+cat-shape:epo-con-DeliverableShape a sh:NodeShape ;
+	sh:targetClass a4g:Deliverable ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:property cat-shape:epo-con-Deliverable-epo-cat-hasQuantity .
+
+cat-shape:epo-con-Deliverable-epo-cat-hasQuantity a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasQuantity ;
+	sh:name "Has quantity" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Quantity .
+
+cat-shape:epo-cat-PriceShape a sh:NodeShape ;
+	sh:targetClass a4g:Price ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	rdfs:comment "Amount of money required or given in exchange for Items. Additional information: The Price excludes any charges (such as taxes, duties and fees) and discounts." ;
+	sh:property cat-shape:epo-cat-Price-epo-cat-hasDeliveryLocation, cat-shape:epo-cat-Price-epo-cat-hasPriceValidity, cat-shape:epo-cat-Price-epo-cat-hasNetMonetaryValue, cat-shape:epo-cat-Price-epo-cat-hasOrderabableUnitFactorRate, cat-shape:epo-cat-Price-epo-cat-hasQuantityThreshold, cat-shape:epo-cat-Price-epo-cat-hasExpectedDeliveryTime, cat-shape:epo-cat-Price-epo-cat-hasBaseQuantity, cat-shape:epo-cat-Price-epo-hasPriceSurchargeInformation, cat-shape:epo-cat-Price-epo-cat-hasPriceType, cat-shape:epo-cat-Price-epo-ord-hasGrossMonetaryValue, cat-shape:epo-cat-Price-epo-ord-hasPriceDiscountInformation .
+
+cat-shape:epo-cat-Price-epo-cat-hasDeliveryLocation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasDeliveryLocation ;
+	sh:description "Location delivery area where the Item can be ordered to the given price. " ;
+	sh:name "Has delivery location" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class dcterms:Location .
+
+cat-shape:epo-cat-Price-epo-cat-hasPriceValidity a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasPriceValidity ;
+	sh:name "Has price validity" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Period .
 
 cat-shape:epo-cat-Price-epo-cat-hasNetMonetaryValue a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
@@ -739,13 +961,6 @@ cat-shape:epo-cat-Price-epo-cat-hasNetMonetaryValue a sh:PropertyShape ;
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:MonetaryValue .
-
-cat-shape:epo-cat-CatalogueLine-epo-cat-hasActivityCode a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasActivityCode ;
-	sh:name "Has activity code" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI .
 
 cat-shape:epo-cat-Price-epo-cat-hasOrderabableUnitFactorRate a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
@@ -772,13 +987,60 @@ cat-shape:epo-cat-Price-epo-cat-hasExpectedDeliveryTime a sh:PropertyShape ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:Duration .
 
-cat-shape:epo-cat-CatalogueLine-epo-cat-hasStandardisedUnitPrice a sh:PropertyShape ;
+cat-shape:epo-cat-Price-epo-cat-hasBaseQuantity a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasStandardisedUnitPrice ;
-	sh:description "The item price based on a standardised unit. Additional Information: The unit must be indicated in the Quantity, with a quantity value of 1." ;
-	sh:name "Has standardised unit price" ;
+	sh:path a4g:hasBaseQuantity ;
+	sh:description "The quantity at which the net monetary value applies." ;
+	sh:name "Has base quantity" ;
+	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI ;
-	sh:class a4g:Price .
+	sh:class a4g:Quantity .
+
+cat-shape:epo-cat-Price-epo-hasPriceSurchargeInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasPriceSurchargeInformation ;
+	sh:name "Has price surcharge information" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:ChargeInformation .
+
+cat-shape:epo-cat-Price-epo-cat-hasPriceType a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasPriceType ;
+	sh:name "Has price type" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI .
+
+cat-shape:epo-cat-Price-epo-ord-hasGrossMonetaryValue a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasGrossMonetaryValue ;
+	sh:name "Has gross monetary value" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:MonetaryValue .
+
+cat-shape:epo-cat-Price-epo-ord-hasPriceDiscountInformation a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasPriceDiscountInformation ;
+	sh:name "Has price discount information" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:AllowanceInformation .
+
+cat-shape:epo-cat-ManufacturerShape a sh:NodeShape ;
+	sh:targetClass a4g:Manufacturer ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	rdfs:comment "The Producer of goods or provider of services. Additional Information: Also, known as Supplier and Manufacturer. We do not care who provides these service or products we care with whom Business is done. PEPPOL - Invoice: The Supplier is the Legal Person or Organisation who provides a product and/or service. PEPPOL - Order: The supplier is the legal person or organisation who provides a product or service. Examples of supplier roles: seller, despatch party, creditor, economic operator. " ;
+	sh:property cat-shape:epo-cat-Manufacturer-epo-hasManufacturerID .
+
+cat-shape:epo-cat-Manufacturer-epo-hasManufacturerID a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasManufacturerID ;
+	sh:description "The manufacturer's identifier for the item. " ;
+	sh:name "Has manufacturer id" ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
 
 cat-shape:epo-ord-OrderLineShape a sh:NodeShape ;
 	sh:targetClass a4g:OrderLine ;
@@ -795,6 +1057,13 @@ cat-shape:epo-ord-OrderLine-epo-cat-hasQuantity a sh:PropertyShape ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:Quantity .
 
+cat-shape:epo-ord-OrderLine-epo-cat-hasPrice a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasPrice ;
+	sh:name "Has price" ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:Price .
+
 cat-shape:epo-ord-OrderShape a sh:NodeShape ;
 	sh:targetClass a4g:Order ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
@@ -808,139 +1077,6 @@ cat-shape:epo-ord-Order-epo-cat-specifiesChargeInformation a sh:PropertyShape ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:ChargeInformation .
 
-cat-shape:epo-cat-Price-epo-cat-hasBaseQuantity a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasBaseQuantity ;
-	sh:description "The quantity at which the net monetary value applies." ;
-	sh:name "Has base quantity" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Quantity .
-
-cat-shape:epo-cat-Item-epo-cat-hasDeliveryClassification a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasDeliveryClassification ;
-	sh:name "Has delivery classification" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI .
-
-cat-shape:epo-cat-Item-epo-hasCertification a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasCertification ;
-	sh:description "Relation to the proof of conformance." ;
-	sh:name "Has certification" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Certificate .
-
-cat-shape:epo-cat-Catalogue-epo-specifiesSeller a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:specifiesSeller ;
-	sh:name "Specifies seller" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Seller .
-
-cat-shape:epo-cat-Item-epo-cat-hasAccessoryItem a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasAccessoryItem ;
-	sh:description "An additional item that can enhance the original item. " ;
-	sh:name "Has accessory item" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Item .
-
-cat-shape:epo-cat-Item-dct-isReplacedBy a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path dcterms:isReplacedBy ;
-	sh:description "External concept defined by <a href=$inet://https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy><font color=#0000ff><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/isReplacedBy</u></font></a> " ;
-	sh:name "Is replaced by" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Item .
-
-cat-shape:epo-cat-Item-epo-cat-hasSpecification a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasSpecification ;
-	sh:name "Has specification" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:ProductSpecification .
-
-cat-shape:epo-cat-Item-epo-cat-hasComplementaryItem a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasComplementaryItem ;
-	sh:description "An item that if used with another item provides mutual enhancements to both of them. Additional information: For example, gin and tonic; or smart-phone and smart-watch." ;
-	sh:name "Has complementary item" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Item .
-
-cat-shape:epo-cat-Item-epo-cat-hasManufacturer a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasManufacturer ;
-	sh:name "Has manufacturer" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Manufacturer .
-
-cat-shape:epo-cat-Item-epo-cat-hasHazardousItemUNDGCode a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasHazardousItemUNDGCode ;
-	sh:description "Specification of the hazardous nature of an item according to the UNDG classification schema. Provides detail of the classification and nature of a hazardous item. " ;
-	sh:name "Has hazardous item undg code" ;
-	sh:nodeKind sh:IRI .
-
-cat-shape:epo-cat-CatalogueLine-epo-cat-foreseesPackage a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:foreseesPackage ;
-	sh:name "Foresees package" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Package .
-
-cat-shape:epo-cat-ItemProperty-epo-cat-describesItem a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:describesItem ;
-	sh:name "Describes item" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Item .
-
-cat-shape:epo-cat-Item-dct-requires a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path dcterms:requires ;
-	sh:description "External concept defined by <a href=$inet://https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/requires><font color=#0000ff><u>https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/requires</u></font></a> " ;
-	sh:name "Requires" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Item .
-
-cat-shape:epo-ord-AllowanceChargeInformation-epo-cat-hasAmount a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasAmount ;
-	sh:description "The predetermined monetary value charged in addition to the price." ;
-	sh:name "Has amount" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:MonetaryValue .
-
-cat-shape:epo-cat-CatalogueLine-epo-cat-hasChargeInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasChargeInformation ;
-	sh:name "Has charge information" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:ChargeInformation .
-
-cat-shape:epo-ord-TaxInformation-epo-cat-hasTaxCategory a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasTaxCategory ;
-	sh:name "Has tax category" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI .
-
-cat-shape:epo-ord-TaxInformation-epo-cat-hasTaxScheme a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasTaxScheme ;
-	sh:name "Has tax scheme" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI .
-
 cat-shape:epo-cat-CatalogueResponseShape a sh:NodeShape ;
 	sh:targetClass a4g:CatalogueResponse ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
@@ -953,27 +1089,6 @@ cat-shape:epo-cat-CatalogueResponse-epo-cat-comprisesCatalogueResponseLine a sh:
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:CatalogueResponseLine .
 
-cat-shape:epo-cat-CatalogueResponseLineShape a sh:NodeShape ;
-	sh:targetClass a4g:CatalogueResponseLine ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:property cat-shape:epo-cat-CatalogueResponseLine-epo-cat-refersToCatalogueLine, cat-shape:epo-cat-CatalogueResponseLine-epo-hasUUID .
-
-cat-shape:epo-cat-CatalogueResponseLine-epo-cat-refersToCatalogueLine a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:refersToCatalogueLine ;
-	sh:name "Refers to catalogue line" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:CatalogueLine .
-
-cat-shape:epo-ord-OrderLine-epo-cat-hasPrice a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasPrice ;
-	sh:name "Has price" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Price .
-
 cat-shape:epo-cat-CatalogueResponse-epo-cat-refersToCatalogue a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	sh:path a4g:refersToCatalogue ;
@@ -982,16 +1097,6 @@ cat-shape:epo-cat-CatalogueResponse-epo-cat-refersToCatalogue a sh:PropertyShape
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:Catalogue .
-
-cat-shape:epo-cat-CatalogueResponseLine-epo-hasUUID a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasUUID ;
-	sh:description "A universally unique identifier for an instance of this document. " ;
-	sh:name "Has uuid" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
 
 cat-shape:epo-cat-CatalogueResponse-epo-specifiesCatalogueReceiver a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
@@ -1020,6 +1125,30 @@ cat-shape:epo-cat-CatalogueResponse-epo-cat-specifiesCatalogueResponseInformatio
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:CatalogueResponseInformation .
 
+cat-shape:epo-cat-CatalogueResponseLineShape a sh:NodeShape ;
+	sh:targetClass a4g:CatalogueResponseLine ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:property cat-shape:epo-cat-CatalogueResponseLine-epo-cat-refersToCatalogueLine, cat-shape:epo-cat-CatalogueResponseLine-epo-hasUUID .
+
+cat-shape:epo-cat-CatalogueResponseLine-epo-cat-refersToCatalogueLine a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:refersToCatalogueLine ;
+	sh:name "Refers to catalogue line" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class a4g:CatalogueLine .
+
+cat-shape:epo-cat-CatalogueResponseLine-epo-hasUUID a sh:PropertyShape ;
+	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
+	sh:path a4g:hasUUID ;
+	sh:description "A universally unique identifier for an instance of this document. " ;
+	sh:name "Has uuid" ;
+	sh:minCount 1 ;
+	sh:maxCount 1 ;
+	sh:nodeKind sh:IRI ;
+	sh:class adms:Identifier .
+
 cat-shape:epo-cat-CatalogueResponseInformationShape a sh:NodeShape ;
 	sh:targetClass a4g:CatalogueResponseInformation ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
@@ -1041,30 +1170,6 @@ cat-shape:epo-cat-CatalogueResponseInformation-epo-ord-hasAcceptanceStatus a sh:
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI .
 
-cat-shape:epo-cat-Catalogue-epo-hasValidityPeriod a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasValidityPeriod ;
-	sh:description "The relation indicating until when a given instance of a concept is applicable." ;
-	sh:name "Has validity period" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Period .
-
-cat-shape:epo-cat-Price-epo-hasPriceSurchargeInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasPriceSurchargeInformation ;
-	sh:name "Has price surcharge information" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:ChargeInformation .
-
-cat-shape:epo-cat-Price-epo-cat-hasPriceType a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasPriceType ;
-	sh:name "Has price type" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI .
-
 cat-shape:epo-cat-PostAwardDocumentShape a sh:NodeShape ;
 	sh:targetClass a4g:PostAwardDocument ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
@@ -1077,23 +1182,6 @@ cat-shape:epo-cat-PostAwardDocument-epo-cat-hasDocumentType a sh:PropertyShape ;
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI .
 
-cat-shape:epo-cat-Item-epo-hasBuyerItemID a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasBuyerItemID ;
-	sh:description "The general identifier assigned to the concept as defined by the Buyer.​ " ;
-	sh:name "Has buyer item id" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-cat-shape:epo-cat-Price-epo-ord-hasGrossMonetaryValue a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasGrossMonetaryValue ;
-	sh:name "Has gross monetary value" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:MonetaryValue .
-
 cat-shape:epo-cat-PostAwardDocument-epo-hasDocumentStatus a sh:PropertyShape ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
 	sh:path a4g:hasDocumentStatus ;
@@ -1101,15 +1189,6 @@ cat-shape:epo-cat-PostAwardDocument-epo-hasDocumentStatus a sh:PropertyShape ;
 	sh:name "Has document status" ;
 	sh:maxCount 1 ;
 	sh:nodeKind sh:IRI .
-
-cat-shape:epo-cat-Line-epo-cat-specifiesItem a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:specifiesItem ;
-	sh:name "Specifies item" ;
-	sh:minCount 1 ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Item .
 
 cat-shape:epo-cat-InformationHubShape a sh:NodeShape ;
 	sh:targetClass a4g:InformationHub ;
@@ -1124,71 +1203,6 @@ cat-shape:epo-cat-InformationHub-epo-cat-isSpecificToLine a sh:PropertyShape ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:Line .
 
-cat-shape:epo-cat-Line-adms-identifier a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path adms:identifier ;
-	sh:description "External concept defined by <a href=$inet://https://semiceu.github.io/ADMS/releases/2.00/#identifier><font color=#0000ff><u>https://semiceu.github.io/ADMS/releases/2.00/#identifier</u></font></a> " ;
-	sh:name "Identifier" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-cat-shape:epo-cat-Item-epo-inv-hasItemClassificationIdentifier a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasItemClassificationIdentifier ;
-	sh:name "Has item classification identifier" ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-cat-shape:epo-cat-Item-epo-cat-hasCountryOfOrigin a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasCountryOfOrigin ;
-	sh:description "The source country of the product or service. Additional Information: The country of origin can be provided by the buyer as a requirement or by the tenderer information of the item to be provided." ;
-	sh:name "Has country of origin" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:node [
-		rdf:type sh:NodeShape ;
-		sh:property [
-			sh:path skos:inScheme ;
-			sh:hasValue atold:country ;
-		] ;
-	] .
-
-cat-shape:epo-ord-TaxInformation-epo-cat-hasAmount a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasAmount ;
-	sh:description "The predetermined monetary value charged in addition to the price. " ;
-	sh:name "Has amount" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:MonetaryValue .
-
-cat-shape:epo-cat-Item-epo-cat-hasExternalSpecification a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasExternalSpecification ;
-	sh:description "URI reference to external item information or specifications, e.g. web address. " ;
-	sh:name "Has external specification" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:Document .
-
-cat-shape:epo-cat-Item-epo-hasSerialID a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasSerialID ;
-	sh:description "The identifier assigned to the specific instance of the produced concept. " ;
-	sh:name "Has serial id" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class adms:Identifier .
-
-cat-shape:epo-cat-Price-epo-ord-hasPriceDiscountInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasPriceDiscountInformation ;
-	sh:name "Has price discount information" ;
-	sh:maxCount 1 ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:AllowanceInformation .
-
 cat-shape:epo-inv-InvoiceShape a sh:NodeShape ;
 	sh:targetClass a4g:Invoice ;
 	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
@@ -1201,20 +1215,6 @@ cat-shape:epo-inv-Invoice-epo-cat-specifiesChargeInformation a sh:PropertyShape 
 	sh:name "Specifies charge information" ;
 	sh:nodeKind sh:IRI ;
 	sh:class a4g:ChargeInformation .
-
-cat-shape:epo-cat-ChargeInformation-epo-inv-isSpecificToInvoiceLine a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:isSpecificToInvoiceLine ;
-	sh:name "Is specific to invoice line" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:InvoiceLine .
-
-cat-shape:epo-cat-Item-epo-ord-hasTaxInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/cat/> ;
-	sh:path a4g:hasTaxInformation ;
-	sh:name "Has tax information" ;
-	sh:nodeKind sh:IRI ;
-	sh:class a4g:TaxInformation .
 
 cat-shape:epo-inv-InvoiceLineShape a sh:NodeShape ;
 	sh:targetClass a4g:InvoiceLine ;
