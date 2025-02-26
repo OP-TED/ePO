@@ -209,6 +209,5 @@
     <!--    dct:publisher-->
     <xsl:variable name="publisher" select="'http://publications.europa.eu/resource/authority/corporate-body/PUBL'"/>
     
-    
 
 </xsl:stylesheet>
