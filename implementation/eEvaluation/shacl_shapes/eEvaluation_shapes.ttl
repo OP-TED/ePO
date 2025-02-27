@@ -1,0 +1,265 @@
+@prefix : <http://data.europa.eu/a4g/ontology#> .
+@prefix cccev: <http://data.europa.eu/m8g/> .
+@prefix core-shape: <http://data.europa.eu/a4g/data-shape#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix person: <http://www.w3.org/ns/person#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+core-shape:epo-ExcludedCandidateList a sh:NodeShape ;
+    rdfs:label "Excluded Candidate List" ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:property core-shape:epo-ExcludedCandidateList-epo-containsCandidate ;
+    sh:targetClass :ExcludedCandidateList .
+
+core-shape:epo-eva-Bidder a sh:NodeShape ;
+    rdfs:label "Bidder" ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:targetClass :Bidder .
+
+core-shape:epo-eva-EvaluationBoard a sh:NodeShape ;
+    rdfs:label "Evaluation Board" ;
+    rdfs:comment "Committee set up to evaluate the Tenders submitted. Additional Information: The committee may be a regular board or a jury.",
+        "if an Evaluation Committee has Jury Members, then it is for a Design Contest." ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:property core-shape:epo-eva-EvaluationBoard-epo-eva-hasEvaluator,
+        core-shape:epo-eva-EvaluationBoard-epo-eva-hasJuryMember,
+        core-shape:epo-eva-EvaluationBoard-epo-eva-isAppointedBy,
+        core-shape:epo-eva-EvaluationBoard-epo-eva-requestsClarification,
+        core-shape:epo-eva-EvaluationBoard-epo-eva-writesEvaluationReport,
+        core-shape:epo-eva-EvaluationBoard-epo-isAssignedForEvaluationOf ;
+    sh:targetClass :EvaluationBoard .
+
+core-shape:epo-eva-EvaluationCriterion a sh:NodeShape ;
+    rdfs:label "Evaluation Criterion" ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:property core-shape:epo-eva-EvaluationCriterion-epo-eva-evaluatesProcurementCriterion,
+        core-shape:epo-eva-EvaluationCriterion-epo-eva-fulfillsProcurementCriterion,
+        core-shape:epo-eva-EvaluationCriterion-epo-eva-hasEvaluationJustification,
+        core-shape:epo-eva-EvaluationCriterion-epo-eva-hasScorePoint ;
+    sh:targetClass :EvaluationCriterion .
+
+core-shape:epo-eva-EvaluationReport a sh:NodeShape ;
+    rdfs:label "Evaluation Report" ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:property core-shape:epo-eva-EvaluationReport-epo-eva-hasAwardCriteriaEvaluationScore,
+        core-shape:epo-eva-EvaluationReport-epo-eva-providesRankToTender,
+        core-shape:epo-eva-EvaluationReport-epo-eva-reportsEvaluationCriterion,
+        core-shape:epo-eva-EvaluationReport-epo-eva-usesEvaluationFormula ;
+    sh:targetClass :EvaluationReport .
+
+core-shape:epo-eva-Evaluator a sh:NodeShape ;
+    rdfs:label "Evaluator" ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:property core-shape:epo-eva-Evaluator-epo-playedBy ;
+    sh:targetClass :Evaluator .
+
+core-shape:epo-eva-ForeseenSubcontractor a sh:NodeShape ;
+    rdfs:label "Foreseen Subcontractor" ;
+    rdfs:comment "NotReliedUponEntity can be an alias." ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:targetClass :ForeseenSubcontractor .
+
+core-shape:epo-eva-TenderClarification a sh:NodeShape ;
+    rdfs:label "Tender Clarification" ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:property core-shape:epo-eva-TenderClarification-epo-eva-refersToTenderClarificationRequest ;
+    sh:targetClass :TenderClarification .
+
+core-shape:epo-eva-TenderClarificationRequest a sh:NodeShape ;
+    rdfs:label "Tender Clarification Request" ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:property core-shape:epo-eva-TenderClarificationRequest-cccev-hasRequirement,
+        core-shape:epo-eva-TenderClarificationRequest-epo-eva-concernsEvaluationReport,
+        core-shape:epo-eva-TenderClarificationRequest-epo-specifiesEconomicOperator ;
+    sh:targetClass :TenderClarificationRequest .
+
+core-shape:epo-eva-UniqueResponsibleOfTheProcurement a sh:NodeShape ;
+    rdfs:label "Unique Responsible Of The Procurement" ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:property core-shape:epo-eva-UniqueResponsibleOfTheProcurement-epo-playedBy ;
+    sh:targetClass :UniqueResponsibleOfTheProcurement .
+
+core-shape:epo-ExcludedCandidateList-epo-containsCandidate a sh:PropertyShape ;
+    sh:class :Candidate ;
+    sh:name "contains Candidate" ;
+    sh:path :containsCandidate ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#containsCandidate> ?that . ?that <http://data.europa.eu/a4g/ontology#containsCandidate> ?this .}" ] .
+
+core-shape:epo-eva-EvaluationBoard-epo-eva-hasEvaluator a sh:PropertyShape ;
+    sh:class :Evaluator ;
+    sh:name "has Evaluator" ;
+    sh:path :hasEvaluator ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasEvaluator> ?that . ?that <http://data.europa.eu/a4g/ontology#hasEvaluator> ?this .}" ] .
+
+core-shape:epo-eva-EvaluationBoard-epo-eva-hasJuryMember a sh:PropertyShape ;
+    sh:class :JuryMember ;
+    sh:description "An agent involved in an evaluation board." ;
+    sh:name "has Jury Member" ;
+    sh:path :hasJuryMember ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasJuryMember> ?that . ?that <http://data.europa.eu/a4g/ontology#hasJuryMember> ?this .}" ] .
+
+core-shape:epo-eva-EvaluationBoard-epo-eva-isAppointedBy a sh:PropertyShape ;
+    sh:class :UniqueResponsibleOfTheProcurement ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "is Appointed By" ;
+    sh:path :isAppointedBy ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isAppointedBy> ?that . ?that <http://data.europa.eu/a4g/ontology#isAppointedBy> ?this .}" ] .
+
+core-shape:epo-eva-EvaluationBoard-epo-eva-requestsClarification a sh:PropertyShape ;
+    sh:class :TenderClarificationRequest ;
+    sh:name "requests Clarification" ;
+    sh:path :requestsClarification ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#requestsClarification> ?that . ?that <http://data.europa.eu/a4g/ontology#requestsClarification> ?this .}" ] .
+
+core-shape:epo-eva-EvaluationBoard-epo-eva-writesEvaluationReport a sh:PropertyShape ;
+    sh:class :EvaluationReport ;
+    sh:minCount 1 ;
+    sh:name "writes Evaluation Report" ;
+    sh:path :writesEvaluationReport ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#writesEvaluationReport> ?that . ?that <http://data.europa.eu/a4g/ontology#writesEvaluationReport> ?this .}" ] .
+
+core-shape:epo-eva-EvaluationBoard-epo-isAssignedForEvaluationOf a sh:PropertyShape ;
+    sh:class :Lot ;
+    sh:name "is Assigned For Evaluation Of" ;
+    sh:path :isAssignedForEvaluationOf ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isAssignedForEvaluationOf> ?that . ?that <http://data.europa.eu/a4g/ontology#isAssignedForEvaluationOf> ?this .}" ] .
+
+core-shape:epo-eva-EvaluationCriterion-epo-eva-evaluatesProcurementCriterion a sh:PropertyShape ;
+    sh:class :ProcurementCriterion ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "evaluates Procurement Criterion" ;
+    sh:path :evaluatesProcurementCriterion ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#evaluatesProcurementCriterion> ?that . ?that <http://data.europa.eu/a4g/ontology#evaluatesProcurementCriterion> ?this .}" ] .
+
+core-shape:epo-eva-EvaluationCriterion-epo-eva-fulfillsProcurementCriterion a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:datatype xsd:boolean ;
+    sh:maxCount 1 ;
+    sh:name "fulfills Procurement Criterion" ;
+    sh:path :fulfillsProcurementCriterion .
+
+core-shape:epo-eva-EvaluationCriterion-epo-eva-hasEvaluationJustification a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:maxCount 1 ;
+    sh:name "has Evaluation Justification" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasEvaluationJustification .
+
+core-shape:epo-eva-EvaluationCriterion-epo-eva-hasScorePoint a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:maxCount 1 ;
+    sh:name "has Score Point" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasScorePoint .
+
+core-shape:epo-eva-EvaluationReport-epo-eva-hasAwardCriteriaEvaluationScore a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:maxCount 1 ;
+    sh:name "has Award Criteria Evaluation Score" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasAwardCriteriaEvaluationScore .
+
+core-shape:epo-eva-EvaluationReport-epo-eva-providesRankToTender a sh:PropertyShape ;
+    sh:class :TenderAwardOutcome ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "provides Rank To Tender" ;
+    sh:path :providesRankToTender ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#providesRankToTender> ?that . ?that <http://data.europa.eu/a4g/ontology#providesRankToTender> ?this .}" ] .
+
+core-shape:epo-eva-EvaluationReport-epo-eva-reportsEvaluationCriterion a sh:PropertyShape ;
+    sh:class :EvaluationCriterion ;
+    sh:minCount 1 ;
+    sh:name "reports Evaluation Criterion" ;
+    sh:path :reportsEvaluationCriterion ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#reportsEvaluationCriterion> ?that . ?that <http://data.europa.eu/a4g/ontology#reportsEvaluationCriterion> ?this .}" ] .
+
+core-shape:epo-eva-EvaluationReport-epo-eva-usesEvaluationFormula a sh:PropertyShape ;
+    sh:class :AwardEvaluationTerm ;
+    sh:maxCount 1 ;
+    sh:name "uses Evaluation Formula" ;
+    sh:path :usesEvaluationFormula ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#usesEvaluationFormula> ?that . ?that <http://data.europa.eu/a4g/ontology#usesEvaluationFormula> ?this .}" ] .
+
+core-shape:epo-eva-Evaluator-epo-playedBy a sh:PropertyShape ;
+    sh:class person:Person ;
+    sh:maxCount 1 ;
+    sh:name "played By" ;
+    sh:path :playedBy ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#playedBy> ?that . ?that <http://data.europa.eu/a4g/ontology#playedBy> ?this .}" ] .
+
+core-shape:epo-eva-TenderClarification-epo-eva-refersToTenderClarificationRequest a sh:PropertyShape ;
+    sh:class :TenderClarificationRequest ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "refers To Tender Clarification Request" ;
+    sh:path :refersToTenderClarificationRequest ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToTenderClarificationRequest> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToTenderClarificationRequest> ?this .}" ] .
+
+core-shape:epo-eva-TenderClarificationRequest-cccev-hasRequirement a sh:PropertyShape ;
+    sh:class cccev:InformationRequirement ;
+    sh:description "External concept defined by <a href=\"$inet://http://data.europa.eu/m8g/hasRequirement\"><font color=\"#0000ff\"><u>http://data.europa.eu/m8g/hasRequirement</u></font></a>" ;
+    sh:minCount 1 ;
+    sh:name "has Requirement" ;
+    sh:path cccev:hasRequirement ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/m8g/hasRequirement> ?that . ?that <http://data.europa.eu/m8g/hasRequirement> ?this .}" ] .
+
+core-shape:epo-eva-TenderClarificationRequest-epo-eva-concernsEvaluationReport a sh:PropertyShape ;
+    sh:class :EvaluationReport ;
+    sh:maxCount 1 ;
+    sh:name "concerns Evaluation Report" ;
+    sh:path :concernsEvaluationReport ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsEvaluationReport> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsEvaluationReport> ?this .}" ] .
+
+core-shape:epo-eva-TenderClarificationRequest-epo-specifiesEconomicOperator a sh:PropertyShape ;
+    sh:class :OfferingParty ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "specifies Economic Operator" ;
+    sh:path :specifiesEconomicOperator ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesEconomicOperator> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesEconomicOperator> ?this .}" ] .
+
+core-shape:epo-eva-UniqueResponsibleOfTheProcurement-epo-playedBy a sh:PropertyShape ;
+    sh:class person:Person ;
+    sh:maxCount 1 ;
+    sh:name "played By" ;
+    sh:path :playedBy ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#playedBy> ?that . ?that <http://data.europa.eu/a4g/ontology#playedBy> ?this .}" ] .
+
+core-shape:core-shape a owl:Ontology ;
+    rdfs:label "This artefact provides the generic datashape specifications for the eProcurement Ontology Core.         The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.         The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."@en ;
+    dcterms:created "2025-02-26"^^xsd:date ;
+    dcterms:description "This artefact provides the generic datashape specifications for the eProcurement Ontology Core.         The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.         The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."@en ;
+    dcterms:issued "2025-02-26"^^xsd:date ;
+    dcterms:license "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents          (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the          CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided          that appropriate credit is given and any changes are indicated." ;
+    dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
+    dcterms:title "ePO Core shapes"@en ;
+    vann:preferredNamespacePrefix "epo" ;
+    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
+    rdfs:comment "This version is automatically generated from eEvaluation.xml on 2025-02-26" ;
+    rdfs:seeAlso <https://docs.ted.europa.eu/EPO/latest/index.html>,
+        <https://github.com/eprocurementontology/eprocurementontology>,
+        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
+        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
+    owl:imports :core,
+        :core-restriction,
+        <http://data.europa.eu/nuts>,
+        dcterms:,
+        skos:,
+        <http://www.w3.org/ns/adms>,
+        foaf:,
+        <https://data.europa.eu/m8g> ;
+    owl:incompatibleWith "2.1.0" ;
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#core-shape-4.2.0" ;
+    owl:versionIRI core-shape:core-shape-5.0.0 ;
+    owl:versionInfo "5.0.0" .
+
