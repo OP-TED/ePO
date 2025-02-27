@@ -78,11 +78,11 @@
     <!--Allowed characters for a normalized string-->
     <xsl:variable name="allowedStrings" select="'^[\w\d-_:]+$'"/>
     <!--    Generate reused classes, attributes and connectors. Concepts with these prefixes will be included in the generated artefacts. -->
-    <xsl:variable name="includedPrefixesList" select="('epo', 'epo-not', 'epo-ord', 'epo-cat', 'epo-con', 'epo-ful','epo-eva')"/>
+    <xsl:variable name="includedPrefixesList" select="('epo', 'epo-not', 'epo-ord', 'epo-cat', 'epo-con', 'epo-ful','epo-eva','epo-awa')"/>
     <!-- This set of variables controls the generation of reused concepts within artifacts. -->
-    <xsl:variable name="generateReusedConceptsSHACL" select="fn:true()"/>
-    <xsl:variable name="generateReusedConceptsOWLcore" select="fn:true()"/>
-    <xsl:variable name="generateReusedConceptsOWLrestrictions" select="fn:true()"/>
+    <xsl:variable name="generateReusedConceptsSHACL" select="fn:false()"/>
+    <xsl:variable name="generateReusedConceptsOWLcore" select="fn:false()"/>
+    <xsl:variable name="generateReusedConceptsOWLrestrictions" select="fn:false()"/>
     <xsl:variable name="generateReusedConceptsGlossary" select="fn:false()"/>
 
 <!--    This set of variables controls generation of comments and how they will generate in the output -->
