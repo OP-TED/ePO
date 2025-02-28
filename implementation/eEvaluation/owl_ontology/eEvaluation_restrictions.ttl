@@ -123,11 +123,11 @@ cccev:hasRequirement rdfs:domain :TenderClarificationRequest ;
             owl:maxCardinality 1 ;
             owl:onProperty :fulfillsProcurementCriterion ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :evaluatesProcurementCriterion ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasEvaluationJustification ] .
+            owl:onProperty :hasEvaluationJustification ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty :evaluatesProcurementCriterion ] .
 
 :EvaluationBoard rdfs:subClassOf [ a owl:Restriction ;
             owl:minCardinality 1 ;
@@ -137,31 +137,31 @@ cccev:hasRequirement rdfs:domain :TenderClarificationRequest ;
             owl:onProperty :isAppointedBy ] .
 
 :TenderClarificationRequest rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty :specifiesEconomicOperator ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :concernsEvaluationReport ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cccev:hasRequirement ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :specifiesEconomicOperator ] .
+            owl:onProperty cccev:hasRequirement ] .
 
 :EvaluationReport rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :providesRankToTender ],
+            owl:maxCardinality 1 ;
+            owl:onProperty :usesEvaluationFormula ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty :hasAwardCriteriaEvaluationScore ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :usesEvaluationFormula ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty :reportsEvaluationCriterion ] .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :UniqueResponsibleOfTheProcurement :Evaluator ) .
+            owl:onProperty :reportsEvaluationCriterion ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty :providesRankToTender ] .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :EvaluationReport :TenderClarificationRequest ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :UniqueResponsibleOfTheProcurement :Evaluator ) .
 
