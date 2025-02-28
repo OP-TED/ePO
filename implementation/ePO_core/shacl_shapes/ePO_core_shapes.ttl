@@ -1,6 +1,5 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix adms: <http://www.w3.org/ns/adms#> .
-@prefix at-voc: <http://publications.europa.eu/resource/authority/> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix core-shape: <http://data.europa.eu/a4g/data-shape#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -130,7 +129,6 @@ core-shape:epo-AwardDecision a sh:NodeShape ;
     rdfs:comment "Resolution of the Buyer as to the result of the Procurement Procedure." ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:epo-AwardDecision-epo-comprisesAwardOutcome,
-        core-shape:epo-AwardDecision-epo-hasAdditionalNonAwardJustification,
         core-shape:epo-AwardDecision-epo-hasAwardDecisionDate ;
     sh:targetClass :AwardDecision .
 
@@ -150,6 +148,7 @@ core-shape:epo-AwardOutcome a sh:NodeShape ;
     rdfs:comment "Result concerning the competition that was attributed by the Awarder." ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:property core-shape:epo-AwardOutcome-epo-comprisesTenderAwardOutcome,
+        core-shape:epo-AwardOutcome-epo-hasAwardJustification,
         core-shape:epo-AwardOutcome-epo-hasAwardStatus,
         core-shape:epo-AwardOutcome-epo-hasAwardedValue,
         core-shape:epo-AwardOutcome-epo-hasBargainPrice,
@@ -192,8 +191,7 @@ core-shape:epo-Buyer a sh:NodeShape ;
         core-shape:epo-Buyer-epo-hasActivityDescription,
         core-shape:epo-Buyer-epo-hasBuyerProfile,
         core-shape:epo-Buyer-epo-indicatesInvoiceeContactPoint,
-        core-shape:epo-Buyer-epo-isContractingEntity,
-        core-shape:epo-Buyer-epo-signsAwardDecision ;
+        core-shape:epo-Buyer-epo-isContractingEntity ;
     sh:targetClass :Buyer .
 
 core-shape:epo-Candidate a sh:NodeShape ;
@@ -1077,8 +1075,6 @@ core-shape:epo-QualificationCriterion a sh:NodeShape ;
         core-shape:epo-QualificationCriterion-epo-includesNationalCriterion ;
     sh:targetClass :QualificationCriterion .
 
-core-shape:epo-QualificationDecision sh:property core-shape:epo-QualificationDecision-epo-providesDecisionFor .
-
 core-shape:epo-QualityTargetInformation sh:property core-shape:epo-QualityTargetInformation-epo-concernsContractTerm .
 
 core-shape:epo-Quantity a sh:NodeShape ;
@@ -1455,9 +1451,6 @@ core-shape:epo-Tenderer a sh:NodeShape ;
     sh:property core-shape:epo-Tenderer-epo-substantiatesExclusionGround ;
     sh:targetClass :Tenderer .
 
-core-shape:epo-TendererQualificationSubmission sh:property core-shape:epo-TendererQualificationSubmission-epo-concernsProcedure,
-        core-shape:epo-TendererQualificationSubmission-epo-specifiesCandidate .
-
 core-shape:epo-TenderingAnswer sh:property core-shape:epo-TenderingAnswer-epo-answersToInformationRequirement .
 
 core-shape:epo-TenderingQuestion sh:property core-shape:epo-TenderingQuestion-epo-specifiesEconomicOperator .
@@ -1493,7 +1486,13 @@ core-shape:epo-Winner a sh:NodeShape ;
 core-shape:epo-acc-ESPDRequest sh:property core-shape:epo-acc-ESPDRequest-epo-concernsProcedure,
         core-shape:epo-acc-ESPDRequest-epo-specifiesProcurementCriterion .
 
-core-shape:epo-awa-AwardNotification sh:property core-shape:epo-awa-AwardNotification-epo-concernsProcedure .
+core-shape:epo-awa-AwardDecisionNotification sh:property core-shape:epo-awa-AwardDecisionNotification-epo-concernsProcedure,
+        core-shape:epo-awa-AwardDecisionNotification-epo-specifiesTenderer .
+
+core-shape:epo-awa-QualificationDecision sh:property core-shape:epo-awa-QualificationDecision-epo-awa-providesDecisionFor .
+
+core-shape:epo-awa-TendererQualificationSubmission sh:property core-shape:epo-awa-TendererQualificationSubmission-epo-concernsProcedure,
+        core-shape:epo-awa-TendererQualificationSubmission-epo-specifiesCandidate .
 
 core-shape:epo-cat-AbstractItem sh:property core-shape:epo-cat-AbstractItem-epo-cat-hasCountryOfOrigin,
         core-shape:epo-cat-AbstractItem-epo-cat-hasExternalSpecification,
@@ -1556,7 +1555,9 @@ core-shape:epo-eva-Evaluator sh:property core-shape:epo-eva-Evaluator-epo-played
 
 core-shape:epo-eva-TenderClarificationRequest sh:property core-shape:epo-eva-TenderClarificationRequest-epo-specifiesEconomicOperator .
 
-core-shape:epo-eva-UniqueResponsibleOfTheProcurement sh:property core-shape:epo-eva-UniqueResponsibleOfTheProcurement-epo-playedBy .
+core-shape:epo-eva-UniqueResponsibleOfTheProcurement sh:property core-shape:epo-eva-UniqueResponsibleOfTheProcurement-epo-actsOnBehalfOf,
+        core-shape:epo-eva-UniqueResponsibleOfTheProcurement-epo-playedBy,
+        core-shape:epo-eva-UniqueResponsibleOfTheProcurement-epo-signsAwardDecision .
 
 core-shape:epo-ful-AbstractContainer sh:property core-shape:epo-ful-AbstractContainer-epo-ful-hasGrossVolume,
         core-shape:epo-ful-AbstractContainer-epo-ful-hasGrossWeight,
@@ -1710,6 +1711,10 @@ core-shape:epo-ord-OriginatorInformation sh:property core-shape:epo-ord-Originat
 
 core-shape:epo-ord-TaxInformation sh:property core-shape:epo-ord-TaxInformation-epo-cat-hasAmount,
         core-shape:epo-ord-TaxInformation-epo-isCalculatedOn .
+
+core-shape:epo-req-RequestForOffer sh:property core-shape:epo-req-RequestForOffer-epo-hasCountryCode,
+        core-shape:epo-req-RequestForOffer-epo-specifiesBuyer,
+        core-shape:epo-req-RequestForOffer-epo-specifiesContractor .
 
 core-shape:epo-sub-LegalRepresentative sh:property core-shape:epo-sub-LegalRepresentative-epo-actsOnBehalfOf .
 
@@ -2025,14 +2030,6 @@ core-shape:epo-AwardDecision-epo-comprisesAwardOutcome a sh:PropertyShape ;
     sh:path :comprisesAwardOutcome ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesAwardOutcome> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesAwardOutcome> ?this .}" ] .
 
-core-shape:epo-AwardDecision-epo-hasAdditionalNonAwardJustification a sh:PropertyShape ;
-    rdfs:isDefinedBy core-shape:core-shape ;
-    sh:description "Further justification for the non award . Additional information: This is generally used when the non award reason code is set to \"Other\"." ;
-    sh:maxCount 1 ;
-    sh:name "has Additional Non Award Justification" ;
-    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
-    sh:path :hasAdditionalNonAwardJustification .
-
 core-shape:epo-AwardDecision-epo-hasAwardDecisionDate a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
     sh:datatype xsd:dateTime ;
@@ -2086,6 +2083,14 @@ core-shape:epo-AwardOutcome-epo-comprisesTenderAwardOutcome a sh:PropertyShape ;
     sh:name "comprises Tender Award Outcome" ;
     sh:path :comprisesTenderAwardOutcome ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesTenderAwardOutcome> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesTenderAwardOutcome> ?this .}" ] .
+
+core-shape:epo-AwardOutcome-epo-hasAwardJustification a sh:PropertyShape ;
+    rdfs:isDefinedBy core-shape:core-shape ;
+    sh:description "Description of the reason behind an award or non-award of a given Tender. Additional information: This is generally used when the non award justification code is set to \"Other\" and when the Lot is awarded. It may highlight the justification of the non-award of a Tender with regard to awarded Tenders." ;
+    sh:maxCount 1 ;
+    sh:name "has Award Justification" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasAwardJustification .
 
 core-shape:epo-AwardOutcome-epo-hasAwardStatus a sh:PropertyShape ;
     sh:class skos:Concept ;
@@ -2181,12 +2186,6 @@ core-shape:epo-Buyer-epo-isContractingEntity a sh:PropertyShape ;
     sh:maxCount 1 ;
     sh:name "is Contracting Entity" ;
     sh:path :isContractingEntity .
-
-core-shape:epo-Buyer-epo-signsAwardDecision a sh:PropertyShape ;
-    sh:class :AwardDecision ;
-    sh:name "signs Award Decision" ;
-    sh:path :signsAwardDecision ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#signsAwardDecision> ?that . ?that <http://data.europa.eu/a4g/ontology#signsAwardDecision> ?this .}" ] .
 
 core-shape:epo-Catalogue-epo-hasValidityPeriod a sh:PropertyShape ;
     sh:class :Period ;
@@ -4147,10 +4146,8 @@ core-shape:epo-ProcurementObject-epo-hasRecurrenceDescription a sh:PropertyShape
     sh:path :hasRecurrenceDescription .
 
 core-shape:epo-ProcurementObject-epo-hasTransportServiceType a sh:PropertyShape ;
-    sh:class at-voc:transport-service ;
     sh:name "has Transport Service Type" ;
-    sh:path :hasTransportServiceType ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTransportServiceType> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTransportServiceType> ?this .}" ] .
+    sh:path :hasTransportServiceType .
 
 core-shape:epo-ProcurementObject-epo-isCoveredByGPA a sh:PropertyShape ;
     rdfs:isDefinedBy core-shape:core-shape ;
@@ -4356,14 +4353,6 @@ core-shape:epo-QualificationCriterion-epo-includesNationalCriterion a sh:Propert
     sh:name "includes National Criterion" ;
     sh:path :includesNationalCriterion ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#includesNationalCriterion> ?that . ?that <http://data.europa.eu/a4g/ontology#includesNationalCriterion> ?this .}" ] .
-
-core-shape:epo-QualificationDecision-epo-providesDecisionFor a sh:PropertyShape ;
-    sh:class :Lot ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "provides Decision For" ;
-    sh:path :providesDecisionFor ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#providesDecisionFor> ?that . ?that <http://data.europa.eu/a4g/ontology#providesDecisionFor> ?this .}" ] .
 
 core-shape:epo-QualityTargetInformation-epo-concernsContractTerm a sh:PropertyShape ;
     sh:class :ContractTerm ;
@@ -5365,22 +5354,6 @@ core-shape:epo-Tenderer-epo-substantiatesExclusionGround a sh:PropertyShape ;
     sh:path :substantiatesExclusionGround ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#substantiatesExclusionGround> ?that . ?that <http://data.europa.eu/a4g/ontology#substantiatesExclusionGround> ?this .}" ] .
 
-core-shape:epo-TendererQualificationSubmission-epo-concernsProcedure a sh:PropertyShape ;
-    sh:class :Procedure ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "concerns Procedure" ;
-    sh:path :concernsProcedure ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsProcedure> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsProcedure> ?this .}" ] .
-
-core-shape:epo-TendererQualificationSubmission-epo-specifiesCandidate a sh:PropertyShape ;
-    sh:class :Candidate ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
-    sh:name "specifies Candidate" ;
-    sh:path :specifiesCandidate ;
-    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesCandidate> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesCandidate> ?this .}" ] .
-
 core-shape:epo-TenderingAnswer-epo-answersToInformationRequirement a sh:PropertyShape ;
     sh:class cccev:InformationRequirement ;
     sh:minCount 1 ;
@@ -5480,13 +5453,45 @@ core-shape:epo-acc-ESPDRequest-epo-specifiesProcurementCriterion a sh:PropertySh
     sh:path :specifiesProcurementCriterion ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesProcurementCriterion> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesProcurementCriterion> ?this .}" ] .
 
-core-shape:epo-awa-AwardNotification-epo-concernsProcedure a sh:PropertyShape ;
+core-shape:epo-awa-AwardDecisionNotification-epo-concernsProcedure a sh:PropertyShape ;
     sh:class :Procedure ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
     sh:name "concerns Procedure" ;
     sh:path :concernsProcedure ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsProcedure> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsProcedure> ?this .}" ] .
+
+core-shape:epo-awa-AwardDecisionNotification-epo-specifiesTenderer a sh:PropertyShape ;
+    sh:class :Tenderer ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "specifies Tenderer" ;
+    sh:path :specifiesTenderer ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesTenderer> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesTenderer> ?this .}" ] .
+
+core-shape:epo-awa-QualificationDecision-epo-awa-providesDecisionFor a sh:PropertyShape ;
+    sh:class :Lot ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "provides Decision For" ;
+    sh:path :providesDecisionFor ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#providesDecisionFor> ?that . ?that <http://data.europa.eu/a4g/ontology#providesDecisionFor> ?this .}" ] .
+
+core-shape:epo-awa-TendererQualificationSubmission-epo-concernsProcedure a sh:PropertyShape ;
+    sh:class :Procedure ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "concerns Procedure" ;
+    sh:path :concernsProcedure ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsProcedure> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsProcedure> ?this .}" ] .
+
+core-shape:epo-awa-TendererQualificationSubmission-epo-specifiesCandidate a sh:PropertyShape ;
+    sh:class :Candidate ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "specifies Candidate" ;
+    sh:path :specifiesCandidate ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesCandidate> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesCandidate> ?this .}" ] .
 
 core-shape:epo-cat-AbstractItem-epo-cat-hasCountryOfOrigin a sh:PropertyShape ;
     sh:class skos:Concept ;
@@ -5811,12 +5816,27 @@ core-shape:epo-eva-TenderClarificationRequest-epo-specifiesEconomicOperator a sh
     sh:path :specifiesEconomicOperator ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesEconomicOperator> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesEconomicOperator> ?this .}" ] .
 
+core-shape:epo-eva-UniqueResponsibleOfTheProcurement-epo-actsOnBehalfOf a sh:PropertyShape ;
+    sh:class :Buyer ;
+    sh:description "Represents." ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "acts On Behalf Of" ;
+    sh:path :actsOnBehalfOf ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#actsOnBehalfOf> ?that . ?that <http://data.europa.eu/a4g/ontology#actsOnBehalfOf> ?this .}" ] .
+
 core-shape:epo-eva-UniqueResponsibleOfTheProcurement-epo-playedBy a sh:PropertyShape ;
     sh:class person:Person ;
     sh:maxCount 1 ;
     sh:name "played By" ;
     sh:path :playedBy ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#playedBy> ?that . ?that <http://data.europa.eu/a4g/ontology#playedBy> ?this .}" ] .
+
+core-shape:epo-eva-UniqueResponsibleOfTheProcurement-epo-signsAwardDecision a sh:PropertyShape ;
+    sh:class :AwardDecision ;
+    sh:name "signs Award Decision" ;
+    sh:path :signsAwardDecision ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#signsAwardDecision> ?that . ?that <http://data.europa.eu/a4g/ontology#signsAwardDecision> ?this .}" ] .
 
 core-shape:epo-ful-AbstractContainer-epo-ful-hasGrossVolume a sh:PropertyShape ;
     sh:class :Quantity ;
@@ -6716,6 +6736,28 @@ core-shape:epo-ord-TaxInformation-epo-isCalculatedOn a sh:PropertyShape ;
     sh:name "is Calculated On" ;
     sh:path :isCalculatedOn ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isCalculatedOn> ?that . ?that <http://data.europa.eu/a4g/ontology#isCalculatedOn> ?this .}" ] .
+
+core-shape:epo-req-RequestForOffer-epo-hasCountryCode a sh:PropertyShape ;
+    sh:class skos:Concept ;
+    sh:maxCount 1 ;
+    sh:name "has Country Code" ;
+    sh:path :hasCountryCode .
+
+core-shape:epo-req-RequestForOffer-epo-specifiesBuyer a sh:PropertyShape ;
+    sh:class :Buyer ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "specifies Buyer" ;
+    sh:path :specifiesBuyer ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesBuyer> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesBuyer> ?this .}" ] .
+
+core-shape:epo-req-RequestForOffer-epo-specifiesContractor a sh:PropertyShape ;
+    sh:class :Contractor ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "specifies Contractor" ;
+    sh:path :specifiesContractor ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesContractor> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesContractor> ?this .}" ] .
 
 core-shape:epo-sub-LegalRepresentative-epo-actsOnBehalfOf a sh:PropertyShape ;
     sh:class :OfferingParty ;
