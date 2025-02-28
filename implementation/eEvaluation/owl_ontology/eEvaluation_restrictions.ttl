@@ -15,16 +15,16 @@
 
 :core-restriction a owl:Ontology ;
     rdfs:label "This artefact provides the restrictions and inference-related specifications for the eProcurement Ontology Core.         This artefact excludes the definitions of concepts.         The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.         The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."@en ;
-    dcterms:created "2025-02-27"^^xsd:date ;
+    dcterms:created "2025-02-28"^^xsd:date ;
     dcterms:description "This artefact provides the restrictions and inference-related specifications for the eProcurement Ontology Core.         This artefact excludes the definitions of concepts.         The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.         The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."@en ;
-    dcterms:issued "2025-02-27"^^xsd:date ;
+    dcterms:issued "2025-02-28"^^xsd:date ;
     dcterms:license "The Commission’s reuse policy is implemented by Commission Decision2011/833/EU of 12 December 2011 on the reuse of Commission documents          (OJ L 330,14.12.2011, p. 39 – https://eur-lex.europa.eu/eli/dec/2011/833/oj). Unlessotherwise noted, the reuse of this document is authorised under the          CreativeCommons Attribution 4.0 International (CC BY 4.0) licence (https://creativecommons.org/licenses/by/4.0/).This means that reuse is allowed, provided          that appropriate credit is given and any changes are indicated." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "ePO Core restrictions"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment """This version is automatically generated from eEvaluation.xml on 
-                2025-02-27""" ;
+                2025-02-28""" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/EPO/latest/index.html>,
         <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
@@ -117,17 +117,17 @@ cccev:hasRequirement rdfs:domain :TenderClarificationRequest ;
             owl:onProperty :playedBy ] .
 
 :EvaluationCriterion rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :fulfillsProcurementCriterion ],
+        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty :evaluatesProcurementCriterion ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :fulfillsProcurementCriterion ],
+            owl:onProperty :hasScorePoint ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasEvaluationJustification ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :hasScorePoint ] .
+            owl:onProperty :hasEvaluationJustification ] .
 
 :EvaluationBoard rdfs:subClassOf [ a owl:Restriction ;
             owl:cardinality 1 ;
@@ -137,16 +137,19 @@ cccev:hasRequirement rdfs:domain :TenderClarificationRequest ;
             owl:onProperty :writesEvaluationReport ] .
 
 :TenderClarificationRequest rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :concernsEvaluationReport ],
+        [ a owl:Restriction ;
             owl:cardinality 1 ;
             owl:onProperty :specifiesEconomicOperator ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cccev:hasRequirement ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :concernsEvaluationReport ] .
+            owl:onProperty cccev:hasRequirement ] .
 
 :EvaluationReport rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :usesEvaluationFormula ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty :reportsEvaluationCriterion ],
         [ a owl:Restriction ;
@@ -154,10 +157,7 @@ cccev:hasRequirement rdfs:domain :TenderClarificationRequest ;
             owl:onProperty :hasAwardCriteriaEvaluationScore ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty :providesRankToTender ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :usesEvaluationFormula ] .
+            owl:onProperty :providesRankToTender ] .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :EvaluationReport :TenderClarificationRequest ) .
