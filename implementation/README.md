@@ -4,14 +4,18 @@ ePO is organised in modules. The main module is called ePO Core and contains the
 
 In addition, there are the following modules that extend the Core:
 
-- eAccess
 - eCatalogue
 - eContract
 - eFulfilment
-- eInvoicing
 - eNotice
 - eOrdering
+- eAccess
 - eSubmission
+- eInvoicing
+- eEvaluation
+- eAwarding
+- eQualification
+- eRequest
 ---
 
 Each module folder is structured as follows:

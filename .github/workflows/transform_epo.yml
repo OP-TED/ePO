@@ -5,7 +5,6 @@ on:
       - "**"
       - "!demo"
       - "!master"
-      - "!develop"
     paths:
       - "implementation/ePO_core/xmi_conceptual_model/ePO_core.xml"
       - "implementation/eCatalogue/xmi_conceptual_model/eCatalogue.xml"
@@ -13,9 +12,14 @@ on:
       - "implementation/eOrdering/xmi_conceptual_model/eOrdering.xml"
       - "implementation/eFulfilment/xmi_conceptual_model/eFulfilment.xml"
       - "implementation/eContract/xmi_conceptual_model/eContract.xml"
+      - "implementation/eInvoicing/xmi_conceptual_model/eInvoicing.xml"
       - "implementation/eAccess/xmi_conceptual_model/eAccess.xml"
       - "implementation/eSubmission/xmi_conceptual_model/eSubmission.xml"
-      - "implementation/eInvoicing/xmi_conceptual_model/eInvoicing.xml"
+      - "implementation/eEvaluation/xmi_conceptual_model/eEvaluation.xml"
+      - "implementation/eAwarding/xmi_conceptual_model/eAwarding.xml"
+      - "implementation/eQualification/xmi_conceptual_model/eQualification.xml"
+      - "implementation/eRequest/xmi_conceptual_model/eRequest.xml"
+
 jobs:
   report_and_glossary:
     runs-on: ubuntu-latest
@@ -28,8 +32,9 @@ jobs:
 
       - name: get model2owl
         run: |
-          git clone --branch no-tags-2-2-0 https://github.com/OP-TED/model2owl.git
+          git clone --branch alt-saxon-source https://github.com/OP-TED/model2owl.git
           pwd
+
 
       - name: get-saxon
         run: pwd && cd model2owl && make get-saxon
@@ -37,7 +42,7 @@ jobs:
 
       - name: generate convention report and glossary
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eInvoicing eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core)
+          AVAILABLE_IMPLEMENTATIONS=(eInvoicing eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core eAwarding eEvaluation eQualification eRequest)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             echo "-------------------${implementation}---------------------------------"
@@ -47,11 +52,13 @@ jobs:
 
             CM_FILE_NAME=$(echo "${implementation}.xml")
             CM_FILE_PATH=$(echo "implementation/$implementation/xmi_conceptual_model/${CM_FILE_NAME}")
+            NS_XML_FILE_PATH="../implementation/${implementation}/model2owl-config/namespaces.xml"
 
             OUTPUT_CONVENTION_REPORT_PATH=$(echo "implementation/$implementation/conventions_report/")
             OUTPUT_GLOSSARY_FILE_NAME=$(echo "${implementation}_glossary.html")
             ls -la implementation/$implementation/xmi_conceptual_model/
             echo "CM_FILE_PATH is $CM_FILE_PATH"
+            echo "NS_XML_FILE_PATH is $NS_XML_FILE_PATH"
             echo "OUTPUT_REPORT_PATH is $OUTPUT_CONVENTION_REPORT_PATH"
             echo "OUTPUT_GLOSSARY_FILE_NAME is $OUTPUT_GLOSSARY_FILE_NAME"
 
@@ -60,8 +67,13 @@ jobs:
             ls -la
             cd model2owl
             ls -la
-            make generate-convention-report XMI_INPUT_FILE_PATH=../$CM_FILE_PATH OUTPUT_CONVENTION_REPORT_PATH=../$OUTPUT_CONVENTION_REPORT_PATH
-            make generate-glossary XMI_INPUT_FILE_PATH=../$CM_FILE_PATH OUTPUT_GLOSSARY_PATH=../$OUTPUT_GLOSSARY_PATH
+            make generate-convention-report \
+              XMI_INPUT_FILE_PATH=../$CM_FILE_PATH \
+              OUTPUT_CONVENTION_REPORT_PATH=../$OUTPUT_CONVENTION_REPORT_PATH \
+              NAMESPACES_USER_XML_FILE_PATH=${NS_XML_FILE_PATH}
+            make generate-glossary XMI_INPUT_FILE_PATH=../$CM_FILE_PATH \
+              OUTPUT_GLOSSARY_PATH=../$OUTPUT_GLOSSARY_PATH \
+              NAMESPACES_USER_XML_FILE_PATH=${NS_XML_FILE_PATH}
 
             sed -i "s/..\/implementation\/${implementation}\/model2owl-config/test\/ePO-default-config/g" config-proxy.xsl
             cd ..
@@ -70,7 +82,7 @@ jobs:
 
       - name: merge implementations xmi files into one
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eInvoicing eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core)
+          AVAILABLE_IMPLEMENTATIONS=(eInvoicing eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core eAwarding eEvaluation eQualification eRequest)
           cd model2owl
           mkdir -p merge-xmis
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
@@ -92,8 +104,14 @@ jobs:
 
       - name: generate combined glossary from the merged xmi
         run: |
+          # get a namespaces file from an arbitrary module
+          NS_XML_FILE_PATH=$(realpath $(find . -type f -path './implementation/*/model2owl-config/namespaces.xml' | head -1))
+          echo "NS_XML_FILE_PATH is $NS_XML_FILE_PATH"
           cd model2owl
-          make generate-glossary XMI_INPUT_FILE_PATH=output/combined-xmi/ePO_combined.xmi OUTPUT_GLOSSARY_PATH=../$OUTPUT_GLOSSARY_PATH
+          make generate-glossary \
+            XMI_INPUT_FILE_PATH=output/combined-xmi/ePO_combined.xmi \
+            OUTPUT_GLOSSARY_PATH=../$OUTPUT_GLOSSARY_PATH \
+            NAMESPACES_USER_XML_FILE_PATH=${NS_XML_FILE_PATH}
 
 #      - name: generate widoco
 #        run: |
@@ -139,7 +157,7 @@ jobs:
 
       - name: get model2owl
         run: |
-          git clone --branch no-tags-2-2-0 https://github.com/OP-TED/model2owl.git
+          git clone --branch alt-saxon-source https://github.com/OP-TED/model2owl.git
           pwd
 
       - name: get-saxon
@@ -150,7 +168,7 @@ jobs:
 
       - name: transform step
         run: |
-          AVAILABLE_IMPLEMENTATIONS=(eInvoicing eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core)
+          AVAILABLE_IMPLEMENTATIONS=(eInvoicing eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core eAwarding eEvaluation eQualification eRequest)
           for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
           do
             echo "-------------------${implementation} transform---------------------------------"
@@ -159,12 +177,14 @@ jobs:
 
 
             CM_FILE_NAME=$(echo "${implementation}.xml")
+            NS_XML_FILE_PATH="../implementation/${implementation}/model2owl-config/namespaces.xml"
             CM_FILE_PATH=$(echo "implementation/$implementation/xmi_conceptual_model/${CM_FILE_NAME}")
             OUTPUT_PATH_OWL=$(echo "implementation/$implementation/owl_ontology/")
             OUTPUT_PATH_SHACL=$(echo "implementation/$implementation/shacl_shapes/")
 
             ls -la implementation/$implementation/xmi_conceptual_model/
             echo "CM_FILE_PATH is $CM_FILE_PATH"
+            echo "NS_XML_FILE_PATH is $NS_XML_FILE_PATH"
             echo "OUTPUT_PATH_OWL is $OUTPUT_PATH_OWL"
             echo "OUTPUT_PATH_SHACL is $OUTPUT_PATH_SHACL"
 
@@ -172,15 +192,28 @@ jobs:
             cd model2owl
             ls -la
             echo "+++++++++++++++++transform to rdf++++++++++++++++++++++++++++"
-            make owl-core XMI_INPUT_FILE_PATH=../$CM_FILE_PATH OUTPUT_FOLDER_PATH=../$OUTPUT_PATH_OWL
-            make owl-restrictions XMI_INPUT_FILE_PATH=../$CM_FILE_PATH OUTPUT_FOLDER_PATH=../$OUTPUT_PATH_OWL
-            make shacl XMI_INPUT_FILE_PATH=../$CM_FILE_PATH OUTPUT_FOLDER_PATH=../$OUTPUT_PATH_SHACL
+            make owl-core \
+              XMI_INPUT_FILE_PATH=../$CM_FILE_PATH \
+              OUTPUT_FOLDER_PATH=../$OUTPUT_PATH_OWL \
+              NAMESPACES_USER_XML_FILE_PATH=${NS_XML_FILE_PATH}
+            make owl-restrictions \
+              XMI_INPUT_FILE_PATH=../$CM_FILE_PATH \
+              OUTPUT_FOLDER_PATH=../$OUTPUT_PATH_OWL \
+              NAMESPACES_USER_XML_FILE_PATH=${NS_XML_FILE_PATH}
+            make shacl \
+              XMI_INPUT_FILE_PATH=../$CM_FILE_PATH \
+              OUTPUT_FOLDER_PATH=../$OUTPUT_PATH_SHACL \
+              NAMESPACES_USER_XML_FILE_PATH=${NS_XML_FILE_PATH}
 
             echo "+++++++++++++++++transform to turtle++++++++++++++++++++++++++++"
             echo $(ls ${OUTPUT_PATH_OWL}*.rdf)
-            make convert-rdf-to-turtle ONTOLOGY_FOLDER_PATH=../$OUTPUT_PATH_OWL
+            make convert-rdf-to-turtle \
+              ONTOLOGY_FOLDER_PATH=../$OUTPUT_PATH_OWL \
+              NAMESPACES_USER_XML_FILE_PATH=${NS_XML_FILE_PATH}
             echo $(ls ${OUTPUT_PATH_SHACL}*.rdf)
-            make convert-rdf-to-turtle ONTOLOGY_FOLDER_PATH=../$OUTPUT_PATH_SHACL
+            make convert-rdf-to-turtle \
+              ONTOLOGY_FOLDER_PATH=../$OUTPUT_PATH_SHACL \
+              NAMESPACES_USER_XML_FILE_PATH=${NS_XML_FILE_PATH}
             echo "-------------------end transform---------------------------------"
 
             sed -i "s/..\/implementation\/${implementation}\/model2owl-config/test\/ePO-default-config/g" config-proxy.xsl
