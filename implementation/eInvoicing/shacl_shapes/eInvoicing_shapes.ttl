@@ -1,0 +1,643 @@
+@prefix : <http://data.europa.eu/a4g/ontology#> .
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix inv-shape: <http://data.europa.eu/a4g/data-shape#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+inv-shape:epo-cat-ChargeInformation sh:property inv-shape:epo-cat-ChargeInformation-epo-inv-isSpecificToInvoiceLine .
+
+inv-shape:epo-inv-CreditNote a sh:NodeShape ;
+    rdfs:label "Credit Note" ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:property inv-shape:epo-inv-CreditNote-epo-inv-comprisesCreditNoteLine,
+        inv-shape:epo-inv-CreditNote-epo-inv-refersToInvoice ;
+    sh:targetClass :CreditNote .
+
+inv-shape:epo-inv-CreditNoteLine a sh:NodeShape ;
+    rdfs:label "Credit Note Line" ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:property inv-shape:epo-inv-CreditNoteLine-epo-inv-isSubmittedForInvoiceLine ;
+    sh:targetClass :CreditNoteLine .
+
+inv-shape:epo-inv-CreditTransferInformation a sh:NodeShape ;
+    rdfs:label "Credit Transfer Information" ;
+    rdfs:comment "Information about a direct payment of money from one bank account into another." ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:property inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountIdentifier,
+        inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountName,
+        inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentServiceProviderIdentifier ;
+    sh:targetClass :CreditTransferInformation .
+
+inv-shape:epo-inv-Invoice a sh:NodeShape ;
+    rdfs:label "Invoice" ;
+    rdfs:comment "A commercial Document issued by the Seller to the Buyer to collect payments for the goods or services provided and to state the VAT amount due by the Buyer." ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:property inv-shape:epo-inv-Invoice-epo-cat-specifiesChargeInformation,
+        inv-shape:epo-inv-Invoice-epo-ful-refersToOrder,
+        inv-shape:epo-inv-Invoice-epo-hasLotReference,
+        inv-shape:epo-inv-Invoice-epo-inv-comprisesInvoiceLine,
+        inv-shape:epo-inv-Invoice-epo-inv-hasInvoiceNote,
+        inv-shape:epo-inv-Invoice-epo-inv-hasInvoicedObjectIdentifier,
+        inv-shape:epo-inv-Invoice-epo-inv-hasInvoicingPeriod,
+        inv-shape:epo-inv-Invoice-epo-inv-hasPaymentDueDate,
+        inv-shape:epo-inv-Invoice-epo-inv-hasPaymentInstructionsInformation,
+        inv-shape:epo-inv-Invoice-epo-inv-hasTaxBreakdownInformation,
+        inv-shape:epo-inv-Invoice-epo-inv-hasTaxPointDate,
+        inv-shape:epo-inv-Invoice-epo-inv-hasTaxPointDateCode,
+        inv-shape:epo-inv-Invoice-epo-inv-hasTotalAccountingCurrencyTaxAmount,
+        inv-shape:epo-inv-Invoice-epo-inv-hasTotalTaxAmount,
+        inv-shape:epo-inv-Invoice-epo-inv-refersToDespatchAdvice,
+        inv-shape:epo-inv-Invoice-epo-inv-refersToReceiptAdvice,
+        inv-shape:epo-inv-Invoice-epo-inv-specifiesPayee,
+        inv-shape:epo-inv-Invoice-epo-inv-specifiesSellerTaxRepresentative,
+        inv-shape:epo-inv-Invoice-epo-ord-hasAccountingCost,
+        inv-shape:epo-inv-Invoice-epo-ord-hasAmountDueForPayment,
+        inv-shape:epo-inv-Invoice-epo-ord-hasPaymentTerm,
+        inv-shape:epo-inv-Invoice-epo-ord-hasPrepaidAmount,
+        inv-shape:epo-inv-Invoice-epo-ord-hasRoundingAmount,
+        inv-shape:epo-inv-Invoice-epo-ord-hasTaxInformation,
+        inv-shape:epo-inv-Invoice-epo-ord-hasTotalAllowanceAmount,
+        inv-shape:epo-inv-Invoice-epo-ord-hasTotalChargeAmount,
+        inv-shape:epo-inv-Invoice-epo-ord-hasTotalLineAmount,
+        inv-shape:epo-inv-Invoice-epo-ord-hasTotalTaxExclusiveAmount,
+        inv-shape:epo-inv-Invoice-epo-ord-hasTotalTaxInclusiveAmount,
+        inv-shape:epo-inv-Invoice-epo-ord-specifiesAllowanceInformation,
+        inv-shape:epo-inv-Invoice-epo-ord-specifiesDeliveryInformation,
+        inv-shape:epo-inv-Invoice-epo-refersToContract,
+        inv-shape:epo-inv-Invoice-epo-refersToProject,
+        inv-shape:epo-inv-Invoice-epo-specifiesBuyer,
+        inv-shape:epo-inv-Invoice-epo-specifiesSeller ;
+    sh:targetClass :Invoice .
+
+inv-shape:epo-inv-InvoiceLine a sh:NodeShape ;
+    rdfs:label "Invoice Line" ;
+    rdfs:comment "Details concerning a given unit of goods, services or works mentioned in the Invoice." ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:property inv-shape:epo-inv-InvoiceLine-epo-cat-hasPrice,
+        inv-shape:epo-inv-InvoiceLine-epo-cat-hasQuantity,
+        inv-shape:epo-inv-InvoiceLine-epo-inv-hasInvoiceLineObjectIdentifier,
+        inv-shape:epo-inv-InvoiceLine-epo-inv-hasInvoiceLinePeriod,
+        inv-shape:epo-inv-InvoiceLine-epo-inv-hasNetAmount,
+        inv-shape:epo-inv-InvoiceLine-epo-inv-refersToOrderLine,
+        inv-shape:epo-inv-InvoiceLine-epo-ord-hasTaxInformation ;
+    sh:targetClass :InvoiceLine .
+
+inv-shape:epo-inv-InvoiceNote a sh:NodeShape ;
+    rdfs:label "Invoice Note" ;
+    rdfs:comment "Textual note that is relevant to the Invoice as a whole." ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:property inv-shape:epo-inv-InvoiceNote-epo-inv-hasInvoiceNoteDescription,
+        inv-shape:epo-inv-InvoiceNote-epo-inv-hasInvoiceNoteSubject ;
+    sh:targetClass :InvoiceNote .
+
+inv-shape:epo-inv-Payee a sh:NodeShape ;
+    rdfs:label "Payee" ;
+    rdfs:comment "A Role of an Agent that receives the payment. Additional Information: The role of Payee may be fulfilled by another party than the Seller, e.g. a factoring service." ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:targetClass :Payee .
+
+inv-shape:epo-inv-PaymentCardInformation a sh:NodeShape ;
+    rdfs:label "Payment Card Information" ;
+    rdfs:comment "Information about card used for payment contemporaneous with invoice issuance." ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:property inv-shape:epo-inv-PaymentCardInformation-epo-inv-hasPaymentCardHolderName,
+        inv-shape:epo-inv-PaymentCardInformation-epo-inv-hasPaymentCardPrimaryAccountNumber ;
+    sh:targetClass :PaymentCardInformation .
+
+inv-shape:epo-inv-PaymentInstructionsInformation a sh:NodeShape ;
+    rdfs:label "Payment Instructions Information" ;
+    rdfs:comment "Information about the payment." ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:property inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasBankingIdentifier,
+        inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasCreditTransferInformation,
+        inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasDebitedAccountIdentifier,
+        inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasMandateIdentifier,
+        inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentCardInformation,
+        inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentMeansDescription,
+        inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentMeansType,
+        inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasRemittanceInformation ;
+    sh:targetClass :PaymentInstructionsInformation .
+
+inv-shape:epo-inv-SellerTaxRepresentative a sh:NodeShape ;
+    rdfs:label "Seller Tax Representative" ;
+    rdfs:comment "A Role of an Agent that can represent an Organization for taxation purposes. Additional Information: The Seller Tax Representative Role is not a Legal Representative." ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:targetClass :SellerTaxRepresentative .
+
+inv-shape:epo-inv-TaxBreakdownInformation a sh:NodeShape ;
+    rdfs:label "Tax Breakdown Information" ;
+    rdfs:comment "Information about tax breakdown by different categories, rates and exemption reasons." ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:property inv-shape:epo-inv-TaxBreakdownInformation-epo-inv-hasTaxExemptionReason,
+        inv-shape:epo-inv-TaxBreakdownInformation-epo-inv-hasTaxExemptionReasonDescription,
+        inv-shape:epo-inv-TaxBreakdownInformation-epo-ord-hasTaxInformation ;
+    sh:targetClass :TaxBreakdownInformation .
+
+inv-shape:epo-ord-AllowanceInformation sh:property inv-shape:epo-ord-AllowanceInformation-epo-inv-isSpecificToInvoiceLine .
+
+inv-shape:epo-cat-ChargeInformation-epo-inv-isSpecificToInvoiceLine a sh:PropertyShape ;
+    sh:class :InvoiceLine ;
+    sh:name "is Specific To Invoice Line" ;
+    sh:path :isSpecificToInvoiceLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToInvoiceLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToInvoiceLine> ?this .}" ] .
+
+inv-shape:epo-inv-CreditNote-epo-inv-comprisesCreditNoteLine a sh:PropertyShape ;
+    sh:class :CreditNoteLine ;
+    sh:minCount 1 ;
+    sh:name "comprises Credit Note Line" ;
+    sh:path :comprisesCreditNoteLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesCreditNoteLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesCreditNoteLine> ?this .}" ] .
+
+inv-shape:epo-inv-CreditNote-epo-inv-refersToInvoice a sh:PropertyShape ;
+    sh:class :Invoice ;
+    sh:maxCount 1 ;
+    sh:name "refers To Invoice" ;
+    sh:path :refersToInvoice ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToInvoice> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToInvoice> ?this .}" ] .
+
+inv-shape:epo-inv-CreditNoteLine-epo-inv-isSubmittedForInvoiceLine a sh:PropertyShape ;
+    sh:class :InvoiceLine ;
+    sh:maxCount 1 ;
+    sh:name "is Submitted For Invoice Line" ;
+    sh:path :isSubmittedForInvoiceLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSubmittedForInvoiceLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSubmittedForInvoiceLine> ?this .}" ] .
+
+inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountIdentifier a sh:PropertyShape ;
+    sh:class adms:Identifier ;
+    sh:description "A unique identifier of the financial payment account, at a payment service provider, to which payment should be made." ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "has Payment Account Identifier" ;
+    sh:path :hasPaymentAccountIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPaymentAccountIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPaymentAccountIdentifier> ?this .}" ] .
+
+inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountName a sh:PropertyShape ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:description "The name of the account that can send and receive payments to and from a payment service provider." ;
+    sh:maxCount 1 ;
+    sh:name "has Payment Account Name" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasPaymentAccountName .
+
+inv-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentServiceProviderIdentifier a sh:PropertyShape ;
+    sh:class adms:Identifier ;
+    sh:description "An identifier for the payment service provider where a payment account is located." ;
+    sh:maxCount 1 ;
+    sh:name "has Payment Service Provider Identifier" ;
+    sh:path :hasPaymentServiceProviderIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPaymentServiceProviderIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPaymentServiceProviderIdentifier> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-cat-specifiesChargeInformation a sh:PropertyShape ;
+    sh:class :ChargeInformation ;
+    sh:name "specifies Charge Information" ;
+    sh:path :specifiesChargeInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesChargeInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesChargeInformation> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-ful-refersToOrder a sh:PropertyShape ;
+    sh:class :Order ;
+    sh:maxCount 1 ;
+    sh:name "refers To Order" ;
+    sh:path :refersToOrder ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToOrder> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToOrder> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-hasLotReference a sh:PropertyShape ;
+    sh:class :Lot ;
+    sh:minCount 1 ;
+    sh:name "has Lot Reference" ;
+    sh:path :hasLotReference ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasLotReference> ?that . ?that <http://data.europa.eu/a4g/ontology#hasLotReference> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-inv-comprisesInvoiceLine a sh:PropertyShape ;
+    sh:class :InvoiceLine ;
+    sh:minCount 1 ;
+    sh:name "comprises Invoice Line" ;
+    sh:path :comprisesInvoiceLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesInvoiceLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesInvoiceLine> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-inv-hasInvoiceNote a sh:PropertyShape ;
+    sh:class :InvoiceNote ;
+    sh:description "Contains Invoice Note." ;
+    sh:name "has Invoice Note" ;
+    sh:path :hasInvoiceNote ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasInvoiceNote> ?that . ?that <http://data.europa.eu/a4g/ontology#hasInvoiceNote> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-inv-hasInvoicedObjectIdentifier a sh:PropertyShape ;
+    sh:class adms:Identifier ;
+    sh:description "An identifier for an object on which the invoice is based, given by the Seller." ;
+    sh:maxCount 1 ;
+    sh:name "has Invoiced Object Identifier" ;
+    sh:path :hasInvoicedObjectIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasInvoicedObjectIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasInvoicedObjectIdentifier> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-inv-hasInvoicingPeriod a sh:PropertyShape ;
+    sh:class time:Interval ;
+    sh:maxCount 1 ;
+    sh:name "has Invoicing Period" ;
+    sh:path :hasInvoicingPeriod ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasInvoicingPeriod> ?that . ?that <http://data.europa.eu/a4g/ontology#hasInvoicingPeriod> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-inv-hasPaymentDueDate a sh:PropertyShape ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:datatype xsd:date ;
+    sh:maxCount 1 ;
+    sh:name "has Payment Due Date" ;
+    sh:path :hasPaymentDueDate .
+
+inv-shape:epo-inv-Invoice-epo-inv-hasPaymentInstructionsInformation a sh:PropertyShape ;
+    sh:class :PaymentInstructionsInformation ;
+    sh:maxCount 1 ;
+    sh:name "has Payment Instructions Information" ;
+    sh:path :hasPaymentInstructionsInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPaymentInstructionsInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPaymentInstructionsInformation> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-inv-hasTaxBreakdownInformation a sh:PropertyShape ;
+    sh:class :TaxBreakdownInformation ;
+    sh:minCount 1 ;
+    sh:name "has Tax Breakdown Information" ;
+    sh:path :hasTaxBreakdownInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTaxBreakdownInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTaxBreakdownInformation> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-inv-hasTaxPointDate a sh:PropertyShape ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:datatype xsd:date ;
+    sh:description "The date when the tax becomes accountable for the Seller and for the Buyer. Additional Information: That date can be determined and differs from the date of issue of the invoice, according to the national implementation of the directive." ;
+    sh:maxCount 1 ;
+    sh:name "has Tax Point Date" ;
+    sh:path :hasTaxPointDate .
+
+inv-shape:epo-inv-Invoice-epo-inv-hasTaxPointDateCode a sh:PropertyShape ;
+    sh:class skos:Concept ;
+    sh:maxCount 1 ;
+    sh:name "has Tax Point Date Code" ;
+    sh:path :hasTaxPointDateCode .
+
+inv-shape:epo-inv-Invoice-epo-inv-hasTotalAccountingCurrencyTaxAmount a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:name "has Total Accounting Currency Tax Amount" ;
+    sh:path :hasTotalAccountingCurrencyTaxAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalAccountingCurrencyTaxAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalAccountingCurrencyTaxAmount> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-inv-hasTotalTaxAmount a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:name "has Total Tax Amount" ;
+    sh:path :hasTotalTaxAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalTaxAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalTaxAmount> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-inv-refersToDespatchAdvice a sh:PropertyShape ;
+    sh:class :DespatchAdvice ;
+    sh:maxCount 1 ;
+    sh:name "refers To Despatch Advice" ;
+    sh:path :refersToDespatchAdvice ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToDespatchAdvice> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToDespatchAdvice> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-inv-refersToReceiptAdvice a sh:PropertyShape ;
+    sh:class :ReceiptAdvice ;
+    sh:maxCount 1 ;
+    sh:name "refers To Receipt Advice" ;
+    sh:path :refersToReceiptAdvice ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToReceiptAdvice> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToReceiptAdvice> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-inv-specifiesPayee a sh:PropertyShape ;
+    sh:class :Payee ;
+    sh:maxCount 1 ;
+    sh:name "specifies Payee" ;
+    sh:path :specifiesPayee ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesPayee> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesPayee> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-inv-specifiesSellerTaxRepresentative a sh:PropertyShape ;
+    sh:class :SellerTaxRepresentative ;
+    sh:maxCount 1 ;
+    sh:name "specifies Seller Tax Representative" ;
+    sh:path :specifiesSellerTaxRepresentative ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSellerTaxRepresentative> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSellerTaxRepresentative> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-ord-hasAccountingCost a sh:PropertyShape ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:maxCount 1 ;
+    sh:name "has Accounting Cost" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasAccountingCost .
+
+inv-shape:epo-inv-Invoice-epo-ord-hasAmountDueForPayment a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "has Amount Due For Payment" ;
+    sh:path :hasAmountDueForPayment ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasAmountDueForPayment> ?that . ?that <http://data.europa.eu/a4g/ontology#hasAmountDueForPayment> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-ord-hasPaymentTerm a sh:PropertyShape ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:maxCount 1 ;
+    sh:name "has Payment Term" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasPaymentTerm .
+
+inv-shape:epo-inv-Invoice-epo-ord-hasPrepaidAmount a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:name "has Prepaid Amount" ;
+    sh:path :hasPrepaidAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPrepaidAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPrepaidAmount> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-ord-hasRoundingAmount a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:maxCount 1 ;
+    sh:name "has Rounding Amount" ;
+    sh:path :hasRoundingAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasRoundingAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasRoundingAmount> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-ord-hasTaxInformation a sh:PropertyShape ;
+    sh:class :TaxInformation ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "has Tax Information" ;
+    sh:path :hasTaxInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTaxInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTaxInformation> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-ord-hasTotalAllowanceAmount a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:name "has Total Allowance Amount" ;
+    sh:path :hasTotalAllowanceAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalAllowanceAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalAllowanceAmount> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-ord-hasTotalChargeAmount a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:name "has Total Charge Amount" ;
+    sh:path :hasTotalChargeAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalChargeAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalChargeAmount> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-ord-hasTotalLineAmount a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:minCount 1 ;
+    sh:name "has Total Line Amount" ;
+    sh:path :hasTotalLineAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalLineAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalLineAmount> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-ord-hasTotalTaxExclusiveAmount a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:minCount 1 ;
+    sh:name "has Total Tax Exclusive Amount" ;
+    sh:path :hasTotalTaxExclusiveAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalTaxExclusiveAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalTaxExclusiveAmount> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-ord-hasTotalTaxInclusiveAmount a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:minCount 1 ;
+    sh:name "has Total Tax Inclusive Amount" ;
+    sh:path :hasTotalTaxInclusiveAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalTaxInclusiveAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalTaxInclusiveAmount> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-ord-specifiesAllowanceInformation a sh:PropertyShape ;
+    sh:class :AllowanceInformation ;
+    sh:name "specifies Allowance Information" ;
+    sh:path :specifiesAllowanceInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesAllowanceInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesAllowanceInformation> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-ord-specifiesDeliveryInformation a sh:PropertyShape ;
+    sh:class :DeliveryInformation ;
+    sh:maxCount 1 ;
+    sh:name "specifies Delivery Information" ;
+    sh:path :specifiesDeliveryInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-refersToContract a sh:PropertyShape ;
+    sh:class :Contract ;
+    sh:maxCount 1 ;
+    sh:name "refers To Contract" ;
+    sh:path :refersToContract ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToContract> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToContract> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-refersToProject a sh:PropertyShape ;
+    sh:class :Project ;
+    sh:maxCount 1 ;
+    sh:name "refers To Project" ;
+    sh:path :refersToProject ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToProject> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToProject> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-specifiesBuyer a sh:PropertyShape ;
+    sh:class :Buyer ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "specifies Buyer" ;
+    sh:path :specifiesBuyer ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesBuyer> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesBuyer> ?this .}" ] .
+
+inv-shape:epo-inv-Invoice-epo-specifiesSeller a sh:PropertyShape ;
+    sh:class :Seller ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "specifies Seller" ;
+    sh:path :specifiesSeller ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .}" ] .
+
+inv-shape:epo-inv-InvoiceLine-epo-cat-hasPrice a sh:PropertyShape ;
+    sh:class :Price ;
+    sh:minCount 1 ;
+    sh:name "has Price" ;
+    sh:path :hasPrice ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPrice> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPrice> ?this .}" ] .
+
+inv-shape:epo-inv-InvoiceLine-epo-cat-hasQuantity a sh:PropertyShape ;
+    sh:class :Quantity ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "has Quantity" ;
+    sh:path :hasQuantity ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasQuantity> ?that . ?that <http://data.europa.eu/a4g/ontology#hasQuantity> ?this .}" ] .
+
+inv-shape:epo-inv-InvoiceLine-epo-inv-hasInvoiceLineObjectIdentifier a sh:PropertyShape ;
+    sh:class adms:Identifier ;
+    sh:description "An identifier for an object on which the invoice line is based, given by the Seller. Additional Information: It may be a subscription number, telephone number, meter point etc., as applicable." ;
+    sh:maxCount 1 ;
+    sh:name "has Invoice Line Object Identifier" ;
+    sh:path :hasInvoiceLineObjectIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasInvoiceLineObjectIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasInvoiceLineObjectIdentifier> ?this .}" ] .
+
+inv-shape:epo-inv-InvoiceLine-epo-inv-hasInvoiceLinePeriod a sh:PropertyShape ;
+    sh:class time:Interval ;
+    sh:maxCount 1 ;
+    sh:name "has Invoice Line Period" ;
+    sh:path :hasInvoiceLinePeriod ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasInvoiceLinePeriod> ?that . ?that <http://data.europa.eu/a4g/ontology#hasInvoiceLinePeriod> ?this .}" ] .
+
+inv-shape:epo-inv-InvoiceLine-epo-inv-hasNetAmount a sh:PropertyShape ;
+    sh:class :MonetaryValue ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "has Net Amount" ;
+    sh:path :hasNetAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasNetAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasNetAmount> ?this .}" ] .
+
+inv-shape:epo-inv-InvoiceLine-epo-inv-refersToOrderLine a sh:PropertyShape ;
+    sh:class :OrderLine ;
+    sh:maxCount 1 ;
+    sh:name "refers To Order Line" ;
+    sh:path :refersToOrderLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToOrderLine> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToOrderLine> ?this .}" ] .
+
+inv-shape:epo-inv-InvoiceLine-epo-ord-hasTaxInformation a sh:PropertyShape ;
+    sh:class :TaxInformation ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "has Tax Information" ;
+    sh:path :hasTaxInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTaxInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTaxInformation> ?this .}" ] .
+
+inv-shape:epo-inv-InvoiceNote-epo-inv-hasInvoiceNoteDescription a sh:PropertyShape ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:description "A textual note that gives unstructured information that is relevant to the Invoice as a whole." ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "has Invoice Note Description" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasInvoiceNoteDescription .
+
+inv-shape:epo-inv-InvoiceNote-epo-inv-hasInvoiceNoteSubject a sh:PropertyShape ;
+    sh:class skos:Concept ;
+    sh:maxCount 1 ;
+    sh:name "has Invoice Note Subject" ;
+    sh:path :hasInvoiceNoteSubject .
+
+inv-shape:epo-inv-PaymentCardInformation-epo-inv-hasPaymentCardHolderName a sh:PropertyShape ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:description "The name of the account holder of the card used for payment. Additional Information: An account holder is the entity listed or identified as the holder of a Financial Account by the Financial Institution." ;
+    sh:maxCount 1 ;
+    sh:name "has Payment Card Holder Name" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasPaymentCardHolderName .
+
+inv-shape:epo-inv-PaymentCardInformation-epo-inv-hasPaymentCardPrimaryAccountNumber a sh:PropertyShape ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:description "The series of digits embossed on the front of a card used for payment." ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "has Payment Card Primary Account Number" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasPaymentCardPrimaryAccountNumber .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasBankingIdentifier a sh:PropertyShape ;
+    sh:class adms:Identifier ;
+    sh:description "An unique banking reference identifier of the Payee or Seller, assigned by the Payee or Seller bank." ;
+    sh:maxCount 1 ;
+    sh:name "has Banking Identifier" ;
+    sh:path :hasBankingIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasBankingIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasBankingIdentifier> ?this .}" ] .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasCreditTransferInformation a sh:PropertyShape ;
+    sh:class :CreditTransferInformation ;
+    sh:name "has Credit Transfer Information" ;
+    sh:path :hasCreditTransferInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasCreditTransferInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasCreditTransferInformation> ?this .}" ] .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasDebitedAccountIdentifier a sh:PropertyShape ;
+    sh:class adms:Identifier ;
+    sh:description "An identifier for the account to be debited by the direct debit." ;
+    sh:maxCount 1 ;
+    sh:name "has Debited Account Identifier" ;
+    sh:path :hasDebitedAccountIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasDebitedAccountIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasDebitedAccountIdentifier> ?this .}" ] .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasMandateIdentifier a sh:PropertyShape ;
+    sh:class adms:Identifier ;
+    sh:description "An unique identifier for referencing the direct debit mandate, assigned by the Payee." ;
+    sh:maxCount 1 ;
+    sh:name "has Mandate Identifier" ;
+    sh:path :hasMandateIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasMandateIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasMandateIdentifier> ?this .}" ] .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentCardInformation a sh:PropertyShape ;
+    sh:class :PaymentCardInformation ;
+    sh:maxCount 1 ;
+    sh:name "has Payment Card Information" ;
+    sh:path :hasPaymentCardInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPaymentCardInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPaymentCardInformation> ?this .}" ] .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentMeansDescription a sh:PropertyShape ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:description "The means for how a payment is expected to be or has been settled, expressed as text." ;
+    sh:maxCount 1 ;
+    sh:name "has Payment Means Description" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasPaymentMeansDescription .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasPaymentMeansType a sh:PropertyShape ;
+    sh:class skos:Concept ;
+    sh:description "The means for how a payment is expected to be or has been settled, expressed as code." ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "has Payment Means Type" ;
+    sh:path :hasPaymentMeansType .
+
+inv-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasRemittanceInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:description "A textual value used to establish a link between the payment and the Invoice, issued by the Seller." ;
+    sh:maxCount 1 ;
+    sh:name "has Remittance Information" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasRemittanceInformation .
+
+inv-shape:epo-inv-TaxBreakdownInformation-epo-inv-hasTaxExemptionReason a sh:PropertyShape ;
+    sh:class skos:Concept ;
+    sh:description "An explanation on why the amount is exempted from tax or why no tax is being charged according to the legislation, expressed as a code." ;
+    sh:maxCount 1 ;
+    sh:name "has Tax Exemption Reason" ;
+    sh:path :hasTaxExemptionReason .
+
+inv-shape:epo-inv-TaxBreakdownInformation-epo-inv-hasTaxExemptionReasonDescription a sh:PropertyShape ;
+    rdfs:isDefinedBy inv-shape:inv-shape ;
+    sh:description "An explanation on why the amount is exempted from tax or why no tax is being charged according to the legislation, expressed as a text." ;
+    sh:maxCount 1 ;
+    sh:name "has Tax Exemption Reason Description" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path :hasTaxExemptionReasonDescription .
+
+inv-shape:epo-inv-TaxBreakdownInformation-epo-ord-hasTaxInformation a sh:PropertyShape ;
+    sh:class :TaxInformation ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "has Tax Information" ;
+    sh:path :hasTaxInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTaxInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTaxInformation> ?this .}" ] .
+
+inv-shape:epo-ord-AllowanceInformation-epo-inv-isSpecificToInvoiceLine a sh:PropertyShape ;
+    sh:class :InvoiceLine ;
+    sh:name "is Specific To Invoice Line" ;
+    sh:path :isSpecificToInvoiceLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToInvoiceLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToInvoiceLine> ?this .}" ] .
+
+inv-shape:inv-shape a owl:Ontology ;
+    rdfs:label "eProcurement Ontology Invoicing - core shapes"@en ;
+    dcterms:created "2025-05-06"^^xsd:date ;
+    dcterms:description "The eProcurement Ontology Invoicing core shapes provides the generic datashape specifications for the eProcurement Ontology Invoicing core."@en ;
+    dcterms:issued "2025-05-06"^^xsd:date ;
+    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+    dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
+    dcterms:title "eProcurement Ontology Invoicing - core shapes"@en ;
+    vann:preferredNamespacePrefix "epo" ;
+    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
+    rdfs:comment "This version is automatically generated from eInvoicing.xml on 2025-05-06" ;
+    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
+        <https://github.com/OP-TED/ePO/releases>,
+        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
+        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
+    owl:imports :inv,
+        :inv-restriction,
+        <http://data.europa.eu/nuts>,
+        dcterms:,
+        skos:,
+        <http://www.w3.org/ns/adms>,
+        foaf:,
+        <https://data.europa.eu/m8g> ;
+    owl:incompatibleWith "4.2.0" ;
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#inv-shape-4.2.0" ;
+    owl:versionIRI inv-shape:inv-shape-5.0.0 ;
+    owl:versionInfo "5.0.0" .
+

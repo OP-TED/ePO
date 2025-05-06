@@ -1,0 +1,152 @@
+@prefix : <http://data.europa.eu/a4g/ontology#> .
+@prefix at-voc: <http://publications.europa.eu/resource/authority/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix req-shape: <http://data.europa.eu/a4g/data-shape#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+req-shape:epo-ord-DeliveryInformation sh:property req-shape:epo-ord-DeliveryInformation-epo-ord-isSpecificToRequestForOfferLine .
+
+req-shape:epo-req-RequestForOffer a sh:NodeShape ;
+    rdfs:label "Request For Offer" ;
+    rdfs:isDefinedBy req-shape:req-shape ;
+    sh:property req-shape:epo-req-RequestForOffer-epo-cat-refersToCatalogue,
+        req-shape:epo-req-RequestForOffer-epo-ful-specifiesOriginator,
+        req-shape:epo-req-RequestForOffer-epo-hasDestinationCountryCode,
+        req-shape:epo-req-RequestForOffer-epo-ord-specifiesDeliveryInformation,
+        req-shape:epo-req-RequestForOffer-epo-refersToContract,
+        req-shape:epo-req-RequestForOffer-epo-req-comprisesRequestForOfferLine,
+        req-shape:epo-req-RequestForOffer-epo-req-hasSubmissionDueDate,
+        req-shape:epo-req-RequestForOffer-epo-req-specifiesOfferCurrency,
+        req-shape:epo-req-RequestForOffer-epo-req-specifiesOfferValidityPeriod,
+        req-shape:epo-req-RequestForOffer-epo-specifiesBuyer,
+        req-shape:epo-req-RequestForOffer-epo-specifiesContractor ;
+    sh:targetClass :RequestForOffer .
+
+req-shape:epo-req-RequestForOfferLine a sh:NodeShape ;
+    rdfs:label "Request For Offer Line" ;
+    rdfs:isDefinedBy req-shape:req-shape ;
+    sh:property req-shape:epo-req-RequestForOfferLine-epo-req-isOptional ;
+    sh:targetClass :RequestForOfferLine .
+
+req-shape:epo-ord-DeliveryInformation-epo-ord-isSpecificToRequestForOfferLine a sh:PropertyShape ;
+    sh:class :RequestForOfferLine ;
+    sh:name "is Specific To Request For Offer Line" ;
+    sh:path :isSpecificToRequestForOfferLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isSpecificToRequestForOfferLine> ?that . ?that <http://data.europa.eu/a4g/ontology#isSpecificToRequestForOfferLine> ?this .}" ] .
+
+req-shape:epo-req-RequestForOffer-epo-cat-refersToCatalogue a sh:PropertyShape ;
+    sh:class :Catalogue ;
+    sh:maxCount 1 ;
+    sh:name "refers To Catalogue" ;
+    sh:path :refersToCatalogue ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToCatalogue> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToCatalogue> ?this .}" ] .
+
+req-shape:epo-req-RequestForOffer-epo-ful-specifiesOriginator a sh:PropertyShape ;
+    sh:class :Originator ;
+    sh:maxCount 1 ;
+    sh:name "specifies Originator" ;
+    sh:path :specifiesOriginator ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesOriginator> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesOriginator> ?this .}" ] .
+
+req-shape:epo-req-RequestForOffer-epo-hasDestinationCountryCode a sh:PropertyShape ;
+    sh:maxCount 1 ;
+    sh:name "has Destination Country Code" ;
+    sh:path :hasDestinationCountryCode .
+
+req-shape:epo-req-RequestForOffer-epo-ord-specifiesDeliveryInformation a sh:PropertyShape ;
+    sh:class :DeliveryInformation ;
+    sh:name "specifies Delivery Information" ;
+    sh:path :specifiesDeliveryInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDeliveryInformation> ?this .}" ] .
+
+req-shape:epo-req-RequestForOffer-epo-refersToContract a sh:PropertyShape ;
+    sh:class :Contract ;
+    sh:name "refers To Contract" ;
+    sh:path :refersToContract ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToContract> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToContract> ?this .}" ] .
+
+req-shape:epo-req-RequestForOffer-epo-req-comprisesRequestForOfferLine a sh:PropertyShape ;
+    sh:class :RequestForOfferLine ;
+    sh:minCount 1 ;
+    sh:name "comprises Request For Offer Line" ;
+    sh:path :comprisesRequestForOfferLine ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesRequestForOfferLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesRequestForOfferLine> ?this .}" ] .
+
+req-shape:epo-req-RequestForOffer-epo-req-hasSubmissionDueDate a sh:PropertyShape ;
+    rdfs:isDefinedBy req-shape:req-shape ;
+    sh:datatype xsd:dateTime ;
+    sh:maxCount 1 ;
+    sh:name "has Submission Due Date" ;
+    sh:path :hasSubmissionDueDate .
+
+req-shape:epo-req-RequestForOffer-epo-req-specifiesOfferCurrency a sh:PropertyShape ;
+    sh:class at-voc:currency ;
+    sh:maxCount 1 ;
+    sh:name "specifies Offer Currency" ;
+    sh:path :specifiesOfferCurrency ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesOfferCurrency> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesOfferCurrency> ?this .}" ] .
+
+req-shape:epo-req-RequestForOffer-epo-req-specifiesOfferValidityPeriod a sh:PropertyShape ;
+    sh:class time:Interval ;
+    sh:maxCount 1 ;
+    sh:name "specifies Offer Validity Period" ;
+    sh:path :specifiesOfferValidityPeriod ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesOfferValidityPeriod> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesOfferValidityPeriod> ?this .}" ] .
+
+req-shape:epo-req-RequestForOffer-epo-specifiesBuyer a sh:PropertyShape ;
+    sh:class :Buyer ;
+    sh:maxCount 1 ;
+    sh:name "specifies Buyer" ;
+    sh:path :specifiesBuyer ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesBuyer> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesBuyer> ?this .}" ] .
+
+req-shape:epo-req-RequestForOffer-epo-specifiesContractor a sh:PropertyShape ;
+    sh:class :Contractor ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "specifies Contractor" ;
+    sh:path :specifiesContractor ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesContractor> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesContractor> ?this .}" ] .
+
+req-shape:epo-req-RequestForOfferLine-epo-req-isOptional a sh:PropertyShape ;
+    rdfs:isDefinedBy req-shape:req-shape ;
+    sh:datatype xsd:boolean ;
+    sh:maxCount 1 ;
+    sh:name "is Optional" ;
+    sh:path :isOptional .
+
+req-shape:req-shape a owl:Ontology ;
+    rdfs:label "eProcurement Ontology Request - core shapes"@en ;
+    dcterms:created "2025-05-06"^^xsd:date ;
+    dcterms:description "The eProcurement Ontology Request core shapes provides the generic datashape specifications for the eProcurement Ontology Request core."@en ;
+    dcterms:issued "2025-05-06"^^xsd:date ;
+    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+    dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
+    dcterms:title "eProcurement Ontology Request - core shapes"@en ;
+    vann:preferredNamespacePrefix "epo" ;
+    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
+    rdfs:comment "This version is automatically generated from eRequest.xml on 2025-05-06" ;
+    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
+        <https://github.com/OP-TED/ePO/releases>,
+        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
+        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
+    owl:imports :req,
+        :req-restriction,
+        <http://data.europa.eu/nuts>,
+        dcterms:,
+        skos:,
+        <http://www.w3.org/ns/adms>,
+        foaf:,
+        <https://data.europa.eu/m8g> ;
+    owl:incompatibleWith "4.2.0" ;
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#req-shape-4.2.0" ;
+    owl:versionIRI req-shape:req-shape-5.0.0 ;
+    owl:versionInfo "5.0.0" .
+
