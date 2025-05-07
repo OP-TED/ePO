@@ -1,7 +1,7 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -28,27 +28,32 @@
 
 :sub-restriction a owl:Ontology ;
     rdfs:label "eProcurement Ontology Submission - core restrictions"@en ;
-    dcterms:created "2025-05-06"^^xsd:date ;
+    dcterms:created "2025-05-07"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Submission core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Submission core."@en ;
-    dcterms:issued "2025-05-06"^^xsd:date ;
+    dcterms:issued "2025-05-07"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology Submission - core restrictions"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment """This version is automatically generated from eSubmission.xml on 
-                2025-05-06""" ;
+                2025-05-07""" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :sub,
-        <http://data.europa.eu/nuts>,
+    owl:imports :acc,
+        :core,
+        :sub,
+        eli:,
+        cccev:,
         dcterms:,
         skos:,
+        <http://www.w3.org/2006/time>,
         <http://www.w3.org/ns/adms>,
-        foaf:,
-        <https://data.europa.eu/m8g> ;
+        <http://www.w3.org/ns/locn>,
+        org:,
+        <http://www.w3.org/ns/person> ;
     owl:incompatibleWith "4.2.0" ;
     owl:priorVersion "http://data.europa.eu/a4g/ontology#sub-restriction-4.2.0" ;
     owl:versionIRI :sub-restriction-5.0.0 ;
@@ -90,28 +95,28 @@
     rdfs:range cccev:Evidence .
 
 :EvidenceInformation rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :summarisesInformationAboutEvidence ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty dcterms:description ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :coversAllSelectionCriteria ] .
+            owl:onProperty :coversAllSelectionCriteria ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty :summarisesInformationAboutEvidence ] .
 
 :LegalRepresentative rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :actsOnBehalfOf ],
+            owl:onProperty :hasPowerOfAttorney ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :hasPowerOfAttorney ] .
+            owl:onProperty :actsOnBehalfOf ] .
 
 :ESPD rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :specifiesResponse ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty :relatesToESPDRequest ] .
+            owl:onProperty :relatesToESPDRequest ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty :specifiesResponse ] .
 
 :Response rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
@@ -124,11 +129,11 @@
             owl:maxCardinality 1 ;
             owl:onProperty :providesOrganisationEmployeeQuantity ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :providesOrganisationFinancialCapability ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty :concernsOrganisation ] .
+            owl:onProperty :concernsOrganisation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty :providesOrganisationFinancialCapability ] .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :EvidenceInformation :OrganisationInformationSummary ) .
