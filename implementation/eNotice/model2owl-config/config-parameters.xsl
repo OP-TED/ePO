@@ -155,7 +155,7 @@
     <!--    dct:issued-->
     <xsl:variable name="issuedDate" select="format-date(current-date(), '[Y0001]-[M01]-[D01]')"/>
     <!--    dct:created-->
-    <xsl:variable name="createdDate" select="format-date(current-date(), '[Y0001]-[M01]-[D01]')"/>
+    <xsl:variable name="createdDate" select="'2021-06-01'"/>
     <!--    owl:incompatibleWith -->
     <xsl:variable name="incompatibleWith" select="'4.2.0'"/>
     <!--    owl:versionInfo -->
