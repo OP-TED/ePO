@@ -1,404 +1,1098 @@
-@prefix schema: <http://schema.org/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix cpov: <http://data.europa.eu/m8g/> .
-@prefix a4g: <http://data.europa.eu/a4g/ontology#> .
-@prefix sfrml: <http://data.europa.eu/a4g/mapping/sf-rml/> .
-@prefix a4g_shape: <http://data.europa.eu/a4g/data-shape#> .
-@prefix eli: <http://data.europa.eu/eli/ontology#> .
-@prefix m8g: <http://data.europa.eu/m8g/> .
-@prefix time: <http://www.w3.org/2006/time#> .
-@prefix person: <http://www.w3.org/ns/person#> .
-@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix epo: <http://data.europa.eu/a4g/ontology#> .
+@prefix epo-shape: <http://data.europa.eu/a4g/data-shape#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix adms: <http://www.w3.org/ns/adms#> .
-@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
-@prefix r2rml: <http://www.w3.org/ns/r2rml#> .
-@prefix at: <http://publications.europa.eu/ontology/authority/> .
-@prefix atold: <http://publications.europa.eu/resource/authority/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
-@prefix not-shape: <http://data.europa.eu/a4g/data-shape/not/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-not-shape:epo-not-ResultNoticeShape a sh:NodeShape ;
-	sh:targetClass a4g:ResultNotice ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	rdfs:comment "An announcement of the award or non-award of a Contract by a Buyer." ;
-	sh:property not-shape:epo-not-ResultNotice-epo-announcesLotGroupAwardInformation, not-shape:epo-not-ResultNotice-epo-announcesContract, not-shape:epo-not-ResultNotice-epo-refersToProcedure, not-shape:epo-not-ResultNotice-epo-refersToLot, not-shape:epo-not-ResultNotice-epo-not-announcesRole, not-shape:epo-not-ResultNotice-epo-announcesNoticeAwardInformation, not-shape:epo-not-ResultNotice-epo-announcesAwardDecision, not-shape:epo-not-ResultNotice-epo-refersToLotGroup, not-shape:epo-not-ResultNotice-epo-not-refersToRole .
+epo-shape:epo-NoticeAwardInformation sh:property epo-shape:epo-NoticeAwardInformation-epo-describesDirectAwardPrenotificationNotice,
+        epo-shape:epo-NoticeAwardInformation-epo-describesResultNotice .
 
-<http://data.europa.eu/a4g/data-shape/not/> a owl:Ontology ;
-	rdfs:label "eProcurement Ontology eNotice - SHACL shapes"@en ;
-	dcterms:created "2021-06-01"^^xsd:date ;
-	dcterms:description "The eProcurement Ontology eNotice SHACL shapes provides the datashape specifications for the eProcurement Ontology not module."@en ;
-	dcterms:issued "2024-11-12"^^xsd:date ;
-	dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
-	dcterms:publisher <http://publications.europa.eu/resource/authority/corporate-body/PUBL> ;
-	dcterms:title "eProcurement Ontology eNotice - SHACL shapes"@en ;
-	vann:preferredNamespacePrefix "epo" ;
-	vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-	rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>, <https://github.com/OP-TED/ePO/releases>, <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>, <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-	owl:imports <http://data.europa.eu/eli/ontology#>, <http://data.europa.eu/m8g/>, <http://purl.org/dc/terms/>, <http://purl.org/vocab/vann/>, <http://www.w3.org/2004/02/skos/core>, <http://www.w3.org/2006/time>, <http://www.w3.org/ns/adms>, <http://www.w3.org/ns/locn>, <http://www.w3.org/ns/org#>, <http://www.w3.org/ns/person>, <http://xmlns.com/foaf/0.1/> ;
-	owl:incompatibleWith "3.1.0" ;
-	owl:priorVersion not-shape:not-shape-4.1.0 ;
-	owl:versionIRI not-shape:not-shape-4.2.0 ;
-	owl:versionInfo "4.2.0" .
+epo-shape:epo-not-CANDefence-D81Shape a sh:NodeShape ;
+    rdfs:label "CAN Defence- D81" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CANDefence-D81 .
 
-not-shape:epo-not-ResultNotice-epo-announcesLotGroupAwardInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesLotGroupAwardInformation ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces lot group award information" ;
-	sh:class a4g:LotGroupAwardInformation .
+epo-shape:epo-not-CANSocial-D25Shape a sh:NodeShape ;
+    rdfs:label "CAN Social- D25" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CANSocial-D25 .
 
-not-shape:epo-not-ResultNotice-epo-announcesContract a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesContract ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces contract" ;
-	sh:class a4g:Contract .
+epo-shape:epo-not-CANSocialNotice-D25Shape a sh:NodeShape ;
+    rdfs:label "CAN Social Notice- D25" ;
+    rdfs:comment "Additional information: Social and other specific services – utilities" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CANSocialNotice-D25 .
 
-not-shape:epo-not-ResultNotice-epo-refersToProcedure a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToProcedure ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to procedure" ;
-	sh:class a4g:Procedure ;
-	sh:minCount 1 ;
-	sh:maxCount 1 .
+epo-shape:epo-not-CANSocialNoticeShape a sh:NodeShape ;
+    rdfs:label "CAN Social Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CANSocialNotice .
 
-not-shape:epo-not-ResultNotice-epo-refersToLot a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToLot ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to lot" ;
-	sh:class a4g:Lot ;
-	sh:minCount 1 .
+epo-shape:epo-not-CANStandard-D24Shape a sh:NodeShape ;
+    rdfs:label "CAN Standard- D24" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CANStandard-D24 .
 
-not-shape:epo-not-ResultNotice-epo-not-announcesRole a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesRole ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces role" ;
-	sh:class a4g:AgentInRole .
+epo-shape:epo-not-CANStandardNoticeShape a sh:NodeShape ;
+    rdfs:label "CAN Standard Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CANStandardNotice .
 
-not-shape:epo-not-ResultNotice-epo-announcesNoticeAwardInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesNoticeAwardInformation ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces notice award information" ;
-	sh:class a4g:NoticeAwardInformation ;
-	sh:maxCount 1 .
+epo-shape:epo-not-CANTransportationNoticeShape a sh:NodeShape ;
+    rdfs:label "CAN Transportation Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CANTransportationNotice .
 
-not-shape:epo-not-ResultNotice-epo-announcesAwardDecision a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesAwardDecision ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces award decision" ;
-	sh:class a4g:AwardDecision .
+epo-shape:epo-not-CNDefence-D81Shape a sh:NodeShape ;
+    rdfs:label "CN Defence- D81" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CNDefence-D81 .
 
-not-shape:epo-not-ResultNotice-epo-refersToLotGroup a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToLotGroup ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to lot group" ;
-	sh:class a4g:LotGroup .
+epo-shape:epo-not-CNSocial-D25Shape a sh:NodeShape ;
+    rdfs:label "CN Social- D25" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CNSocial-D25 .
 
-not-shape:epo-not-ResultNotice-epo-not-refersToRole a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToRole ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to role" ;
-	sh:class a4g:AgentInRole ;
-	sh:minCount 1 .
+epo-shape:epo-not-CNSocialNotice-D25Shape a sh:NodeShape ;
+    rdfs:label "CN Social Notice- D25" ;
+    rdfs:comment "Additional information: Social and other specific services – utilities" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CNSocialNotice-D25 .
 
-not-shape:epo-not-DirectAwardPrenotificationNoticeShape a sh:NodeShape ;
-	sh:targetClass a4g:DirectAwardPrenotificationNotice ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	rdfs:comment "Notice which sets out the Buyer's purchasing intention to award a Contract without prior notification of Competition." ;
-	sh:property not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesNoticeAwardInformation, not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesProcedure, not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesLot, not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesLotGroup, not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesLotGroupAwardInformation, not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesContract, not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesRole, not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesAwardDecision .
+epo-shape:epo-not-CNSocialNoticeShape a sh:NodeShape ;
+    rdfs:label "CN Social Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CNSocialNotice .
 
-not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesNoticeAwardInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesNoticeAwardInformation ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces notice award information" ;
-	sh:class a4g:NoticeAwardInformation ;
-	sh:maxCount 1 .
+epo-shape:epo-not-CNStandard-D24Shape a sh:NodeShape ;
+    rdfs:label "CN Standard- D24" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CNStandard-D24 .
 
-not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesProcedure a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesProcedure ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces procedure" ;
-	sh:class a4g:Procedure ;
-	sh:minCount 1 ;
-	sh:maxCount 1 .
+epo-shape:epo-not-CNStandardNoticeShape a sh:NodeShape ;
+    rdfs:label "CN Standard Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CNStandardNotice .
 
-not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesLot a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesLot ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces lot" ;
-	sh:class a4g:Lot ;
-	sh:minCount 1 .
+epo-shape:epo-not-CallForExpressionOfInterestShape a sh:NodeShape ;
+    rdfs:label "Call For Expression Of Interest" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:CallForExpressionOfInterest .
 
-not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesLotGroup a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesLotGroup ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces lot group" ;
-	sh:class a4g:LotGroup .
+epo-shape:epo-not-CompetitionNoticeShape a sh:NodeShape ;
+    rdfs:label "Competition Notice" ;
+    rdfs:comment "An announcement of the launch of a Procurement Procedure by a Procuring Entity." ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:property epo-shape:epo-not-CompetitionNotice-epo-announcesLot,
+        epo-shape:epo-not-CompetitionNotice-epo-announcesLotGroup,
+        epo-shape:epo-not-CompetitionNotice-epo-announcesProcedure,
+        epo-shape:epo-not-CompetitionNotice-epo-announcesRole ;
+    sh:targetClass epo:CompetitionNotice .
 
-not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesLotGroupAwardInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesLotGroupAwardInformation ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces lot group award information" ;
-	sh:class a4g:LotGroupAwardInformation .
+epo-shape:epo-not-CompletionNoticeShape a sh:NodeShape ;
+    rdfs:label "Completion Notice" ;
+    rdfs:comment "An announcement of the end of a Procurement by a Buyer." ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:property epo-shape:epo-not-CompletionNotice-epo-announcesCompletionOfContract,
+        epo-shape:epo-not-CompletionNotice-epo-announcesRole,
+        epo-shape:epo-not-CompletionNotice-epo-concernsLot,
+        epo-shape:epo-not-CompletionNotice-epo-concernsLotGroup,
+        epo-shape:epo-not-CompletionNotice-epo-concernsProcedure,
+        epo-shape:epo-not-CompletionNotice-epo-refersToAwardDecision,
+        epo-shape:epo-not-CompletionNotice-epo-refersToLotGroupAwardInformation,
+        epo-shape:epo-not-CompletionNotice-epo-refersToNoticeAwardInformation,
+        epo-shape:epo-not-CompletionNotice-epo-refersToReviewRequest,
+        epo-shape:epo-not-CompletionNotice-epo-refersToRole ;
+    sh:targetClass epo:CompletionNotice .
 
-not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesContract a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesContract ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces contract" ;
-	sh:class a4g:Contract .
+epo-shape:epo-not-ConcessionAwardNotice-D23Shape a sh:NodeShape ;
+    rdfs:label "Concession Award Notice- D23" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:ConcessionAwardNotice-D23 .
 
-not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesRole a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesRole ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces role" ;
-	sh:class a4g:AgentInRole ;
-	sh:minCount 1 .
+epo-shape:epo-not-ConcessionNotice-D23Shape a sh:NodeShape ;
+    rdfs:label "Concession Notice- D23" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:ConcessionNotice-D23 .
 
-not-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesAwardDecision a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesAwardDecision ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces award decision" ;
-	sh:class a4g:AwardDecision .
+epo-shape:epo-not-ContractModificationNoticeShape a sh:NodeShape ;
+    rdfs:label "Contract Modification Notice" ;
+    rdfs:comment "An announcement of the Modification of a Contract/Concession during its term by a Procuring Entity." ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:property epo-shape:epo-not-ContractModificationNotice-epo-announcesContractAmendment,
+        epo-shape:epo-not-ContractModificationNotice-epo-concernsLot,
+        epo-shape:epo-not-ContractModificationNotice-epo-concernsLotGroup,
+        epo-shape:epo-not-ContractModificationNotice-epo-concernsProcedure,
+        epo-shape:epo-not-ContractModificationNotice-epo-refersToAwardDecision,
+        epo-shape:epo-not-ContractModificationNotice-epo-refersToContractToBeModified,
+        epo-shape:epo-not-ContractModificationNotice-epo-refersToLotGroupAwardInformation,
+        epo-shape:epo-not-ContractModificationNotice-epo-refersToNoticeAwardInformation,
+        epo-shape:epo-not-ContractModificationNotice-epo-refersToRole ;
+    sh:targetClass epo:ContractModificationNotice .
 
-not-shape:epo-not-PlanningNoticeShape a sh:NodeShape ;
-	sh:targetClass a4g:PlanningNotice ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	rdfs:comment "Notice which sets out the Contracting Authority's purchasing intentions. It is used by Contracting Authorities to provide Suppliers with information about a Procurement Process. " ;
-	sh:property not-shape:epo-not-PlanningNotice-epo-announcesRole, not-shape:epo-not-PlanningNotice-epo-announcesPlannedProcurementPart .
+epo-shape:epo-not-DesignContest-D24Shape a sh:NodeShape ;
+    rdfs:label "Design Contest- D24" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:DesignContest-D24 .
 
-not-shape:epo-not-PlanningNotice-epo-announcesRole a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesRole ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces role" ;
-	sh:class a4g:AgentInRole ;
-	sh:minCount 1 .
+epo-shape:epo-not-DesignContest-D25Shape a sh:NodeShape ;
+    rdfs:label "Design Contest- D25" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:DesignContest-D25 .
 
-not-shape:epo-not-PlanningNotice-epo-announcesPlannedProcurementPart a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesPlannedProcurementPart ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces planned procurement part" ;
-	sh:class a4g:PlannedProcurementPart .
+epo-shape:epo-not-DesignContestNoticeShape a sh:NodeShape ;
+    rdfs:label "Design Contest Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:DesignContestNotice .
 
-not-shape:epo-not-ContractModificationNoticeShape a sh:NodeShape ;
-	sh:targetClass a4g:ContractModificationNotice ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	rdfs:comment "An announcement of the Modification Of a Contract/Concession during its term by a Procuring Entity." ;
-	sh:property not-shape:epo-not-ContractModificationNotice-epo-refersToContractToBeModified, not-shape:epo-not-ContractModificationNotice-epo-announcesContractAmendment, not-shape:epo-not-ContractModificationNotice-epo-refersToProcedure, not-shape:epo-not-ContractModificationNotice-epo-announcesRole, not-shape:epo-not-ContractModificationNotice-epo-refersToNoticeAwardInformation, not-shape:epo-not-ContractModificationNotice-epo-refersToLotGroup, not-shape:epo-not-ContractModificationNotice-epo-refersToLotGroupAwardInformation, not-shape:epo-not-ContractModificationNotice-epo-refersToAwardDecision, not-shape:epo-not-ContractModificationNotice-epo-refersToLot .
+epo-shape:epo-not-DesignContestResult-D24Shape a sh:NodeShape ;
+    rdfs:label "Design Contest Result- D24" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:DesignContestResult-D24 .
 
-not-shape:epo-not-ContractModificationNotice-epo-refersToContractToBeModified a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToContractToBeModified ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to contract to be modified" ;
-	sh:class a4g:Contract ;
-	sh:minCount 1 ;
-	sh:maxCount 1 .
+epo-shape:epo-not-DesignContestResult-D25Shape a sh:NodeShape ;
+    rdfs:label "Design Contest Result- D25" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:DesignContestResult-D25 .
 
-not-shape:epo-not-ContractModificationNotice-epo-announcesContractAmendment a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesContractAmendment ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces contract amendment" ;
-	sh:class a4g:ContractAmendment ;
-	sh:minCount 1 ;
-	sh:maxCount 1 .
+epo-shape:epo-not-DesignContestResultNoticeShape a sh:NodeShape ;
+    rdfs:label "Design Contest Result Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:DesignContestResultNotice .
 
-not-shape:epo-not-ContractModificationNotice-epo-refersToProcedure a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToProcedure ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to procedure" ;
-	sh:class a4g:Procedure ;
-	sh:minCount 1 ;
-	sh:maxCount 1 .
+epo-shape:epo-not-DirectAwardPrenotificationNoticeShape a sh:NodeShape ;
+    rdfs:label "Direct Award Prenotification Notice" ;
+    rdfs:comment "Notice which sets out the Buyer's purchasing intention to award a Contract without prior notification of Competition." ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:property epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesAwardDecision,
+        epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesContract,
+        epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesLot,
+        epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesLotGroup,
+        epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesLotGroupAwardInformation,
+        epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesNoticeAwardInformation,
+        epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesProcedure,
+        epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesRole ;
+    sh:targetClass epo:DirectAwardPrenotificationNotice .
 
-not-shape:epo-not-ContractModificationNotice-epo-announcesRole a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesRole ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces role" ;
-	sh:class a4g:AgentInRole .
+epo-shape:epo-not-Modification-D23Shape a sh:NodeShape ;
+    rdfs:label "Modification- D23" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Modification-D23 .
 
-not-shape:epo-not-ContractModificationNotice-epo-refersToNoticeAwardInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToNoticeAwardInformation ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to notice award information" ;
-	sh:class a4g:NoticeAwardInformation ;
-	sh:maxCount 1 .
+epo-shape:epo-not-Modification-D24Shape a sh:NodeShape ;
+    rdfs:label "Modification- D24" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Modification-D24 .
 
-not-shape:epo-not-ContractModificationNotice-epo-refersToLotGroup a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToLotGroup ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to lot group" ;
-	sh:class a4g:LotGroup .
+epo-shape:epo-not-Modification-D25Shape a sh:NodeShape ;
+    rdfs:label "Modification- D25" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Modification-D25 .
 
-not-shape:epo-not-ContractModificationNotice-epo-refersToLotGroupAwardInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToLotGroupAwardInformation ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to lot group award information" ;
-	sh:class a4g:LotGroupAwardInformation .
+epo-shape:epo-not-Notice10Shape a sh:NodeShape ;
+    rdfs:label "Notice10" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice10 .
 
-not-shape:epo-not-ContractModificationNotice-epo-refersToAwardDecision a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToAwardDecision ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to award decision" ;
-	sh:class a4g:AwardDecision .
+epo-shape:epo-not-Notice11Shape a sh:NodeShape ;
+    rdfs:label "Notice11" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice11 .
 
-not-shape:epo-not-ContractModificationNotice-epo-refersToLot a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToLot ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to lot" ;
-	sh:class a4g:Lot ;
-	sh:minCount 1 .
+epo-shape:epo-not-Notice12Shape a sh:NodeShape ;
+    rdfs:label "Notice12" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice12 .
 
-not-shape:epo-not-CompetitionNoticeShape a sh:NodeShape ;
-	sh:targetClass a4g:CompetitionNotice ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	rdfs:comment "An announcement of the launch of a Procurement Procedure by a Procuring Entity. " ;
-	sh:property not-shape:epo-not-CompetitionNotice-epo-announcesRole, not-shape:epo-not-CompetitionNotice-epo-announcesProcedure, not-shape:epo-not-CompetitionNotice-epo-announcesLot, not-shape:epo-not-CompetitionNotice-epo-announcesLotGroup .
+epo-shape:epo-not-Notice13Shape a sh:NodeShape ;
+    rdfs:label "Notice13" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice13 .
 
-not-shape:epo-not-CompetitionNotice-epo-announcesRole a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesRole ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces role" ;
-	sh:class a4g:AgentInRole ;
-	sh:minCount 1 .
+epo-shape:epo-not-Notice14Shape a sh:NodeShape ;
+    rdfs:label "Notice14" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice14 .
 
-not-shape:epo-not-CompetitionNotice-epo-announcesProcedure a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesProcedure ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces procedure" ;
-	sh:class a4g:Procedure ;
-	sh:minCount 1 ;
-	sh:maxCount 1 .
+epo-shape:epo-not-Notice15Shape a sh:NodeShape ;
+    rdfs:label "Notice15" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice15 .
 
-not-shape:epo-not-CompetitionNotice-epo-announcesLot a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesLot ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces lot" ;
-	sh:class a4g:Lot ;
-	sh:minCount 1 .
+epo-shape:epo-not-Notice16Shape a sh:NodeShape ;
+    rdfs:label "Notice16" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice16 .
 
-not-shape:epo-not-CompetitionNotice-epo-announcesLotGroup a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesLotGroup ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces lot group" ;
-	sh:class a4g:LotGroup .
+epo-shape:epo-not-Notice17Shape a sh:NodeShape ;
+    rdfs:label "Notice17" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice17 .
 
-not-shape:epo-not-CompletionNoticeShape a sh:NodeShape ;
-	sh:targetClass a4g:CompletionNotice ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	rdfs:comment "An announcement of the end of a Procurement by a Buyer." ;
-	sh:property not-shape:epo-not-CompletionNotice-epo-announcesCompletionOfContract, not-shape:epo-not-CompletionNotice-epo-refersToProcedure, not-shape:epo-not-CompletionNotice-epo-refersToAwardDecision, not-shape:epo-not-CompletionNotice-epo-refersToLot, not-shape:epo-not-CompletionNotice-epo-refersToLotGroup, not-shape:epo-not-CompletionNotice-epo-refersToLotGroupAwardInformation, not-shape:epo-not-CompletionNotice-epo-refersToNoticeAwardInformation, not-shape:epo-not-CompletionNotice-epo-refersToRole, not-shape:epo-not-CompletionNotice-epo-announcesRole, not-shape:epo-not-CompletionNotice-epo-announcesReviewObject .
+epo-shape:epo-not-Notice18Shape a sh:NodeShape ;
+    rdfs:label "Notice18" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice18 .
 
-not-shape:epo-not-CompletionNotice-epo-announcesCompletionOfContract a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesCompletionOfContract ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces completion of contract" ;
-	sh:class a4g:Contract ;
-	sh:minCount 1 ;
-	sh:maxCount 1 .
+epo-shape:epo-not-Notice19Shape a sh:NodeShape ;
+    rdfs:label "Notice19" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice19 .
 
-not-shape:epo-not-CompletionNotice-epo-refersToProcedure a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToProcedure ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to procedure" ;
-	sh:class a4g:Procedure ;
-	sh:minCount 1 ;
-	sh:maxCount 1 .
+epo-shape:epo-not-Notice1Shape a sh:NodeShape ;
+    rdfs:label "Notice1" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice1 .
 
-not-shape:epo-not-CompletionNotice-epo-refersToAwardDecision a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToAwardDecision ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to award decision" ;
-	sh:class a4g:AwardDecision .
+epo-shape:epo-not-Notice20Shape a sh:NodeShape ;
+    rdfs:label "Notice20" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice20 .
 
-not-shape:epo-not-CompletionNotice-epo-refersToLot a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToLot ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to lot" ;
-	sh:class a4g:Lot ;
-	sh:minCount 1 .
+epo-shape:epo-not-Notice21Shape a sh:NodeShape ;
+    rdfs:label "Notice21" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice21 .
 
-not-shape:epo-not-CompletionNotice-epo-refersToLotGroup a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToLotGroup ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to lot group" ;
-	sh:class a4g:LotGroup .
+epo-shape:epo-not-Notice22Shape a sh:NodeShape ;
+    rdfs:label "Notice22" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice22 .
 
-not-shape:epo-not-CompletionNotice-epo-refersToLotGroupAwardInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToLotGroupAwardInformation ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to lot group award information" ;
-	sh:class a4g:LotGroupAwardInformation .
+epo-shape:epo-not-Notice23Shape a sh:NodeShape ;
+    rdfs:label "Notice23" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice23 .
 
-not-shape:epo-not-CompletionNotice-epo-refersToNoticeAwardInformation a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToNoticeAwardInformation ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to notice award information" ;
-	sh:class a4g:NoticeAwardInformation ;
-	sh:maxCount 1 .
+epo-shape:epo-not-Notice24Shape a sh:NodeShape ;
+    rdfs:label "Notice24" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice24 .
 
-not-shape:epo-not-CompletionNotice-epo-refersToRole a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:refersToRole ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Refers to role" ;
-	sh:class a4g:AgentInRole .
+epo-shape:epo-not-Notice25Shape a sh:NodeShape ;
+    rdfs:label "Notice25" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice25 .
 
-not-shape:epo-not-CompletionNotice-epo-announcesRole a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesRole ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces role" ;
-	sh:class a4g:AgentInRole .
+epo-shape:epo-not-Notice26Shape a sh:NodeShape ;
+    rdfs:label "Notice26" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice26 .
 
-not-shape:epo-not-CompletionNotice-epo-announcesReviewObject a sh:PropertyShape ;
-	rdfs:isDefinedBy <http://data.europa.eu/a4g/data-shape/not/> ;
-	sh:path a4g:announcesReviewObject ;
-	sh:nodeKind sh:IRI ;
-	sh:name "Announces review object" ;
-	sh:class a4g:ReviewObject ;
-	sh:minCount 1 .
+epo-shape:epo-not-Notice27Shape a sh:NodeShape ;
+    rdfs:label "Notice27" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice27 .
+
+epo-shape:epo-not-Notice28Shape a sh:NodeShape ;
+    rdfs:label "Notice28" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice28 .
+
+epo-shape:epo-not-Notice29Shape a sh:NodeShape ;
+    rdfs:label "Notice29" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice29 .
+
+epo-shape:epo-not-Notice2Shape a sh:NodeShape ;
+    rdfs:label "Notice2" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice2 .
+
+epo-shape:epo-not-Notice30Shape a sh:NodeShape ;
+    rdfs:label "Notice30" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice30 .
+
+epo-shape:epo-not-Notice31Shape a sh:NodeShape ;
+    rdfs:label "Notice31" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice31 .
+
+epo-shape:epo-not-Notice32Shape a sh:NodeShape ;
+    rdfs:label "Notice32" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice32 .
+
+epo-shape:epo-not-Notice33Shape a sh:NodeShape ;
+    rdfs:label "Notice33" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice33 .
+
+epo-shape:epo-not-Notice34Shape a sh:NodeShape ;
+    rdfs:label "Notice34" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice34 .
+
+epo-shape:epo-not-Notice35Shape a sh:NodeShape ;
+    rdfs:label "Notice35" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice35 .
+
+epo-shape:epo-not-Notice36Shape a sh:NodeShape ;
+    rdfs:label "Notice36" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice36 .
+
+epo-shape:epo-not-Notice37Shape a sh:NodeShape ;
+    rdfs:label "Notice37" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice37 .
+
+epo-shape:epo-not-Notice38Shape a sh:NodeShape ;
+    rdfs:label "Notice38" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice38 .
+
+epo-shape:epo-not-Notice39Shape a sh:NodeShape ;
+    rdfs:label "Notice39" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice39 .
+
+epo-shape:epo-not-Notice3Shape a sh:NodeShape ;
+    rdfs:label "Notice3" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice3 .
+
+epo-shape:epo-not-Notice40Shape a sh:NodeShape ;
+    rdfs:label "Notice40" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice40 .
+
+epo-shape:epo-not-Notice4Shape a sh:NodeShape ;
+    rdfs:label "Notice4" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice4 .
+
+epo-shape:epo-not-Notice5Shape a sh:NodeShape ;
+    rdfs:label "Notice5" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice5 .
+
+epo-shape:epo-not-Notice6Shape a sh:NodeShape ;
+    rdfs:label "Notice6" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice6 .
+
+epo-shape:epo-not-Notice7Shape a sh:NodeShape ;
+    rdfs:label "Notice7" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice7 .
+
+epo-shape:epo-not-Notice8Shape a sh:NodeShape ;
+    rdfs:label "Notice8" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice8 .
+
+epo-shape:epo-not-Notice9Shape a sh:NodeShape ;
+    rdfs:label "Notice9" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Notice9 .
+
+epo-shape:epo-not-NoticeCEIShape a sh:NodeShape ;
+    rdfs:label "Notice CEI" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:NoticeCEI .
+
+epo-shape:epo-not-NoticeE1Shape a sh:NodeShape ;
+    rdfs:label "Notice E1" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:NoticeE1 .
+
+epo-shape:epo-not-NoticeE2Shape a sh:NodeShape ;
+    rdfs:label "Notice E2" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:NoticeE2 .
+
+epo-shape:epo-not-NoticeE3Shape a sh:NodeShape ;
+    rdfs:label "Notice E3" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:NoticeE3 .
+
+epo-shape:epo-not-NoticeE4Shape a sh:NodeShape ;
+    rdfs:label "Notice E4" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:NoticeE4 .
+
+epo-shape:epo-not-NoticeE5Shape a sh:NodeShape ;
+    rdfs:label "Notice E5" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:NoticeE5 .
+
+epo-shape:epo-not-NoticeE6Shape a sh:NodeShape ;
+    rdfs:label "Notice E6" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:NoticeE6 .
+
+epo-shape:epo-not-NoticeT01Shape a sh:NodeShape ;
+    rdfs:label "Notice T01" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:NoticeT01 .
+
+epo-shape:epo-not-NoticeT02Shape a sh:NodeShape ;
+    rdfs:label "Notice T02" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:NoticeT02 .
+
+epo-shape:epo-not-PIN-CFCSocial-D25Shape a sh:NodeShape ;
+    rdfs:label "PI N- CFC Social- D25" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PIN-CFCSocial-D25 .
+
+epo-shape:epo-not-PIN-CFCSocialNotice-D25Shape a sh:NodeShape ;
+    rdfs:label "PI N- CFC Social Notice- D25" ;
+    rdfs:comment "Additional information: Social and other specific services – utilities" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PIN-CFCSocialNotice-D25 .
+
+epo-shape:epo-not-PIN-CFCSocialNoticeShape a sh:NodeShape ;
+    rdfs:label "PI N- CFC Social Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PIN-CFCSocialNotice .
+
+epo-shape:epo-not-PIN-CFCStandard-D24Shape a sh:NodeShape ;
+    rdfs:label "PI N- CFC Standard- D24" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PIN-CFCStandard-D24 .
+
+epo-shape:epo-not-PIN-CFCStandardNoticeShape a sh:NodeShape ;
+    rdfs:label "PI N- CFC Standard Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PIN-CFCStandardNotice .
+
+epo-shape:epo-not-PIN-RTL-D24Shape a sh:NodeShape ;
+    rdfs:label "PI N- RT L- D24" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PIN-RTL-D24 .
+
+epo-shape:epo-not-PIN-RTL-D25Shape a sh:NodeShape ;
+    rdfs:label "PI N- RT L- D25" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PIN-RTL-D25 .
+
+epo-shape:epo-not-PINDefence-D81Shape a sh:NodeShape ;
+    rdfs:label "PIN Defence- D81" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PINDefence-D81 .
+
+epo-shape:epo-not-PINOnly-D24Shape a sh:NodeShape ;
+    rdfs:label "PIN Only- D24" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PINOnly-D24 .
+
+epo-shape:epo-not-PINOnly-D25Shape a sh:NodeShape ;
+    rdfs:label "PIN Only- D25" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PINOnly-D25 .
+
+epo-shape:epo-not-PINOnlyNoticeShape a sh:NodeShape ;
+    rdfs:label "PIN Only Notice" ;
+    rdfs:comment "PriorInformationNotice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PINOnlyNotice .
+
+epo-shape:epo-not-PINProfile-D24Shape a sh:NodeShape ;
+    rdfs:label "PIN Profile- D24" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PINProfile-D24 .
+
+epo-shape:epo-not-PINProfile-D25Shape a sh:NodeShape ;
+    rdfs:label "PIN Profile- D25" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PINProfile-D25 .
+
+epo-shape:epo-not-PINProfile-D81Shape a sh:NodeShape ;
+    rdfs:label "PIN Profile- D81" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PINProfile-D81 .
+
+epo-shape:epo-not-PINProfileNoticeShape a sh:NodeShape ;
+    rdfs:label "PIN Profile Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PINProfileNotice .
+
+epo-shape:epo-not-PINTimeLimitNoticeShape a sh:NodeShape ;
+    rdfs:label "PIN Time Limit Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PINTimeLimitNotice .
+
+epo-shape:epo-not-PINTransportationNoticeShape a sh:NodeShape ;
+    rdfs:label "PIN Transportation Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:PINTransportationNotice .
+
+epo-shape:epo-not-PlanningNoticeShape a sh:NodeShape ;
+    rdfs:label "Planning Notice" ;
+    rdfs:comment "Notice which sets out the Contracting Authority's purchasing intentions. It is used by Contracting Authorities to provide Suppliers with information about a Procurement Process." ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:property epo-shape:epo-not-PlanningNotice-epo-announcesLot,
+        epo-shape:epo-not-PlanningNotice-epo-announcesLotGroup,
+        epo-shape:epo-not-PlanningNotice-epo-announcesPlannedProcurementPart,
+        epo-shape:epo-not-PlanningNotice-epo-announcesProcedure,
+        epo-shape:epo-not-PlanningNotice-epo-announcesRole ;
+    sh:targetClass epo:PlanningNotice .
+
+epo-shape:epo-not-PreMarketConsultationNoticeShape a sh:NodeShape ;
+    rdfs:label "Pre Market Consultation Notice" ;
+    rdfs:comment "Announcement of a pre-market consultation. Additional information: A pre-market consultation is not a call for competition and no procurement documents are available at the time of consultation. A consultation may or may not be followed by a future competition." ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:property epo-shape:epo-not-PreMarketConsultationNotice-epo-preparesForPotentialProcurementObject,
+        epo-shape:epo-not-PreMarketConsultationNotice-epo-refersToRole ;
+    sh:targetClass epo:PreMarketConsultationNotice .
+
+epo-shape:epo-not-QS-D25Shape a sh:NodeShape ;
+    rdfs:label "Q S- D25" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:QS-D25 .
+
+epo-shape:epo-not-QSNotice-D25Shape a sh:NodeShape ;
+    rdfs:label "QS Notice- D25" ;
+    rdfs:comment "Additional information: Social and other specific services – utilities" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:QSNotice-D25 .
+
+epo-shape:epo-not-QSNoticeShape a sh:NodeShape ;
+    rdfs:label "QS Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:QSNotice .
+
+epo-shape:epo-not-ResultNoticeShape a sh:NodeShape ;
+    rdfs:label "Result Notice" ;
+    rdfs:comment "An announcement of the award or non-award of a Contract by a Buyer." ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:property epo-shape:epo-not-ResultNotice-epo-announcesAwardDecision,
+        epo-shape:epo-not-ResultNotice-epo-announcesContract,
+        epo-shape:epo-not-ResultNotice-epo-announcesLotGroupAwardInformation,
+        epo-shape:epo-not-ResultNotice-epo-announcesNoticeAwardInformation,
+        epo-shape:epo-not-ResultNotice-epo-announcesReviewRequest,
+        epo-shape:epo-not-ResultNotice-epo-announcesRole,
+        epo-shape:epo-not-ResultNotice-epo-concernsLot,
+        epo-shape:epo-not-ResultNotice-epo-concernsLotGroup,
+        epo-shape:epo-not-ResultNotice-epo-concernsProcedure,
+        epo-shape:epo-not-ResultNotice-epo-refersToRole ;
+    sh:targetClass epo:ResultNotice .
+
+epo-shape:epo-not-SocialAndOtherSpecificServices-D23Shape a sh:NodeShape ;
+    rdfs:label "Social And Other Specific Services- D23" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:SocialAndOtherSpecificServices-D23 .
+
+epo-shape:epo-not-SocialAndOtherSpecificServices-D24Shape a sh:NodeShape ;
+    rdfs:label "Social And Other Specific Services- D24" ;
+    rdfs:comment "public contracts" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:SocialAndOtherSpecificServices-D24 .
+
+epo-shape:epo-not-StandardFormsNoticeShape a sh:NodeShape ;
+    rdfs:label "Standard Forms Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:StandardFormsNotice .
+
+epo-shape:epo-not-Subcontract-D81Shape a sh:NodeShape ;
+    rdfs:label "Subcontract- D81" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:Subcontract-D81 .
+
+epo-shape:epo-not-SubcontractNoticeShape a sh:NodeShape ;
+    rdfs:label "Subcontract Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:SubcontractNotice .
+
+epo-shape:epo-not-VEAT-D23Shape a sh:NodeShape ;
+    rdfs:label "VEA T- D23" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:VEAT-D23 .
+
+epo-shape:epo-not-VEAT-D24Shape a sh:NodeShape ;
+    rdfs:label "VEA T- D24" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:VEAT-D24 .
+
+epo-shape:epo-not-VEAT-D25Shape a sh:NodeShape ;
+    rdfs:label "VEA T- D25" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:VEAT-D25 .
+
+epo-shape:epo-not-VEAT-D81Shape a sh:NodeShape ;
+    rdfs:label "VEA T- D81" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:VEAT-D81 .
+
+epo-shape:epo-not-VoluntaryEx-AnteTransparencyNoticeShape a sh:NodeShape ;
+    rdfs:label "Voluntary Ex- Ante Transparency Notice" ;
+    rdfs:comment "A Notice informing of the intention to award a Contract without prior publication of a Contract Notice. Additional Information: For European Notices above the threshold \"A means of advertising the intention to award the Contract without opening it up to formal Competition. A Contracting Authority may decide that a Contract does not require prior publication through a Contract Notice in the O.J.E.U. A reason for this decision may be that the Contract meets the exceptional conditions described in Article 31 of Directive 2004/18/EC. In a recent V.E.A.T notice the reason was listed as “extreme urgency brought about by events unforeseeable by the Contracting Entity and in accordance with the strict conditions stated in the Directive” . \"Voluntary Ex-Ante Transparency Notice\" (VEAT) where a Contracting Authority deems that a Contract does not require prior publication of a Contract Notice in the European Journal (OJEU). This may apply, for example, if the Contract meets the exceptional conditions justifying direct award of contracts. <b>This definition is still to be worked on.</b>" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:VoluntaryEx-AnteTransparencyNotice .
+
+epo-shape:epo-not-eFormsNoticeShape a sh:NodeShape ;
+    rdfs:label "e Forms Notice" ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:targetClass epo:eFormsNotice .
+
+epo-shape:epo-NoticeAwardInformation-epo-describesDirectAwardPrenotificationNotice a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:DirectAwardPrenotificationNotice ;
+    sh:maxCount 1 ;
+    sh:name "Describes direct award prenotification notice" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:describesDirectAwardPrenotificationNotice ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#describesDirectAwardPrenotificationNotice> ?that . ?that <http://data.europa.eu/a4g/ontology#describesDirectAwardPrenotificationNotice> ?this .}" ] .
+
+epo-shape:epo-NoticeAwardInformation-epo-describesResultNotice a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:ResultNotice ;
+    sh:maxCount 1 ;
+    sh:name "Describes result notice" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:describesResultNotice ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#describesResultNotice> ?that . ?that <http://data.europa.eu/a4g/ontology#describesResultNotice> ?this .}" ] .
+
+epo-shape:epo-not-CompetitionNotice-epo-announcesLot a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Lot ;
+    sh:minCount 1 ;
+    sh:name "Announces lot" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesLot ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesLot> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesLot> ?this .}" ] .
+
+epo-shape:epo-not-CompetitionNotice-epo-announcesLotGroup a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:LotGroup ;
+    sh:name "Announces lot group" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesLotGroup ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesLotGroup> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesLotGroup> ?this .}" ] .
+
+epo-shape:epo-not-CompetitionNotice-epo-announcesProcedure a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Procedure ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Announces procedure" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesProcedure ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesProcedure> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesProcedure> ?this .}" ] .
+
+epo-shape:epo-not-CompetitionNotice-epo-announcesRole a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AgentInRole ;
+    sh:minCount 1 ;
+    sh:name "Announces role" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesRole ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesRole> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesRole> ?this .}" ] .
+
+epo-shape:epo-not-CompletionNotice-epo-announcesCompletionOfContract a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Contract ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Announces completion of contract" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesCompletionOfContract ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesCompletionOfContract> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesCompletionOfContract> ?this .}" ] .
+
+epo-shape:epo-not-CompletionNotice-epo-announcesRole a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AgentInRole ;
+    sh:name "Announces role" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesRole ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesRole> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesRole> ?this .}" ] .
+
+epo-shape:epo-not-CompletionNotice-epo-concernsLot a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Lot ;
+    sh:minCount 1 ;
+    sh:name "Concerns lot" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:concernsLot ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsLot> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsLot> ?this .}" ] .
+
+epo-shape:epo-not-CompletionNotice-epo-concernsLotGroup a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:LotGroup ;
+    sh:name "Concerns lot group" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:concernsLotGroup ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsLotGroup> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsLotGroup> ?this .}" ] .
+
+epo-shape:epo-not-CompletionNotice-epo-concernsProcedure a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Procedure ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Concerns procedure" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:concernsProcedure ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsProcedure> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsProcedure> ?this .}" ] .
+
+epo-shape:epo-not-CompletionNotice-epo-refersToAwardDecision a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AwardDecision ;
+    sh:name "Refers to award decision" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToAwardDecision ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToAwardDecision> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToAwardDecision> ?this .}" ] .
+
+epo-shape:epo-not-CompletionNotice-epo-refersToLotGroupAwardInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:LotGroupAwardInformation ;
+    sh:name "Refers to lot group award information" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToLotGroupAwardInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToLotGroupAwardInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToLotGroupAwardInformation> ?this .}" ] .
+
+epo-shape:epo-not-CompletionNotice-epo-refersToNoticeAwardInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:NoticeAwardInformation ;
+    sh:maxCount 1 ;
+    sh:name "Refers to notice award information" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToNoticeAwardInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToNoticeAwardInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToNoticeAwardInformation> ?this .}" ] .
+
+epo-shape:epo-not-CompletionNotice-epo-refersToReviewRequest a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:ReviewRequest ;
+    sh:name "Refers to review request" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToReviewRequest ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToReviewRequest> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToReviewRequest> ?this .}" ] .
+
+epo-shape:epo-not-CompletionNotice-epo-refersToRole a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AgentInRole ;
+    sh:name "Refers to role" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToRole ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToRole> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToRole> ?this .}" ] .
+
+epo-shape:epo-not-ContractModificationNotice-epo-announcesContractAmendment a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:ContractAmendment ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Announces contract amendment" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesContractAmendment ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesContractAmendment> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesContractAmendment> ?this .}" ] .
+
+epo-shape:epo-not-ContractModificationNotice-epo-concernsLot a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Lot ;
+    sh:minCount 1 ;
+    sh:name "Concerns lot" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:concernsLot ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsLot> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsLot> ?this .}" ] .
+
+epo-shape:epo-not-ContractModificationNotice-epo-concernsLotGroup a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:LotGroup ;
+    sh:name "Concerns lot group" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:concernsLotGroup ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsLotGroup> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsLotGroup> ?this .}" ] .
+
+epo-shape:epo-not-ContractModificationNotice-epo-concernsProcedure a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Procedure ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Concerns procedure" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:concernsProcedure ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsProcedure> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsProcedure> ?this .}" ] .
+
+epo-shape:epo-not-ContractModificationNotice-epo-refersToAwardDecision a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AwardDecision ;
+    sh:name "Refers to award decision" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToAwardDecision ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToAwardDecision> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToAwardDecision> ?this .}" ] .
+
+epo-shape:epo-not-ContractModificationNotice-epo-refersToContractToBeModified a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Contract ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Refers to contract to be modified" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToContractToBeModified ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToContractToBeModified> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToContractToBeModified> ?this .}" ] .
+
+epo-shape:epo-not-ContractModificationNotice-epo-refersToLotGroupAwardInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:LotGroupAwardInformation ;
+    sh:name "Refers to lot group award information" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToLotGroupAwardInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToLotGroupAwardInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToLotGroupAwardInformation> ?this .}" ] .
+
+epo-shape:epo-not-ContractModificationNotice-epo-refersToNoticeAwardInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:NoticeAwardInformation ;
+    sh:maxCount 1 ;
+    sh:name "Refers to notice award information" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToNoticeAwardInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToNoticeAwardInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToNoticeAwardInformation> ?this .}" ] .
+
+epo-shape:epo-not-ContractModificationNotice-epo-refersToRole a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AgentInRole ;
+    sh:name "Refers to role" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToRole ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToRole> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToRole> ?this .}" ] .
+
+epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesAwardDecision a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AwardDecision ;
+    sh:name "Announces award decision" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesAwardDecision ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesAwardDecision> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesAwardDecision> ?this .}" ] .
+
+epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesContract a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Contract ;
+    sh:name "Announces contract" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesContract ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesContract> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesContract> ?this .}" ] .
+
+epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesLot a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Lot ;
+    sh:minCount 1 ;
+    sh:name "Announces lot" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesLot ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesLot> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesLot> ?this .}" ] .
+
+epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesLotGroup a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:LotGroup ;
+    sh:name "Announces lot group" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesLotGroup ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesLotGroup> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesLotGroup> ?this .}" ] .
+
+epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesLotGroupAwardInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:LotGroupAwardInformation ;
+    sh:name "Announces lot group award information" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesLotGroupAwardInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesLotGroupAwardInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesLotGroupAwardInformation> ?this .}" ] .
+
+epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesNoticeAwardInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:NoticeAwardInformation ;
+    sh:maxCount 1 ;
+    sh:name "Announces notice award information" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesNoticeAwardInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesNoticeAwardInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesNoticeAwardInformation> ?this .}" ] .
+
+epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesProcedure a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Procedure ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Announces procedure" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesProcedure ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesProcedure> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesProcedure> ?this .}" ] .
+
+epo-shape:epo-not-DirectAwardPrenotificationNotice-epo-announcesRole a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AgentInRole ;
+    sh:minCount 1 ;
+    sh:name "Announces role" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesRole ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesRole> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesRole> ?this .}" ] .
+
+epo-shape:epo-not-PlanningNotice-epo-announcesLot a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Lot ;
+    sh:name "Announces lot" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesLot ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesLot> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesLot> ?this .}" ] .
+
+epo-shape:epo-not-PlanningNotice-epo-announcesLotGroup a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:LotGroup ;
+    sh:name "Announces lot group" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesLotGroup ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesLotGroup> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesLotGroup> ?this .}" ] .
+
+epo-shape:epo-not-PlanningNotice-epo-announcesPlannedProcurementPart a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:PlannedProcurementPart ;
+    sh:name "Announces planned procurement part" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesPlannedProcurementPart ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesPlannedProcurementPart> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesPlannedProcurementPart> ?this .}" ] .
+
+epo-shape:epo-not-PlanningNotice-epo-announcesProcedure a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Procedure ;
+    sh:maxCount 1 ;
+    sh:name "Announces procedure" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesProcedure ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesProcedure> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesProcedure> ?this .}" ] .
+
+epo-shape:epo-not-PlanningNotice-epo-announcesRole a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AgentInRole ;
+    sh:minCount 1 ;
+    sh:name "Announces role" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesRole ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesRole> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesRole> ?this .}" ] .
+
+epo-shape:epo-not-PreMarketConsultationNotice-epo-preparesForPotentialProcurementObject a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:ProcurementObject ;
+    sh:name "Prepares for potential procurement object" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:preparesForPotentialProcurementObject ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#preparesForPotentialProcurementObject> ?that . ?that <http://data.europa.eu/a4g/ontology#preparesForPotentialProcurementObject> ?this .}" ] .
+
+epo-shape:epo-not-PreMarketConsultationNotice-epo-refersToRole a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AgentInRole ;
+    sh:name "Refers to role" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToRole ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToRole> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToRole> ?this .}" ] .
+
+epo-shape:epo-not-ResultNotice-epo-announcesAwardDecision a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AwardDecision ;
+    sh:name "Announces award decision" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesAwardDecision ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesAwardDecision> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesAwardDecision> ?this .}" ] .
+
+epo-shape:epo-not-ResultNotice-epo-announcesContract a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Contract ;
+    sh:name "Announces contract" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesContract ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesContract> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesContract> ?this .}" ] .
+
+epo-shape:epo-not-ResultNotice-epo-announcesLotGroupAwardInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:LotGroupAwardInformation ;
+    sh:name "Announces lot group award information" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesLotGroupAwardInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesLotGroupAwardInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesLotGroupAwardInformation> ?this .}" ] .
+
+epo-shape:epo-not-ResultNotice-epo-announcesNoticeAwardInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:NoticeAwardInformation ;
+    sh:maxCount 1 ;
+    sh:name "Announces notice award information" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesNoticeAwardInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesNoticeAwardInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesNoticeAwardInformation> ?this .}" ] .
+
+epo-shape:epo-not-ResultNotice-epo-announcesReviewRequest a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:ReviewRequest ;
+    sh:name "Announces review request" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesReviewRequest ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesReviewRequest> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesReviewRequest> ?this .}" ] .
+
+epo-shape:epo-not-ResultNotice-epo-announcesRole a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AgentInRole ;
+    sh:name "Announces role" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesRole ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesRole> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesRole> ?this .}" ] .
+
+epo-shape:epo-not-ResultNotice-epo-concernsLot a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Lot ;
+    sh:minCount 1 ;
+    sh:name "Concerns lot" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:concernsLot ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsLot> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsLot> ?this .}" ] .
+
+epo-shape:epo-not-ResultNotice-epo-concernsLotGroup a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:LotGroup ;
+    sh:name "Concerns lot group" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:concernsLotGroup ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsLotGroup> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsLotGroup> ?this .}" ] .
+
+epo-shape:epo-not-ResultNotice-epo-concernsProcedure a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:Procedure ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Concerns procedure" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:concernsProcedure ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsProcedure> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsProcedure> ?this .}" ] .
+
+epo-shape:epo-not-ResultNotice-epo-refersToRole a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:not-shape ;
+    sh:class epo:AgentInRole ;
+    sh:minCount 1 ;
+    sh:name "Refers to role" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToRole ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToRole> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToRole> ?this .}" ] .
+
+epo-shape:not-shape a owl:Ontology ;
+    rdfs:label "eProcurement Ontology Notice - core shapes"@en ;
+    dcterms:created "2021-06-01"^^xsd:date ;
+    dcterms:description "The eProcurement Ontology Notice core shapes provides the generic datashape specifications for the eProcurement Ontology Notice core."@en ;
+    dcterms:issued "2025-05-15"^^xsd:date ;
+    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+    dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
+    dcterms:title "eProcurement Ontology Notice - core shapes"@en ;
+    vann:preferredNamespacePrefix "epo" ;
+    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
+    rdfs:comment "This version is automatically generated from eNotice.xml on 2025-05-15" ;
+    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
+        <https://github.com/OP-TED/ePO/releases>,
+        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
+        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
+    owl:imports epo-shape:acc-shape,
+        epo-shape:awa-shape,
+        epo-shape:cat-shape,
+        epo-shape:con-shape,
+        epo-shape:core-shape,
+        epo-shape:eva-shape,
+        epo-shape:ful-shape,
+        epo-shape:inv-shape,
+        epo-shape:ord-shape,
+        epo-shape:qua-shape,
+        epo-shape:req-shape,
+        epo-shape:sub-shape ;
+    owl:incompatibleWith "4.2.0" ;
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#not-shape-4.2.0" ;
+    owl:versionIRI epo-shape:not-shape-5.0.0 ;
+    owl:versionInfo "5.0.0" .
 

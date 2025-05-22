@@ -16,7 +16,6 @@
     </xd:doc>
 
 
-
     <!-- a set of prefix-baseURI definitions -->
     <xsl:variable name="namespacePrefixes" select="fn:doc('namespaces.xml')"/>
 
@@ -25,11 +24,11 @@
 
     <!-- XSD datatypes that conform to OWL2 requirements   -->
     <xsl:variable name="xsdAndRdfDataTypes" select="fn:doc('xsdAndRdfDataTypes.xml')"/>
-    <!--    set default namespace interpretation for lexical Qnames that are not prefix:localSegment or :localSegment. If this 
+    <!--    set default namespace interpretation for lexical Qnames that are not prefix:localSegment or :localSegment. If this
     is set to true localSegment will transform to :localSegment-->
     <xsl:variable name="defaultNamespaceInterpretation" select="fn:true()"/>
 
-    <!-- Ontology base URI, configure as necessary. Do not use a trailing local delimiter 
+    <!-- Ontology base URI, configure as necessary. Do not use a trailing local delimiter
         like in the namespace definition-->
     <!--<xsl:variable name="base-uri" select="'http://publications.europa.eu/ontology/ePO'"/>-->
     <xsl:variable name="base-ontology-uri" select="'http://data.europa.eu/a4g/ontology'"/>
@@ -37,7 +36,7 @@
     <xsl:variable name="base-restriction-uri" select="$base-ontology-uri"/>
     <!--    Shapes Module URI-->
     <xsl:variable name="shapeArtefactURI"
-        select="fn:concat($base-shape-uri, $defaultDelimiter, $moduleReference, '-shape')"/>
+        select="fn:concat($base-shape-uri,$defaultDelimiter, $moduleReference, '-shape')"/>
     <!--    Restrictions Module URI-->
     <xsl:variable name="restrictionsArtefactURI"
         select="fn:concat($base-restriction-uri, $defaultDelimiter, $moduleReference, '-restriction')"/>
@@ -64,7 +63,6 @@
     <xsl:variable name="stereotypeValidOnDatatypes" select="()"/>
     <xsl:variable name="stereotypeValidOnEnumerations" select="()"/>
     <xsl:variable name="stereotypeValidOnPackages" select="()"/>
-
     <xsl:variable name="abstractClassesStereotypes" select="('Abstract', 'abstract class', 'abstract')"/>
 
     <!--    This variable controls whether the enumeration items are transformed into skos concepts or ignored-->
@@ -73,22 +71,59 @@
     <!--    This variable controls whether the enumerations are transformed into skos schemes or ignored-->
     <xsl:variable name="enableGenerationOfConceptSchemes" select="fn:false()"/>
 
+<!--    Property used for constraint level for enumerations-->
+    <xsl:variable name="cvConstraintLevelProperty" select="'epo:constraintLevel'"/>
+
+
     <!--Allowed characters for a normalized string-->
     <xsl:variable name="allowedStrings" select="'^[\w\d-_:]+$'"/>
+    <!--    Generate reused classes, attributes and connectors. Concepts with these prefixes will be included in the generated artefacts. -->
+    <xsl:variable name="includedPrefixesList" select="('epo', 'epo-not', 'epo-ord', 'epo-cat', 'epo-con', 'epo-ful','epo-eva','epo-awa','epo-qua','epo-req')"/>
+    <!-- This set of variables controls the generation of reused concepts within artifacts. -->
+    <xsl:variable name="generateReusedConceptsSHACL" select="fn:false()"/>
+    <xsl:variable name="generateReusedConceptsOWLcore" select="fn:false()"/>
+    <xsl:variable name="generateReusedConceptsOWLrestrictions" select="fn:false()"/>
+    <xsl:variable name="generateReusedConceptsGlossary" select="fn:false()"/>
 
-    <!--    Generate reused classes, attributes and connectors-->
-    <xsl:variable name="generateReusedConcepts" select="fn:true()"/>
+<!--    This set of variables controls generation of comments and how they will generate in the output -->
+    <xsl:variable name="commentsGeneration" select="fn:false()"/>
+    <xsl:variable name="commentProperty" select="'skos:editorialNote'"/>
+
+     <!--    Tag names/keys that are excluded from output -->
+    <xsl:variable name="excludedTagNamesList" select="($statusProperty, $cvConstraintLevelProperty)"/>
+
+    <!-- Variables for status filtering:
+     - The property used to indicate the status
+     - A list of valid statuses
+     - A list of statuses to be excluded from the output
+     - The default status value interpretation for elements without a status set -->
+    <xsl:variable name="statusProperty" select="'epo:status'"/>
+    <xsl:variable name="validStatusesList" select="('proposed', 'approved', 'implemented')"/>
+    <xsl:variable name="excludedElementStatusesList" select="('proposed', 'approved')"/>
+    <xsl:variable name="unspecifiedStatusInterpretation" select="'implemented'"/>
 
 
-    <xsl:variable name="reference-to-external-classes-in-glossary" select="fn:false()"/>
-
+    <!-- This variable control if Object and Realisation are generated -->
     <xsl:variable name="generateObjectsAndRealisations" select="fn:false()"/>
-
+<!--    Set of variables for convention report-->
     <xsl:variable name="conventionReportCopyrightText" select="'Publications Office of the European Union, 2023'"/>
     <xsl:variable name="conventionReportAuthor" select="'Publications Office of the European Union'"/>
     <xsl:variable name="conventionReportAuthorLocation" select="'Luxembourg'"/>
     <xsl:variable name="conventionReportAuthorWebsite" select="'https://op.europa.eu'"/>
     <xsl:variable name="conventionReportUMLModelName" select="'eProcurement'"/>
+    <!-- URIs list of UML versions supported by model2owl -->
+    <xsl:variable name="supportedUmlVersions"
+        select="('http://www.omg.org/spec/UML/20131001',
+            'https://www.omg.org/spec/UML/20131001',
+            'http://www.omg.org/spec/UML/20161101',
+            'https://www.omg.org/spec/UML/20161101'
+        )"/>
+
+    <!-- If enabled then any occurence of rdf:PlainLiteral datatype will be
+    replaced in a SHACL shape. A list of the two string datatypes will be used
+    instead: (xsd:string, rdf:langString).
+    -->
+    <xsl:variable name="translatePlainLiteralToStringTypesInSHACL" select="fn:true()"/>
 
     <!-- _______________________________________________________________________   -->
     <!--                            METADATA SECTION                               -->
@@ -119,22 +154,22 @@
             'https://docs.ted.europa.eu/home/index.html')"/>
     <!--    dct:issued-->
     <xsl:variable name="issuedDate" select="format-date(current-date(), '[Y0001]-[M01]-[D01]')"/>
+    <!--    dct:created-->
+    <xsl:variable name="createdDate" select="'2021-06-01'"/>
     <!--    owl:incompatibleWith -->
-    <xsl:variable name="incompatibleWith" select="'3.1.0'"/>
+    <xsl:variable name="incompatibleWith" select="'4.2.0'"/>
     <!--    owl:versionInfo -->
-    <xsl:variable name="versionInfo" select="'4.2.0'"/>
+    <xsl:variable name="versionInfo" select="'5.0.0'"/>
     <!--    bibo:status-->
     <xsl:variable name="ontologyStatus" select="'Semantic Specification Release'"/>
     <!--    owl:priorVersion -->
-    <xsl:variable name="priorVersion" select="'4.1.1'"/>
+    <xsl:variable name="priorVersion" select="'4.2.0'"/>
     <!--    vann:preferredNamespaceUri -->
     <xsl:variable name="preferredNamespaceUri" select="'http://data.europa.eu/a4g/ontology#'"/>
     <!--    vann:preferredNamespacePrefix -->
     <xsl:variable name="preferredNamespacePrefix" select="'epo'"/>
     <!--    dct:license-->
     <xsl:variable name="licenseLiteral" select="'© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/).'"/>
-    <!--    dct:created-->
-    <xsl:variable name="createdDate" select="'2021-06-01'"/>
     <!--    dct:publisher-->
     <xsl:variable name="publisher" select="'http://publications.europa.eu/resource/authority/corporate-body/PUBL'"/>
 </xsl:stylesheet>
