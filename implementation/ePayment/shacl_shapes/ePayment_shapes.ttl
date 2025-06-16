@@ -1,173 +1,197 @@
-@prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix adms: <http://www.w3.org/ns/adms#> .
-@prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix eli: <http://data.europa.eu/eli/ontology#> .
-@prefix org: <http://www.w3.org/ns/org#> .
+@prefix epo: <http://data.europa.eu/a4g/ontology#> .
+@prefix epo-shape: <http://data.europa.eu/a4g/data-shape#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix pay-shape: <http://data.europa.eu/a4g/data-shape#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pay-shape:epo-pay-PaymentInformation a sh:NodeShape ;
+epo-shape:epo-pay-PaymentInformationShape a sh:NodeShape ;
     rdfs:label "Payment Information" ;
-    rdfs:isDefinedBy pay-shape:pay-shape ;
-    sh:property pay-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentDate,
-        pay-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentIdentifier,
-        pay-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentMeansInformation ;
-    sh:targetClass :PaymentInformation .
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:property epo-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentDate,
+        epo-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentIdentifier,
+        epo-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentMeansInformation ;
+    sh:targetClass epo:PaymentInformation .
 
-pay-shape:epo-pay-RemittanceAdvice a sh:NodeShape ;
-    rdfs:label "Remittance Advice" ;
-    rdfs:isDefinedBy pay-shape:pay-shape ;
-    sh:property pay-shape:epo-pay-RemittanceAdvice-epo-inv-specifiesPayee,
-        pay-shape:epo-pay-RemittanceAdvice-epo-pay-comprisesRemittanceAdviceLine,
-        pay-shape:epo-pay-RemittanceAdvice-epo-pay-hasPayerReference,
-        pay-shape:epo-pay-RemittanceAdvice-epo-pay-hasPaymentInformation,
-        pay-shape:epo-pay-RemittanceAdvice-epo-pay-hasPaymentOrderReference,
-        pay-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalCreditAmount,
-        pay-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalDebitAmount,
-        pay-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalPaymentAmount,
-        pay-shape:epo-pay-RemittanceAdvice-epo-specifiesBuyer,
-        pay-shape:epo-pay-RemittanceAdvice-epo-specifiesSeller ;
-    sh:targetClass :RemittanceAdvice .
-
-pay-shape:epo-pay-RemittanceAdviceLine a sh:NodeShape ;
+epo-shape:epo-pay-RemittanceAdviceLineShape a sh:NodeShape ;
     rdfs:label "Remittance Advice Line" ;
-    rdfs:isDefinedBy pay-shape:pay-shape ;
-    sh:property pay-shape:epo-pay-RemittanceAdviceLine-epo-inv-refersToInvoice,
-        pay-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasBalanceAmount,
-        pay-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasCreditAmount,
-        pay-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasDebitAmount ;
-    sh:targetClass :RemittanceAdviceLine .
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:property epo-shape:epo-pay-RemittanceAdviceLine-epo-inv-refersToInvoice,
+        epo-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasBalanceAmount,
+        epo-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasCreditAmount,
+        epo-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasDebitAmount ;
+    sh:targetClass epo:RemittanceAdviceLine .
 
-pay-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentDate a sh:PropertyShape ;
-    rdfs:isDefinedBy pay-shape:pay-shape ;
+epo-shape:epo-pay-RemittanceAdviceShape a sh:NodeShape ;
+    rdfs:label "Remittance Advice" ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:property epo-shape:epo-pay-RemittanceAdvice-epo-inv-specifiesPayee,
+        epo-shape:epo-pay-RemittanceAdvice-epo-pay-comprisesRemittanceAdviceLine,
+        epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasPayerReference,
+        epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasPaymentInformation,
+        epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasPaymentOrderReference,
+        epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalCreditAmount,
+        epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalDebitAmount,
+        epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalPaymentAmount,
+        epo-shape:epo-pay-RemittanceAdvice-epo-specifiesBuyer,
+        epo-shape:epo-pay-RemittanceAdvice-epo-specifiesSeller ;
+    sh:targetClass epo:RemittanceAdvice .
+
+epo-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentDate a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
     sh:maxCount 1 ;
-    sh:name "has Payment Date" ;
+    sh:name "Has payment date" ;
     sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
-    sh:path :hasPaymentDate .
+    sh:path epo:hasPaymentDate .
 
-pay-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentIdentifier a sh:PropertyShape ;
+epo-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentIdentifier a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
     sh:class adms:Identifier ;
     sh:maxCount 1 ;
-    sh:name "has Payment Identifier" ;
-    sh:path :hasPaymentIdentifier ;
+    sh:name "Has payment identifier" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasPaymentIdentifier ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPaymentIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPaymentIdentifier> ?this .}" ] .
 
-pay-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentMeansInformation a sh:PropertyShape ;
-    sh:class :PaymentInstructionsInformation ;
+epo-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentMeansInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:PaymentInstructionsInformation ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "has Payment Means Information" ;
-    sh:path :hasPaymentMeansInformation ;
+    sh:name "Has payment means information" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasPaymentMeansInformation ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPaymentMeansInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPaymentMeansInformation> ?this .}" ] .
 
-pay-shape:epo-pay-RemittanceAdvice-epo-inv-specifiesPayee a sh:PropertyShape ;
-    sh:class :Payee ;
+epo-shape:epo-pay-RemittanceAdvice-epo-inv-specifiesPayee a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:Payee ;
     sh:maxCount 1 ;
-    sh:name "specifies Payee" ;
-    sh:path :specifiesPayee ;
+    sh:name "Specifies payee" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:specifiesPayee ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesPayee> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesPayee> ?this .}" ] .
 
-pay-shape:epo-pay-RemittanceAdvice-epo-pay-comprisesRemittanceAdviceLine a sh:PropertyShape ;
-    sh:class :RemittanceAdviceLine ;
+epo-shape:epo-pay-RemittanceAdvice-epo-pay-comprisesRemittanceAdviceLine a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:RemittanceAdviceLine ;
     sh:minCount 1 ;
-    sh:name "comprises Remittance Advice Line" ;
-    sh:path :comprisesRemittanceAdviceLine ;
+    sh:name "Comprises remittance advice line" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:comprisesRemittanceAdviceLine ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesRemittanceAdviceLine> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesRemittanceAdviceLine> ?this .}" ] .
 
-pay-shape:epo-pay-RemittanceAdvice-epo-pay-hasPayerReference a sh:PropertyShape ;
-    rdfs:isDefinedBy pay-shape:pay-shape ;
+epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasPayerReference a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
     sh:maxCount 1 ;
-    sh:name "has Payer Reference" ;
+    sh:name "Has payer reference" ;
     sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
-    sh:path :hasPayerReference .
+    sh:path epo:hasPayerReference .
 
-pay-shape:epo-pay-RemittanceAdvice-epo-pay-hasPaymentInformation a sh:PropertyShape ;
-    sh:class :PaymentInformation ;
+epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasPaymentInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:PaymentInformation ;
     sh:maxCount 1 ;
-    sh:name "has Payment Information" ;
-    sh:path :hasPaymentInformation ;
+    sh:name "Has payment information" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasPaymentInformation ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPaymentInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPaymentInformation> ?this .}" ] .
 
-pay-shape:epo-pay-RemittanceAdvice-epo-pay-hasPaymentOrderReference a sh:PropertyShape ;
-    rdfs:isDefinedBy pay-shape:pay-shape ;
+epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasPaymentOrderReference a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
     sh:maxCount 1 ;
-    sh:name "has Payment Order Reference" ;
+    sh:name "Has payment order reference" ;
     sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
-    sh:path :hasPaymentOrderReference .
+    sh:path epo:hasPaymentOrderReference .
 
-pay-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalCreditAmount a sh:PropertyShape ;
-    sh:class :MonetaryValue ;
+epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalCreditAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:MonetaryValue ;
     sh:maxCount 1 ;
-    sh:name "has Total Credit Amount" ;
-    sh:path :hasTotalCreditAmount ;
+    sh:name "Has total credit amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasTotalCreditAmount ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalCreditAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalCreditAmount> ?this .}" ] .
 
-pay-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalDebitAmount a sh:PropertyShape ;
-    sh:class :MonetaryValue ;
+epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalDebitAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:MonetaryValue ;
     sh:maxCount 1 ;
-    sh:name "has Total Debit Amount" ;
-    sh:path :hasTotalDebitAmount ;
+    sh:name "Has total debit amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasTotalDebitAmount ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalDebitAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalDebitAmount> ?this .}" ] .
 
-pay-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalPaymentAmount a sh:PropertyShape ;
-    sh:class :MonetaryValue ;
+epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalPaymentAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:MonetaryValue ;
     sh:maxCount 1 ;
-    sh:name "has Total Payment Amount" ;
-    sh:path :hasTotalPaymentAmount ;
+    sh:name "Has total payment amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasTotalPaymentAmount ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalPaymentAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalPaymentAmount> ?this .}" ] .
 
-pay-shape:epo-pay-RemittanceAdvice-epo-specifiesBuyer a sh:PropertyShape ;
-    sh:class :Buyer ;
+epo-shape:epo-pay-RemittanceAdvice-epo-specifiesBuyer a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:Buyer ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "specifies Buyer" ;
-    sh:path :specifiesBuyer ;
+    sh:name "Specifies buyer" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:specifiesBuyer ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesBuyer> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesBuyer> ?this .}" ] .
 
-pay-shape:epo-pay-RemittanceAdvice-epo-specifiesSeller a sh:PropertyShape ;
-    sh:class :Seller ;
+epo-shape:epo-pay-RemittanceAdvice-epo-specifiesSeller a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:Seller ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "specifies Seller" ;
-    sh:path :specifiesSeller ;
+    sh:name "Specifies seller" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:specifiesSeller ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesSeller> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesSeller> ?this .}" ] .
 
-pay-shape:epo-pay-RemittanceAdviceLine-epo-inv-refersToInvoice a sh:PropertyShape ;
-    sh:class :Invoice ;
+epo-shape:epo-pay-RemittanceAdviceLine-epo-inv-refersToInvoice a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:Invoice ;
     sh:maxCount 1 ;
-    sh:name "refers To Invoice" ;
-    sh:path :refersToInvoice ;
+    sh:name "Refers to invoice" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToInvoice ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToInvoice> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToInvoice> ?this .}" ] .
 
-pay-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasBalanceAmount a sh:PropertyShape ;
-    sh:class :MonetaryValue ;
+epo-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasBalanceAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:MonetaryValue ;
     sh:maxCount 1 ;
-    sh:name "has Balance Amount" ;
-    sh:path :hasBalanceAmount ;
+    sh:name "Has balance amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasBalanceAmount ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasBalanceAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasBalanceAmount> ?this .}" ] .
 
-pay-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasCreditAmount a sh:PropertyShape ;
-    sh:class :MonetaryValue ;
+epo-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasCreditAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:MonetaryValue ;
     sh:maxCount 1 ;
-    sh:name "has Credit Amount" ;
-    sh:path :hasCreditAmount ;
+    sh:name "Has credit amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasCreditAmount ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasCreditAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasCreditAmount> ?this .}" ] .
 
-pay-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasDebitAmount a sh:PropertyShape ;
-    sh:class :MonetaryValue ;
+epo-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasDebitAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:pay-shape ;
+    sh:class epo:MonetaryValue ;
     sh:maxCount 1 ;
-    sh:name "has Debit Amount" ;
-    sh:path :hasDebitAmount ;
+    sh:name "Has debit amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasDebitAmount ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasDebitAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasDebitAmount> ?this .}" ] .
 
-pay-shape:pay-shape a owl:Ontology ;
+epo-shape:pay-shape a owl:Ontology ;
     rdfs:label "eProcurement Ontology Payment - core shapes"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Payment core shapes provides the generic datashape specifications for the eProcurement Ontology Payment core."@en ;
@@ -182,23 +206,21 @@ pay-shape:pay-shape a owl:Ontology ;
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :cat,
-        :core,
-        :inv,
-        :ord,
-        :pay,
-        :pay-restriction,
-        eli:,
-        cccev:,
-        dcterms:,
-        skos:,
-        <http://www.w3.org/2006/time>,
-        <http://www.w3.org/ns/adms>,
-        <http://www.w3.org/ns/locn>,
-        org:,
-        <http://www.w3.org/ns/person> ;
+    owl:imports epo-shape:acc-shape,
+        epo-shape:awa-shape,
+        epo-shape:cat-shape,
+        epo-shape:con-shape,
+        epo-shape:core-shape,
+        epo-shape:eva-shape,
+        epo-shape:ful-shape,
+        epo-shape:inv-shape,
+        epo-shape:not-shape,
+        epo-shape:ord-shape,
+        epo-shape:qua-shape,
+        epo-shape:req-shape,
+        epo-shape:sub-shape ;
     owl:incompatibleWith "4.2.0" ;
     owl:priorVersion "http://data.europa.eu/a4g/data-shape#pay-shape-5.0.0" ;
-    owl:versionIRI pay-shape:pay-shape-5.1.0 ;
+    owl:versionIRI epo-shape:pay-shape-5.1.0 ;
     owl:versionInfo "5.1.0" .
 
