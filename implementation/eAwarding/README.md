@@ -2,8 +2,7 @@
 
 **Description**:
 
-eAwarding refers to the award decision in the digital format created and signed by the unique responsible of the procurement, and the notification to all tenderers as to the result of the procurement 
-eRequest 
+eAwarding refers to the award decision in the digital format created and signed by the unique responsible of the procurement, and the notification to all tenderers as to the result of the procurement
 
 **Files**:
 
