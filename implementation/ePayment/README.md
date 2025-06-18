@@ -1,8 +1,8 @@
-# eSubmission
+# ePayment
 
 **Description**:
 
-The eSubmission module contains classes related to the concept of the ESPD Response.
+The ePayment module contains classes related to the concepts of the Payment data.
 
 **Files**:
 
