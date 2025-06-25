@@ -411,6 +411,7 @@ epo-shape:epo-DocumentShape a sh:NodeShape ;
         epo-shape:epo-Document-epo-hasOfficialLanguage,
         epo-shape:epo-Document-epo-hasPublicationDate,
         epo-shape:epo-Document-epo-hasReceptionDate,
+        epo-shape:epo-Document-epo-hasSpecificationInformation,
         epo-shape:epo-Document-epo-hasUUID,
         epo-shape:epo-Document-epo-hasUnofficialLanguage,
         epo-shape:epo-Document-epo-hasVersion,
@@ -585,6 +586,13 @@ epo-shape:epo-LeadBuyerShape a sh:NodeShape ;
     rdfs:comment "A Role of an Agent who is a Buyer and takes the administrative lead of the Procedure." ;
     rdfs:isDefinedBy epo-shape:core-shape ;
     sh:targetClass epo:LeadBuyer .
+
+epo-shape:epo-LocalLegalBasisInformationShape a sh:NodeShape ;
+    rdfs:label "Local Legal Basis Information" ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:property epo-shape:epo-LocalLegalBasisInformation-epo-concernsProcurementElement,
+        epo-shape:epo-LocalLegalBasisInformation-epo-hasLegalBasis ;
+    sh:targetClass epo:LocalLegalBasisInformation .
 
 epo-shape:epo-LotAwardOutcomeShape a sh:NodeShape ;
     rdfs:label "Lot Award Outcome" ;
@@ -821,6 +829,11 @@ epo-shape:epo-PlannedProcurementPartShape a sh:NodeShape ;
         epo-shape:epo-PlannedProcurementPart-epo-hasPlannedPeriod ;
     sh:targetClass epo:PlannedProcurementPart .
 
+epo-shape:epo-PlannedProcurementShape a sh:NodeShape ;
+    rdfs:label "Planned Procurement" ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:targetClass epo:PlannedProcurement .
+
 epo-shape:epo-PrizeShape a sh:NodeShape ;
     rdfs:label "Prize" ;
     rdfs:comment "A reward given in a Contest." ;
@@ -907,6 +920,8 @@ epo-shape:epo-ProcurementElementShape a sh:NodeShape ;
         epo-shape:epo-ProcurementElement-epo-hasAdditionalInformation,
         epo-shape:epo-ProcurementElement-epo-hasEstimatedValue,
         epo-shape:epo-ProcurementElement-epo-hasInternalIdentifier,
+        epo-shape:epo-ProcurementElement-epo-hasLegalBasis,
+        epo-shape:epo-ProcurementElement-epo-hasLegalBasisDescription,
         epo-shape:epo-ProcurementElement-epo-hasPurpose,
         epo-shape:epo-ProcurementElement-epo-hasUnknownUsageOfSelectionCriterionType,
         epo-shape:epo-ProcurementElement-epo-isCoveredByGPA,
@@ -923,8 +938,6 @@ epo-shape:epo-ProcurementObjectShape a sh:NodeShape ;
     sh:property epo-shape:epo-ProcurementObject-epo-foreseesConcession,
         epo-shape:epo-ProcurementObject-epo-fulfillsStrategicProcurement,
         epo-shape:epo-ProcurementObject-epo-hasLaunchFrameworkAgreementMaximumValue,
-        epo-shape:epo-ProcurementObject-epo-hasLegalBasis,
-        epo-shape:epo-ProcurementObject-epo-hasLegalBasisDescription,
         epo-shape:epo-ProcurementObject-epo-hasRecurrenceDescription,
         epo-shape:epo-ProcurementObject-epo-isFundedBy,
         epo-shape:epo-ProcurementObject-epo-isRecurrent,
@@ -1151,6 +1164,14 @@ epo-shape:epo-SocialProcurementShape a sh:NodeShape ;
         epo-shape:epo-SocialProcurement-epo-includesAccessibilityCriterion ;
     sh:targetClass epo:SocialProcurement .
 
+epo-shape:epo-SpecificationInformationShape a sh:NodeShape ;
+    rdfs:label "Specification Information" ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:property epo-shape:epo-SpecificationInformation-epo-hasSourceSpecificationCustomisation,
+        epo-shape:epo-SpecificationInformation-epo-hasSourceVersionSpecification,
+        epo-shape:epo-SpecificationInformation-epo-isUsedInProfile ;
+    sh:targetClass epo:SpecificationInformation .
+
 epo-shape:epo-StatisticalInformationShape a sh:NodeShape ;
     rdfs:label "Statistical Information" ;
     rdfs:comment "Statistical data on the Procedure and the Lot. Additional Information At the present time Procurement Procedures are not fully electronic. At a later date, information on the Tenders received could be inferred by the data in the eProcurement System. Therefore this class is temporal and should cease to exist in fully electronic Procurement. The need for its presence responds also to the alignment with the Regulation (EU) 2019/1780 (eForms). Attention will have to be paid in the future to possible inconsistencies derived from data placed in other classes and data held in the Statistical Information class; e.g. the TenderEvaluation class (see eEvaluation diagram) has the attribute admissibileTender indicator, which in case of being false, may enter in contradiction with the highest or lowest Tender value for that very same inadmissible Tender." ;
@@ -1363,7 +1384,8 @@ epo-shape:epo-WinnerShape a sh:NodeShape ;
     sh:property epo-shape:epo-Winner-epo-needsToBeATenderer ;
     sh:targetClass epo:Winner .
 
-epo-shape:epo-acc-ESPDRequest sh:property epo-shape:epo-acc-ESPDRequest-epo-concernsProcedure,
+epo-shape:epo-acc-ESPDRequest sh:property epo-shape:epo-acc-ESPDRequest-epo-acc-refersToNotice,
+        epo-shape:epo-acc-ESPDRequest-epo-concernsProcedure,
         epo-shape:epo-acc-ESPDRequest-epo-specifiesProcurementCriterion .
 
 epo-shape:epo-awa-AwardDecisionNotification sh:property epo-shape:epo-awa-AwardDecisionNotification-epo-concernsAwardOutcome,
@@ -1378,7 +1400,8 @@ epo-shape:epo-cat-AbstractItem sh:property epo-shape:epo-cat-AbstractItem-epo-ca
         epo-shape:epo-cat-AbstractItem-epo-hasItemStandardID,
         epo-shape:epo-cat-AbstractItem-epo-hasManufacturerItemID,
         epo-shape:epo-cat-AbstractItem-epo-hasSellerItemID,
-        epo-shape:epo-cat-AbstractItem-epo-hasSerialID .
+        epo-shape:epo-cat-AbstractItem-epo-hasSerialID,
+        epo-shape:epo-cat-AbstractItem-epo-inv-hasItemClassificationIdentifier .
 
 epo-shape:epo-cat-Batch sh:property epo-shape:epo-cat-Batch-epo-hasBatchID .
 
@@ -1472,7 +1495,7 @@ epo-shape:epo-ful-DespatchLine sh:property epo-shape:epo-ful-DespatchLine-epo-fu
 epo-shape:epo-ful-GoodsItem sh:property epo-shape:epo-ful-GoodsItem-epo-ful-hasDeclaredStatisticalValue,
         epo-shape:epo-ful-GoodsItem-epo-ful-hasTraceID .
 
-epo-shape:epo-ful-ReceiptAdvice sh:property epo-shape:epo-ful-ReceiptAdvice-epo-ful-specifiesBuyer .
+epo-shape:epo-ful-ReceiptAdvice sh:property epo-shape:epo-ful-ReceiptAdvice-epo-specifiesBuyer .
 
 epo-shape:epo-ful-ReceiptAdviceLine sh:property epo-shape:epo-ful-ReceiptAdviceLine-epo-ful-hasOversupplyQuantity,
         epo-shape:epo-ful-ReceiptAdviceLine-epo-ful-hasReceivedQuantity,
@@ -1493,7 +1516,14 @@ epo-shape:epo-ful-TransportMeans sh:property epo-shape:epo-ful-TransportMeans-ep
 
 epo-shape:epo-ful-TransportMeansOperator sh:property epo-shape:epo-ful-TransportMeansOperator-epo-playedBy .
 
+epo-shape:epo-inv-CreditTransferInformation sh:property epo-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountIdentifier,
+        epo-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentServiceProviderIdentifier .
+
 epo-shape:epo-inv-Invoice sh:property epo-shape:epo-inv-Invoice-epo-hasLotReference,
+        epo-shape:epo-inv-Invoice-epo-inv-hasInvoicedObjectIdentifier,
+        epo-shape:epo-inv-Invoice-epo-inv-hasInvoicingPeriod,
+        epo-shape:epo-inv-Invoice-epo-inv-hasTotalAccountingCurrencyTaxAmount,
+        epo-shape:epo-inv-Invoice-epo-inv-hasTotalTaxAmount,
         epo-shape:epo-inv-Invoice-epo-ord-hasAmountDueForPayment,
         epo-shape:epo-inv-Invoice-epo-ord-hasPrepaidAmount,
         epo-shape:epo-inv-Invoice-epo-ord-hasRoundingAmount,
@@ -1506,7 +1536,14 @@ epo-shape:epo-inv-Invoice sh:property epo-shape:epo-inv-Invoice-epo-hasLotRefere
         epo-shape:epo-inv-Invoice-epo-refersToProject,
         epo-shape:epo-inv-Invoice-epo-specifiesBuyer .
 
-epo-shape:epo-inv-InvoiceLine sh:property epo-shape:epo-inv-InvoiceLine-epo-cat-hasQuantity .
+epo-shape:epo-inv-InvoiceLine sh:property epo-shape:epo-inv-InvoiceLine-epo-cat-hasQuantity,
+        epo-shape:epo-inv-InvoiceLine-epo-inv-hasInvoiceLineObjectIdentifier,
+        epo-shape:epo-inv-InvoiceLine-epo-inv-hasInvoiceLinePeriod,
+        epo-shape:epo-inv-InvoiceLine-epo-inv-hasNetAmount .
+
+epo-shape:epo-inv-PaymentInstructionsInformation sh:property epo-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasBankingIdentifier,
+        epo-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasDebitedAccountIdentifier,
+        epo-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasMandateIdentifier .
 
 epo-shape:epo-not-CompetitionNotice sh:property epo-shape:epo-not-CompetitionNotice-epo-announcesLot,
         epo-shape:epo-not-CompetitionNotice-epo-announcesLotGroup,
@@ -1544,6 +1581,7 @@ epo-shape:epo-not-DirectAwardPrenotificationNotice sh:property epo-shape:epo-not
 
 epo-shape:epo-not-PlanningNotice sh:property epo-shape:epo-not-PlanningNotice-epo-announcesLot,
         epo-shape:epo-not-PlanningNotice-epo-announcesLotGroup,
+        epo-shape:epo-not-PlanningNotice-epo-announcesPlannedProcurement,
         epo-shape:epo-not-PlanningNotice-epo-announcesPlannedProcurementPart,
         epo-shape:epo-not-PlanningNotice-epo-announcesProcedure,
         epo-shape:epo-not-PlanningNotice-epo-announcesRole .
@@ -1606,6 +1644,17 @@ epo-shape:epo-ord-OriginatorInformation sh:property epo-shape:epo-ord-Originator
 epo-shape:epo-ord-TaxInformation sh:property epo-shape:epo-ord-TaxInformation-epo-cat-hasAmount,
         epo-shape:epo-ord-TaxInformation-epo-isCalculatedOn .
 
+epo-shape:epo-pay-PaymentInformation sh:property epo-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentIdentifier .
+
+epo-shape:epo-pay-RemittanceAdvice sh:property epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalCreditAmount,
+        epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalDebitAmount,
+        epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalPaymentAmount,
+        epo-shape:epo-pay-RemittanceAdvice-epo-specifiesBuyer .
+
+epo-shape:epo-pay-RemittanceAdviceLine sh:property epo-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasBalanceAmount,
+        epo-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasCreditAmount,
+        epo-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasDebitAmount .
+
 epo-shape:epo-qua-EvidenceOutcome sh:property epo-shape:epo-qua-EvidenceOutcome-epo-specifiesEvidence .
 
 epo-shape:epo-qua-EvidenceRequest sh:property epo-shape:epo-qua-EvidenceRequest-epo-concernsLot,
@@ -1626,7 +1675,20 @@ epo-shape:epo-req-RequestForOffer sh:property epo-shape:epo-req-RequestForOffer-
         epo-shape:epo-req-RequestForOffer-epo-specifiesBuyer,
         epo-shape:epo-req-RequestForOffer-epo-specifiesContractor .
 
+epo-shape:epo-sub-ESPD sh:property epo-shape:epo-sub-ESPD-epo-sub-isContainedInTender,
+        epo-shape:epo-sub-ESPD-epo-sub-providesInformationOn .
+
+epo-shape:epo-sub-EvidenceInformation sh:property epo-shape:epo-sub-EvidenceInformation-epo-sub-summarisesInformationAboutEvidence .
+
 epo-shape:epo-sub-LegalRepresentative sh:property epo-shape:epo-sub-LegalRepresentative-epo-actsOnBehalfOf .
+
+epo-shape:epo-sub-OrganisationInformationSummary sh:property epo-shape:epo-sub-OrganisationInformationSummary-epo-sub-concernsOrganisation,
+        epo-shape:epo-sub-OrganisationInformationSummary-epo-sub-providesOrganisationEmployeeQuantity,
+        epo-shape:epo-sub-OrganisationInformationSummary-epo-sub-providesOrganisationFinancialCapability .
+
+epo-shape:epo-sub-Response sh:property epo-shape:epo-sub-Response-epo-sub-answersQuestion,
+        epo-shape:epo-sub-Response-epo-sub-isReinforcedBy,
+        epo-shape:epo-sub-Response-epo-sub-refersToApplicablePeriod .
 
 epo-shape:epo-sub-Response-cccev-confidentialityLevelType a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
@@ -1750,7 +1812,6 @@ epo-shape:cccev-InformationRequirement-epo-concernsProcedure a sh:PropertyShape 
 epo-shape:cccev-InformationRequirement-epo-hasConstraint a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
     sh:class <http://data.europa.eu/m8g/Constraint> ;
-    sh:description "External concept defined by <a href=\"$inet://http://data.europa.eu/m8g/hasConstraint\"><font color=\"#0000ff\"><u>http://data.europa.eu/m8g/hasConstraint</u></font></a>" ;
     sh:name "Has constraint" ;
     sh:nodeKind sh:IRI ;
     sh:path epo:hasConstraint ;
@@ -2956,6 +3017,14 @@ epo-shape:epo-Document-epo-hasReceptionDate a sh:PropertyShape ;
     sh:name "Has reception date" ;
     sh:path epo:hasReceptionDate .
 
+epo-shape:epo-Document-epo-hasSpecificationInformation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:SpecificationInformation ;
+    sh:name "Has specification information" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasSpecificationInformation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasSpecificationInformation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasSpecificationInformation> ?this .}" ] .
+
 epo-shape:epo-Document-epo-hasUUID a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
     sh:class adms:Identifier ;
@@ -3235,6 +3304,24 @@ epo-shape:epo-JuryMember-epo-playedBy a sh:PropertyShape ;
     sh:nodeKind sh:IRI ;
     sh:path epo:playedBy ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#playedBy> ?that . ?that <http://data.europa.eu/a4g/ontology#playedBy> ?this .}" ] .
+
+epo-shape:epo-LocalLegalBasisInformation-epo-concernsProcurementElement a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:ProcurementElement ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Concerns procurement element" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:concernsProcurementElement ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsProcurementElement> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsProcurementElement> ?this .}" ] .
+
+epo-shape:epo-LocalLegalBasisInformation-epo-hasLegalBasis a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class skos:Concept ;
+    sh:maxCount 1 ;
+    sh:name "Has legal basis" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasLegalBasis .
 
 epo-shape:epo-LotAwardOutcome-epo-concernsLot a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
@@ -4208,6 +4295,21 @@ epo-shape:epo-ProcurementElement-epo-hasInternalIdentifier a sh:PropertyShape ;
     sh:path epo:hasInternalIdentifier ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasInternalIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasInternalIdentifier> ?this .}" ] .
 
+epo-shape:epo-ProcurementElement-epo-hasLegalBasis a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class skos:Concept ;
+    sh:description "The legal basis under which the procurement procedure takes place. Additional Information: For example European Directives or Regulations, national laws etc. The recommended code list is the example for the legal basis at the European level." ;
+    sh:name "Has legal basis" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasLegalBasis .
+
+epo-shape:epo-ProcurementElement-epo-hasLegalBasisDescription a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:description "Explanatory text about the legal basis." ;
+    sh:name "Has legal basis description" ;
+    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    sh:path epo:hasLegalBasisDescription .
+
 epo-shape:epo-ProcurementElement-epo-hasPurpose a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
     sh:class epo:Purpose ;
@@ -4290,21 +4392,6 @@ epo-shape:epo-ProcurementObject-epo-hasLaunchFrameworkAgreementMaximumValue a sh
     sh:nodeKind sh:IRI ;
     sh:path epo:hasLaunchFrameworkAgreementMaximumValue ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasLaunchFrameworkAgreementMaximumValue> ?that . ?that <http://data.europa.eu/a4g/ontology#hasLaunchFrameworkAgreementMaximumValue> ?this .}" ] .
-
-epo-shape:epo-ProcurementObject-epo-hasLegalBasis a sh:PropertyShape ;
-    rdfs:isDefinedBy epo-shape:core-shape ;
-    sh:class skos:Concept ;
-    sh:description "The legal basis under which the procurement procedure takes place. Additional Information: For example European Directives or Regulations, national laws etc. The recommended code list is the example for the legal basis at the European level." ;
-    sh:name "Has legal basis" ;
-    sh:nodeKind sh:IRI ;
-    sh:path epo:hasLegalBasis .
-
-epo-shape:epo-ProcurementObject-epo-hasLegalBasisDescription a sh:PropertyShape ;
-    rdfs:isDefinedBy epo-shape:core-shape ;
-    sh:description "Explanatory text about the legal basis." ;
-    sh:name "Has legal basis description" ;
-    sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
-    sh:path epo:hasLegalBasisDescription .
 
 epo-shape:epo-ProcurementObject-epo-hasRecurrenceDescription a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
@@ -4539,8 +4626,6 @@ epo-shape:epo-Quantity-epo-hasUnitDescription a sh:PropertyShape ;
 epo-shape:epo-ReviewDecision-epo-answersReviewRequest a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
     sh:class epo:ReviewRequest ;
-    sh:maxCount 1 ;
-    sh:minCount 1 ;
     sh:name "Answers review request" ;
     sh:nodeKind sh:IRI ;
     sh:path epo:answersReviewRequest ;
@@ -4877,6 +4962,33 @@ epo-shape:epo-SocialProcurement-epo-includesAccessibilityCriterion a sh:Property
     sh:name "Includes accessibility criterion" ;
     sh:nodeKind sh:IRI ;
     sh:path epo:includesAccessibilityCriterion .
+
+epo-shape:epo-SpecificationInformation-epo-hasSourceSpecificationCustomisation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class adms:Identifier ;
+    sh:maxCount 1 ;
+    sh:name "Has source specification customisation" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasSourceSpecificationCustomisation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasSourceSpecificationCustomisation> ?that . ?that <http://data.europa.eu/a4g/ontology#hasSourceSpecificationCustomisation> ?this .}" ] .
+
+epo-shape:epo-SpecificationInformation-epo-hasSourceVersionSpecification a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class adms:Identifier ;
+    sh:maxCount 1 ;
+    sh:name "Has source version specification" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasSourceVersionSpecification ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasSourceVersionSpecification> ?that . ?that <http://data.europa.eu/a4g/ontology#hasSourceVersionSpecification> ?this .}" ] .
+
+epo-shape:epo-SpecificationInformation-epo-isUsedInProfile a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class adms:Identifier ;
+    sh:maxCount 1 ;
+    sh:name "Is used in profile" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:isUsedInProfile ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isUsedInProfile> ?that . ?that <http://data.europa.eu/a4g/ontology#isUsedInProfile> ?this .}" ] .
 
 epo-shape:epo-StrategicProcurement-epo-hasStrategicProcurementDescription a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
@@ -5571,6 +5683,15 @@ epo-shape:epo-Winner-epo-needsToBeATenderer a sh:PropertyShape ;
     sh:path epo:needsToBeATenderer ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#needsToBeATenderer> ?that . ?that <http://data.europa.eu/a4g/ontology#needsToBeATenderer> ?this .}" ] .
 
+epo-shape:epo-acc-ESPDRequest-epo-acc-refersToNotice a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:Notice ;
+    sh:description "Reference to a Notice." ;
+    sh:name "Refers to notice" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToNotice ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToNotice> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToNotice> ?this .}" ] .
+
 epo-shape:epo-acc-ESPDRequest-epo-concernsProcedure a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
     sh:class epo:Procedure ;
@@ -5705,6 +5826,14 @@ epo-shape:epo-cat-AbstractItem-epo-hasSerialID a sh:PropertyShape ;
     sh:nodeKind sh:IRI ;
     sh:path epo:hasSerialID ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasSerialID> ?that . ?that <http://data.europa.eu/a4g/ontology#hasSerialID> ?this .}" ] .
+
+epo-shape:epo-cat-AbstractItem-epo-inv-hasItemClassificationIdentifier a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class adms:Identifier ;
+    sh:name "Has item classification identifier" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasItemClassificationIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasItemClassificationIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasItemClassificationIdentifier> ?this .}" ] .
 
 epo-shape:epo-cat-Batch-epo-hasBatchID a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
@@ -6344,7 +6473,7 @@ epo-shape:epo-ful-GoodsItem-epo-ful-hasTraceID a sh:PropertyShape ;
     sh:path epo:hasTraceID ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTraceID> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTraceID> ?this .}" ] .
 
-epo-shape:epo-ful-ReceiptAdvice-epo-ful-specifiesBuyer a sh:PropertyShape ;
+epo-shape:epo-ful-ReceiptAdvice-epo-specifiesBuyer a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
     sh:class epo:Buyer ;
     sh:maxCount 1 ;
@@ -6479,6 +6608,27 @@ epo-shape:epo-ful-TransportMeansOperator-epo-playedBy a sh:PropertyShape ;
     sh:path epo:playedBy ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#playedBy> ?that . ?that <http://data.europa.eu/a4g/ontology#playedBy> ?this .}" ] .
 
+epo-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentAccountIdentifier a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class adms:Identifier ;
+    sh:description "A unique identifier of the financial payment account, at a payment service provider, to which payment should be made." ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Has payment account identifier" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasPaymentAccountIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPaymentAccountIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPaymentAccountIdentifier> ?this .}" ] .
+
+epo-shape:epo-inv-CreditTransferInformation-epo-inv-hasPaymentServiceProviderIdentifier a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class adms:Identifier ;
+    sh:description "An identifier for the payment service provider where a payment account is located." ;
+    sh:maxCount 1 ;
+    sh:name "Has payment service provider identifier" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasPaymentServiceProviderIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPaymentServiceProviderIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPaymentServiceProviderIdentifier> ?this .}" ] .
+
 epo-shape:epo-inv-Invoice-epo-hasLotReference a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
     sh:class epo:Lot ;
@@ -6487,6 +6637,41 @@ epo-shape:epo-inv-Invoice-epo-hasLotReference a sh:PropertyShape ;
     sh:nodeKind sh:IRI ;
     sh:path epo:hasLotReference ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasLotReference> ?that . ?that <http://data.europa.eu/a4g/ontology#hasLotReference> ?this .}" ] .
+
+epo-shape:epo-inv-Invoice-epo-inv-hasInvoicedObjectIdentifier a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class adms:Identifier ;
+    sh:description "An identifier for an object on which the invoice is based, given by the Seller." ;
+    sh:maxCount 1 ;
+    sh:name "Has invoiced object identifier" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasInvoicedObjectIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasInvoicedObjectIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasInvoicedObjectIdentifier> ?this .}" ] .
+
+epo-shape:epo-inv-Invoice-epo-inv-hasInvoicingPeriod a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class time:Interval ;
+    sh:maxCount 1 ;
+    sh:name "Has invoicing period" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasInvoicingPeriod ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasInvoicingPeriod> ?that . ?that <http://data.europa.eu/a4g/ontology#hasInvoicingPeriod> ?this .}" ] .
+
+epo-shape:epo-inv-Invoice-epo-inv-hasTotalAccountingCurrencyTaxAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:MonetaryValue ;
+    sh:name "Has total accounting currency tax amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasTotalAccountingCurrencyTaxAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalAccountingCurrencyTaxAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalAccountingCurrencyTaxAmount> ?this .}" ] .
+
+epo-shape:epo-inv-Invoice-epo-inv-hasTotalTaxAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:MonetaryValue ;
+    sh:name "Has total tax amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasTotalTaxAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalTaxAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalTaxAmount> ?this .}" ] .
 
 epo-shape:epo-inv-Invoice-epo-ord-hasAmountDueForPayment a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
@@ -6595,6 +6780,65 @@ epo-shape:epo-inv-InvoiceLine-epo-cat-hasQuantity a sh:PropertyShape ;
     sh:nodeKind sh:IRI ;
     sh:path epo:hasQuantity ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasQuantity> ?that . ?that <http://data.europa.eu/a4g/ontology#hasQuantity> ?this .}" ] .
+
+epo-shape:epo-inv-InvoiceLine-epo-inv-hasInvoiceLineObjectIdentifier a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class adms:Identifier ;
+    sh:description "An identifier for an object on which the invoice line is based, given by the Seller. Additional Information: It may be a subscription number, telephone number, meter point etc., as applicable." ;
+    sh:maxCount 1 ;
+    sh:name "Has invoice line object identifier" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasInvoiceLineObjectIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasInvoiceLineObjectIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasInvoiceLineObjectIdentifier> ?this .}" ] .
+
+epo-shape:epo-inv-InvoiceLine-epo-inv-hasInvoiceLinePeriod a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class time:Interval ;
+    sh:maxCount 1 ;
+    sh:name "Has invoice line period" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasInvoiceLinePeriod ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasInvoiceLinePeriod> ?that . ?that <http://data.europa.eu/a4g/ontology#hasInvoiceLinePeriod> ?this .}" ] .
+
+epo-shape:epo-inv-InvoiceLine-epo-inv-hasNetAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:MonetaryValue ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Has net amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasNetAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasNetAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasNetAmount> ?this .}" ] .
+
+epo-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasBankingIdentifier a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class adms:Identifier ;
+    sh:description "An unique banking reference identifier of the Payee or Seller, assigned by the Payee or Seller bank." ;
+    sh:maxCount 1 ;
+    sh:name "Has banking identifier" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasBankingIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasBankingIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasBankingIdentifier> ?this .}" ] .
+
+epo-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasDebitedAccountIdentifier a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class adms:Identifier ;
+    sh:description "An identifier for the account to be debited by the direct debit." ;
+    sh:maxCount 1 ;
+    sh:name "Has debited account identifier" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasDebitedAccountIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasDebitedAccountIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasDebitedAccountIdentifier> ?this .}" ] .
+
+epo-shape:epo-inv-PaymentInstructionsInformation-epo-inv-hasMandateIdentifier a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class adms:Identifier ;
+    sh:description "An unique identifier for referencing the direct debit mandate, assigned by the Payee." ;
+    sh:maxCount 1 ;
+    sh:name "Has mandate identifier" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasMandateIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasMandateIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasMandateIdentifier> ?this .}" ] .
 
 epo-shape:epo-not-CompetitionNotice-epo-announcesLot a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
@@ -6872,6 +7116,15 @@ epo-shape:epo-not-PlanningNotice-epo-announcesLotGroup a sh:PropertyShape ;
     sh:nodeKind sh:IRI ;
     sh:path epo:announcesLotGroup ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesLotGroup> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesLotGroup> ?this .}" ] .
+
+epo-shape:epo-not-PlanningNotice-epo-announcesPlannedProcurement a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:PlannedProcurement ;
+    sh:maxCount 1 ;
+    sh:name "Announces planned procurement" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:announcesPlannedProcurement ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesPlannedProcurement> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesPlannedProcurement> ?this .}" ] .
 
 epo-shape:epo-not-PlanningNotice-epo-announcesPlannedProcurementPart a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
@@ -7285,6 +7538,79 @@ epo-shape:epo-ord-TaxInformation-epo-isCalculatedOn a sh:PropertyShape ;
     sh:path epo:isCalculatedOn ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isCalculatedOn> ?that . ?that <http://data.europa.eu/a4g/ontology#isCalculatedOn> ?this .}" ] .
 
+epo-shape:epo-pay-PaymentInformation-epo-pay-hasPaymentIdentifier a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class adms:Identifier ;
+    sh:maxCount 1 ;
+    sh:name "Has payment identifier" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasPaymentIdentifier ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPaymentIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPaymentIdentifier> ?this .}" ] .
+
+epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalCreditAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:MonetaryValue ;
+    sh:maxCount 1 ;
+    sh:name "Has total credit amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasTotalCreditAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalCreditAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalCreditAmount> ?this .}" ] .
+
+epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalDebitAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:MonetaryValue ;
+    sh:maxCount 1 ;
+    sh:name "Has total debit amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasTotalDebitAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalDebitAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalDebitAmount> ?this .}" ] .
+
+epo-shape:epo-pay-RemittanceAdvice-epo-pay-hasTotalPaymentAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:MonetaryValue ;
+    sh:maxCount 1 ;
+    sh:name "Has total payment amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasTotalPaymentAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalPaymentAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalPaymentAmount> ?this .}" ] .
+
+epo-shape:epo-pay-RemittanceAdvice-epo-specifiesBuyer a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:Buyer ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Specifies buyer" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:specifiesBuyer ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesBuyer> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesBuyer> ?this .}" ] .
+
+epo-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasBalanceAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:MonetaryValue ;
+    sh:maxCount 1 ;
+    sh:name "Has balance amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasBalanceAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasBalanceAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasBalanceAmount> ?this .}" ] .
+
+epo-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasCreditAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:MonetaryValue ;
+    sh:maxCount 1 ;
+    sh:name "Has credit amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasCreditAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasCreditAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasCreditAmount> ?this .}" ] .
+
+epo-shape:epo-pay-RemittanceAdviceLine-epo-pay-hasDebitAmount a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:MonetaryValue ;
+    sh:maxCount 1 ;
+    sh:name "Has debit amount" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:hasDebitAmount ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasDebitAmount> ?that . ?that <http://data.europa.eu/a4g/ontology#hasDebitAmount> ?this .}" ] .
+
 epo-shape:epo-qua-EvidenceOutcome-epo-specifiesEvidence a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
     sh:class <http://data.europa.eu/m8g/Evidence> ;
@@ -7424,6 +7750,34 @@ epo-shape:epo-req-RequestForOffer-epo-specifiesContractor a sh:PropertyShape ;
     sh:path epo:specifiesContractor ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesContractor> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesContractor> ?this .}" ] .
 
+epo-shape:epo-sub-ESPD-epo-sub-isContainedInTender a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:Tender ;
+    sh:name "Is contained in tender" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:isContainedInTender ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isContainedInTender> ?that . ?that <http://data.europa.eu/a4g/ontology#isContainedInTender> ?this .}" ] .
+
+epo-shape:epo-sub-ESPD-epo-sub-providesInformationOn a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class org:Organization ;
+    sh:description "Offers information about an instance of a concept." ;
+    sh:name "Provides information on" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:providesInformationOn ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#providesInformationOn> ?that . ?that <http://data.europa.eu/a4g/ontology#providesInformationOn> ?this .}" ] .
+
+epo-shape:epo-sub-EvidenceInformation-epo-sub-summarisesInformationAboutEvidence a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class <http://data.europa.eu/m8g/Evidence> ;
+    sh:description "Relation indicating the Certificate that the information refers to." ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Summarises information about evidence" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:summarisesInformationAboutEvidence ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#summarisesInformationAboutEvidence> ?that . ?that <http://data.europa.eu/a4g/ontology#summarisesInformationAboutEvidence> ?this .}" ] .
+
 epo-shape:epo-sub-LegalRepresentative-epo-actsOnBehalfOf a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
     sh:class epo:OfferingParty ;
@@ -7432,6 +7786,65 @@ epo-shape:epo-sub-LegalRepresentative-epo-actsOnBehalfOf a sh:PropertyShape ;
     sh:nodeKind sh:IRI ;
     sh:path epo:actsOnBehalfOf ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#actsOnBehalfOf> ?that . ?that <http://data.europa.eu/a4g/ontology#actsOnBehalfOf> ?this .}" ] .
+
+epo-shape:epo-sub-OrganisationInformationSummary-epo-sub-concernsOrganisation a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class org:Organization ;
+    sh:description "Relates to Organization." ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    sh:name "Concerns organisation" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:concernsOrganisation ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsOrganisation> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsOrganisation> ?this .}" ] .
+
+epo-shape:epo-sub-OrganisationInformationSummary-epo-sub-providesOrganisationEmployeeQuantity a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:Quantity ;
+    sh:description "The number of people hired by the Organization." ;
+    sh:maxCount 1 ;
+    sh:name "Provides organisation employee quantity" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:providesOrganisationEmployeeQuantity ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#providesOrganisationEmployeeQuantity> ?that . ?that <http://data.europa.eu/a4g/ontology#providesOrganisationEmployeeQuantity> ?this .}" ] .
+
+epo-shape:epo-sub-OrganisationInformationSummary-epo-sub-providesOrganisationFinancialCapability a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class epo:MonetaryValue ;
+    sh:description "A monetary amount representing the financial capability of the Organization. Additional information: Used to represent the general Turnover of the Organization (for statistical purposes)." ;
+    sh:maxCount 1 ;
+    sh:name "Provides organisation financial capability" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:providesOrganisationFinancialCapability ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#providesOrganisationFinancialCapability> ?that . ?that <http://data.europa.eu/a4g/ontology#providesOrganisationFinancialCapability> ?this .}" ] .
+
+epo-shape:epo-sub-Response-epo-sub-answersQuestion a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class <http://data.europa.eu/m8g/InformationRequirement> ;
+    sh:description "Relation indicating that the Response replies to a question." ;
+    sh:name "Answers question" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:answersQuestion ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#answersQuestion> ?that . ?that <http://data.europa.eu/a4g/ontology#answersQuestion> ?this .}" ] .
+
+epo-shape:epo-sub-Response-epo-sub-isReinforcedBy a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class <http://data.europa.eu/m8g/Evidence> ;
+    sh:description "Relation indicating an Evidence that supports the Response." ;
+    sh:name "Is reinforced by" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:isReinforcedBy ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isReinforcedBy> ?that . ?that <http://data.europa.eu/a4g/ontology#isReinforcedBy> ?this .}" ] .
+
+epo-shape:epo-sub-Response-epo-sub-refersToApplicablePeriod a sh:PropertyShape ;
+    rdfs:isDefinedBy epo-shape:core-shape ;
+    sh:class time:Interval ;
+    sh:description "Relation indicating the period to which the Response shall apply." ;
+    sh:maxCount 1 ;
+    sh:name "Refers to applicable period" ;
+    sh:nodeKind sh:IRI ;
+    sh:path epo:refersToApplicablePeriod ;
+    sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToApplicablePeriod> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToApplicablePeriod> ?this .}" ] .
 
 epo-shape:foaf-Agent-epo-hasAlias a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:core-shape ;
@@ -7627,13 +8040,13 @@ epo-shape:core-shape a owl:Ontology ;
     rdfs:label "eProcurement Ontology - core shapes"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology core shapes provides the generic datashape specifications for the eProcurement Ontology core."@en ;
-    dcterms:issued "2025-05-15"^^xsd:date ;
+    dcterms:issued "2025-06-04"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology - core shapes"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from ePO_core.xml on 2025-05-15" ;
+    rdfs:comment "This version is automatically generated from ePO_core.xml on 2025-06-04" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
@@ -7647,11 +8060,12 @@ epo-shape:core-shape a owl:Ontology ;
         epo-shape:inv-shape,
         epo-shape:not-shape,
         epo-shape:ord-shape,
+        epo-shape:pay-shape,
         epo-shape:qua-shape,
         epo-shape:req-shape,
         epo-shape:sub-shape ;
     owl:incompatibleWith "4.2.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/data-shape#core-shape-4.2.0" ;
-    owl:versionIRI epo-shape:core-shape-5.0.0 ;
-    owl:versionInfo "5.0.0" .
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#core-shape-5.0.0" ;
+    owl:versionIRI epo-shape:core-shape-5.1.0 ;
+    owl:versionInfo "5.1.0" .
 

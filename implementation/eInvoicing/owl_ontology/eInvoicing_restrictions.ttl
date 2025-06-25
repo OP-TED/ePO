@@ -19,6 +19,9 @@ epo:hasInvoiceNote rdfs:domain epo:Invoice ;
 epo:hasInvoiceNoteSubject rdfs:domain epo:InvoiceNote ;
     rdfs:range skos:Concept .
 
+epo:hasPaymentInstructionsInformation rdfs:domain epo:Invoice ;
+    rdfs:range epo:PaymentInstructionsInformation .
+
 epo:hasPaymentMeansType rdfs:domain epo:PaymentInstructionsInformation ;
     rdfs:range skos:Concept .
 
@@ -47,14 +50,14 @@ epo:inv-restriction a owl:Ontology ;
     rdfs:label "eProcurement Ontology Invoicing - core restrictions"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Invoicing core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Invoicing core."@en ;
-    dcterms:issued "2025-05-15"^^xsd:date ;
+    dcterms:issued "2025-06-04"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology Invoicing - core restrictions"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment """This version is automatically generated from eInvoicing.xml on 
-                2025-05-15""" ;
+                2025-06-04""" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
@@ -74,9 +77,9 @@ epo:inv-restriction a owl:Ontology ;
         org:,
         <http://www.w3.org/ns/person> ;
     owl:incompatibleWith "4.2.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/ontology#inv-restriction-4.2.0" ;
-    owl:versionIRI epo:inv-restriction-5.0.0 ;
-    owl:versionInfo "5.0.0" .
+    owl:priorVersion "http://data.europa.eu/a4g/ontology#inv-restriction-5.0.0" ;
+    owl:versionIRI epo:inv-restriction-5.1.0 ;
+    owl:versionInfo "5.1.0" .
 
 epo:isSpecificToInvoiceLine rdfs:domain [ a owl:Class ;
             owl:unionOf ( epo:ChargeInformation epo:AllowanceInformation ) ] ;
@@ -87,6 +90,18 @@ epo:specifiesAllowanceInformation rdfs:domain epo:Invoice ;
 
 epo:specifiesChargeInformation rdfs:domain epo:Invoice ;
     rdfs:range epo:ChargeInformation .
+
+epo:PaymentInformation rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasPaymentMeansInformation ] .
+
+epo:RemittanceAdvice rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:specifiesPayee ] .
+
+epo:RemittanceAdviceLine rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:refersToInvoice ] .
 
 epo:comprisesCreditNoteLine rdfs:domain epo:CreditNote ;
     rdfs:range epo:CreditNoteLine .
@@ -153,11 +168,12 @@ epo:hasPaymentCardPrimaryAccountNumber a owl:FunctionalProperty ;
 epo:hasPaymentDueDate rdfs:domain epo:Invoice ;
     rdfs:range xsd:date .
 
-epo:hasPaymentInstructionsInformation rdfs:domain epo:Invoice ;
-    rdfs:range epo:PaymentInstructionsInformation .
-
 epo:hasPaymentMeansDescription rdfs:domain epo:PaymentInstructionsInformation ;
     rdfs:range rdf:PlainLiteral .
+
+epo:hasPaymentMeansInformation a owl:FunctionalProperty ;
+    rdfs:domain epo:PaymentInformation ;
+    rdfs:range epo:PaymentInstructionsInformation .
 
 epo:hasPaymentServiceProviderIdentifier rdfs:domain epo:CreditTransferInformation ;
     rdfs:range adms:Identifier .
@@ -205,9 +221,6 @@ epo:refersToContract rdfs:domain epo:Invoice ;
 epo:refersToDespatchAdvice rdfs:domain epo:Invoice ;
     rdfs:range epo:DespatchAdvice .
 
-epo:refersToInvoice rdfs:domain epo:CreditNote ;
-    rdfs:range epo:Invoice .
-
 epo:refersToOrder rdfs:domain epo:Invoice ;
     rdfs:range epo:Order .
 
@@ -227,9 +240,6 @@ epo:specifiesBuyer a owl:FunctionalProperty ;
 epo:specifiesDeliveryInformation rdfs:domain epo:Invoice ;
     rdfs:range epo:DeliveryInformation .
 
-epo:specifiesPayee rdfs:domain epo:Invoice ;
-    rdfs:range epo:Payee .
-
 epo:specifiesSeller a owl:FunctionalProperty ;
     rdfs:domain epo:Invoice ;
     rdfs:range epo:Seller .
@@ -238,15 +248,23 @@ epo:specifiesSellerTaxRepresentative rdfs:domain epo:Invoice ;
     rdfs:range epo:SellerTaxRepresentative .
 
 epo:CreditNote rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:comprisesCreditNoteLine ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:refersToInvoice ] .
+            owl:onProperty epo:refersToInvoice ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:comprisesCreditNoteLine ] .
 
 epo:CreditNoteLine rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:isSubmittedForInvoiceLine ] .
+
+epo:refersToInvoice rdfs:domain [ a owl:Class ;
+            owl:unionOf ( epo:CreditNote epo:RemittanceAdviceLine ) ] ;
+    rdfs:range epo:Invoice .
+
+epo:specifiesPayee rdfs:domain [ a owl:Class ;
+            owl:unionOf ( epo:Invoice epo:RemittanceAdvice ) ] ;
+    rdfs:range epo:Payee .
 
 epo:InvoiceNote rdfs:subClassOf [ a owl:Restriction ;
             owl:cardinality 1 ;
@@ -258,11 +276,11 @@ epo:hasTaxInformation a owl:FunctionalProperty ;
     rdfs:range epo:TaxInformation .
 
 epo:PaymentCardInformation rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPaymentCardHolderName ],
-        [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:hasPaymentCardPrimaryAccountNumber ] .
+            owl:onProperty epo:hasPaymentCardPrimaryAccountNumber ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasPaymentCardHolderName ] .
 
 epo:TaxBreakdownInformation rdfs:subClassOf [ a owl:Restriction ;
             owl:cardinality 1 ;
@@ -272,138 +290,135 @@ epo:TaxBreakdownInformation rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty epo:hasTaxExemptionReasonDescription ] .
 
 epo:CreditTransferInformation rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPaymentAccountName ],
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasPaymentAccountIdentifier ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasPaymentServiceProviderIdentifier ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasPaymentAccountIdentifier ] .
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasPaymentAccountName ] .
 
 epo:InvoiceLine rdfs:subClassOf [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasNetAmount ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasInvoiceLineObjectIdentifier ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasInvoiceLinePeriod ],
+            owl:onProperty epo:refersToOrderLine ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasTaxInformation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:refersToOrderLine ],
+            owl:onProperty epo:hasInvoiceLinePeriod ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty epo:hasPrice ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:hasTaxInformation ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasQuantity ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasNetAmount ] .
+            owl:onProperty epo:hasQuantity ] .
 
 epo:PaymentInstructionsInformation rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasRemittanceInformation ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasBankingIdentifier ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPaymentCardInformation ],
+            owl:onProperty epo:hasDebitedAccountIdentifier ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:hasMandateIdentifier ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasDebitedAccountIdentifier ],
+            owl:onProperty epo:hasPaymentMeansDescription ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPaymentMeansDescription ] .
+            owl:onProperty epo:hasBankingIdentifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasPaymentCardInformation ] .
 
 epo:Invoice rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:refersToProject ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:refersToDespatchAdvice ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasInvoicingPeriod ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasRoundingAmount ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:specifiesSeller ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPaymentDueDate ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:specifiesBuyer ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty epo:hasTaxInformation ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:comprisesInvoiceLine ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:refersToContract ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasAccountingCost ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasInvoicedObjectIdentifier ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:specifiesSellerTaxRepresentative ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPaymentTerm ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:hasTotalTaxExclusiveAmount ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:hasTotalTaxInclusiveAmount ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:specifiesPayee ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:refersToReceiptAdvice ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty epo:hasTotalLineAmount ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasPaymentInstructionsInformation ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty epo:hasTaxPointDate ],
+            owl:onProperty epo:refersToContract ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty epo:hasTaxBreakdownInformation ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
+            owl:onProperty epo:hasTotalLineAmount ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasTaxInformation ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:specifiesBuyer ],
+        [ a owl:Restriction ;
+            owl:cardinality 1 ;
+            owl:onProperty epo:hasAmountDueForPayment ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasInvoicingPeriod ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasAccountingCost ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasTaxPointDate ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:specifiesSellerTaxRepresentative ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:refersToProject ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasPaymentDueDate ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasInvoicedObjectIdentifier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:comprisesInvoiceLine ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:hasTotalTaxExclusiveAmount ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:refersToDespatchAdvice ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:hasRoundingAmount ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
             owl:onProperty epo:hasLotReference ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty epo:refersToOrder ],
+            owl:onProperty epo:hasPaymentTerm ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty epo:specifiesDeliveryInformation ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty epo:hasAmountDueForPayment ] .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( epo:Payee epo:SellerTaxRepresentative ) .
+            owl:onProperty epo:specifiesSeller ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty epo:hasTotalTaxInclusiveAmount ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:refersToOrder ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:refersToReceiptAdvice ] .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( epo:CreditTransferInformation epo:PaymentCardInformation epo:PaymentInstructionsInformation ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( epo:Payee epo:SellerTaxRepresentative ) .
 
