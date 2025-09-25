@@ -172,4 +172,17 @@
     <xsl:variable name="licenseLiteral" select="'© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/).'"/>
     <!--    dct:publisher-->
     <xsl:variable name="publisher" select="'http://publications.europa.eu/resource/authority/corporate-body/PUBL'"/>
+    
+    <!-- JSON metadata configuration -->
+    <xsl:variable name="metadataJson" select="fn:json-doc('metadata.json')"/>
+
+    <!-- suffix for URIs of sh:NodeShape instances in the SHACL artefact -->
+    <xsl:variable name="nodeShapeURIsuffix" select="'Shape'"/>
+
+    <xsl:variable name="generateReusedConceptsJSONLDcontext" select="fn:true()"/>
+    <!-- If true, this option will annotate all SHACL concepts in the shapes
+    artefact with the ontology IRI defined therein, using rdfs:isDefinedBy. -->
+    <xsl:variable name="annotateShaclConceptsWithOntology" select="fn:true()"/>
+
+    <xsl:variable name="moduleReference" select="'core'"/>
 </xsl:stylesheet>
