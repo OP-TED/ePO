@@ -1,8 +1,5 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
-@prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix eli: <http://data.europa.eu/eli/ontology#> .
-@prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -37,37 +34,36 @@
     rdfs:range :LotGroup .
 
 :not-restriction a owl:Ontology ;
-    rdfs:label "eProcurement Ontology Notice - core restrictions"@en ;
-    dcterms:created "2021-06-01"^^xsd:date ;
-    dcterms:description "The eProcurement Ontology Notice core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Notice core."@en ;
-    dcterms:issued "2025-09-25"^^xsd:date ;
-    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+    rdfs:label """This artefact provides the restrictions and inference-related specifications for the eProcurement Ontology Core.
+        This artefact excludes the definitions of concepts.
+        The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+        The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."""@en ;
+    dcterms:created "2025-09-04"^^xsd:date ;
+    dcterms:description """This artefact provides the restrictions and inference-related specifications for the eProcurement Ontology Core.
+        This artefact excludes the definitions of concepts.
+        The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+        The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."""@en ;
+    dcterms:issued "2025-09-04"^^xsd:date ;
+    dcterms:license "CC BY 4.0" ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
-    dcterms:title "eProcurement Ontology Notice - core restrictions"@en ;
+    dcterms:title "ePO Core restrictions"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment """This version is automatically generated from eNotice.xml on 
                 2025-09-25""" ;
-    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
-        <https://github.com/OP-TED/ePO/releases>,
+    rdfs:seeAlso <https://docs.ted.europa.eu/EPO/latest/index.html>,
+        <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :con,
-        :core,
-        :not,
-        eli:,
-        cccev:,
+    owl:imports :not,
         dcterms:,
         skos:,
-        <http://www.w3.org/2006/time>,
         <http://www.w3.org/ns/adms>,
-        <http://www.w3.org/ns/locn>,
-        org:,
-        <http://www.w3.org/ns/person> ;
-    owl:incompatibleWith "4.2.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/ontology#not-restriction-4.2.0" ;
-    owl:versionIRI :not-restriction-5.0.0 ;
-    owl:versionInfo "5.0.0" .
+        <https://data.europa.eu/m8g> ;
+    owl:incompatibleWith "2.1.0" ;
+    owl:priorVersion "http://data.europa.eu/a4g/ontology#not-restriction-3.0.1" ;
+    owl:versionIRI :not-restriction-3.1.0 ;
+    owl:versionInfo "3.1.0" .
 
 :preparesForPotentialProcurementObject rdfs:domain :PreMarketConsultationNotice ;
     rdfs:range :ProcurementObject .
@@ -135,102 +131,108 @@
             owl:unionOf ( :CompletionNotice :ContractModificationNotice :ResultNotice ) ] ;
     rdfs:range :Procedure .
 
-:NoticeAwardInformation rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :describesResultNotice ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :describesDirectAwardPrenotificationNotice ] .
-
 :CompetitionNotice rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :announcesLot ],
+            owl:onProperty :announcesRole ;
+            owl:someValuesFrom :AgentInRole ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :announcesRole ],
+            owl:onProperty :announcesLot ;
+            owl:someValuesFrom :Lot ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :announcesProcedure ] .
+            owl:onClass :Procedure ;
+            owl:onProperty :announcesProcedure ;
+            owl:qualifiedCardinality 1 ] .
 
 :PlanningNotice rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass :Procedure ;
             owl:onProperty :announcesProcedure ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :announcesRole ] .
+            owl:onProperty :announcesRole ;
+            owl:someValuesFrom :AgentInRole ] .
+
+:NoticeAwardInformation rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass :DirectAwardPrenotificationNotice ;
+            owl:onProperty :describesDirectAwardPrenotificationNotice ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass :ResultNotice ;
+            owl:onProperty :describesResultNotice ] .
 
 :ContractModificationNotice rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :concernsProcedure ],
+            owl:onClass :Procedure ;
+            owl:onProperty :concernsProcedure ;
+            owl:qualifiedCardinality 1 ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :refersToNoticeAwardInformation ],
+            owl:onClass :ContractAmendment ;
+            owl:onProperty :announcesContractAmendment ;
+            owl:qualifiedCardinality 1 ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :refersToContractToBeModified ],
+            owl:onProperty :concernsLot ;
+            owl:someValuesFrom :Lot ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :concernsLot ],
+            owl:onClass :Contract ;
+            owl:onProperty :refersToContractToBeModified ;
+            owl:qualifiedCardinality 1 ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :announcesContractAmendment ] .
-
-:DirectAwardPrenotificationNotice rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :announcesNoticeAwardInformation ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :announcesLot ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :announcesRole ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :announcesProcedure ] .
-
-:CompletionNotice rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :concernsLot ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :announcesCompletionOfContract ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :concernsProcedure ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass :NoticeAwardInformation ;
             owl:onProperty :refersToNoticeAwardInformation ] .
 
-:ResultNotice rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+:CompletionNotice rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass :NoticeAwardInformation ;
+            owl:onProperty :refersToNoticeAwardInformation ],
+        [ a owl:Restriction ;
+            owl:onProperty :concernsLot ;
+            owl:someValuesFrom :Lot ],
+        [ a owl:Restriction ;
+            owl:onClass :Contract ;
+            owl:onProperty :announcesCompletionOfContract ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
+            owl:onClass :Procedure ;
+            owl:onProperty :concernsProcedure ;
+            owl:qualifiedCardinality 1 ] .
+
+:DirectAwardPrenotificationNotice rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass :Procedure ;
+            owl:onProperty :announcesProcedure ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
+            owl:onProperty :announcesRole ;
+            owl:someValuesFrom :AgentInRole ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass :NoticeAwardInformation ;
             owl:onProperty :announcesNoticeAwardInformation ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :concernsLot ],
+            owl:onProperty :announcesLot ;
+            owl:someValuesFrom :Lot ] .
+
+:ResultNotice rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :concernsLot ;
+            owl:someValuesFrom :Lot ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :refersToRole ],
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass :NoticeAwardInformation ;
+            owl:onProperty :announcesNoticeAwardInformation ],
         [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :concernsProcedure ] .
+            owl:onClass :Procedure ;
+            owl:onProperty :concernsProcedure ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
+            owl:onProperty :refersToRole ;
+            owl:someValuesFrom :AgentInRole ] .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :CNSocialNotice-D25 :Notice20 :CNSocial-D25 :Notice21 ) .
+    owl:members ( :NoticeE2 :Notice4 :Notice5 :Notice6 :PINOnly-D24 :PINOnly-D25 ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :CANDefence-D81 :CANTransportationNotice :CANSocialNotice :CANStandardNotice :DesignContestResultNotice ) .
+    owl:members ( :Notice16 :Notice19 :CNStandard-D24 :Notice18 :Notice17 :NoticeE3 ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :Notice31 :CANStandard-D24 :Notice30 :Notice32 :NoticeE4 :Notice29 ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :DesignContest-D24 :DesignContest-D25 :Notice23 :Notice24 ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Notice33 :CANSocial-D25 :Notice35 :CANSocialNotice-D25 :Notice34 ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :QS-D25 :QSNotice-D25 :Notice15 ) .
+    owl:members ( :VEAT-D81 :VEAT-D23 :VEAT-D24 :Notice25 :Notice27 :Notice26 :VEAT-D25 :Notice28 ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :Notice2 :PINProfile-D25 :PINProfile-D81 :Notice3 :PINProfile-D24 :Notice1 ) .
@@ -239,28 +241,40 @@
     owl:members ( :Notice36 :Notice37 :DesignContestResult-D25 :DesignContestResult-D24 ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :PIN-CFCStandard-D24 :Notice11 :Notice10 ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Notice14 :Notice13 :Notice12 :PIN-CFCSocialNotice-D25 :PIN-CFCSocial-D25 ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Subcontract-D81 :Notice22 ) .
+    owl:members ( :CANDefence-D81 :CANTransportationNotice :CANSocialNotice :CANStandardNotice :DesignContestResultNotice ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :PINTimeLimitNotice :PINOnlyNotice :PINTransportationNotice :PINDefence-D81 :PINProfileNotice ) .
 
 [] a owl:AllDisjointClasses ;
+    owl:members ( :QS-D25 :QSNotice-D25 :Notice15 ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Notice33 :CANSocial-D25 :Notice35 :CANSocialNotice-D25 :Notice34 ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Subcontract-D81 :Notice22 ) .
+
+[] a owl:AllDisjointClasses ;
     owl:members ( :PIN-RTL-D25 :Notice9 :PIN-RTL-D24 :Notice7 :Notice8 ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :VEAT-D81 :VEAT-D23 :VEAT-D24 :Notice25 :Notice27 :Notice26 :VEAT-D25 :Notice28 ) .
+    owl:members ( :DesignContest-D24 :DesignContest-D25 :Notice23 :Notice24 ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :CANSocialNotice-D25 :VEAT-D25 :CNSocialNotice-D25 :PIN-CFCSocialNotice-D25 :PINOnly-D24 :SocialAndOtherSpecificServices-D23 :PINProfile-D24 :DesignContestResult-D24 :DesignContestResult-D25 :DesignContest-D25 :VEAT-D81 :PIN-RTL-D24 :PINOnly-D25 :CANStandard-D24 :PINProfile-D25 :CNDefence-D81 :PIN-RTL-D25 :SocialAndOtherSpecificServices-D24 :ConcessionNotice-D23 :Modification-D24 :CNStandard-D24 :DesignContest-D24 :QSNotice-D25 :CNSocial-D25 :Modification-D25 :CANSocial-D25 :PIN-CFCSocial-D25 :PINProfile-D81 :VEAT-D24 :QS-D25 :Subcontract-D81 :VEAT-D23 :ConcessionAwardNotice-D23 :PIN-CFCStandard-D24 :CANDefence-D81 :Modification-D23 ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :NoticeE2 :Notice4 :Notice5 :Notice6 :PINOnly-D24 :PINOnly-D25 ) .
+    owl:members ( :CNSocialNotice-D25 :Notice20 :CNSocial-D25 :Notice21 ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Notice31 :CANStandard-D24 :Notice30 :Notice32 :NoticeE4 :Notice29 ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :PIN-CFCStandard-D24 :Notice11 :Notice10 ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Notice13 :NoticeE6 :NoticeE2 :NoticeE3 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :NoticeCEI :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :NoticeT02 :Notice24 :Notice35 :Notice39 :Notice17 :NoticeE5 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :NoticeE1 :Notice6 :NoticeE4 :Notice36 :Notice16 :NoticeT01 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
 
 [] a owl:AllDisjointClasses ;
     owl:members ( :CallForExpressionOfInterest :PIN-CFCStandardNotice :PIN-CFCSocialNotice :CNSocialNotice :QSNotice :CNStandardNotice :DesignContestNotice :SubcontractNotice ) .
@@ -272,8 +286,5 @@
     owl:members ( :Modification-D24 :Notice39 :NoticeE6 :Modification-D25 :Notice38 :Modification-D23 :Notice40 ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :Notice13 :NoticeE6 :NoticeE2 :NoticeE3 :Notice12 :Notice40 :Notice9 :Notice20 :Notice26 :Notice31 :Notice8 :Notice19 :Notice29 :Notice5 :NoticeCEI :Notice21 :Notice14 :Notice7 :Notice10 :Notice1 :Notice30 :Notice32 :Notice11 :NoticeT02 :Notice24 :Notice35 :Notice39 :Notice17 :NoticeE5 :Notice34 :Notice38 :Notice15 :Notice28 :Notice37 :NoticeE1 :Notice6 :NoticeE4 :Notice36 :Notice16 :NoticeT01 :Notice23 :Notice4 :Notice25 :Notice3 :Notice22 :Notice27 :Notice18 :Notice2 :Notice33 ) .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :Notice16 :Notice19 :CNStandard-D24 :Notice18 :Notice17 :NoticeE3 ) .
+    owl:members ( :Notice14 :Notice13 :Notice12 :PIN-CFCSocialNotice-D25 :PIN-CFCSocial-D25 ) .
 

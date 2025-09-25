@@ -1,9 +1,7 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix acc-shape: <http://data.europa.eu/a4g/data-shape#> .
-@prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix eli: <http://data.europa.eu/eli/ontology#> .
-@prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
@@ -15,16 +13,16 @@ acc-shape:eli-LegalExpression-eli-jurisdiction a sh:PropertyShape ;
     sh:class skos:Concept ;
     sh:path eli:jurisdiction .
 
-acc-shape:eli-LegalResource sh:property acc-shape:eli-LegalResource-epo-hasResourceType .
-
 acc-shape:eli-LegalResource-eli-jurisdiction a sh:PropertyShape ;
     sh:class skos:Concept ;
     sh:path eli:jurisdiction .
 
-acc-shape:eli-LegalResourceSubdivision sh:property acc-shape:eli-LegalResourceSubdivision-epo-hasSubdivision .
+acc-shape:eli-LegalResourceShape sh:property acc-shape:eli-LegalResource-epo-hasResourceType .
 
-acc-shape:epo-acc-ESPDRequest a sh:NodeShape ;
-    rdfs:label "ESPD Request" ;
+acc-shape:eli-LegalResourceSubdivisionShape sh:property acc-shape:eli-LegalResourceSubdivision-epo-hasSubdivision .
+
+acc-shape:epo-acc-ESPDRequestShape a sh:NodeShape ;
+    rdfs:label "ESPD request" ;
     rdfs:comment "A document issued by a buyer defining how the Exclusion Grounds and the Selection Criteria should be addressed in a European Single Procurement Document for a specific procurement." ;
     rdfs:isDefinedBy acc-shape:acc-shape ;
     sh:property acc-shape:epo-acc-ESPDRequest-epo-acc-refersToNotice,
@@ -32,81 +30,84 @@ acc-shape:epo-acc-ESPDRequest a sh:NodeShape ;
         acc-shape:epo-acc-ESPDRequest-epo-specifiesProcurementCriterion ;
     sh:targetClass :ESPDRequest .
 
-acc-shape:epo-sub-ESPD sh:property acc-shape:epo-sub-ESPD-epo-sub-relatesToESPDRequest .
-
-acc-shape:acc-shape a owl:Ontology ;
-    rdfs:label "eProcurement Ontology Access - core shapes"@en ;
-    dcterms:created "2021-06-01"^^xsd:date ;
-    dcterms:description "The eProcurement Ontology Access core shapes provides the generic datashape specifications for the eProcurement Ontology Access core."@en ;
-    dcterms:issued "2025-09-25"^^xsd:date ;
-    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
-    dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
-    dcterms:title "eProcurement Ontology Access - core shapes"@en ;
-    vann:preferredNamespacePrefix "epo" ;
-    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eAccess.xml on 2025-09-25" ;
-    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
-        <https://github.com/OP-TED/ePO/releases>,
-        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
-        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :acc,
-        :acc-restriction,
-        :core,
-        :sub,
-        eli:,
-        cccev:,
-        dcterms:,
-        skos:,
-        <http://www.w3.org/2006/time>,
-        <http://www.w3.org/ns/adms>,
-        <http://www.w3.org/ns/locn>,
-        org:,
-        <http://www.w3.org/ns/person> ;
-    owl:incompatibleWith "4.2.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/data-shape#acc-shape-4.2.0" ;
-    owl:versionIRI acc-shape:acc-shape-5.0.0 ;
-    owl:versionInfo "5.0.0" .
+acc-shape:epo-sub-ESPDShape sh:property acc-shape:epo-sub-ESPD-epo-sub-relatesToESPDRequest .
 
 acc-shape:eli-LegalResource-epo-hasResourceType a sh:PropertyShape ;
+    rdfs:isDefinedBy acc-shape:acc-shape ;
     sh:class skos:Concept ;
     sh:minCount 1 ;
-    sh:name "has Resource Type" ;
+    sh:name "Has resource type" ;
     sh:path :hasResourceType .
 
 acc-shape:eli-LegalResourceSubdivision-epo-hasSubdivision a sh:PropertyShape ;
+    rdfs:isDefinedBy acc-shape:acc-shape ;
     sh:class skos:Concept ;
     sh:maxCount 1 ;
-    sh:name "has Subdivision" ;
+    sh:name "Has subdivision" ;
     sh:path :hasSubdivision .
 
 acc-shape:epo-acc-ESPDRequest-epo-acc-refersToNotice a sh:PropertyShape ;
+    rdfs:isDefinedBy acc-shape:acc-shape ;
     sh:class :Notice ;
     sh:description "Reference to a Notice." ;
-    sh:name "refers To Notice" ;
+    sh:name "Refers to notice" ;
     sh:path :refersToNotice ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToNotice> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToNotice> ?this .}" ] .
 
 acc-shape:epo-acc-ESPDRequest-epo-concernsProcedure a sh:PropertyShape ;
+    rdfs:isDefinedBy acc-shape:acc-shape ;
     sh:class :Procedure ;
     sh:description "Relates to Procedure." ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "concerns Procedure" ;
+    sh:name "Concerns procedure" ;
     sh:path :concernsProcedure ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsProcedure> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsProcedure> ?this .}" ] .
 
 acc-shape:epo-acc-ESPDRequest-epo-specifiesProcurementCriterion a sh:PropertyShape ;
+    rdfs:isDefinedBy acc-shape:acc-shape ;
     sh:class :ProcurementCriterion ;
     sh:minCount 1 ;
-    sh:name "specifies Procurement Criterion" ;
+    sh:name "Specifies procurement criterion" ;
     sh:path :specifiesProcurementCriterion ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesProcurementCriterion> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesProcurementCriterion> ?this .}" ] .
 
 acc-shape:epo-sub-ESPD-epo-sub-relatesToESPDRequest a sh:PropertyShape ;
+    rdfs:isDefinedBy acc-shape:acc-shape ;
     sh:class :ESPDRequest ;
     sh:description "Is about an European Single Procurement Document (ESPD) Request." ;
     sh:maxCount 1 ;
-    sh:name "relates To ESPD Request" ;
+    sh:name "Relates to ESPD request" ;
     sh:path :relatesToESPDRequest ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#relatesToESPDRequest> ?that . ?that <http://data.europa.eu/a4g/ontology#relatesToESPDRequest> ?this .}" ] .
+
+acc-shape:acc-shape a owl:Ontology ;
+    rdfs:label """This artefact provides the generic datashape specifications for the eProcurement Ontology Core.
+        The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+        The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."""@en ;
+    dcterms:created "2025-09-04"^^xsd:date ;
+    dcterms:description """This artefact provides the generic datashape specifications for the eProcurement Ontology Core.
+        The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+        The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."""@en ;
+    dcterms:issued "2025-09-04"^^xsd:date ;
+    dcterms:license "CC BY 4.0" ;
+    dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
+    dcterms:title "ePO Core shapes"@en ;
+    vann:preferredNamespacePrefix "epo" ;
+    vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
+    rdfs:comment "This version is automatically generated from eAccess.xml on 2025-09-25" ;
+    rdfs:seeAlso <https://docs.ted.europa.eu/EPO/latest/index.html>,
+        <https://github.com/eprocurementontology/eprocurementontology>,
+        <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
+        <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
+    owl:imports :acc,
+        :acc-restriction,
+        dcterms:,
+        skos:,
+        <http://www.w3.org/ns/adms>,
+        <https://data.europa.eu/m8g> ;
+    owl:incompatibleWith "2.1.0" ;
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#acc-shape-3.0.1" ;
+    owl:versionIRI acc-shape:acc-shape-3.1.0 ;
+    owl:versionInfo "3.1.0" .
 

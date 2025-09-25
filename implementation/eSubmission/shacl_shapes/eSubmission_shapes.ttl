@@ -1,7 +1,6 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix eli: <http://data.europa.eu/eli/ontology#> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -13,12 +12,12 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-sub-shape:epo-sub-DocumentaryEvidence a sh:NodeShape ;
-    rdfs:label "Documentary Evidence" ;
+sub-shape:epo-sub-DocumentaryEvidenceShape a sh:NodeShape ;
+    rdfs:label "Documentary evidence" ;
     rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:targetClass :DocumentaryEvidence .
 
-sub-shape:epo-sub-ESPD a sh:NodeShape ;
+sub-shape:epo-sub-ESPDShape a sh:NodeShape ;
     rdfs:label "ESPD" ;
     rdfs:comment "A self-declaration of an economic operator, stating that it does not fall under the Exclusion Grounds and that it meets the Selection Criteria for a specific procurement." ;
     rdfs:isDefinedBy sub-shape:sub-shape ;
@@ -27,16 +26,16 @@ sub-shape:epo-sub-ESPD a sh:NodeShape ;
         sub-shape:epo-sub-ESPD-epo-sub-specifiesResponse ;
     sh:targetClass :ESPD .
 
-sub-shape:epo-sub-EvidenceInformation a sh:NodeShape ;
-    rdfs:label "Evidence Information" ;
+sub-shape:epo-sub-EvidenceInformationShape a sh:NodeShape ;
+    rdfs:label "Evidence information" ;
     rdfs:comment "Information about a Certificate." ;
     rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:property sub-shape:epo-sub-EvidenceInformation-epo-sub-coversAllSelectionCriteria,
         sub-shape:epo-sub-EvidenceInformation-epo-sub-summarisesInformationAboutEvidence ;
     sh:targetClass :EvidenceInformation .
 
-sub-shape:epo-sub-LegalRepresentative a sh:NodeShape ;
-    rdfs:label "Legal Representative" ;
+sub-shape:epo-sub-LegalRepresentativeShape a sh:NodeShape ;
+    rdfs:label "Legal representative" ;
     rdfs:comment "The Role of an Agent that can represent an Organization." ;
     rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:property sub-shape:epo-sub-LegalRepresentative-epo-actsOnBehalfOf,
@@ -44,14 +43,14 @@ sub-shape:epo-sub-LegalRepresentative a sh:NodeShape ;
         sub-shape:epo-sub-LegalRepresentative-epo-sub-hasPowerOfAttorney ;
     sh:targetClass :LegalRepresentative .
 
-sub-shape:epo-sub-Mandate a sh:NodeShape ;
+sub-shape:epo-sub-MandateShape a sh:NodeShape ;
     rdfs:label "Mandate" ;
     rdfs:comment "An authorization to act as a representative of an Organization." ;
     rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:targetClass :Mandate .
 
-sub-shape:epo-sub-OrganisationInformationSummary a sh:NodeShape ;
-    rdfs:label "Organisation Information Summary" ;
+sub-shape:epo-sub-OrganisationInformationSummaryShape a sh:NodeShape ;
+    rdfs:label "Organisation information summary" ;
     rdfs:comment "Information about the specific features or characteristics that qualify an economic operator to take part in a tendering process." ;
     rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:property sub-shape:epo-sub-OrganisationInformationSummary-epo-sub-concernsOrganisation,
@@ -61,13 +60,13 @@ sub-shape:epo-sub-OrganisationInformationSummary a sh:NodeShape ;
         sub-shape:epo-sub-OrganisationInformationSummary-epo-sub-providesOrganisationFinancialCapability ;
     sh:targetClass :OrganisationInformationSummary .
 
-sub-shape:epo-sub-PowerOfAttorney a sh:NodeShape ;
-    rdfs:label "Power Of Attorney" ;
+sub-shape:epo-sub-PowerOfAttorneyShape a sh:NodeShape ;
+    rdfs:label "Power of attorney" ;
     rdfs:comment "A legal document that grants someone the authority to make decisions on behalf of an Organization." ;
     rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:targetClass :PowerOfAttorney .
 
-sub-shape:epo-sub-Response a sh:NodeShape ;
+sub-shape:epo-sub-ResponseShape a sh:NodeShape ;
     rdfs:label "Response" ;
     rdfs:comment "An answer given to a question that is part of an ESPD Request." ;
     rdfs:isDefinedBy sub-shape:sub-shape ;
@@ -77,25 +76,28 @@ sub-shape:epo-sub-Response a sh:NodeShape ;
     sh:targetClass :Response .
 
 sub-shape:epo-sub-ESPD-epo-sub-providesInformationOn a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class org:Organization ;
     sh:description "Offers information about an instance of a concept." ;
-    sh:name "provides Information On" ;
+    sh:name "Provides information on" ;
     sh:path :providesInformationOn ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#providesInformationOn> ?that . ?that <http://data.europa.eu/a4g/ontology#providesInformationOn> ?this .}" ] .
 
 sub-shape:epo-sub-ESPD-epo-sub-relatesToESPDRequest a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class :ESPDRequest ;
     sh:description "Is about an European Single Procurement Document (ESPD) Request." ;
     sh:maxCount 1 ;
-    sh:name "relates To ESPD Request" ;
+    sh:name "Relates to ESPD request" ;
     sh:path :relatesToESPDRequest ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#relatesToESPDRequest> ?that . ?that <http://data.europa.eu/a4g/ontology#relatesToESPDRequest> ?this .}" ] .
 
 sub-shape:epo-sub-ESPD-epo-sub-specifiesResponse a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class :Response ;
     sh:description "Relation indicating that an ESPD Response contains a Response." ;
     sh:minCount 1 ;
-    sh:name "specifies Response" ;
+    sh:name "Specifies response" ;
     sh:path :specifiesResponse ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesResponse> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesResponse> ?this .}" ] .
 
@@ -104,52 +106,57 @@ sub-shape:epo-sub-EvidenceInformation-epo-sub-coversAllSelectionCriteria a sh:Pr
     sh:datatype xsd:boolean ;
     sh:description "Indicator that the Certificate proves whether the Organization fulfils all Selection Criteria." ;
     sh:maxCount 1 ;
-    sh:name "covers All Selection Criteria" ;
+    sh:name "Covers all selection criteria" ;
     sh:path :coversAllSelectionCriteria .
 
 sub-shape:epo-sub-EvidenceInformation-epo-sub-summarisesInformationAboutEvidence a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class cccev:Evidence ;
     sh:description "Relation indicating the Certificate that the information refers to." ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "summarises Information About Evidence" ;
+    sh:name "Summarises information about evidence" ;
     sh:path :summarisesInformationAboutEvidence ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#summarisesInformationAboutEvidence> ?that . ?that <http://data.europa.eu/a4g/ontology#summarisesInformationAboutEvidence> ?this .}" ] .
 
 sub-shape:epo-sub-LegalRepresentative-epo-actsOnBehalfOf a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class :OfferingParty ;
     sh:maxCount 1 ;
-    sh:name "acts On Behalf Of" ;
+    sh:name "Acts on behalf of" ;
     sh:path :actsOnBehalfOf ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#actsOnBehalfOf> ?that . ?that <http://data.europa.eu/a4g/ontology#actsOnBehalfOf> ?this .}" ] .
 
 sub-shape:epo-sub-LegalRepresentative-epo-sub-hasMandate a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class :Mandate ;
     sh:description "Relation indicating that a Legal Representative has a Mandate." ;
-    sh:name "has Mandate" ;
+    sh:name "Has mandate" ;
     sh:path :hasMandate ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasMandate> ?that . ?that <http://data.europa.eu/a4g/ontology#hasMandate> ?this .}" ] .
 
 sub-shape:epo-sub-LegalRepresentative-epo-sub-hasPowerOfAttorney a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class :PowerOfAttorney ;
     sh:description "Relation indicating that a Legal Representative has a Power of Attorney." ;
     sh:maxCount 1 ;
-    sh:name "has Power Of Attorney" ;
+    sh:name "Has power of attorney" ;
     sh:path :hasPowerOfAttorney ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasPowerOfAttorney> ?that . ?that <http://data.europa.eu/a4g/ontology#hasPowerOfAttorney> ?this .}" ] .
 
 sub-shape:epo-sub-OrganisationInformationSummary-epo-sub-concernsOrganisation a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class org:Organization ;
     sh:description "Relates to Organization." ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "concerns Organisation" ;
+    sh:name "Concerns organisation" ;
     sh:path :concernsOrganisation ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsOrganisation> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsOrganisation> ?this .}" ] .
 
 sub-shape:epo-sub-OrganisationInformationSummary-epo-sub-hasBusinessClassificationDescription a sh:PropertyShape ;
     rdfs:isDefinedBy sub-shape:sub-shape ;
-    sh:name "has Business Classification Description" ;
+    sh:name "Has business classification description" ;
     sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
     sh:path :hasBusinessClassificationDescription .
 
@@ -157,78 +164,80 @@ sub-shape:epo-sub-OrganisationInformationSummary-epo-sub-providesOrganisationCom
     rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:description "Text describing the works, supplies or services executed, delivered or performed in a procurement project that can be used as an evidence for the classification of the Organization." ;
     sh:maxCount 1 ;
-    sh:name "provides Organisation Completed Task Description" ;
+    sh:name "Provides organisation completed task description" ;
     sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
     sh:path :providesOrganisationCompletedTaskDescription .
 
 sub-shape:epo-sub-OrganisationInformationSummary-epo-sub-providesOrganisationEmployeeQuantity a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class :Quantity ;
     sh:description "The number of people hired by the Organization." ;
     sh:maxCount 1 ;
-    sh:name "provides Organisation Employee Quantity" ;
+    sh:name "Provides organisation employee quantity" ;
     sh:path :providesOrganisationEmployeeQuantity ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#providesOrganisationEmployeeQuantity> ?that . ?that <http://data.europa.eu/a4g/ontology#providesOrganisationEmployeeQuantity> ?this .}" ] .
 
 sub-shape:epo-sub-OrganisationInformationSummary-epo-sub-providesOrganisationFinancialCapability a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class :MonetaryValue ;
     sh:description "A monetary amount representing the financial capability of the Organization. Additional information: Used to represent the general Turnover of the Organization (for statistical purposes)." ;
     sh:maxCount 1 ;
-    sh:name "provides Organisation Financial Capability" ;
+    sh:name "Provides organisation financial capability" ;
     sh:path :providesOrganisationFinancialCapability ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#providesOrganisationFinancialCapability> ?that . ?that <http://data.europa.eu/a4g/ontology#providesOrganisationFinancialCapability> ?this .}" ] .
 
 sub-shape:epo-sub-Response-epo-sub-answersQuestion a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class cccev:InformationRequirement ;
     sh:description "Relation indicating that the Response replies to a question." ;
-    sh:name "answers Question" ;
+    sh:name "Answers question" ;
     sh:path :answersQuestion ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#answersQuestion> ?that . ?that <http://data.europa.eu/a4g/ontology#answersQuestion> ?this .}" ] .
 
 sub-shape:epo-sub-Response-epo-sub-isReinforcedBy a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class cccev:Evidence ;
     sh:description "Relation indicating an Evidence that supports the Response." ;
-    sh:name "is Reinforced By" ;
+    sh:name "Is reinforced by" ;
     sh:path :isReinforcedBy ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#isReinforcedBy> ?that . ?that <http://data.europa.eu/a4g/ontology#isReinforcedBy> ?this .}" ] .
 
 sub-shape:epo-sub-Response-epo-sub-refersToApplicablePeriod a sh:PropertyShape ;
+    rdfs:isDefinedBy sub-shape:sub-shape ;
     sh:class time:Interval ;
     sh:description "Relation indicating the period to which the Response shall apply." ;
     sh:maxCount 1 ;
-    sh:name "refers To Applicable Period" ;
+    sh:name "Refers to applicable period" ;
     sh:path :refersToApplicablePeriod ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToApplicablePeriod> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToApplicablePeriod> ?this .}" ] .
 
 sub-shape:sub-shape a owl:Ontology ;
-    rdfs:label "eProcurement Ontology Submission - core shapes"@en ;
-    dcterms:created "2021-06-01"^^xsd:date ;
-    dcterms:description "The eProcurement Ontology Submission core shapes provides the generic datashape specifications for the eProcurement Ontology Submission core."@en ;
-    dcterms:issued "2025-09-25"^^xsd:date ;
-    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+    rdfs:label """This artefact provides the generic datashape specifications for the eProcurement Ontology Core.
+        The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+        The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."""@en ;
+    dcterms:created "2025-09-04"^^xsd:date ;
+    dcterms:description """This artefact provides the generic datashape specifications for the eProcurement Ontology Core.
+        The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+        The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."""@en ;
+    dcterms:issued "2025-09-04"^^xsd:date ;
+    dcterms:license "CC BY 4.0" ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
-    dcterms:title "eProcurement Ontology Submission - core shapes"@en ;
+    dcterms:title "ePO Core shapes"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment "This version is automatically generated from eSubmission.xml on 2025-09-25" ;
-    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
-        <https://github.com/OP-TED/ePO/releases>,
+    rdfs:seeAlso <https://docs.ted.europa.eu/EPO/latest/index.html>,
+        <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :acc,
-        :core,
-        :sub,
+    owl:imports :sub,
         :sub-restriction,
-        eli:,
-        cccev:,
         dcterms:,
         skos:,
-        <http://www.w3.org/2006/time>,
         <http://www.w3.org/ns/adms>,
-        <http://www.w3.org/ns/locn>,
-        org:,
-        <http://www.w3.org/ns/person> ;
-    owl:incompatibleWith "4.2.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/data-shape#sub-shape-4.2.0" ;
-    owl:versionIRI sub-shape:sub-shape-5.0.0 ;
-    owl:versionInfo "5.0.0" .
+        <https://data.europa.eu/m8g> ;
+    owl:incompatibleWith "2.1.0" ;
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#sub-shape-3.0.1" ;
+    owl:versionIRI sub-shape:sub-shape-3.1.0 ;
+    owl:versionInfo "3.1.0" .
 

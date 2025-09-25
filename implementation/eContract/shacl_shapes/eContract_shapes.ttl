@@ -1,10 +1,7 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix adms: <http://www.w3.org/ns/adms#> .
-@prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix con-shape: <http://data.europa.eu/a4g/data-shape#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix eli: <http://data.europa.eu/eli/ontology#> .
-@prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -13,18 +10,18 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-con-shape:epo-Contract sh:property con-shape:epo-Contract-epo-specifiesDeliverable .
+con-shape:epo-ContractShape sh:property con-shape:epo-Contract-epo-specifiesDeliverable .
 
-con-shape:epo-con-ContractAmendment a sh:NodeShape ;
-    rdfs:label "Contract Amendment" ;
+con-shape:epo-con-ContractAmendmentShape a sh:NodeShape ;
+    rdfs:label "Contract amendment" ;
     rdfs:comment "A change to an existing Contract that is agreed by the contracting parties." ;
     rdfs:isDefinedBy con-shape:con-shape ;
     sh:property con-shape:epo-con-ContractAmendment-epo-amendsContract,
         con-shape:epo-con-ContractAmendment-epo-updatesContractValue ;
     sh:targetClass :ContractAmendment .
 
-con-shape:epo-con-ContractModificationInformation a sh:NodeShape ;
-    rdfs:label "Contract Modification Information" ;
+con-shape:epo-con-ContractModificationInformationShape a sh:NodeShape ;
+    rdfs:label "Contract modification information" ;
     rdfs:isDefinedBy con-shape:con-shape ;
     sh:property con-shape:epo-con-ContractModificationInformation-epo-concernsContractAmendment,
         con-shape:epo-con-ContractModificationInformation-epo-hasModificationDescription,
@@ -33,41 +30,45 @@ con-shape:epo-con-ContractModificationInformation a sh:NodeShape ;
         con-shape:epo-con-ContractModificationInformation-epo-relatesToEFormSectionIdentifier ;
     sh:targetClass :ContractModificationInformation .
 
-con-shape:epo-con-Deliverable a sh:NodeShape ;
+con-shape:epo-con-DeliverableShape a sh:NodeShape ;
     rdfs:label "Deliverable" ;
     rdfs:isDefinedBy con-shape:con-shape ;
     sh:property con-shape:epo-con-Deliverable-epo-cat-hasQuantity,
         con-shape:epo-con-Deliverable-epo-hasTotalValue ;
     sh:targetClass :Deliverable .
 
-con-shape:epo-not-ContractModificationNotice sh:property con-shape:epo-not-ContractModificationNotice-epo-announcesContractAmendment .
+con-shape:epo-not-ContractModificationNoticeShape sh:property con-shape:epo-not-ContractModificationNotice-epo-announcesContractAmendment .
 
 con-shape:epo-Contract-epo-specifiesDeliverable a sh:PropertyShape ;
+    rdfs:isDefinedBy con-shape:con-shape ;
     sh:class :Deliverable ;
-    sh:name "specifies Deliverable" ;
+    sh:name "Specifies deliverable" ;
     sh:path :specifiesDeliverable ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesDeliverable> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesDeliverable> ?this .}" ] .
 
 con-shape:epo-con-ContractAmendment-epo-amendsContract a sh:PropertyShape ;
+    rdfs:isDefinedBy con-shape:con-shape ;
     sh:class :Contract ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "amends Contract" ;
+    sh:name "Amends contract" ;
     sh:path :amendsContract ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#amendsContract> ?that . ?that <http://data.europa.eu/a4g/ontology#amendsContract> ?this .}" ] .
 
 con-shape:epo-con-ContractAmendment-epo-updatesContractValue a sh:PropertyShape ;
+    rdfs:isDefinedBy con-shape:con-shape ;
     sh:class :MonetaryValue ;
     sh:maxCount 1 ;
-    sh:name "updates Contract Value" ;
+    sh:name "Updates contract value" ;
     sh:path :updatesContractValue ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#updatesContractValue> ?that . ?that <http://data.europa.eu/a4g/ontology#updatesContractValue> ?this .}" ] .
 
 con-shape:epo-con-ContractModificationInformation-epo-concernsContractAmendment a sh:PropertyShape ;
+    rdfs:isDefinedBy con-shape:con-shape ;
     sh:class :ContractAmendment ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "concerns Contract Amendment" ;
+    sh:name "Concerns contract amendment" ;
     sh:path :concernsContractAmendment ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsContractAmendment> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsContractAmendment> ?this .}" ] .
 
@@ -75,84 +76,85 @@ con-shape:epo-con-ContractModificationInformation-epo-hasModificationDescription
     rdfs:isDefinedBy con-shape:con-shape ;
     sh:description "An explanatory text about this context." ;
     sh:maxCount 1 ;
-    sh:name "has Modification Description" ;
+    sh:name "Has modification description" ;
     sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
     sh:path :hasModificationDescription .
 
 con-shape:epo-con-ContractModificationInformation-epo-hasModificationJustification a sh:PropertyShape ;
+    rdfs:isDefinedBy con-shape:con-shape ;
     sh:description "Explanation of why a contract was modified. The codelist to be used is at-voc:modification-justification which is available at http://publications.europa.eu/resource/dataset/modification-justification" ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "has Modification Justification" ;
+    sh:name "Has modification justification" ;
     sh:path :hasModificationJustification .
 
 con-shape:epo-con-ContractModificationInformation-epo-hasModificationReasonDescription a sh:PropertyShape ;
     rdfs:isDefinedBy con-shape:con-shape ;
     sh:description "An explanation about the reasons for using the concept." ;
     sh:maxCount 1 ;
-    sh:name "has Modification Reason Description" ;
+    sh:name "Has modification reason description" ;
     sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
     sh:path :hasModificationReasonDescription .
 
 con-shape:epo-con-ContractModificationInformation-epo-relatesToEFormSectionIdentifier a sh:PropertyShape ;
+    rdfs:isDefinedBy con-shape:con-shape ;
     sh:class adms:Identifier ;
-    sh:name "relates To E Form Section Identifier" ;
+    sh:name "Relates to E form section identifier" ;
     sh:path :relatesToEFormSectionIdentifier ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#relatesToEFormSectionIdentifier> ?that . ?that <http://data.europa.eu/a4g/ontology#relatesToEFormSectionIdentifier> ?this .}" ] .
 
 con-shape:epo-con-Deliverable-epo-cat-hasQuantity a sh:PropertyShape ;
+    rdfs:isDefinedBy con-shape:con-shape ;
     sh:class :Quantity ;
     sh:maxCount 1 ;
-    sh:name "has Quantity" ;
+    sh:name "Has quantity" ;
     sh:path :hasQuantity ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasQuantity> ?that . ?that <http://data.europa.eu/a4g/ontology#hasQuantity> ?this .}" ] .
 
 con-shape:epo-con-Deliverable-epo-hasTotalValue a sh:PropertyShape ;
+    rdfs:isDefinedBy con-shape:con-shape ;
     sh:class :MonetaryValue ;
     sh:maxCount 1 ;
-    sh:name "has Total Value" ;
+    sh:name "Has total value" ;
     sh:path :hasTotalValue ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#hasTotalValue> ?that . ?that <http://data.europa.eu/a4g/ontology#hasTotalValue> ?this .}" ] .
 
 con-shape:epo-not-ContractModificationNotice-epo-announcesContractAmendment a sh:PropertyShape ;
+    rdfs:isDefinedBy con-shape:con-shape ;
     sh:class :ContractAmendment ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "announces Contract Amendment" ;
+    sh:name "Announces contract amendment" ;
     sh:path :announcesContractAmendment ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#announcesContractAmendment> ?that . ?that <http://data.europa.eu/a4g/ontology#announcesContractAmendment> ?this .}" ] .
 
 con-shape:con-shape a owl:Ontology ;
-    rdfs:label "eProcurement Ontology Contract - core shapes"@en ;
-    dcterms:created "2021-06-01"^^xsd:date ;
-    dcterms:description "The eProcurement Ontology Contract core shapes provides the generic datashape specifications for the eProcurement Ontology Contract core."@en ;
-    dcterms:issued "2025-09-25"^^xsd:date ;
-    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+    rdfs:label """This artefact provides the generic datashape specifications for the eProcurement Ontology Core.
+        The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+        The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."""@en ;
+    dcterms:created "2025-09-04"^^xsd:date ;
+    dcterms:description """This artefact provides the generic datashape specifications for the eProcurement Ontology Core.
+        The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+        The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."""@en ;
+    dcterms:issued "2025-09-04"^^xsd:date ;
+    dcterms:license "CC BY 4.0" ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
-    dcterms:title "eProcurement Ontology Contract - core shapes"@en ;
+    dcterms:title "ePO Core shapes"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment "This version is automatically generated from eContract.xml on 2025-09-25" ;
-    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
-        <https://github.com/OP-TED/ePO/releases>,
+    rdfs:seeAlso <https://docs.ted.europa.eu/EPO/latest/index.html>,
+        <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :cat,
-        :con,
+    owl:imports :con,
         :con-restriction,
-        :core,
-        :not,
-        eli:,
-        cccev:,
         dcterms:,
         skos:,
-        <http://www.w3.org/2006/time>,
         <http://www.w3.org/ns/adms>,
-        <http://www.w3.org/ns/locn>,
-        org:,
-        <http://www.w3.org/ns/person> ;
-    owl:incompatibleWith "4.2.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/data-shape#con-shape-4.2.0" ;
-    owl:versionIRI con-shape:con-shape-5.0.0 ;
-    owl:versionInfo "5.0.0" .
+        <https://data.europa.eu/m8g> ;
+    owl:incompatibleWith "2.1.0" ;
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#con-shape-3.0.1" ;
+    owl:versionIRI con-shape:con-shape-3.1.0 ;
+    owl:versionInfo "3.1.0" .
 

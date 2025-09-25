@@ -1,8 +1,6 @@
 @prefix : <http://data.europa.eu/a4g/ontology#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix eli: <http://data.europa.eu/eli/ontology#> .
-@prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix qua-shape: <http://data.europa.eu/a4g/data-shape#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -12,29 +10,29 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-qua-shape:epo-qua-EvidenceOutcome a sh:NodeShape ;
-    rdfs:label "Evidence Outcome" ;
+qua-shape:epo-qua-EvidenceOutcomeShape a sh:NodeShape ;
+    rdfs:label "Evidence outcome" ;
     rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:property qua-shape:epo-qua-EvidenceOutcome-epo-qua-fulfillsRequirement,
         qua-shape:epo-qua-EvidenceOutcome-epo-specifiesEvidence ;
     sh:targetClass :EvidenceOutcome .
 
-qua-shape:epo-qua-EvidenceReceipt a sh:NodeShape ;
-    rdfs:label "Evidence Receipt" ;
+qua-shape:epo-qua-EvidenceReceiptShape a sh:NodeShape ;
+    rdfs:label "Evidence receipt" ;
     rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:property qua-shape:epo-qua-EvidenceReceipt-epo-qua-refersToEvidenceSubmission ;
     sh:targetClass :EvidenceReceipt .
 
-qua-shape:epo-qua-EvidenceRequest a sh:NodeShape ;
-    rdfs:label "Evidence Request" ;
+qua-shape:epo-qua-EvidenceRequestShape a sh:NodeShape ;
+    rdfs:label "Evidence request" ;
     rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:property qua-shape:epo-qua-EvidenceRequest-epo-concernsLot,
         qua-shape:epo-qua-EvidenceRequest-epo-concernsProcedure,
         qua-shape:epo-qua-EvidenceRequest-epo-specifiesEconomicOperator ;
     sh:targetClass :EvidenceRequest .
 
-qua-shape:epo-qua-EvidenceSubmission a sh:NodeShape ;
-    rdfs:label "Evidence Submission" ;
+qua-shape:epo-qua-EvidenceSubmissionShape a sh:NodeShape ;
+    rdfs:label "Evidence submission" ;
     rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:property qua-shape:epo-qua-EvidenceSubmission-epo-concernsLot,
         qua-shape:epo-qua-EvidenceSubmission-epo-concernsProcedure,
@@ -43,8 +41,8 @@ qua-shape:epo-qua-EvidenceSubmission a sh:NodeShape ;
         qua-shape:epo-qua-EvidenceSubmission-epo-specifiesEconomicOperator ;
     sh:targetClass :EvidenceSubmission .
 
-qua-shape:epo-qua-QualificationDecisionInformation a sh:NodeShape ;
-    rdfs:label "Qualification Decision Information" ;
+qua-shape:epo-qua-QualificationDecisionInformationShape a sh:NodeShape ;
+    rdfs:label "Qualification decision information" ;
     rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:property qua-shape:epo-qua-QualificationDecisionInformation-epo-hasQualificationDecisionDate,
         qua-shape:epo-qua-QualificationDecisionInformation-epo-hasRejectionDescription,
@@ -54,8 +52,8 @@ qua-shape:epo-qua-QualificationDecisionInformation a sh:NodeShape ;
         qua-shape:epo-qua-QualificationDecisionInformation-epo-qua-summarisesInformationForQualificationResponse ;
     sh:targetClass :QualificationDecisionInformation .
 
-qua-shape:epo-qua-QualificationReponse a sh:NodeShape ;
-    rdfs:label "Qualification Reponse" ;
+qua-shape:epo-qua-QualificationReponseShape a sh:NodeShape ;
+    rdfs:label "Qualification reponse" ;
     rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:property qua-shape:epo-qua-QualificationReponse-epo-qua-refersToEvidenceSubmission ;
     sh:targetClass :QualificationReponse .
@@ -64,81 +62,91 @@ qua-shape:epo-qua-EvidenceOutcome-epo-qua-fulfillsRequirement a sh:PropertyShape
     rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:datatype xsd:boolean ;
     sh:maxCount 1 ;
-    sh:name "fulfills Requirement" ;
+    sh:name "Fulfills requirement" ;
     sh:path :fulfillsRequirement .
 
 qua-shape:epo-qua-EvidenceOutcome-epo-specifiesEvidence a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class cccev:Evidence ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "specifies Evidence" ;
+    sh:name "Specifies evidence" ;
     sh:path :specifiesEvidence ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesEvidence> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesEvidence> ?this .}" ] .
 
 qua-shape:epo-qua-EvidenceReceipt-epo-qua-refersToEvidenceSubmission a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class :EvidenceSubmission ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "refers To Evidence Submission" ;
+    sh:name "Refers to evidence submission" ;
     sh:path :refersToEvidenceSubmission ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToEvidenceSubmission> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToEvidenceSubmission> ?this .}" ] .
 
 qua-shape:epo-qua-EvidenceRequest-epo-concernsLot a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class :Lot ;
     sh:minCount 1 ;
-    sh:name "concerns Lot" ;
+    sh:name "Concerns lot" ;
     sh:path :concernsLot ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsLot> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsLot> ?this .}" ] .
 
 qua-shape:epo-qua-EvidenceRequest-epo-concernsProcedure a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class :Procedure ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "concerns Procedure" ;
+    sh:name "Concerns procedure" ;
     sh:path :concernsProcedure ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsProcedure> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsProcedure> ?this .}" ] .
 
 qua-shape:epo-qua-EvidenceRequest-epo-specifiesEconomicOperator a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class :OfferingParty ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "specifies Economic Operator" ;
+    sh:name "Specifies economic operator" ;
     sh:path :specifiesEconomicOperator ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesEconomicOperator> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesEconomicOperator> ?this .}" ] .
 
 qua-shape:epo-qua-EvidenceSubmission-epo-concernsLot a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class :Lot ;
     sh:minCount 1 ;
-    sh:name "concerns Lot" ;
+    sh:name "Concerns lot" ;
     sh:path :concernsLot ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsLot> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsLot> ?this .}" ] .
 
 qua-shape:epo-qua-EvidenceSubmission-epo-concernsProcedure a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class :Procedure ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "concerns Procedure" ;
+    sh:name "Concerns procedure" ;
     sh:path :concernsProcedure ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#concernsProcedure> ?that . ?that <http://data.europa.eu/a4g/ontology#concernsProcedure> ?this .}" ] .
 
 qua-shape:epo-qua-EvidenceSubmission-epo-providesEvidence a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class cccev:Evidence ;
-    sh:name "provides Evidence" ;
+    sh:name "Provides evidence" ;
     sh:path :providesEvidence ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#providesEvidence> ?that . ?that <http://data.europa.eu/a4g/ontology#providesEvidence> ?this .}" ] .
 
 qua-shape:epo-qua-EvidenceSubmission-epo-qua-refersToEvidenceRequest a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class :EvidenceRequest ;
     sh:maxCount 1 ;
-    sh:name "refers To Evidence Request" ;
+    sh:name "Refers to evidence request" ;
     sh:path :refersToEvidenceRequest ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToEvidenceRequest> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToEvidenceRequest> ?this .}" ] .
 
 qua-shape:epo-qua-EvidenceSubmission-epo-specifiesEconomicOperator a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class :OfferingParty ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "specifies Economic Operator" ;
+    sh:name "Specifies economic operator" ;
     sh:path :specifiesEconomicOperator ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#specifiesEconomicOperator> ?that . ?that <http://data.europa.eu/a4g/ontology#specifiesEconomicOperator> ?this .}" ] .
 
@@ -147,13 +155,13 @@ qua-shape:epo-qua-QualificationDecisionInformation-epo-hasQualificationDecisionD
     sh:datatype xsd:dateTime ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "has Qualification Decision Date" ;
+    sh:name "Has qualification decision date" ;
     sh:path :hasQualificationDecisionDate .
 
 qua-shape:epo-qua-QualificationDecisionInformation-epo-hasRejectionDescription a sh:PropertyShape ;
     rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:maxCount 1 ;
-    sh:name "has Rejection Description" ;
+    sh:name "Has rejection description" ;
     sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
     sh:path :hasRejectionDescription .
 
@@ -161,68 +169,70 @@ qua-shape:epo-qua-QualificationDecisionInformation-epo-isQualified a sh:Property
     rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:datatype xsd:boolean ;
     sh:maxCount 1 ;
-    sh:name "is Qualified" ;
+    sh:name "Is qualified" ;
     sh:path :isQualified .
 
 qua-shape:epo-qua-QualificationDecisionInformation-epo-qua-comprisesEvidenceOutcome a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class :EvidenceOutcome ;
-    sh:name "comprises Evidence Outcome" ;
+    sh:name "Comprises evidence outcome" ;
     sh:path :comprisesEvidenceOutcome ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#comprisesEvidenceOutcome> ?that . ?that <http://data.europa.eu/a4g/ontology#comprisesEvidenceOutcome> ?this .}" ] .
 
 qua-shape:epo-qua-QualificationDecisionInformation-epo-qua-providesDecisionFor a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class :Lot ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "provides Decision For" ;
+    sh:name "Provides decision for" ;
     sh:path :providesDecisionFor ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#providesDecisionFor> ?that . ?that <http://data.europa.eu/a4g/ontology#providesDecisionFor> ?this .}" ] .
 
 qua-shape:epo-qua-QualificationDecisionInformation-epo-qua-summarisesInformationForQualificationResponse a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class :QualificationReponse ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "summarises Information For Qualification Response" ;
+    sh:name "Summarises information for qualification response" ;
     sh:path :summarisesInformationForQualificationResponse ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#summarisesInformationForQualificationResponse> ?that . ?that <http://data.europa.eu/a4g/ontology#summarisesInformationForQualificationResponse> ?this .}" ] .
 
 qua-shape:epo-qua-QualificationReponse-epo-qua-refersToEvidenceSubmission a sh:PropertyShape ;
+    rdfs:isDefinedBy qua-shape:qua-shape ;
     sh:class :EvidenceSubmission ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
-    sh:name "refers To Evidence Submission" ;
+    sh:name "Refers to evidence submission" ;
     sh:path :refersToEvidenceSubmission ;
     sh:sparql [ sh:select "SELECT ?this ?that WHERE { ?this <http://data.europa.eu/a4g/ontology#refersToEvidenceSubmission> ?that . ?that <http://data.europa.eu/a4g/ontology#refersToEvidenceSubmission> ?this .}" ] .
 
 qua-shape:qua-shape a owl:Ontology ;
-    rdfs:label "eProcurement Ontology Qualification - core shapes"@en ;
-    dcterms:created "2021-06-01"^^xsd:date ;
-    dcterms:description "The eProcurement Ontology Qualification core shapes provides the generic datashape specifications for the eProcurement Ontology Qualification core."@en ;
-    dcterms:issued "2025-09-25"^^xsd:date ;
-    dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
+    rdfs:label """This artefact provides the generic datashape specifications for the eProcurement Ontology Core.
+        The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+        The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."""@en ;
+    dcterms:created "2025-09-04"^^xsd:date ;
+    dcterms:description """This artefact provides the generic datashape specifications for the eProcurement Ontology Core.
+        The eProcurement Ontology describes objects and concepts, with definitions, attributes and relationships which are present within the European public procurement domain.
+        The provision of these concepts provides the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency."""@en ;
+    dcterms:issued "2025-09-04"^^xsd:date ;
+    dcterms:license "CC BY 4.0" ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
-    dcterms:title "eProcurement Ontology Qualification - core shapes"@en ;
+    dcterms:title "ePO Core shapes"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment "This version is automatically generated from eQualification.xml on 2025-09-25" ;
-    rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
-        <https://github.com/OP-TED/ePO/releases>,
+    rdfs:seeAlso <https://docs.ted.europa.eu/EPO/latest/index.html>,
+        <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :core,
-        :qua,
+    owl:imports :qua,
         :qua-restriction,
-        eli:,
-        cccev:,
         dcterms:,
         skos:,
-        <http://www.w3.org/2006/time>,
         <http://www.w3.org/ns/adms>,
-        <http://www.w3.org/ns/locn>,
-        org:,
-        <http://www.w3.org/ns/person> ;
-    owl:incompatibleWith "4.2.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/data-shape#qua-shape-4.2.0" ;
-    owl:versionIRI qua-shape:qua-shape-5.0.0 ;
-    owl:versionInfo "5.0.0" .
+        <https://data.europa.eu/m8g> ;
+    owl:incompatibleWith "2.1.0" ;
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#qua-shape-3.0.1" ;
+    owl:versionIRI qua-shape:qua-shape-3.1.0 ;
+    owl:versionInfo "3.1.0" .
 
