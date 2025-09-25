@@ -21,132 +21,6 @@ on:
     #   - "implementation/eRequest/xmi_conceptual_model/eRequest.xml"
 
 jobs:
-  report_and_glossary:
-    runs-on: ubuntu-latest
-    env:
-      OUTPUT_GLOSSARY_PATH: glossary/
-    steps:
-      - uses: actions/checkout@master
-        with:
-          ref: ${{ github.ref }}
-
-      - name: get model2owl
-        run: |
-          git clone --branch reused-terms-bug https://github.com/OP-TED/model2owl.git
-          pwd
-
-
-      - name: get-saxon
-        run: pwd && cd model2owl && make get-saxon
-
-
-      - name: generate convention report and glossary
-        run: |
-          AVAILABLE_IMPLEMENTATIONS=(eInvoicing eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core eAwarding eEvaluation eQualification eRequest)
-          for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
-          do
-            echo "-------------------${implementation}---------------------------------"
-            sed -i "s/test\/ePO-default-config/..\/implementation\/${implementation}\/model2owl-config/g" model2owl/config-proxy.xsl
-            cat model2owl/config-proxy.xsl
-
-
-            CM_FILE_NAME=$(echo "${implementation}.xml")
-            CM_FILE_PATH=$(echo "implementation/$implementation/xmi_conceptual_model/${CM_FILE_NAME}")
-            NS_XML_FILE_PATH="../implementation/${implementation}/model2owl-config/namespaces.xml"
-
-            OUTPUT_CONVENTION_REPORT_PATH=$(echo "implementation/$implementation/conventions_report/")
-            OUTPUT_GLOSSARY_FILE_NAME=$(echo "${implementation}_glossary.html")
-            ls -la implementation/$implementation/xmi_conceptual_model/
-            echo "CM_FILE_PATH is $CM_FILE_PATH"
-            echo "NS_XML_FILE_PATH is $NS_XML_FILE_PATH"
-            echo "OUTPUT_REPORT_PATH is $OUTPUT_CONVENTION_REPORT_PATH"
-            echo "OUTPUT_GLOSSARY_FILE_NAME is $OUTPUT_GLOSSARY_FILE_NAME"
-
-            mkdir -p $OUTPUT_CONVENTION_REPORT_PATH
-            rm -f $OUTPUT_CONVENTION_REPORT_PATH*.html || true
-            ls -la
-            cd model2owl
-            ls -la
-            make generate-convention-report \
-              XMI_INPUT_FILE_PATH=../$CM_FILE_PATH \
-              OUTPUT_CONVENTION_REPORT_PATH=../$OUTPUT_CONVENTION_REPORT_PATH \
-              NAMESPACES_USER_XML_FILE_PATH=${NS_XML_FILE_PATH}
-            make generate-glossary XMI_INPUT_FILE_PATH=../$CM_FILE_PATH \
-              OUTPUT_GLOSSARY_PATH=../$OUTPUT_GLOSSARY_PATH \
-              NAMESPACES_USER_XML_FILE_PATH=${NS_XML_FILE_PATH}
-
-            sed -i "s/..\/implementation\/${implementation}\/model2owl-config/test\/ePO-default-config/g" config-proxy.xsl
-            cd ..
-          done
-        shell: bash
-
-      - name: merge implementations xmi files into one
-        run: |
-          AVAILABLE_IMPLEMENTATIONS=(eInvoicing eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core eAwarding eEvaluation eQualification eRequest)
-          cd model2owl
-          mkdir -p merge-xmis
-          for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
-          do
-            cp ../implementation/$implementation/xmi_conceptual_model/e*.xml merge-xmis
-          done
-          ls merge-xmis
-
-          make merge-xmi FIRST_XMI_TO_BE_MERGED_FILE_PATH=merge-xmis/ePO_core.xml MERGED_XMIS_FILE_NAME=ePO_combined.xmi
-
-          echo "merged XMI file"
-          ls output/combined-xmi
-        shell: bash
-
-      - name: change config to core
-        run: |
-          sed -i "s/test\/ePO-default-config/..\/implementation\/ePO_core\/model2owl-config/g" model2owl/config-proxy.xsl
-          cat model2owl/config-proxy.xsl
-
-      - name: generate combined glossary from the merged xmi
-        run: |
-          # get a namespaces file from an arbitrary module
-          NS_XML_FILE_PATH=$(realpath $(find . -type f -path './implementation/*/model2owl-config/namespaces.xml' | head -1))
-          echo "NS_XML_FILE_PATH is $NS_XML_FILE_PATH"
-          cd model2owl
-          make generate-glossary \
-            XMI_INPUT_FILE_PATH=output/combined-xmi/ePO_combined.xmi \
-            OUTPUT_GLOSSARY_PATH=../$OUTPUT_GLOSSARY_PATH \
-            NAMESPACES_USER_XML_FILE_PATH=${NS_XML_FILE_PATH}
-
-#      - name: generate widoco
-#        run: |
-#          cd model2owl
-#          make generate-html-docs-from-rdf WIDOCO_RDF_INPUT_FILE_PATH=../implementation/ePO/owl_ontology/ePO_CM-core.rdf WIDOCO_OUTPUT_FOLDER_PATH=../implementation/ePO/widoco
-#        shell: bash
-
-      - name: remove unnecessary files
-        run: |
-          sudo rm -rf model2owl
-        shell: bash
-
-      - name: commit files
-        id: commit
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          git pull
-          git status
-
-          git add .
-          if [ -z "$(git status --porcelain)" ]; then
-          echo "::set-output name=push::false"
-          else
-          git commit -m "Adding convention report and glossary files"
-          echo "::set-output name=push::true"
-          fi
-        shell: bash
-
-      - name: Push changes
-        if: steps.commit.outputs.push == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
   transform:
     needs: report_and_glossary
     runs-on: ubuntu-latest
@@ -281,7 +155,8 @@ jobs:
             cd model2owl
             ls -la
             echo "++++++++++++++++++++++++test+++++++++++++++++++++++++++++++++++"
-            python test/reused-concepts-bugfix-testing/detect_reused_uris.py \
+            source model2owl-venv/bin/activate && \
+            python3 test/reused-concepts-bugfix-testing/detect_reused_uris.py \
               ../$OUTPUT_PATH_OWL/${implementation}_restrictions.ttl
             echo "---------------------end test----------------------------------"
 
