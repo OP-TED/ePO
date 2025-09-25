@@ -5,20 +5,20 @@ on:
       - "**"
       - "!develop"
       - "!master"
-    paths:
-      - "implementation/ePO_core/xmi_conceptual_model/ePO_core.xml"
-      - "implementation/eCatalogue/xmi_conceptual_model/eCatalogue.xml"
-      - "implementation/eNotice/xmi_conceptual_model/eNotice.xml"
-      - "implementation/eOrdering/xmi_conceptual_model/eOrdering.xml"
-      - "implementation/eFulfilment/xmi_conceptual_model/eFulfilment.xml"
-      - "implementation/eContract/xmi_conceptual_model/eContract.xml"
-      - "implementation/eInvoicing/xmi_conceptual_model/eInvoicing.xml"
-      - "implementation/eAccess/xmi_conceptual_model/eAccess.xml"
-      - "implementation/eSubmission/xmi_conceptual_model/eSubmission.xml"
-      - "implementation/eEvaluation/xmi_conceptual_model/eEvaluation.xml"
-      - "implementation/eAwarding/xmi_conceptual_model/eAwarding.xml"
-      - "implementation/eQualification/xmi_conceptual_model/eQualification.xml"
-      - "implementation/eRequest/xmi_conceptual_model/eRequest.xml"
+    # paths:
+    #   - "implementation/ePO_core/xmi_conceptual_model/ePO_core.xml"
+    #   - "implementation/eCatalogue/xmi_conceptual_model/eCatalogue.xml"
+    #   - "implementation/eNotice/xmi_conceptual_model/eNotice.xml"
+    #   - "implementation/eOrdering/xmi_conceptual_model/eOrdering.xml"
+    #   - "implementation/eFulfilment/xmi_conceptual_model/eFulfilment.xml"
+    #   - "implementation/eContract/xmi_conceptual_model/eContract.xml"
+    #   - "implementation/eInvoicing/xmi_conceptual_model/eInvoicing.xml"
+    #   - "implementation/eAccess/xmi_conceptual_model/eAccess.xml"
+    #   - "implementation/eSubmission/xmi_conceptual_model/eSubmission.xml"
+    #   - "implementation/eEvaluation/xmi_conceptual_model/eEvaluation.xml"
+    #   - "implementation/eAwarding/xmi_conceptual_model/eAwarding.xml"
+    #   - "implementation/eQualification/xmi_conceptual_model/eQualification.xml"
+    #   - "implementation/eRequest/xmi_conceptual_model/eRequest.xml"
 
 jobs:
   report_and_glossary:
@@ -32,7 +32,7 @@ jobs:
 
       - name: get model2owl
         run: |
-          git clone --branch alt-saxon-source https://github.com/OP-TED/model2owl.git
+          git clone --branch reused-terms-bug https://github.com/OP-TED/model2owl.git
           pwd
 
 
@@ -157,7 +157,7 @@ jobs:
 
       - name: get model2owl
         run: |
-          git clone --branch alt-saxon-source https://github.com/OP-TED/model2owl.git
+          git clone --branch reused-terms-bug https://github.com/OP-TED/model2owl.git
           pwd
 
       - name: get-saxon
@@ -249,3 +249,48 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
+  test_bugfix:
+    needs: transform
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          ref: ${{ github.ref }}
+
+      - name: get model2owl
+        run: |
+          git clone --branch reused-terms-bug https://github.com/OP-TED/model2owl.git
+          pwd
+
+      - name: get-rdflib
+        run: cd model2owl && make create-virtual-env && make get-rdflib
+
+      - name: testing step
+        run: |
+          AVAILABLE_IMPLEMENTATIONS=(eInvoicing eOrdering eFulfilment eCatalogue eNotice eContract eAccess eSubmission ePO_core eAwarding eEvaluation eQualification eRequest)
+          for implementation in "${AVAILABLE_IMPLEMENTATIONS[@]}"
+          do
+            echo "-------------------${implementation} test---------------------------------"
+            sed -i "s/test\/ePO-default-config/..\/implementation\/${implementation}\/model2owl-config/g" model2owl/config-proxy.xsl
+            cat model2owl/config-proxy.xsl
+            OUTPUT_PATH_OWL=$(echo "implementation/$implementation/owl_ontology/")
+
+            ls -la implementation/$implementation/xmi_conceptual_model/
+            echo "OUTPUT_PATH_OWL is $OUTPUT_PATH_OWL"
+
+            cd model2owl
+            ls -la
+            echo "++++++++++++++++++++++++test+++++++++++++++++++++++++++++++++++"
+            python test/reused-concepts-bugfix-testing/detect_reused_uris.py \
+              ../$OUTPUT_PATH_OWL/${implementation}_restrictions.ttl
+            echo "---------------------end test----------------------------------"
+
+            sed -i "s/..\/implementation\/${implementation}\/model2owl-config/test\/ePO-default-config/g" config-proxy.xsl
+            cd ..
+          done
+        shell: bash
+
+      - name: remove unnecessary files
+        run: |
+          sudo rm -rf model2owl
+        shell: bash
