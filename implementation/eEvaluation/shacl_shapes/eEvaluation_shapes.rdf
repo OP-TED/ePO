@@ -7,6 +7,27 @@
    xmlns:sh="http://www.w3.org/ns/shacl#"
    xmlns:vann="http://purl.org/vocab/vann/"
 >
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard">
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
+    <sh:targetClass rdf:resource="http://data.europa.eu/a4g/ontology#EvaluationBoard"/>
+    <rdfs:label>Evaluation Board</rdfs:label>
+    <rdfs:comment>Committee set up to evaluate the Tenders submitted. Additional Information: The committee may be a regular board or a jury.</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-isAssignedForEvaluationOf"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-isAppointedBy"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-hasEvaluator"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-writesEvaluationReport"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-requestsClarification"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-hasJuryMember"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-usesEvaluationFormula">
+    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#AwardEvaluationTerm"/>
+    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
+    <sh:sparql rdf:nodeID="N23e86f80e74c49968d014b0c84e127f7"/>
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#usesEvaluationFormula"/>
+    <sh:name>uses Evaluation Formula</sh:name>
+  </rdf:Description>
   <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#eva-shape">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
     <owl:imports rdf:resource="http://purl.org/dc/terms/"/>
@@ -40,28 +61,52 @@
     <vann:preferredNamespacePrefix>epo</vann:preferredNamespacePrefix>
     <dcterms:license>© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/).</dcterms:license>
   </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport">
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
-    <sh:targetClass rdf:resource="http://data.europa.eu/a4g/ontology#EvaluationReport"/>
-    <rdfs:label>Evaluation Report</rdfs:label>
-    <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-hasAwardCriteriaEvaluationScore"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-reportsEvaluationCriterion"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-usesEvaluationFormula"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-providesRankToTender"/>
+  <rdf:Description rdf:nodeID="N1d47656a6c974bffb20d19e17b79bd5b">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#refersToTenderClarificationRequest&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#refersToTenderClarificationRequest&gt; ?this .}</sh:select>
   </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard">
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarificationRequest-epo-specifiesEconomicOperator">
+    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#OfferingParty"/>
+    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
+    <sh:minCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:minCount>
+    <sh:sparql rdf:nodeID="Nff44d6c16f37435eb7ec79d36d8eb3de"/>
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#specifiesEconomicOperator"/>
+    <sh:name>specifies Economic Operator</sh:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-ExcludedCandidateList-epo-containsCandidate">
+    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#Candidate"/>
+    <sh:sparql rdf:nodeID="Nde0e316799ef47de9b3868fe9ba5bf88"/>
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#containsCandidate"/>
+    <sh:name>contains Candidate</sh:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-writesEvaluationReport">
+    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#EvaluationReport"/>
+    <sh:minCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:minCount>
+    <sh:sparql rdf:nodeID="N78691d71d2d444c283a3280dee12ebe7"/>
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#writesEvaluationReport"/>
+    <sh:name>writes Evaluation Report</sh:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarificationRequest">
     <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
-    <sh:targetClass rdf:resource="http://data.europa.eu/a4g/ontology#EvaluationBoard"/>
-    <rdfs:label>Evaluation Board</rdfs:label>
-    <rdfs:comment>Committee set up to evaluate the Tenders submitted. Additional Information: The committee may be a regular board or a jury.</rdfs:comment>
+    <sh:targetClass rdf:resource="http://data.europa.eu/a4g/ontology#TenderClarificationRequest"/>
+    <rdfs:label>Tender Clarification Request</rdfs:label>
+    <rdfs:comment>A demand for elucidation of specific aspects of the Tender. Additional Information: This request and its answer may not alter the Tender.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-isAssignedForEvaluationOf"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-isAppointedBy"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-hasEvaluator"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-writesEvaluationReport"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-requestsClarification"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-hasJuryMember"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarificationRequest-epo-eva-concernsEvaluationReport"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarificationRequest-epo-specifiesEconomicOperator"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationCriterion-epo-eva-hasEvaluationJustification">
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#hasEvaluationJustification"/>
+    <sh:name>has Evaluation Justification</sh:name>
+    <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
+    <sh:or rdf:nodeID="N6e403a576c864c6e86f4943ec5800bbc"/>
+    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N6f52fc382a594ec991d2e0c7a88c18e8">
+    <sh:datatype rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarification">
     <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
@@ -70,60 +115,24 @@
     <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
     <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarification-epo-eva-refersToTenderClarificationRequest"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarification-epo-eva-refersToTenderClarificationRequest">
-    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#TenderClarificationRequest"/>
-    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
-    <sh:minCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:minCount>
-    <sh:sparql rdf:nodeID="N76940e5825dc4cc398d10c7c1612ee93"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#refersToTenderClarificationRequest"/>
-    <sh:name>refers To Tender Clarification Request</sh:name>
+  <rdf:Description rdf:nodeID="Ne8f5bbcc3886417c892ef0cf23773556">
+    <sh:datatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="Na347e4848eee4dffb08f1a81f4629471">
-    <sh:datatype rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N1053d2b6c41b4ac6b8c004d84564db43">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#evaluatesProcurementCriterion&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#evaluatesProcurementCriterion&gt; ?this .}</sh:select>
+  <rdf:Description rdf:nodeID="N0009f2f492c148128f03329924bc1fe5">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#hasJuryMember&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#hasJuryMember&gt; ?this .}</sh:select>
   </rdf:Description>
   <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-providesRankToTender">
     <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#TenderAwardOutcome"/>
     <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
     <sh:minCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:minCount>
-    <sh:sparql rdf:nodeID="N562f206aedf54465a25ed0d94b1c13a5"/>
+    <sh:sparql rdf:nodeID="N85b5fecd5ecd493b9182232cd70a55bb"/>
     <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
     <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#providesRankToTender"/>
     <sh:name>provides Rank To Tender</sh:name>
   </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-reportsEvaluationCriterion">
-    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#EvaluationCriterion"/>
-    <sh:minCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:minCount>
-    <sh:sparql rdf:nodeID="N5eb09a4064784251b3c1a1c5e1e57817"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#reportsEvaluationCriterion"/>
-    <sh:name>reports Evaluation Criterion</sh:name>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationCriterion-epo-eva-fulfillsProcurementCriterion">
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#fulfillsProcurementCriterion"/>
-    <sh:name>fulfills Procurement Criterion</sh:name>
-    <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
-    <sh:datatype rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-usesEvaluationFormula">
-    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#AwardEvaluationTerm"/>
-    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
-    <sh:sparql rdf:nodeID="Nda001bdb5e9b4ed990920dd988b0ceff"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#usesEvaluationFormula"/>
-    <sh:name>uses Evaluation Formula</sh:name>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-ExcludedCandidateList">
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
-    <sh:targetClass rdf:resource="http://data.europa.eu/a4g/ontology#ExcludedCandidateList"/>
-    <rdfs:label>Excluded Candidate List</rdfs:label>
-    <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-ExcludedCandidateList-epo-containsCandidate"/>
+  <rdf:Description rdf:nodeID="N6e403a576c864c6e86f4943ec5800bbc">
+    <rdf:first rdf:nodeID="N0a32e918132e462d81cc8847ef9172dc"/>
+    <rdf:rest rdf:nodeID="N54b4f63dcac74b2b9702d567e86cbdbc"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationCriterion">
     <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
@@ -135,91 +144,154 @@
     <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationCriterion-epo-eva-hasScorePoint"/>
     <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationCriterion-epo-eva-evaluatesProcurementCriterion"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-Evaluator-epo-playedBy">
-    <sh:class rdf:resource="http://www.w3.org/ns/person#Person"/>
-    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
-    <sh:sparql rdf:nodeID="N26bd53d27de44a5cb895aaecdd6c9d96"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#playedBy"/>
-    <sh:name>played By</sh:name>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarificationRequest-epo-eva-concernsEvaluationReport">
-    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#EvaluationReport"/>
-    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
-    <sh:sparql rdf:nodeID="N301c649403754a60abdafc2c404a69d6"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#concernsEvaluationReport"/>
-    <sh:name>concerns Evaluation Report</sh:name>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-hasJuryMember">
-    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#JuryMember"/>
-    <sh:sparql rdf:nodeID="N378069f72d074bbaad069b4bb0b6e7b4"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#hasJuryMember"/>
-    <sh:name>has Jury Member</sh:name>
-    <sh:description>An agent involved in an evaluation board.</sh:description>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N04ce0c67362e400ca6af9a8c7ff5f3e0">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#requestsClarification&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#requestsClarification&gt; ?this .}</sh:select>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N3727e95f369342d99c2dfe19bee72646">
-    <sh:datatype rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarificationRequest-epo-specifiesEconomicOperator">
-    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#OfferingParty"/>
-    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
-    <sh:minCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:minCount>
-    <sh:sparql rdf:nodeID="N573eb9e6082141599a1e16a476cd96a2"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#specifiesEconomicOperator"/>
-    <sh:name>specifies Economic Operator</sh:name>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarificationRequest">
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
-    <sh:targetClass rdf:resource="http://data.europa.eu/a4g/ontology#TenderClarificationRequest"/>
-    <rdfs:label>Tender Clarification Request</rdfs:label>
-    <rdfs:comment>A demand for elucidation of specific aspects of the Tender. Additional Information: This request and its answer may not alter the Tender.</rdfs:comment>
-    <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarificationRequest-epo-eva-concernsEvaluationReport"/>
-    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarificationRequest-epo-specifiesEconomicOperator"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationCriterion-epo-eva-evaluatesProcurementCriterion">
     <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#ProcurementCriterion"/>
     <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
     <sh:minCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:minCount>
-    <sh:sparql rdf:nodeID="N1053d2b6c41b4ac6b8c004d84564db43"/>
+    <sh:sparql rdf:nodeID="N3b06403f7197462b8316061fa44687e2"/>
     <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
     <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#evaluatesProcurementCriterion"/>
     <sh:name>evaluates Procurement Criterion</sh:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarificationRequest-epo-eva-concernsEvaluationReport">
+    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#EvaluationReport"/>
+    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
+    <sh:sparql rdf:nodeID="N79fa957f102c4145816f386eea69ca10"/>
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#concernsEvaluationReport"/>
+    <sh:name>concerns Evaluation Report</sh:name>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nafb3c40a669646af92de981b4612a9e7">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#isAssignedForEvaluationOf&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#isAssignedForEvaluationOf&gt; ?this .}</sh:select>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd698b833dd5a4d15882bea4442e6384a">
+    <rdf:first rdf:nodeID="Ne8f5bbcc3886417c892ef0cf23773556"/>
+    <rdf:rest rdf:nodeID="N02686a0720a44e15903e3327ed7c17c9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-isAssignedForEvaluationOf">
+    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#Lot"/>
+    <sh:sparql rdf:nodeID="Nafb3c40a669646af92de981b4612a9e7"/>
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#isAssignedForEvaluationOf"/>
+    <sh:name>is Assigned For Evaluation Of</sh:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-requestsClarification">
+    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#TenderClarificationRequest"/>
+    <sh:sparql rdf:nodeID="N1809cf2979814ccea458e579bba855d6"/>
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#requestsClarification"/>
+    <sh:name>requests Clarification</sh:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationCriterion-epo-eva-hasScorePoint">
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#hasScorePoint"/>
+    <sh:name>has Score Point</sh:name>
+    <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
+    <sh:or rdf:nodeID="Nd698b833dd5a4d15882bea4442e6384a"/>
+    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-Evaluator-epo-playedBy">
+    <sh:class rdf:resource="http://www.w3.org/ns/person#Person"/>
+    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
+    <sh:sparql rdf:nodeID="N6e78a6a2a12b4e07ab14c43857581c24"/>
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#playedBy"/>
+    <sh:name>played By</sh:name>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N85b5fecd5ecd493b9182232cd70a55bb">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#providesRankToTender&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#providesRankToTender&gt; ?this .}</sh:select>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd113389eaca0450389e86277da360ca3">
+    <rdf:first rdf:nodeID="Na36502c6e2a94f159f5dca41df2ad126"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N54b4f63dcac74b2b9702d567e86cbdbc">
+    <rdf:first rdf:nodeID="N6f52fc382a594ec991d2e0c7a88c18e8"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-hasEvaluator">
+    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#Evaluator"/>
+    <sh:sparql rdf:nodeID="N04c18ed3979f4e7483a64ee3b2eb2c4a"/>
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#hasEvaluator"/>
+    <sh:name>has Evaluator</sh:name>
   </rdf:Description>
   <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-hasAwardCriteriaEvaluationScore">
     <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
     <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#hasAwardCriteriaEvaluationScore"/>
     <sh:name>has Award Criteria Evaluation Score</sh:name>
     <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
-    <sh:or rdf:nodeID="N567176762f374cff9d2487c9a489b34d"/>
+    <sh:or rdf:nodeID="N88bf8e96533246d8bc15b2600b91f933"/>
     <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="N301c649403754a60abdafc2c404a69d6">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#concernsEvaluationReport&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#concernsEvaluationReport&gt; ?this .}</sh:select>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationCriterion-epo-eva-hasEvaluationJustification">
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-reportsEvaluationCriterion">
+    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#EvaluationCriterion"/>
+    <sh:minCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:minCount>
+    <sh:sparql rdf:nodeID="N4fbcbbab0c2f4d6a8c76ced74b6d71a1"/>
     <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#hasEvaluationJustification"/>
-    <sh:name>has Evaluation Justification</sh:name>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#reportsEvaluationCriterion"/>
+    <sh:name>reports Evaluation Criterion</sh:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-hasJuryMember">
+    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#JuryMember"/>
+    <sh:sparql rdf:nodeID="N0009f2f492c148128f03329924bc1fe5"/>
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#hasJuryMember"/>
+    <sh:name>has Jury Member</sh:name>
+    <sh:description>An agent involved in an evaluation board.</sh:description>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N3b06403f7197462b8316061fa44687e2">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#evaluatesProcurementCriterion&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#evaluatesProcurementCriterion&gt; ?this .}</sh:select>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-ExcludedCandidateList">
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
+    <sh:targetClass rdf:resource="http://data.europa.eu/a4g/ontology#ExcludedCandidateList"/>
+    <rdfs:label>Excluded Candidate List</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
-    <sh:or rdf:nodeID="N88d54f7793cc48ecb925fbe0f8b71a16"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-ExcludedCandidateList-epo-containsCandidate"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N02686a0720a44e15903e3327ed7c17c9">
+    <rdf:first rdf:nodeID="N1999882247f4469da76a1c2454521177"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport">
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
+    <sh:targetClass rdf:resource="http://data.europa.eu/a4g/ontology#EvaluationReport"/>
+    <rdfs:label>Evaluation Report</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-hasAwardCriteriaEvaluationScore"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-reportsEvaluationCriterion"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-usesEvaluationFormula"/>
+    <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationReport-epo-eva-providesRankToTender"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationCriterion-epo-eva-fulfillsProcurementCriterion">
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#fulfillsProcurementCriterion"/>
+    <sh:name>fulfills Procurement Criterion</sh:name>
+    <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
+    <sh:datatype rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="Nbb9ea9a3fcc74da0bb9aab9957d5b0b3">
-    <sh:datatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-TenderClarification-epo-eva-refersToTenderClarificationRequest">
+    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#TenderClarificationRequest"/>
+    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
+    <sh:minCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:minCount>
+    <sh:sparql rdf:nodeID="N1d47656a6c974bffb20d19e17b79bd5b"/>
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#refersToTenderClarificationRequest"/>
+    <sh:name>refers To Tender Clarification Request</sh:name>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="N26bd53d27de44a5cb895aaecdd6c9d96">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#playedBy&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#playedBy&gt; ?this .}</sh:select>
+  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-isAppointedBy">
+    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#UniqueResponsibleOfTheProcurement"/>
+    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
+    <sh:minCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:minCount>
+    <sh:sparql rdf:nodeID="Nac84f4be375c4ad6a5566f810f23a394"/>
+    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
+    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#isAppointedBy"/>
+    <sh:name>is Appointed By</sh:name>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="Na7e8b9a243b14bf28f65277b4ff51697">
-    <rdf:first rdf:nodeID="N3727e95f369342d99c2dfe19bee72646"/>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  <rdf:Description rdf:nodeID="N1809cf2979814ccea458e579bba855d6">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#requestsClarification&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#requestsClarification&gt; ?this .}</sh:select>
   </rdf:Description>
   <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-Evaluator">
     <rdf:type rdf:resource="http://www.w3.org/ns/shacl#NodeShape"/>
@@ -228,119 +300,47 @@
     <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
     <sh:property rdf:resource="http://data.europa.eu/a4g/data-shape#epo-eva-Evaluator-epo-playedBy"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-ExcludedCandidateList-epo-containsCandidate">
-    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#Candidate"/>
-    <sh:sparql rdf:nodeID="Nd0bd8ee20f084158a210316e6b084978"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#containsCandidate"/>
-    <sh:name>contains Candidate</sh:name>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationCriterion-epo-eva-hasScorePoint">
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#hasScorePoint"/>
-    <sh:name>has Score Point</sh:name>
-    <rdfs:isDefinedBy rdf:resource="http://data.europa.eu/a4g/data-shape#eva-shape"/>
-    <sh:or rdf:nodeID="Nb040bfad37244e71b857f51ac6fa02a4"/>
-    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N567176762f374cff9d2487c9a489b34d">
-    <rdf:first rdf:nodeID="Nbb9ea9a3fcc74da0bb9aab9957d5b0b3"/>
-    <rdf:rest rdf:nodeID="Na7e8b9a243b14bf28f65277b4ff51697"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-isAssignedForEvaluationOf">
-    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#Lot"/>
-    <sh:sparql rdf:nodeID="N94968daf1d6f4eb48134a593f506ce12"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#isAssignedForEvaluationOf"/>
-    <sh:name>is Assigned For Evaluation Of</sh:name>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-isAppointedBy">
-    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#UniqueResponsibleOfTheProcurement"/>
-    <sh:maxCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:maxCount>
-    <sh:minCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:minCount>
-    <sh:sparql rdf:nodeID="N636f7bd1bb3c44e2b9cc9788f29b5612"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#isAppointedBy"/>
-    <sh:name>is Appointed By</sh:name>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N5eb09a4064784251b3c1a1c5e1e57817">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#reportsEvaluationCriterion&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#reportsEvaluationCriterion&gt; ?this .}</sh:select>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-writesEvaluationReport">
-    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#EvaluationReport"/>
-    <sh:minCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</sh:minCount>
-    <sh:sparql rdf:nodeID="N64b21353c1bf45359b30a8b8179a91b0"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#writesEvaluationReport"/>
-    <sh:name>writes Evaluation Report</sh:name>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="Nb040bfad37244e71b857f51ac6fa02a4">
-    <rdf:first rdf:nodeID="Nc6284e41068042708053f79a2953843f"/>
-    <rdf:rest rdf:nodeID="N5dd44e585f7c462095d49db0711fe5f7"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-requestsClarification">
-    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#TenderClarificationRequest"/>
-    <sh:sparql rdf:nodeID="N04ce0c67362e400ca6af9a8c7ff5f3e0"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#requestsClarification"/>
-    <sh:name>requests Clarification</sh:name>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N4191844aeab345df970468126da79887">
+  <rdf:Description rdf:nodeID="N1999882247f4469da76a1c2454521177">
     <sh:datatype rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="Nc7c2e2162efe49f6921f00d72dd1d8a8">
+  <rdf:Description rdf:nodeID="N7ed76cacda1f46ea96bf508411839a43">
     <sh:datatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="N573eb9e6082141599a1e16a476cd96a2">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#specifiesEconomicOperator&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#specifiesEconomicOperator&gt; ?this .}</sh:select>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="Nd0bd8ee20f084158a210316e6b084978">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#containsCandidate&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#containsCandidate&gt; ?this .}</sh:select>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="Nda001bdb5e9b4ed990920dd988b0ceff">
+  <rdf:Description rdf:nodeID="N23e86f80e74c49968d014b0c84e127f7">
     <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#usesEvaluationFormula&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#usesEvaluationFormula&gt; ?this .}</sh:select>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="N4f59002641694ae9b33368a04ffaf0b7">
-    <rdf:first rdf:nodeID="Na347e4848eee4dffb08f1a81f4629471"/>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  <rdf:Description rdf:nodeID="Nff44d6c16f37435eb7ec79d36d8eb3de">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#specifiesEconomicOperator&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#specifiesEconomicOperator&gt; ?this .}</sh:select>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="N88d54f7793cc48ecb925fbe0f8b71a16">
-    <rdf:first rdf:nodeID="Nc7c2e2162efe49f6921f00d72dd1d8a8"/>
-    <rdf:rest rdf:nodeID="N4f59002641694ae9b33368a04ffaf0b7"/>
+  <rdf:Description rdf:nodeID="N4fbcbbab0c2f4d6a8c76ced74b6d71a1">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#reportsEvaluationCriterion&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#reportsEvaluationCriterion&gt; ?this .}</sh:select>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="N562f206aedf54465a25ed0d94b1c13a5">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#providesRankToTender&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#providesRankToTender&gt; ?this .}</sh:select>
+  <rdf:Description rdf:nodeID="N6e78a6a2a12b4e07ab14c43857581c24">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#playedBy&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#playedBy&gt; ?this .}</sh:select>
   </rdf:Description>
-  <rdf:Description rdf:about="http://data.europa.eu/a4g/data-shape#epo-eva-EvaluationBoard-epo-eva-hasEvaluator">
-    <sh:class rdf:resource="http://data.europa.eu/a4g/ontology#Evaluator"/>
-    <sh:sparql rdf:nodeID="Na04b855f8955435382e5ef038cb46373"/>
-    <rdf:type rdf:resource="http://www.w3.org/ns/shacl#PropertyShape"/>
-    <sh:path rdf:resource="http://data.europa.eu/a4g/ontology#hasEvaluator"/>
-    <sh:name>has Evaluator</sh:name>
+  <rdf:Description rdf:nodeID="N88bf8e96533246d8bc15b2600b91f933">
+    <rdf:first rdf:nodeID="N7ed76cacda1f46ea96bf508411839a43"/>
+    <rdf:rest rdf:nodeID="Nd113389eaca0450389e86277da360ca3"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="N94968daf1d6f4eb48134a593f506ce12">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#isAssignedForEvaluationOf&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#isAssignedForEvaluationOf&gt; ?this .}</sh:select>
+  <rdf:Description rdf:nodeID="N79fa957f102c4145816f386eea69ca10">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#concernsEvaluationReport&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#concernsEvaluationReport&gt; ?this .}</sh:select>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="Na04b855f8955435382e5ef038cb46373">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#hasEvaluator&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#hasEvaluator&gt; ?this .}</sh:select>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N5dd44e585f7c462095d49db0711fe5f7">
-    <rdf:first rdf:nodeID="N4191844aeab345df970468126da79887"/>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N64b21353c1bf45359b30a8b8179a91b0">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#writesEvaluationReport&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#writesEvaluationReport&gt; ?this .}</sh:select>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="Nc6284e41068042708053f79a2953843f">
-    <sh:datatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N378069f72d074bbaad069b4bb0b6e7b4">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#hasJuryMember&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#hasJuryMember&gt; ?this .}</sh:select>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N636f7bd1bb3c44e2b9cc9788f29b5612">
+  <rdf:Description rdf:nodeID="Nac84f4be375c4ad6a5566f810f23a394">
     <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#isAppointedBy&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#isAppointedBy&gt; ?this .}</sh:select>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="N76940e5825dc4cc398d10c7c1612ee93">
-    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#refersToTenderClarificationRequest&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#refersToTenderClarificationRequest&gt; ?this .}</sh:select>
+  <rdf:Description rdf:nodeID="Na36502c6e2a94f159f5dca41df2ad126">
+    <sh:datatype rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N04c18ed3979f4e7483a64ee3b2eb2c4a">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#hasEvaluator&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#hasEvaluator&gt; ?this .}</sh:select>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nde0e316799ef47de9b3868fe9ba5bf88">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#containsCandidate&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#containsCandidate&gt; ?this .}</sh:select>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N78691d71d2d444c283a3280dee12ebe7">
+    <sh:select>SELECT ?this ?that WHERE { ?this &lt;http://data.europa.eu/a4g/ontology#writesEvaluationReport&gt; ?that . ?that &lt;http://data.europa.eu/a4g/ontology#writesEvaluationReport&gt; ?this .}</sh:select>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N0a32e918132e462d81cc8847ef9172dc">
+    <sh:datatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
 </rdf:RDF>
