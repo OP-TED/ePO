@@ -184,5 +184,4 @@
     artefact with the ontology IRI defined therein, using rdfs:isDefinedBy. -->
     <xsl:variable name="annotateShaclConceptsWithOntology" select="fn:true()"/>
 
-    <xsl:variable name="moduleReference" select="'core'"/>
 </xsl:stylesheet>
