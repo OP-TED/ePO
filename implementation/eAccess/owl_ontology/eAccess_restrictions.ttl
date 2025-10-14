@@ -1,8 +1,5 @@
-@prefix : <http://data.europa.eu/a4g/ontology#> .
-@prefix adms: <http://www.w3.org/ns/adms#> .
-@prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix epo: <http://data.europa.eu/a4g/ontology#> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -10,7 +7,7 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:acc-restriction a owl:Ontology ;
+epo:acc-restriction a owl:Ontology ;
     rdfs:label "eProcurement Ontology Access - core restrictions"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Access core restrictions provides the restrictions and the inference-related specifications on the concepts and properties in the eProcurement Ontology Access core."@en ;
@@ -26,11 +23,11 @@
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports :acc,
-        :core,
-        :sub,
-        eli:,
-        cccev:,
+    owl:imports epo:acc,
+        epo:core,
+        epo:sub,
+        <http://data.europa.eu/eli/ontology#>,
+        <http://data.europa.eu/m8g/>,
         dcterms:,
         skos:,
         <http://www.w3.org/2006/time>,
@@ -40,62 +37,36 @@
         <http://www.w3.org/ns/person> ;
     owl:incompatibleWith "4.2.0" ;
     owl:priorVersion "http://data.europa.eu/a4g/ontology#acc-restriction-5.1.0" ;
-    owl:versionIRI :acc-restriction-5.2.0 ;
+    owl:versionIRI epo:acc-restriction-5.2.0 ;
     owl:versionInfo "5.2.0" .
 
-:hasResourceType rdfs:domain eli:LegalResource ;
+epo:hasResourceType rdfs:domain <http://data.europa.eu/eli/ontology#LegalResource> ;
     rdfs:range skos:Concept .
 
-:hasSubdivision rdfs:domain eli:LegalResourceSubdivision ;
+epo:hasSubdivision rdfs:domain <http://data.europa.eu/eli/ontology#LegalResourceSubdivision> ;
     rdfs:range skos:Concept .
 
-:refersToNotice rdfs:domain :ESPDRequest ;
-    rdfs:range :Notice .
+epo:refersToNotice rdfs:domain epo:ESPDRequest ;
+    rdfs:range epo:Notice .
 
-eli:LegalExpression rdfs:subClassOf [ a owl:Restriction ;
+epo:ESPD rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty epo:relatesToESPDRequest ] .
+
+epo:concernsProcedure a owl:FunctionalProperty ;
+    rdfs:domain epo:ESPDRequest ;
+    rdfs:range epo:Procedure .
+
+epo:relatesToESPDRequest rdfs:domain epo:ESPD ;
+    rdfs:range epo:ESPDRequest .
+
+epo:specifiesProcurementCriterion rdfs:domain epo:ESPDRequest ;
+    rdfs:range epo:ProcurementCriterion .
+
+epo:ESPDRequest rdfs:subClassOf [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty dcterms:title ],
+            owl:onProperty epo:specifiesProcurementCriterion ],
         [ a owl:Restriction ;
             owl:cardinality 1 ;
-            owl:onProperty eli:is_realized_by ] .
-
-cccev:EvidenceType rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty adms:identifier ] .
-
-cccev:EvidenceTypeList rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty dcterms:description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty adms:identifier ] .
-
-dcterms:isPartOf a owl:AsymmetricProperty .
-
-:ESPD rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty :relatesToESPDRequest ] .
-
-:concernsProcedure a owl:FunctionalProperty ;
-    rdfs:domain :ESPDRequest ;
-    rdfs:range :Procedure .
-
-:relatesToESPDRequest rdfs:domain :ESPD ;
-    rdfs:range :ESPDRequest .
-
-:specifiesProcurementCriterion rdfs:domain :ESPDRequest ;
-    rdfs:range :ProcurementCriterion .
-
-eli:LegalResource rdfs:subClassOf [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty dcterms:description ] .
-
-eli:is_realized_by a owl:FunctionalProperty .
-
-:ESPDRequest rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty :specifiesProcurementCriterion ],
-        [ a owl:Restriction ;
-            owl:cardinality 1 ;
-            owl:onProperty :concernsProcedure ] .
+            owl:onProperty epo:concernsProcedure ] .
 
