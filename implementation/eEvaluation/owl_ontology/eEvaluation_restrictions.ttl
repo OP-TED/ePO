@@ -29,7 +29,7 @@
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment """This version is automatically generated from eEvaluation.xml on 
-                2025-09-25""" ;
+                2025-10-15""" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/EPO/latest/index.html>,
         <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
@@ -113,18 +113,30 @@
             owl:onClass person:Person ;
             owl:onProperty :playedBy ] .
 
-:EvaluationBoard rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass :UniqueResponsibleOfTheProcurement ;
-            owl:onProperty :isAppointedBy ;
+:TenderClarificationRequest rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass :EvaluationReport ;
+            owl:onProperty :concernsEvaluationReport ],
+        [ a owl:Restriction ;
+            owl:onClass :OfferingParty ;
+            owl:onProperty :specifiesEconomicOperator ;
             owl:qualifiedCardinality 1 ],
         [ a owl:Restriction ;
+            owl:onProperty cccev:hasRequirement ;
+            owl:someValuesFrom cccev:InformationRequirement ] .
+
+:EvaluationBoard rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty :writesEvaluationReport ;
-            owl:someValuesFrom :EvaluationReport ] .
+            owl:someValuesFrom :EvaluationReport ],
+        [ a owl:Restriction ;
+            owl:onClass :UniqueResponsibleOfTheProcurement ;
+            owl:onProperty :isAppointedBy ;
+            owl:qualifiedCardinality 1 ] .
 
 :EvaluationCriterion rdfs:subClassOf [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onDataRange rdf:PlainLiteral ;
-            owl:onProperty :hasEvaluationJustification ],
+            owl:onProperty :hasScorePoint ],
         [ a owl:Restriction ;
             owl:onClass :ProcurementCriterion ;
             owl:onProperty :evaluatesProcurementCriterion ;
@@ -136,36 +148,21 @@
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onDataRange rdf:PlainLiteral ;
-            owl:onProperty :hasScorePoint ] .
-
-:TenderClarificationRequest rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass :OfferingParty ;
-            owl:onProperty :specifiesEconomicOperator ;
-            owl:qualifiedCardinality 1 ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass :EvaluationReport ;
-            owl:onProperty :concernsEvaluationReport ],
-        [ a owl:Restriction ;
-            owl:onProperty cccev:hasRequirement ;
-            owl:someValuesFrom cccev:InformationRequirement ] .
+            owl:onProperty :hasEvaluationJustification ] .
 
 :EvaluationReport rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onDataRange rdf:PlainLiteral ;
-            owl:onProperty :hasAwardCriteriaEvaluationScore ],
-        [ a owl:Restriction ;
-            owl:onProperty :reportsEvaluationCriterion ;
-            owl:someValuesFrom :EvaluationCriterion ],
-        [ a owl:Restriction ;
             owl:onClass :TenderAwardOutcome ;
             owl:onProperty :providesRankToTender ;
             owl:qualifiedCardinality 1 ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass :AwardEvaluationTerm ;
-            owl:onProperty :usesEvaluationFormula ] .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :EvaluationReport :TenderClarificationRequest ) .
+            owl:onProperty :usesEvaluationFormula ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onDataRange rdf:PlainLiteral ;
+            owl:onProperty :hasAwardCriteriaEvaluationScore ],
+        [ a owl:Restriction ;
+            owl:onProperty :reportsEvaluationCriterion ;
+            owl:someValuesFrom :EvaluationCriterion ] .
 

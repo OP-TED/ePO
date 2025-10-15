@@ -31,7 +31,7 @@
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
     rdfs:comment """This version is automatically generated from eQualification.xml on 
-                2025-09-25""" ;
+                2025-10-15""" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/EPO/latest/index.html>,
         <https://github.com/eprocurementontology/eprocurementontology>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
@@ -45,6 +45,11 @@
     owl:priorVersion "http://data.europa.eu/a4g/ontology#qua-restriction-3.0.1" ;
     owl:versionIRI :qua-restriction-3.1.0 ;
     owl:versionInfo "3.1.0" .
+
+:EvidenceReceipt rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass :EvidenceSubmission ;
+            owl:onProperty :refersToEvidenceSubmission ;
+            owl:qualifiedCardinality 1 ] .
 
 :fulfillsRequirement rdfs:domain :EvidenceOutcome ;
     rdfs:range xsd:boolean .
@@ -73,11 +78,6 @@
 :summarisesInformationForQualificationResponse a owl:FunctionalProperty ;
     rdfs:domain :QualificationDecisionInformation ;
     rdfs:range :QualificationReponse .
-
-:EvidenceReceipt rdfs:subClassOf [ a owl:Restriction ;
-            owl:onClass :EvidenceSubmission ;
-            owl:onProperty :refersToEvidenceSubmission ;
-            owl:qualifiedCardinality 1 ] .
 
 :concernsLot rdfs:domain [ a owl:Class ;
             owl:unionOf ( :EvidenceSubmission :EvidenceRequest ) ] ;
@@ -113,22 +113,18 @@
             owl:qualifiedCardinality 1 ] .
 
 :EvidenceRequest rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass :OfferingParty ;
+            owl:onProperty :specifiesEconomicOperator ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
             owl:onProperty :concernsLot ;
             owl:someValuesFrom :Lot ],
         [ a owl:Restriction ;
             owl:onClass :Procedure ;
             owl:onProperty :concernsProcedure ;
-            owl:qualifiedCardinality 1 ],
-        [ a owl:Restriction ;
-            owl:onClass :OfferingParty ;
-            owl:onProperty :specifiesEconomicOperator ;
             owl:qualifiedCardinality 1 ] .
 
 :QualificationDecisionInformation rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onDataRange xsd:boolean ;
-            owl:onProperty :isQualified ],
-        [ a owl:Restriction ;
             owl:onDataRange xsd:dateTime ;
             owl:onProperty :hasQualificationDecisionDate ;
             owl:qualifiedCardinality 1 ],
@@ -137,30 +133,31 @@
             owl:onProperty :summarisesInformationForQualificationResponse ;
             owl:qualifiedCardinality 1 ],
         [ a owl:Restriction ;
-            owl:onClass :Lot ;
-            owl:onProperty :providesDecisionFor ;
-            owl:qualifiedCardinality 1 ],
+            owl:maxQualifiedCardinality 1 ;
+            owl:onDataRange xsd:boolean ;
+            owl:onProperty :isQualified ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onDataRange rdf:PlainLiteral ;
-            owl:onProperty :hasRejectionDescription ] .
+            owl:onProperty :hasRejectionDescription ],
+        [ a owl:Restriction ;
+            owl:onClass :Lot ;
+            owl:onProperty :providesDecisionFor ;
+            owl:qualifiedCardinality 1 ] .
 
 :EvidenceSubmission rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty :concernsLot ;
             owl:someValuesFrom :Lot ],
         [ a owl:Restriction ;
-            owl:onClass :OfferingParty ;
-            owl:onProperty :specifiesEconomicOperator ;
-            owl:qualifiedCardinality 1 ],
-        [ a owl:Restriction ;
             owl:onClass :Procedure ;
             owl:onProperty :concernsProcedure ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
+            owl:onClass :OfferingParty ;
+            owl:onProperty :specifiesEconomicOperator ;
             owl:qualifiedCardinality 1 ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass :EvidenceRequest ;
             owl:onProperty :refersToEvidenceRequest ] .
-
-[] a owl:AllDisjointClasses ;
-    owl:members ( :EvidenceReceipt :EvidenceSubmission :EvidenceRequest :QualificationReponse ) .
 
