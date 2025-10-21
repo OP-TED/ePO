@@ -27,4 +27,4 @@ Each module folder is structured as follows:
 - The *shacl_shapes* folder contains the [SHACL](https://www.w3.org/TR/shacl/) shapes of the specified module in RDF and Turtle format. SHACL ( Shapes Constraint Language) is a W3C standard used for validating the contents of an RDF graph. 
 
 
-The modules mentioned above are defined in the [ePO Conceptual Model file](https://github.com/OP-TED/epo-conceptual-model/blob/v5.1.0/analysis_and_design/conceptual_model/ePO_CM.qea)
+The modules mentioned above are defined in the [ePO Conceptual Model file](https://github.com/OP-TED/epo-conceptual-model/blob/v5.2.0/analysis_and_design/conceptual_model/ePO_CM.qea)
