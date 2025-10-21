@@ -22,6 +22,7 @@ epo-shape:epo-eva-EvaluationBoardShape a sh:NodeShape ;
 
 epo-shape:epo-eva-EvaluationCriterionShape a sh:NodeShape ;
     rdfs:label "Evaluation Criterion" ;
+    rdfs:comment "A Criterion used by the Buyer to assess and compare Tenders in order to determine which Offer best meets the objectives of the Procurement Procedure." ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:property epo-shape:epo-eva-EvaluationCriterion-epo-eva-evaluatesProcurementCriterion,
         epo-shape:epo-eva-EvaluationCriterion-epo-eva-fulfillsProcurementCriterion,
@@ -31,6 +32,7 @@ epo-shape:epo-eva-EvaluationCriterionShape a sh:NodeShape ;
 
 epo-shape:epo-eva-EvaluationReportShape a sh:NodeShape ;
     rdfs:label "Evaluation Report" ;
+    rdfs:comment "Summary of the Evaluation." ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:property epo-shape:epo-eva-EvaluationReport-epo-eva-hasAwardCriteriaEvaluationScore,
         epo-shape:epo-eva-EvaluationReport-epo-eva-providesRankToTender,
@@ -40,12 +42,14 @@ epo-shape:epo-eva-EvaluationReportShape a sh:NodeShape ;
 
 epo-shape:epo-eva-EvaluatorShape a sh:NodeShape ;
     rdfs:label "Evaluator" ;
+    rdfs:comment "A Role of an Agent that asses the Tender submitted for a Lot." ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:property epo-shape:epo-eva-Evaluator-epo-playedBy ;
     sh:targetClass epo:Evaluator .
 
 epo-shape:epo-eva-ExcludedCandidateListShape a sh:NodeShape ;
     rdfs:label "Excluded Candidate List" ;
+    rdfs:comment "Record of Candidates prevented from participating in a Procurement because one or more Exclusion Grounds apply." ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:property epo-shape:epo-eva-ExcludedCandidateList-epo-containsCandidate ;
     sh:targetClass epo:ExcludedCandidateList .
@@ -60,6 +64,7 @@ epo-shape:epo-eva-TenderClarificationRequestShape a sh:NodeShape ;
 
 epo-shape:epo-eva-TenderClarificationShape a sh:NodeShape ;
     rdfs:label "Tender Clarification" ;
+    rdfs:comment "A Document sent by the Tenderer to the Buyer in response to the Tender Clarification Request. Additional Information: The Tender Clarification may not alter the Tender." ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:property epo-shape:epo-eva-TenderClarification-epo-eva-refersToTenderClarificationRequest ;
     sh:targetClass epo:TenderClarification .
@@ -67,6 +72,7 @@ epo-shape:epo-eva-TenderClarificationShape a sh:NodeShape ;
 epo-shape:epo-eva-EvaluationBoard-epo-eva-hasEvaluator a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class epo:Evaluator ;
+    sh:description "Relation indicating that the instance of the concept has an Evaluator." ;
     sh:name "Has evaluator" ;
     sh:nodeKind sh:IRI ;
     sh:path epo:hasEvaluator ;
@@ -84,6 +90,7 @@ epo-shape:epo-eva-EvaluationBoard-epo-eva-hasJuryMember a sh:PropertyShape ;
 epo-shape:epo-eva-EvaluationBoard-epo-eva-isAppointedBy a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class epo:UniqueResponsibleOfTheProcurement ;
+    sh:description "Relation indicating that by whom the instance of the concept is formally assigned." ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
     sh:name "Is appointed by" ;
@@ -94,6 +101,7 @@ epo-shape:epo-eva-EvaluationBoard-epo-eva-isAppointedBy a sh:PropertyShape ;
 epo-shape:epo-eva-EvaluationBoard-epo-eva-requestsClarification a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class epo:TenderClarificationRequest ;
+    sh:description "Asks for more information." ;
     sh:name "Requests clarification" ;
     sh:nodeKind sh:IRI ;
     sh:path epo:requestsClarification ;
@@ -102,6 +110,7 @@ epo-shape:epo-eva-EvaluationBoard-epo-eva-requestsClarification a sh:PropertySha
 epo-shape:epo-eva-EvaluationBoard-epo-eva-writesEvaluationReport a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class epo:EvaluationReport ;
+    sh:description "Authors an Evaluation Report." ;
     sh:minCount 1 ;
     sh:name "Writes evaluation report" ;
     sh:nodeKind sh:IRI ;
@@ -111,6 +120,7 @@ epo-shape:epo-eva-EvaluationBoard-epo-eva-writesEvaluationReport a sh:PropertySh
 epo-shape:epo-eva-EvaluationBoard-epo-isAssignedForEvaluationOf a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class epo:Lot ;
+    sh:description "Relation indicating that the instance of the concept is selected for Evaluation." ;
     sh:name "Is assigned for evaluation of" ;
     sh:nodeKind sh:IRI ;
     sh:path epo:isAssignedForEvaluationOf ;
@@ -119,6 +129,7 @@ epo-shape:epo-eva-EvaluationBoard-epo-isAssignedForEvaluationOf a sh:PropertySha
 epo-shape:epo-eva-EvaluationCriterion-epo-eva-evaluatesProcurementCriterion a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class epo:ProcurementCriterion ;
+    sh:description "Assesses Procurement Criterion." ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
     sh:name "Evaluates procurement criterion" ;
@@ -129,12 +140,14 @@ epo-shape:epo-eva-EvaluationCriterion-epo-eva-evaluatesProcurementCriterion a sh
 epo-shape:epo-eva-EvaluationCriterion-epo-eva-fulfillsProcurementCriterion a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:datatype xsd:boolean ;
+    sh:description "Indicates whether the Procurement Criterion is satisfied." ;
     sh:maxCount 1 ;
     sh:name "Fulfills procurement criterion" ;
     sh:path epo:fulfillsProcurementCriterion .
 
 epo-shape:epo-eva-EvaluationCriterion-epo-eva-hasEvaluationJustification a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
+    sh:description "The motivation behind the Evaluation result." ;
     sh:maxCount 1 ;
     sh:name "Has evaluation justification" ;
     sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
@@ -142,6 +155,7 @@ epo-shape:epo-eva-EvaluationCriterion-epo-eva-hasEvaluationJustification a sh:Pr
 
 epo-shape:epo-eva-EvaluationCriterion-epo-eva-hasScorePoint a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
+    sh:description "The grade value assigned to a Procurement Criterion." ;
     sh:maxCount 1 ;
     sh:name "Has score point" ;
     sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
@@ -149,6 +163,7 @@ epo-shape:epo-eva-EvaluationCriterion-epo-eva-hasScorePoint a sh:PropertyShape ;
 
 epo-shape:epo-eva-EvaluationReport-epo-eva-hasAwardCriteriaEvaluationScore a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
+    sh:description "The total number of points obtained while assessing the Award Criteria." ;
     sh:maxCount 1 ;
     sh:name "Has award criteria evaluation score" ;
     sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
@@ -157,6 +172,7 @@ epo-shape:epo-eva-EvaluationReport-epo-eva-hasAwardCriteriaEvaluationScore a sh:
 epo-shape:epo-eva-EvaluationReport-epo-eva-providesRankToTender a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class epo:TenderAwardOutcome ;
+    sh:description "Makes available the assigned position for the Tender." ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
     sh:name "Provides rank to tender" ;
@@ -167,6 +183,7 @@ epo-shape:epo-eva-EvaluationReport-epo-eva-providesRankToTender a sh:PropertySha
 epo-shape:epo-eva-EvaluationReport-epo-eva-reportsEvaluationCriterion a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class epo:EvaluationCriterion ;
+    sh:description "Provides an Evaluation Criterion." ;
     sh:minCount 1 ;
     sh:name "Reports evaluation criterion" ;
     sh:nodeKind sh:IRI ;
@@ -176,6 +193,7 @@ epo-shape:epo-eva-EvaluationReport-epo-eva-reportsEvaluationCriterion a sh:Prope
 epo-shape:epo-eva-EvaluationReport-epo-eva-usesEvaluationFormula a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class epo:AwardEvaluationTerm ;
+    sh:description "Applies systematic method for assessment." ;
     sh:maxCount 1 ;
     sh:name "Uses evaluation formula" ;
     sh:nodeKind sh:IRI ;
@@ -185,6 +203,7 @@ epo-shape:epo-eva-EvaluationReport-epo-eva-usesEvaluationFormula a sh:PropertySh
 epo-shape:epo-eva-Evaluator-epo-playedBy a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class <http://www.w3.org/ns/person#Person> ;
+    sh:description "Relation indicating the Agent that fulfills the function of the instance of the concept." ;
     sh:maxCount 1 ;
     sh:name "Played by" ;
     sh:nodeKind sh:IRI ;
@@ -202,6 +221,7 @@ epo-shape:epo-eva-ExcludedCandidateList-epo-containsCandidate a sh:PropertyShape
 epo-shape:epo-eva-TenderClarification-epo-eva-refersToTenderClarificationRequest a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class epo:TenderClarificationRequest ;
+    sh:description "Reference to a Tender Clarification Request." ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
     sh:name "Refers to tender clarification request" ;
@@ -212,6 +232,7 @@ epo-shape:epo-eva-TenderClarification-epo-eva-refersToTenderClarificationRequest
 epo-shape:epo-eva-TenderClarificationRequest-epo-eva-concernsEvaluationReport a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class epo:EvaluationReport ;
+    sh:description "Relates to Evaluation Report." ;
     sh:maxCount 1 ;
     sh:name "Concerns evaluation report" ;
     sh:nodeKind sh:IRI ;
@@ -221,6 +242,7 @@ epo-shape:epo-eva-TenderClarificationRequest-epo-eva-concernsEvaluationReport a 
 epo-shape:epo-eva-TenderClarificationRequest-epo-specifiesEconomicOperator a sh:PropertyShape ;
     rdfs:isDefinedBy epo-shape:eva-shape ;
     sh:class epo:OfferingParty ;
+    sh:description "Relation indicating that the instance of the concept involves the Economic Operator." ;
     sh:maxCount 1 ;
     sh:minCount 1 ;
     sh:name "Specifies economic operator" ;
@@ -232,13 +254,13 @@ epo-shape:eva-shape a owl:Ontology ;
     rdfs:label "eProcurement Ontology Evaluation - core shapes"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Evaluation core shapes provides the generic datashape specifications for the eProcurement Ontology Evaluation core."@en ;
-    dcterms:issued "2025-06-04"^^xsd:date ;
+    dcterms:issued "2025-10-10"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology Evaluation - core shapes"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eEvaluation.xml on 2025-06-04" ;
+    rdfs:comment "This version is automatically generated from eEvaluation.xml on 2025-10-10" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
@@ -257,7 +279,7 @@ epo-shape:eva-shape a owl:Ontology ;
         epo-shape:req-shape,
         epo-shape:sub-shape ;
     owl:incompatibleWith "4.2.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/data-shape#eva-shape-5.0.0" ;
-    owl:versionIRI epo-shape:eva-shape-5.1.0 ;
-    owl:versionInfo "5.1.0" .
+    owl:priorVersion "http://data.europa.eu/a4g/data-shape#eva-shape-5.1.0" ;
+    owl:versionIRI epo-shape:eva-shape-5.2.0 ;
+    owl:versionInfo "5.2.0" .
 
