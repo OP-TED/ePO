@@ -1,5 +1,7 @@
+@prefix : <http://data.europa.eu/a4g/ontology#> .
+@prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix epo: <http://data.europa.eu/a4g/ontology#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
 @prefix org: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -7,66 +9,174 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-epo:ESPDRequest a owl:Class ;
-    rdfs:isDefinedBy epo:acc ;
-    rdfs:subClassOf epo:ProcurementDocument ;
+:ESPDRequest a owl:Class ;
+    rdfs:isDefinedBy :acc ;
+    rdfs:subClassOf :ProcurementDocument ;
     skos:definition "A document issued by a Buyer defining how the Exclusion Grounds and the Selection Criteria should be addressed in an European Single Procurement Document for a specific procurement."@en ;
     skos:historyNote "WG Approval 05/03/2024"@en ;
     skos:prefLabel "ESPD Request"@en .
 
-epo:concernsProcedure a owl:ObjectProperty ;
-    rdfs:isDefinedBy epo:acc ;
+:InformationRequest a owl:Class ;
+    rdfs:isDefinedBy :acc ;
+    skos:definition "Specific question about at least one Procurement Element."@en ;
+    skos:historyNote "WG approval 18/08/2026"@en ;
+    skos:prefLabel "Information Request"@en .
+
+:InformationResponse a owl:Class ;
+    rdfs:isDefinedBy :acc ;
+    skos:definition "Answer to an Information Request."@en ;
+    skos:historyNote "WG approval 18/08/2026"@en ;
+    skos:prefLabel "Information Response"@en .
+
+:InvitationToTender a owl:Class ;
+    rdfs:isDefinedBy :acc ;
+    rdfs:subClassOf :Document ;
+    skos:definition "A formal request to submit a Tender."@en ;
+    skos:historyNote "WG approval 18/08/2026"@en ;
+    skos:prefLabel "Invitation To Tender"@en .
+
+:ProcurementDocumentsProvision a owl:Class ;
+    rdfs:isDefinedBy :acc ;
+    rdfs:subClassOf :Document ;
+    skos:definition "The provision by the Buyer to the Economic Operator of the Procurement Documents."@en ;
+    skos:prefLabel "Procurement Documents Provision"@en .
+
+:ProcurementDocumentsRequest a owl:Class ;
+    rdfs:isDefinedBy :acc ;
+    rdfs:subClassOf :Document ;
+    skos:definition "The request by the Economic Operator to the Buyer to receive the latest version of all the Procurement Documents."@en ;
+    skos:prefLabel "Procurement Documents Request"@en .
+
+:ProcurementQuestion a owl:Class ;
+    rdfs:isDefinedBy :acc ;
+    rdfs:subClassOf :Document ;
+    skos:definition "Document requesting information about at least one Procurement Element."@en ;
+    skos:history "WG approval 18/08/2026"@en ;
+    skos:prefLabel "Procurement Question"@en .
+
+:ProcurementQuestionReply a owl:Class ;
+    rdfs:isDefinedBy :acc ;
+    rdfs:subClassOf :ProcurementDocument ;
+    skos:definition "Answer to a Procurement Question."@en ;
+    skos:history "WG approval 18/08/2026"@en ;
+    skos:prefLabel "Procurement Question Reply"@en .
+
+:UnsubscribeFromProcedure a owl:Class ;
+    rdfs:isDefinedBy :acc ;
+    rdfs:subClassOf :Document ;
+    skos:definition "A formal request to stop receiving information on a Procedure."@en ;
+    skos:historyNote "WG approval 18/08/2026"@en ;
+    skos:prefLabel "Unsubscribe From Procedure"@en .
+
+:UnsubscribeFromProcedureResponse a owl:Class ;
+    rdfs:isDefinedBy :acc ;
+    rdfs:subClassOf :Document ;
+    skos:definition "A formal reply cancelling the subscription to a Procedure."@en ;
+    skos:historyNote "WG approval 18/08/2026"@en ;
+    skos:prefLabel "Unsubscribe From Procedure Response"@en .
+
+:answersQuestion a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
+    skos:definition "Relation indicating that the Response replies to a question."@en ;
+    skos:prefLabel "answers Question"@en .
+
+:concernsLot a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
+    skos:definition "Relates to Lot."@en ;
+    skos:prefLabel "concerns Lot"@en .
+
+:concernsLotGroup a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
+    skos:definition "Relates to Lot Group."@en ;
+    skos:historyNote "WG approval 25/09/2025"@en ;
+    skos:prefLabel "concerns Lot Group"@en .
+
+:concernsProcedure a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
     skos:definition "Relates to Procedure."@en ;
     skos:historyNote "WG Approval 05/03/2024"@en ;
     skos:prefLabel "concerns Procedure"@en .
 
-epo:hasResourceType a owl:ObjectProperty ;
-    rdfs:isDefinedBy epo:acc ;
+:containsInformationRequest a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
+    skos:definition "Includes Information Request."@en ;
+    skos:prefLabel "contains Information Request"@en .
+
+:containsInformationResponse a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
+    skos:definition "Includes Information Response."@en ;
+    skos:prefLabel "contains Information Response"@en .
+
+:containsProvidedProcurementDocument a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
+    skos:definition "Includes the supplied Procurement Document."@en ;
+    skos:prefLabel "contains Provided Procurement Document"@en .
+
+:hasResourceType a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
     skos:definition "Relation indicating the Resource Type."@en ;
     skos:prefLabel "has Resource Type"@en .
 
-epo:hasSubdivision a owl:ObjectProperty ;
-    rdfs:isDefinedBy epo:acc ;
+:hasSubdivision a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
     skos:definition "Relation indicating the Subdivision."@en ;
     skos:prefLabel "has Subdivision"@en .
 
-epo:refersToNotice a owl:ObjectProperty ;
-    rdfs:isDefinedBy epo:acc ;
+:refersToNotice a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
     skos:definition "Reference to a Notice."@en ;
     skos:historyNote "WG approval 12/03/2024"@en ;
     skos:prefLabel "refers To Notice"@en .
 
-epo:relatesToESPDRequest a owl:ObjectProperty ;
-    rdfs:isDefinedBy epo:acc ;
+:refersToProcurementDocumentsRequest a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
+    skos:definition "Reference to a Procurement Documents Request."@en ;
+    skos:historyNote "WG approval 24/09/2026"@en ;
+    skos:prefLabel "refers To Procurement Documents Request"@en .
+
+:refersToUnsubscribeFromProcedure a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
+    skos:definition "Reference to an Unsubscribe From Procedure."@en ;
+    skos:historyNote "WG approval 24/09/2026"@en ;
+    skos:prefLabel "refers To Unsubscribe From Procedure"@en .
+
+:relatesToESPDRequest a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
     skos:definition "Is about an European Single Procurement Document (ESPD) Request."@en ;
     skos:historyNote "WG Approval 05/03/2024"@en ;
     skos:prefLabel "relates To ESPD Request"@en .
 
-epo:specifiesProcurementCriterion a owl:ObjectProperty ;
-    rdfs:isDefinedBy epo:acc ;
+:specifiesEconomicOperator a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
+    skos:definition "Relation indicating that the instance of the concept involves the Economic Operator."@en ;
+    skos:historyNote "WG approval 25/09/2025"@en ;
+    skos:prefLabel "specifies Economic Operator"@en .
+
+:specifiesProcurementCriterion a owl:ObjectProperty ;
+    rdfs:isDefinedBy :acc ;
     skos:definition "Relation indicating the Procurement Criterion to be used."@en ;
     skos:historyNote "WG approval 25/09/2025"@en ;
     skos:prefLabel "specifies Procurement Criterion"@en .
 
-epo:acc a owl:Ontology ;
+:acc a owl:Ontology ;
     rdfs:label "eProcurement Ontology Access - core"@en ;
     dcterms:created "2021-06-01"^^xsd:date ;
     dcterms:description "The eProcurement Ontology Access core describes the concepts and properties representing the European Public Procurement Access domain. The provision of these semantics offers the basis for a common understanding of the domain for all stakeholders ensuring the quality of data exchange and transparency. The ontology restrictions are published in a separate artefact."@en ;
-    dcterms:issued "2025-10-10"^^xsd:date ;
+    dcterms:issued "2026-10-26"^^xsd:date ;
     dcterms:license "© European Union, 2014. Unless otherwise noted, the reuse of the Ontology is authorised under the European Union Public Licence v1.2 (https://eupl.eu/)." ;
     dcterms:publisher "http://publications.europa.eu/resource/authority/corporate-body/PUBL" ;
     dcterms:title "eProcurement Ontology Access - core"@en ;
     vann:preferredNamespacePrefix "epo" ;
     vann:preferredNamespaceUri "http://data.europa.eu/a4g/ontology#" ;
-    rdfs:comment "This version is automatically generated from eAccess.xml on 2025-10-10" ;
+    rdfs:comment "This version is automatically generated from eAccess.xml on 2026-10-26" ;
     rdfs:seeAlso <https://docs.ted.europa.eu/home/index.html>,
         <https://github.com/OP-TED/ePO/releases>,
         <https://joinup.ec.europa.eu/collection/eprocurement/solution/eprocurement-ontology/about>,
         <https://op.europa.eu/en/web/eu-vocabularies/e-procurement> ;
-    owl:imports epo:core,
-        epo:sub,
-        <http://data.europa.eu/eli/ontology#>,
-        <http://data.europa.eu/m8g/>,
+    owl:imports :core,
+        :sub,
+        eli:,
+        cccev:,
         dcterms:,
         skos:,
         <http://www.w3.org/2006/time>,
@@ -75,7 +185,7 @@ epo:acc a owl:Ontology ;
         org:,
         <http://www.w3.org/ns/person> ;
     owl:incompatibleWith "4.2.0" ;
-    owl:priorVersion "http://data.europa.eu/a4g/ontology#acc-5.1.0" ;
-    owl:versionIRI epo:acc-5.2.0 ;
-    owl:versionInfo "5.2.0" .
+    owl:priorVersion "http://data.europa.eu/a4g/ontology#acc-5.2.0" ;
+    owl:versionIRI :acc-5.3.0 ;
+    owl:versionInfo "5.3.0" .
 
